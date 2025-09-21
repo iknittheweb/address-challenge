@@ -1,0 +1,21 @@
+{
+  "name": "iknittheweb-website",
+  "version": "1.0.0",
+  "description": "I Knit The Web - Personal Portfolio Website",
+  "scripts": {
+    "build:dev": "node build.js development",
+    "build:prod": "node build.js production",
+    "dev": "npm run build:dev",
+    "deploy": "npm run build:prod",
+    "//": "🚨 REMEMBER: Run 'npm run dev' after editing template, 'npm run deploy' before going live!"
+  },
+  "keywords": [
+    "web development",
+    "portfolio",
+    "HTML",
+    "CSS",
+    "JavaScript"
+  ],
+  "author": "I Knit The Web",
+  "license": "MIT"
+}
