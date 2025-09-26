@@ -25,6 +25,7 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
+chat-history.md
 
 # Temporary files
 PROBLEMS-FOR-WEDNESDAY-SEPTEMBER-2.md
