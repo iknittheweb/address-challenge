@@ -35,6 +35,8 @@ PROBLEMS-FOR-*.md
 
 
 desktop.ini
+
+.prettierrc
 # Ignored by cleanup
 /*.scss
 /*.map
