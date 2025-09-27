@@ -29,3 +29,14 @@ chat-history.md
 
 # Temporary files
 PROBLEMS-FOR-WEDNESDAY-SEPTEMBER-2.md
+chat-history.md
+chat-history-*.md
+PROBLEMS-FOR-*.md
+
+
+desktop.ini
+# Ignored by cleanup
+/*.scss
+/*.map
+chat-history*.md
+/*.txt
