@@ -129,8 +129,7 @@ const initializeApp = () => {
  */
 function openMobileMenu() {
   // Safety check: make sure all required elements exist
-  if (!btnOpen || !main || !footer || !menuTopNav || !overlay || !btnClose)
-    return;
+  if (!btnOpen || !main || !footer || !menuTopNav || !overlay || !btnClose) return;
 
   // STEP 1: Update ARIA attributes for screen readers
   btnOpen.setAttribute('aria-expanded', 'true'); // Tell screen readers menu is open
@@ -148,8 +147,7 @@ function openMobileMenu() {
   overlay.style.transitionDuration = '400ms'; // Overlay fade animation
 
   // STEP 5: Prevent body scrolling while menu is open (if library is loaded)
-  if (window.bodyScrollLock)
-    window.bodyScrollLock.disableBodyScroll(menuTopNav);
+  if (window.bodyScrollLock) window.bodyScrollLock.disableBodyScroll(menuTopNav);
 
   // STEP 6: Move keyboard focus to close button for accessibility
   btnClose.focus(); // User can immediately press Enter to close menu
