@@ -36,9 +36,15 @@ PROBLEMS-FOR-*.md
 
 desktop.ini
 
-.prettierrc
-# Ignored by cleanup
-/*.scss
-/*.map
-chat-history*.md
-/*.txt
+# Husky
+.husky/_/
+
+# ESLint cache
+.eslintcache
+
+# npm pack
+*.tgz
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project

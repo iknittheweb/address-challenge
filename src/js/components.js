@@ -82,9 +82,9 @@ function createBreadcrumbs(category = '', categoryUrl = '', currentPage = '') {
           <li class="breadcrumb-item">
             <a href="/" class="breadcrumb-link">Home</a>
           </li>
-          <!-- Second breadcrumb: Always "Portfolio" -->
+          <!-- Second breadcrumb: Always "Full Portfolio" -->
           <li class="breadcrumb-item">
-            <a href="/src/pages/portfolio.html" class="breadcrumb-link">Portfolio</a>
+            <a href="/src/pages/portfolio.html" class="breadcrumb-link">Full Portfolio</a>
           </li>
           ${
             // Third breadcrumb: Category (optional - only if provided)
@@ -198,9 +198,7 @@ function createHeader(
                 .map(
                   (link) => `
                 <li class="topnav__item">
-                  <a class="topnav__link" href="${link.href}"${
-                    link.current ? ' aria-current="page"' : ''
-                  }>
+                  <a class="topnav__link" href="${link.href}"${link.current ? ' aria-current="page"' : ''}>
                     ${link.text}
                   </a>
                 </li>
@@ -213,41 +211,16 @@ function createHeader(
       </div>
     </header>
     
-    ${
-      breadcrumbData
-        ? createBreadcrumbs(
-            breadcrumbData.category,
-            breadcrumbData.categoryUrl,
-            breadcrumbData.currentPage
-          )
-        : ''
-    }
-    
-    ${
-      pageTitle
-        ? `
-    <!-- Page Header Section -->
-    <div class="page-header">
-      <div class="wrapper">
-        <h1 class="page-header__title">${pageTitle}</h1>
-        ${
-          pageSubtitle
-            ? `<p class="page-header__subtitle">${pageSubtitle}</p>`
-            : ''
-        }
-      </div>
-    </div>
-    `
-        : ''
-    }
+    ${breadcrumbData ? createBreadcrumbs(breadcrumbData.category, breadcrumbData.categoryUrl, breadcrumbData.currentPage) : ''}
   `;
 }
 
 // Universal Footer Template
+// Creates the universal footer for all pages (uses home__footer classes for consistency)
 function createFooter() {
   return `
-    <footer class="footer">
-      <p class="footer__content">
+    <footer class="home__footer">
+      <p class="home__footer-content">
         &copy; ${new Date().getFullYear()} I Knit The Web<br />All rights reserved
       </p>
     </footer>
@@ -282,16 +255,10 @@ function injectHeader(
 
   // STEP 1: Find where to inject the header
   // Look for a specific placeholder element, or use document body as fallback
-  const headerContainer =
-    document.getElementById('header-placeholder') || document.body;
+  const headerContainer = document.getElementById('header-placeholder') || document.body;
 
   // STEP 2: Create the header HTML using our template
-  const headerHTML = createHeader(
-    config,
-    pageTitle,
-    pageSubtitle,
-    breadcrumbData
-  );
+  const headerHTML = createHeader(config, pageTitle, pageSubtitle, breadcrumbData);
 
   // STEP 3: Inject the HTML into the page
   if (document.getElementById('header-placeholder')) {
@@ -319,8 +286,7 @@ function injectHeader(
 }
 
 function injectFooter() {
-  const footerContainer =
-    document.getElementById('footer-placeholder') || document.body;
+  const footerContainer = document.getElementById('footer-placeholder') || document.body;
   const footerHTML = createFooter();
 
   if (document.getElementById('footer-placeholder')) {
@@ -355,10 +321,7 @@ function autoInjectComponents() {
 
     if (path.includes('portfolio') && !path.includes('portfolio-pages')) {
       config = 'portfolio'; // This is the main portfolio page
-    } else if (
-      path.includes('portfolio-pages') ||
-      bodyClass.includes('project-page')
-    ) {
+    } else if (path.includes('portfolio-pages') || bodyClass.includes('project-page')) {
       config = 'project'; // This is an individual project page
     }
     // If none of the above match, config stays 'home'
@@ -389,8 +352,7 @@ function autoInjectComponents() {
     if (config === 'project' && pageData.dataset.breadcrumbCategory) {
       breadcrumbData = {
         category: pageData.dataset.breadcrumbCategory, // e.g., "Featured Projects"
-        categoryUrl:
-          pageData.dataset.breadcrumbCategoryUrl || '/src/pages/portfolio.html',
+        categoryUrl: pageData.dataset.breadcrumbCategoryUrl || '/src/pages/portfolio.html',
         currentPage: pageTitle,
       };
     }
@@ -413,3 +375,41 @@ window.UIComponents = {
   injectFooter,
   autoInjectComponents,
 };
+
+// Dynamically adjust the Portfolio link to behave differently on the homepage
+function adjustPortfolioNavLink() {
+  // Look for a nav link with text 'Full Portfolio' or 'Portfolio'
+  const navLinks = document.querySelectorAll('.topnav__link');
+  navLinks.forEach((link) => {
+    const text = link.textContent.trim().toLowerCase();
+    if (text === 'portfolio' || text === 'full portfolio') {
+      if (window.location.pathname === '/' || window.location.pathname.endsWith('index.html')) {
+        link.setAttribute('href', '#portfolio');
+      } else {
+        link.setAttribute('href', '/index.html#portfolio');
+      }
+    }
+  });
+}
+
+// Call after header injection and navigation initialization
+function afterHeaderInjected() {
+  adjustPortfolioNavLink();
+}
+
+// Patch into the injection system
+const originalInjectHeader = window.UIComponents?.injectHeader;
+if (originalInjectHeader) {
+  window.UIComponents.injectHeader = function (...args) {
+    originalInjectHeader.apply(this, args);
+    setTimeout(afterHeaderInjected, 0);
+  };
+}
+// Also run after auto-injection
+if (window.UIComponents?.autoInjectComponents) {
+  const originalAutoInject = window.UIComponents.autoInjectComponents;
+  window.UIComponents.autoInjectComponents = function (...args) {
+    originalAutoInject.apply(this, args);
+    setTimeout(afterHeaderInjected, 0);
+  };
+}

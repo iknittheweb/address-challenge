@@ -11,9 +11,7 @@ function sendData() {
   var urlEncodedDataPairs = [];
 
   urlEncodedDataPairs.push(
-    encodeURIComponent('name') +
-      '=' +
-      encodeURIComponent(form.querySelector("[name='name']").value)
+    encodeURIComponent('name') + '=' + encodeURIComponent(form.querySelector("[name='name']").value)
   );
   urlEncodedDataPairs.push(
     encodeURIComponent('send_to') +
@@ -31,14 +29,10 @@ function sendData() {
       encodeURIComponent(form.querySelector("[name='phone']").value)
   );
   urlEncodedDataPairs.push(
-    encodeURIComponent('date') +
-      '=' +
-      encodeURIComponent(form.querySelector("[name='date']").value)
+    encodeURIComponent('date') + '=' + encodeURIComponent(form.querySelector("[name='date']").value)
   );
   urlEncodedDataPairs.push(
-    encodeURIComponent('qty') +
-      '=' +
-      encodeURIComponent(form.querySelector("[name='qty']").value)
+    encodeURIComponent('qty') + '=' + encodeURIComponent(form.querySelector("[name='qty']").value)
   );
 
   // radio buttons
