@@ -1,0 +1,60 @@
+//* ------------------------------------------------------------
+//* DROPDOWN COMPONENT PARTIAL
+//*
+//* Place all styles for the reusable .dropdown component here.
+//* Includes BEM classes like .dropdown, .dropdown__title-group, etc.
+//* Do NOT put global resets or page-level layout styles here.
+//* Only styles specific to the dropdown component belong in this file.
+//* ------------------------------------------------------------
+
+.dropdown {
+  margin: 20px;
+  background-color: var(--bg-light);
+  color: var(--text-color-1);
+
+  &__title-group {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: a.rem(16);
+    cursor: pointer;
+    outline: 5px solid var(--secondary-color);
+    background-color: var(--bg-light);
+    padding: a.rem(10) a.rem(32);
+    transition: all 0.3s ease;
+
+    &:hover,
+    &:focus {
+      background-color: var(--primary-bg);
+      color: var(--text-color-2);
+    }
+  }
+
+  &__icon {
+    width: a.rem(36);
+    color: inherit;
+  }
+
+  &__title {
+    margin: 0;
+    text-align: left;
+    text-wrap: balance;
+    flex-basis: 80%;
+  }
+
+  &__content {
+    display: none; /* Initially hide the content */
+    font-size: a.rem(14);
+    padding: 10px;
+    border-top: 1px solid var(--dropdown-border);
+
+    li {
+      border-bottom: 1px solid var(--dropdown-border);
+      padding: 8px;
+    }
+  }
+
+  &__content--show {
+    display: block; /* Show content when 'show' modifier is added */
+  }
+}

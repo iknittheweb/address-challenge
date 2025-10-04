@@ -1,0 +1,80 @@
+//* ------------------------------------------------------------
+//* ABSTRACTS: COLORS PARTIAL
+//*
+//* Place all global color variables and CSS custom properties here.
+//* Only color definitions (SCSS variables or :root custom properties) belong in this file.
+//* Do NOT put any CSS rules, selectors, or non-color variables here.
+//* ------------------------------------------------------------
+:root {
+  // Color Palette
+
+  // Primary color and variations formerly #440f48
+  --primary-color: #531045;
+  --primary-color-mid: #9c22a5;
+  --primary-color-light: #d049d9;
+
+  // Secondary color and variations
+  --secondary-color: #13480f;
+  --secondary-color-mid: #2ba522;
+  --secondary-color-light: #52d949;
+
+  // Backgrounds
+  --primary-bg: #531045;
+  --bg-light: #e1dede;
+
+  // Borders
+  --primary-border: #531045;
+
+  // Text colors
+  --text-color-1: #333;
+  --text-color-2: #e1dede;
+  --text-color-accent: #531045;
+  --text-color-muted: #dadada;
+  --text-link: #000; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+
+  // Topnav
+  --menu-overlay: hsl(0deg 0% 42% / 50%); // covers the body when the mobile menu is open
+  --topnav-border: #e1dede; // to keep a delineation between the header and body content as it scrolls
+  --link-underline-gradient1: #d049d9;
+  --link-underline-gradient2: #52d949;
+
+  // About
+  --dropdown-border: #531045;
+  --link-underline1: #d049d9;
+  --link-underline2: #52d949;
+
+  // Contact
+  --contact-button-border: #e1dede;
+  --contact-input-focus-shadow: #5310451a;
+  --error-color: #de1616;
+
+  // Hero
+  --hero-text: #fff;
+
+  // Calculator Page
+  --calc-display-bg: #fff; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+
+  // Alien Page Form Colors
+  // ---------------------------------
+  // Backgrounds
+  --alien-primary-bg: #000; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  --alien-secondary-bg: #000; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+
+  // Borders
+  --alien-border-color: #000; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  --alien-accent: #000; //! (for border/text/bg) NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  --alien-accent-secondary: #000; //! (for border/bg) NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+
+  // Text
+  --alien-text-light: #d04949; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  --alien-text-dim: #d04949; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  --alien-accent: #000; //! (for text) NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+
+  // Effects
+  --alien-glow-color: #ff00d9; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+
+  // Font (not a color, but used in component)
+  // --alien-font-family: 'Orbitron', sans-serif; // (keep in typography, not here)
+
+  // If you add new custom properties for Alien Form, add them here by usage.
+}

@@ -1,0 +1,127 @@
+//* ------------------------------------------------------------
+//* BASE: TYPOGRAPHY PARTIAL
+//*
+//* Place all global typography styles here (font families, headings, text styles).
+//* Only global text and font rules belong in this file.
+//* Do NOT put component, page, or layout-specific styles here.
+//* ------------------------------------------------------------
+//* Handles global typography styles, such as font sizes, weights, and line heights.
+@use '../A-abstracts/functions' as f;
+
+:root {
+  // Font Families
+  --font-1: 'Merriweather', serif;
+  --font-2: 'Merriweather Sans', sans-serif;
+  --alien-font-family: 'Orbitron', sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-1);
+  font-weight: 700;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: f.rem(42);
+  font-size: clamp(f.rem(42), 1.77rem + 3.64vw, f.rem(72));
+  line-height: 1;
+  -webkit-margin-after: f.rem(20);
+  margin-block-end: f.rem(20);
+}
+
+h2 {
+  font-size: f.rem(36);
+  font-size: clamp(f.rem(36), 1.91rem + 1.45vw, f.rem(48));
+  line-height: 1.1;
+  -webkit-margin-after: f.rem(20);
+  margin-block-end: f.rem(20);
+}
+
+h3 {
+  font-size: f.rem(24);
+  line-height: 1;
+  -webkit-margin-after: f.rem(10);
+  margin-block-end: f.rem(10);
+
+  &.large {
+    font-size: f.rem(36);
+    font-size: clamp(f.rem(36), 2.02rem + 0.97vw, f.rem(44));
+
+    span {
+      display: block;
+      font-size: f.rem(20);
+      font-size: clamp(f.rem(20), 1.14rem + 0.48vw, f.rem(24));
+      text-transform: uppercase;
+      -webkit-margin-after: f.rem(10);
+      margin-block-end: f.rem(10);
+    }
+  }
+}
+
+p {
+  font-family: var(--font-2);
+  margin-top: 0;
+  font-size: f.rem(18);
+  line-height: 1.4;
+
+  &.p--xsmall {
+    font-size: f.rem(16);
+  }
+
+  &.p--medium {
+    font-size: f.rem(20);
+    font-size: clamp(f.rem(20), 1.14rem + 0.48vw, f.rem(24));
+  }
+
+  &.p--large {
+    font-size: f.rem(24);
+    font-size: clamp(f.rem(24), 1.39rem + 0.48vw, f.rem(28));
+    -webkit-margin-after: f.rem(40);
+    margin-block-end: f.rem(40);
+  }
+}
+
+a,
+a:visited,
+a:active {
+  text-decoration: none;
+  font-family: inherit;
+}
+
+p > a {
+  color: var(--text-link);
+}
+
+.link__cert {
+  color: var(--primary-color-mid);
+
+  &:hover {
+    color: var(--primary-color-light);
+  }
+
+  &::after {
+    background: var(--link-underline1);
+  }
+}
+
+.link__site {
+  color: var(--secondary-color-mid);
+
+  &:hover {
+    color: var(--secondary-color-light);
+  }
+
+  &::after {
+    background: var(--link-underline2);
+  }
+}
+
+.text--nowrap {
+  white-space: nowrap;
+}
+
+.topnav {
+  font-family: var(--font-1);
+}

@@ -1,0 +1,19 @@
+//* ------------------------------------------------------------
+//* LAYOUT: INDEX PARTIAL
+//*
+//* Use this file to forward all layout partials (header, footer, grid, etc.).
+//* Only @forward statements should be in this file.
+//* Do NOT put any CSS rules, selectors, or variable/mixin definitions here.
+//* ------------------------------------------------------------
+//& The /layout folder
+//* The /layout folder contains styles related to the layout and structure of the website. This includes headers, footers, navigation bars, and grid systems.
+
+//& Why It’s Important:
+//* Having a dedicated folder for layout styles ensures that the structural aspects of your site are clearly separated from component and page-specific styles.
+
+@forward 'containers';
+@forward 'footer';
+@forward 'grid';
+@forward 'header';
+@forward 'navigation';
+@forward 'sidebar';

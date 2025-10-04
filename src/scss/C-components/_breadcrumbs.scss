@@ -1,0 +1,88 @@
+//* ------------------------------------------------------------
+//* BREADCRUMBS COMPONENT PARTIAL
+//*
+//* Place all styles for the reusable .breadcrumbs component here.
+//* Includes BEM classes like .breadcrumbs, .breadcrumbs__current, etc.
+//* Do NOT put global resets or page-level layout styles here.
+//* Only styles specific to the breadcrumbs component belong in this file.
+//* ------------------------------------------------------------
+
+// .breadcrumbs block styles and accessibility improvements combined
+
+.breadcrumbs {
+  background-color: var(--bg-light);
+  border-bottom: 1px solid var(--nav-border-bottom);
+  padding-block: a.rem(12);
+}
+
+.breadcrumbs__current {
+  .breadcrumbs__text {
+    color: var(--text-color-2);
+    font-weight: 600;
+  }
+}
+
+.breadcrumbs [aria-current='page'] .breadcrumbs__text {
+  // Screen readers will announce this as current page
+  position: relative;
+}
+
+.breadcrumbs__list {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: a.rem(8);
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+  font-size: a.rem(14);
+
+  @include a.breakpoint('600') {
+    font-size: a.rem(16);
+  }
+}
+
+.breadcrumbs__item {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+
+  &:not(:last-child)::after {
+    content: '›';
+    color: var(--text-color-1);
+    margin-left: a.rem(8);
+    margin-right: a.rem(4);
+    font-size: a.rem(16);
+    font-weight: 300;
+    opacity: 0.6;
+  }
+}
+
+.breadcrumbs__link {
+  color: var(--primary-color-mid);
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover,
+  &:focus {
+    color: var(--primary-color);
+    text-decoration: underline;
+  }
+
+  // Reduce touch target on mobile to save space
+  @include a.breakpoint-down('699.98') {
+    padding: a.rem(4);
+  }
+}
+
+// Mobile optimization
+@include a.breakpoint-down('499.98') {
+  .breadcrumbs__item:first-child {
+    // On very small screens, hide "Home" and start with "Portfolio" to save space
+    display: none;
+
+    &::after {
+      display: none;
+    }
+  }
+}

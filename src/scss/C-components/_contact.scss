@@ -1,0 +1,205 @@
+//* ------------------------------------------------------------
+//* CONTACT COMPONENT PARTIAL
+//*
+//* Place all styles for the reusable .contact form component here.
+//* Includes BEM classes like .contact, .contact__form, .contact__input, etc.
+//* Do NOT put global form resets or page-level layout styles here.
+//* Only styles specific to the contact form component belong in this file.
+//* ------------------------------------------------------------
+/* stylelint-disable no-descending-specificity */
+
+.contact {
+  padding: a.rem(60) a.rem(20);
+  margin-inline: auto;
+
+  &__heading {
+    text-align: center;
+    margin-bottom: a.rem(30);
+  }
+
+  &__intro {
+    text-align: center;
+    font-size: a.rem(18);
+    margin-bottom: a.rem(40);
+    color: var(--text-color-1);
+    max-width: a.rem(600);
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  &__form {
+    max-width: a.rem(500);
+    margin: 0 auto;
+    background: var(--primary-bg);
+    border-radius: a.rem(12);
+    box-shadow: 0 4px 20px rgb(68 15 72 / 10%);
+    padding: a.rem(40);
+    border: 1px solid var(--border-color, #e0e0e0);
+
+    @include a.breakpoint-down('699.98') {
+      padding: a.rem(24);
+    }
+  }
+
+  &__fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__legend {
+    font-size: a.rem(20);
+    font-weight: 600;
+    color: var(--text-color-2);
+    margin-bottom: a.rem(24);
+    text-align: center;
+    width: 100%;
+    padding: 0;
+  }
+
+  &__group {
+    margin-bottom: a.rem(20);
+  }
+
+  &__label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: a.rem(8);
+    color: var(--text-color-2);
+    font-size: a.rem(20);
+
+    span {
+      color: var(--accent-color, #d32f2f);
+      margin-left: a.rem(2);
+    }
+  }
+
+  &__input {
+    &::placeholder {
+      color: var(--text-color-muted);
+      opacity: 0.8;
+      font-style: italic;
+      transition: opacity 0.3s ease;
+    }
+
+    &:focus {
+      border-color: var(--primary-border);
+      outline: none;
+      box-shadow: 0 0 0 3px var(--contact-input-focus-shadow);
+      background: var(--bg-light);
+
+      &::placeholder {
+        opacity: 0.5;
+      }
+    }
+
+    &:invalid:not(:focus, :placeholder-shown) {
+      border-color: var(--error-color, #de1616);
+    }
+
+    &[type='email']:valid {
+      border-color: var(--success-color, #2ca530);
+    }
+  }
+
+  textarea.contact__input {
+    resize: vertical;
+    min-height: a.rem(120);
+    font-family: inherit;
+    line-height: 1.5;
+  }
+
+  &__error {
+    color: var(--error-color, #d32f2f);
+    font-size: a.rem(14);
+    margin-top: a.rem(4);
+    min-height: a.rem(20);
+    display: block;
+  }
+
+  &__submit {
+    width: 100%;
+    padding: a.rem(16);
+    background: var(--primary-color, #531045);
+    color: #fff;
+    border: 2px solid var(--contact-button-border);
+    border-radius: a.rem(8);
+    font-size: a.rem(18);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: a.rem(8);
+    font-family: inherit;
+
+    &:hover {
+      background: var(--primary-color-dark, #2d0a30);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgb(68 15 72 / 30%);
+    }
+
+    &:focus {
+      outline: none;
+      background: var(--primary-color-dark, #2d0a30);
+      box-shadow: 0 0 0 3px rgb(68 15 72 / 30%);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  // Responsive adjustments
+  @include a.breakpoint('600') {
+    // padding-inline: a.rem(10);
+
+    &__intro {
+      font-size: a.rem(16);
+      margin-bottom: a.rem(30);
+    }
+
+    &__legend {
+      font-size: a.rem(18);
+      margin-bottom: a.rem(20);
+    }
+  }
+}
+
+.contact--inverse {
+  background: var(--primary-bg);
+  color: var(--text-color-2);
+
+  .contact__input {
+    background: var(--primary-bg);
+    color: var(--text-color-2);
+    border: 2px solid var(--primary-bg);
+  }
+
+  .contact__intro,
+  .contact__legend {
+    color: var(--text-color-2);
+  }
+
+  .contact__label {
+    color: var(--text-color-accent);
+  }
+
+  .contact__form {
+    background: var(--bg-light);
+    color: var(--text-color-1);
+    border: 1px solid var(--primary-bg);
+  }
+
+  .contact__button {
+    background: var(--text-color-2);
+    color: var(--primary-bg);
+    border: 1px solid var(--primary-bg);
+  }
+}

@@ -1,0 +1,27 @@
+//* ------------------------------------------------------------
+//* FOOTER COMPONENT PARTIAL
+//*
+//* Place all styles for the reusable .footer component here.
+//* Includes BEM classes like .footer, .footer__content, etc.
+//* Do NOT put global resets or page-level layout styles here.
+//* Only styles specific to the footer component belong in this file.
+//* ------------------------------------------------------------
+
+.home__footer {
+  background-color: var(--primary-bg);
+  color: var(--text-color-2);
+  padding-block: a.rem(16);
+  font-size: a.rem(10);
+
+  @include a.breakpoint('900') {
+    padding-block: a.rem(24);
+    font-size: a.rem(16);
+  }
+
+  &-content {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+  }
+}

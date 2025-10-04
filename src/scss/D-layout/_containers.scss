@@ -1,0 +1,35 @@
+.wrapper {
+  width: min(100% - a.rem(48), a.rem(1200));
+  margin-inline: auto;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  // More aggressive margin reduction for very small screens
+  @include a.breakpoint-down('499.98') {
+    width: min(100% - a.rem(16), a.rem(1200)); // Reduce to 16px margins
+  }
+
+  // Additional fix for extremely narrow screens
+  @media (max-width: 360px) {
+    width: min(100% - a.rem(8), a.rem(1200)); // Minimal margins for very narrow screens
+  }
+}
+
+.home__wrapper {
+  padding-block: a.rem(60);
+}
+
+.breadcrumbs {
+  .wrapper {
+    padding-block: 0; // Override any wrapper padding for breadcrumbs
+  }
+}
+
+.alien-form-page__wrapper {
+  position: relative;
+  z-index: 1;
+  padding: a.rem(40) 0;
+
+  @include a.breakpoint-down('699.98') {
+    padding: 0 a.rem(12);
+  }
+}

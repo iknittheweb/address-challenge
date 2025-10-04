@@ -1,0 +1,60 @@
+//* ------------------------------------------------------------
+//* PORTFOLIO COMPONENT PARTIAL
+//*
+//* Place all styles for the reusable .portfolio component here.
+//* Includes BEM classes like .portfolio, .portfolio__heading, .portfolio__intro, etc.
+//* Do NOT put global resets or page-level layout styles here.
+//* Only styles specific to the portfolio component belong in this file.
+//* ------------------------------------------------------------
+
+@use 'A-abstracts/functions' as f;
+
+.portfolio {
+  -webkit-margin-after: 4rem;
+  margin-block-end: 4rem;
+  padding-block: f.rem(50);
+
+  &__heading {
+    text-align: center;
+    margin-bottom: f.rem(30);
+  }
+
+  &__intro {
+    text-align: center;
+    font-size: f.rem(18);
+    margin-bottom: f.rem(20);
+    color: var(--text-color-1);
+    max-width: f.rem(600);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__row {
+    display: grid;
+    gap: f.rem(20);
+    padding: 0 f.rem(10);
+    justify-items: center;
+
+    // Default: single column for screens up to 650px
+    grid-template-columns: 1fr;
+
+    // Two columns for medium screens (650px+) - this avoids the 575-600px issue
+    @media (width >= 650px) {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    // Three columns for large screens (900px+)
+    @include a.breakpoint('900') {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1200px;
+    }
+
+    // Fix for very small screens
+    @include a.breakpoint-down('499.98') {
+      padding: 0;
+      gap: f.rem(15);
+    }
+  }
+}

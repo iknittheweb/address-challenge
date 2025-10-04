@@ -1,0 +1,284 @@
+//* ------------------------------------------------------------
+//* TOPNAV COMPONENT PARTIAL
+//*
+//* Place all styles for the reusable .topnav component here.
+//* Includes BEM classes like .topnav, .topnav__menu, .topnav__logo, etc.
+//* Do NOT put global resets or page-level layout styles here.
+//* Only styles specific to the topnav component belong in this file.
+//* ------------------------------------------------------------
+/* stylelint-disable no-descending-specificity */
+
+.topnav {
+  border-bottom: 2px solid var(--topnav-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100vw; /* Use viewport width to ensure full coverage */
+
+  &,
+  &__menu {
+    background-color: var(--primary-bg);
+
+    &,
+    & a {
+      color: var(--text-color-2);
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-block: a.rem(12);
+    margin-inline: auto;
+
+    @include a.breakpoint-down('699.98') {
+      position: relative;
+    }
+  }
+
+  &__homelink {
+    margin-left: a.rem(24);
+  }
+
+  &__logo {
+    width: a.rem(120);
+    height: a.rem(120);
+  }
+
+  &__overlay {
+    @include a.breakpoint-down('699.98') {
+      position: fixed;
+      inset: 0;
+      background-color: var(--menu-overlay);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 400ms ease-in-out;
+
+      &:has(+ .topnav__open[aria-expanded='true']) {
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+  }
+
+  &__open,
+  &__close {
+    background: none;
+    padding: 0;
+    border: 0;
+    margin-inline: a.rem(16); // move in from the side
+  }
+
+  &__open {
+    @include a.breakpoint('700') {
+      display: none;
+    }
+
+    @include a.breakpoint-down('699.98') {
+      // Fade-in animation for mobile hamburger menu
+      opacity: 0;
+      transform: translateY(-5px);
+      animation: fade-in-hamburger 400ms ease-out 150ms forwards;
+    }
+
+    &[aria-expanded='true'] + .topnav__menu {
+      @include a.breakpoint-down('699.98') {
+        display: block; // Show the mobile menu
+        transform: translateY(0); // Slide it into view
+      }
+
+      @media (prefers-reduced-motion) {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__menu {
+    @include a.breakpoint('700') {
+      // Desktop: Normal menu behavior
+      display: block;
+      position: static;
+      transform: none;
+      transition: none;
+      width: auto;
+      padding: 0;
+      border-radius: 0;
+      box-shadow: none;
+      inset: auto;
+    }
+
+    @include a.breakpoint-down('699.98') {
+      // Mobile: Hidden by default, only shown when menu is opened
+      display: none;
+      width: 100vw;
+      position: fixed;
+      inset: 0 0 auto;
+      padding: 12px 24px 120px;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 12px 12px var(--menu-shadow);
+      transform: translateY(-100%); // Use transform instead of translate
+      transition: transform 350ms ease-in-out;
+
+      @media (prefers-reduced-motion) {
+        transform: translateY(0);
+        opacity: 0;
+        transition-property: opacity;
+      }
+    }
+  }
+
+  &__close {
+    display: none;
+
+    @include a.breakpoint-down('699.98') {
+      display: block;
+      -webkit-margin-start: auto;
+      margin-inline-start: auto;
+      -webkit-margin-after: 84px;
+      margin-block-end: 84px;
+    }
+  }
+
+  &__links {
+    display: flex;
+    gap: a.rem(40);
+
+    // Smooth transition for desktop appearance
+    @include a.breakpoint('700') {
+      opacity: 0;
+      animation: fade-in-links 400ms ease-in-out 200ms forwards;
+    }
+
+    @include a.breakpoint-down('699.98') {
+      flex-direction: column;
+      align-items: center;
+      opacity: 1; // Ensure mobile links are always visible
+    }
+  }
+
+  &__item:first-child {
+    @include a.breakpoint('600') {
+      display: none;
+    }
+  }
+
+  &__link {
+    display: block;
+    font-size: a.rem(20);
+    line-height: 2;
+    font-weight: 700;
+    color: var(--text-color-2);
+    cursor: pointer;
+
+    // Smooth transitions for desktop
+    @include a.breakpoint('700') {
+      opacity: 0;
+      transform: translateY(-10px);
+      transition:
+        opacity 300ms ease-out,
+        transform 300ms ease-out;
+
+      // Staggered animation delay for each link
+      @for $i from 1 through 6 {
+        &:nth-child(#{$i}) {
+          animation: fade-in-link 400ms ease-out #{100ms * $i} forwards;
+        }
+      }
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      height: 3px;
+      margin-top: 3px;
+      background: linear-gradient(to right, var(--link-underline-gradient1), var(--link-underline-gradient2) 80%);
+      opacity: 0;
+      transition: opacity 250ms ease-in-out;
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
+  }
+
+  @include a.breakpoint('600') {
+    font-size: a.rem(16);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+// Keyframe animations for smooth desktop menu appearance
+@keyframes fade-in-links {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-links {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-link {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-link {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Keyframe animation for hamburger menu fade-in
+@keyframes fade-in-hamburger {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-hamburger {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

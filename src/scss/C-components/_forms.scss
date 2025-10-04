@@ -1,0 +1,77 @@
+//* ------------------------------------------------------------
+//* FORMS COMPONENT PARTIAL
+//*
+//* Place all global form element resets and base styles here.
+//* Only generic, reusable form element styles (input, textarea, select, button) belong in this file.
+//* Do NOT put component-specific or page-level styles here.
+//* ------------------------------------------------------------
+
+// =========================
+// Global Form Element Styles
+// =========================
+
+// Remove default browser styles and set base appearance
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text-color-1);
+  background: var(--bg-light);
+  border: 1px solid var(--primary-border);
+  border-radius: a.rem(6);
+  padding: a.rem(10) a.rem(12);
+  box-sizing: border-box;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-color-light);
+}
+
+label {
+  font-weight: 600;
+  color: var(--text-color-2);
+  margin-bottom: a.rem(6);
+  display: block;
+}
+
+fieldset {
+  border: 1px solid var(--primary-border);
+  border-radius: a.rem(6);
+  padding: a.rem(16) a.rem(12);
+  margin-bottom: a.rem(20);
+}
+
+legend {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  padding: 0 a.rem(8);
+}
+
+button,
+input[type='submit'],
+input[type='button'] {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: a.rem(6);
+  padding: a.rem(10) a.rem(20);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover,
+input[type='submit']:hover,
+input[type='button']:hover {
+  background: var(--primary-color-mid);
+}
