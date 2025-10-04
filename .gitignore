@@ -18,6 +18,17 @@ build/
 .vscode/
 .idea/
 
+# Configuration files (keep examples, ignore actual config)
+.eslintrc.json
+.prettierrc
+.stylelintrc.json
+
+# Build scripts (if they contain sensitive data or are generated)
+component-build.js
+
+# Development documentation
+docs/CONFIG-JSON-GUIDE.txt
+
 # OS files
 .DS_Store
 Thumbs.db
@@ -48,3 +59,16 @@ desktop.ini
 # Sublime Text
 *.sublime-workspace
 *.sublime-project
+
+# Sass cache
+.sass-cache/
+
+# CSS source maps
+*.css.map
+
+# Temporary test files
+src/scss/test.scss
+
+# Development notes
+notes/*.txt
+docs/temp/
