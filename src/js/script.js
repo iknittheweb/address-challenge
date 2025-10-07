@@ -5,6 +5,31 @@
  */
 
 // =============================================================================
+// CSS AND DOM READY UTILITIES
+// =============================================================================
+
+/**
+ * Wait for both DOM and CSS to be fully loaded before initializing
+ * This prevents layout thrashing and FOUC issues
+ */
+function waitForCSSAndDOM(callback) {
+  function checkReady() {
+    const domReady = document.readyState === 'complete' || document.readyState === 'interactive';
+    const cssReady = document.documentElement.classList.contains('css-loaded') || window.mainCSSLoaded;
+    
+    if (domReady && cssReady) {
+      // Add small delay to ensure all rendering is complete
+      requestAnimationFrame(() => {
+        requestAnimationFrame(callback);
+      });
+    } else {
+      requestAnimationFrame(checkReady);
+    }
+  }
+  checkReady();
+}
+
+// =============================================================================
 // ACCESSIBILITY HELPER FUNCTIONS
 // =============================================================================
 
@@ -294,10 +319,10 @@ initializeApp();
 // =============================================================================
 
 /**
- * Set up dropdown menus once the DOM is fully loaded
+ * Set up dropdown menus once DOM and CSS are fully loaded
  * This is separate from navigation and handles expandable content sections
  */
-document.addEventListener('DOMContentLoaded', function () {
+waitForCSSAndDOM(function () {
   // Find dropdown elements (used on portfolio page for project categories)
   const dropdownTitleGroup = document.querySelector('.dropdown__title-group');
   const dropdownContent = document.querySelector('.dropdown__content');
@@ -355,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function () {
  * Contact form validation and user feedback system
  * Provides real-time validation, accessible error messages, and form submission handling
  */
-document.addEventListener('DOMContentLoaded', () => {
+waitForCSSAndDOM(() => {
   const contactForm = document.querySelector('.contact__form');
   
   // Only initialize if contact form exists on the page
