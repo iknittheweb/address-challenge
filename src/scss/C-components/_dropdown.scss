@@ -2,15 +2,17 @@
 //* DROPDOWN COMPONENT PARTIAL
 //*
 //* Place all styles for the reusable .dropdown component here.
-//* Includes BEM classes like .dropdown, .dropdown__title-group, etc.
+//* Includes BEM classes like .dropdown, .dropdown__button, .dropdown__content, etc.
 //* Do NOT put global resets or page-level layout styles here.
 //* Only styles specific to the dropdown component belong in this file.
 //* ------------------------------------------------------------
+@use '../A-abstracts' as a;
 
 .dropdown {
-  margin: 20px;
-  background-color: var(--bg-light);
-  color: var(--text-color-1);
+  width: 80%;
+  margin: a.rem(24) auto;
+  // Removed background-color to prevent conflicts with child elements
+  // Individual elements set their own colors and backgrounds
 
   &__title-group {
     display: flex;
@@ -18,43 +20,175 @@
     align-items: center;
     gap: a.rem(16);
     cursor: pointer;
-    outline: 5px solid var(--secondary-color);
-    background-color: var(--bg-light);
-    padding: a.rem(10) a.rem(32);
+    color: var(--light-text);
+    outline: none;
+    background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+    padding: a.rem(16) a.rem(32);
     transition: all 0.3s ease;
+    border: 1px solid var(--light-border);
+    border-radius: a.rem(8);
 
-    &:hover,
-    &:focus {
-      background-color: var(--primary-bg);
-      color: var(--text-color-2);
+    // Better focus management
+    &:focus-visible {
+      outline: 2px solid var(--light-text);
+      outline-offset: 2px;
+    }
+
+    // When dropdown is open: same gradient with reduced opacity
+    &:has(~ .dropdown__content.show) {
+      opacity: 0.7;
+
+      &:focus-visible {
+        outline-color: var(--light-text);
+      }
+
+      // Prevent hover/focus color inversion when open
+      &:hover,
+      &:focus {
+        background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+        color: var(--light-text);
+        border-color: var(--light-border);
+      }
+
+      // .dropdown__icon {
+      //   color: var(--light-text);
+      // }
+    }
+
+    // When closed: ensure full opacity and allow hover inversion
+    &:not(:has(~ .dropdown__content.show)) {
+      opacity: 1; // Explicitly reset opacity
+
+      &:hover,
+      &:focus {
+        background: var(--light-bg);
+        color: var(--primary-text);
+        border-color: var(--light-border);
+
+        // .dropdown__icon {
+        //   color: var(--primary-text);
+        // }
+      }
+
+      &:focus-visible {
+        outline-color: var(--primary-text);
+      }
     }
   }
 
   &__icon {
-    width: a.rem(36);
-    color: inherit;
+    color: var(--light-text);
+    font-size: a.rem(20);
+    color: currentColor;
+    transition: transform 0.3s ease;
+    display: inline-block;
+    line-height: 1;
+    flex-shrink: 0;
+
+    // When dropdown is closed, hand points down (rotate from up to down)
+    transform: rotate(180deg);
+  }
+
+  // When dropdown is open, rotate hand to point up (original position)
+  &__title-group.dropdown-open &__icon {
+    transform: rotate(0deg);
+  }
+
+  &__text-content {
+    display: flex;
+    flex-direction: column;
+    gap: a.rem(4);
+    flex-basis: 80%;
+    text-align: left;
   }
 
   &__title {
     margin: 0;
-    text-align: left;
     text-wrap: balance;
-    flex-basis: 80%;
+    line-height: 1.2;
+  }
+
+  &__subtitle {
+    margin: 0;
+    font-size: a.rem(13);
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.3;
+    text-wrap: balance;
+
+    // Ensure good contrast for accessibility
+    @media (prefers-contrast: high) {
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    // Respect reduced motion preferences
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
   }
 
   &__content {
     display: none; /* Initially hide the content */
     font-size: a.rem(14);
     padding: 10px;
-    border-top: 1px solid var(--dropdown-border);
+    background: var(--light-bg);
+    border-top: 1px solid var(--light-border);
+    transition: all 0.3s ease;
 
     li {
-      border-bottom: 1px solid var(--dropdown-border);
-      padding: 8px;
-    }
-  }
+      border-bottom: 1px solid var(--light-border);
+      padding: a.rem(12) a.rem(8);
 
-  &__content--show {
-    display: block; /* Show content when 'show' modifier is added */
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .achievement {
+        font-size: a.rem(17);
+        font-weight: 600;
+        color: var(--dark-text);
+        margin-bottom: a.rem(4);
+        line-height: 1.4;
+        display: flex;
+        align-items: flex-start;
+        gap: a.rem(8);
+      }
+
+      .achievement-icon {
+        color: var(--primary-bg);
+        font-size: a.rem(16);
+        margin-top: a.rem(2);
+        flex-shrink: 0;
+      }
+
+      .source {
+        font-size: a.rem(15); // Increased from 12 for better readability
+        color: var(--secondary-bg-mid);
+        font-style: italic;
+        margin-left: a.rem(16);
+        line-height: 1.4; // Improved from 1.3 for better readability
+
+        // Style links within source to show they're clickable
+        a {
+          color: inherit;
+          text-decoration: underline;
+          text-decoration-color: var(--secondary-bg-mid);
+          text-underline-offset: 2px;
+
+          &:hover,
+          &:focus {
+            color: var(--dark-text);
+            text-decoration-color: var(--dark-text);
+          }
+        }
+      }
+    }
+
+    // Show content when 'show' class is added by JavaScript
+    &.show {
+      display: block;
+    }
   }
 }

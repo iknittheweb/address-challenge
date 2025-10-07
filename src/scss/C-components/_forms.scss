@@ -1,10 +1,12 @@
 //* ------------------------------------------------------------
 //* FORMS COMPONENT PARTIAL
 //*
-//* Place all global form element resets and base styles here.
-//* Only generic, reusable form element styles (input, textarea, select, button) belong in this file.
-//* Do NOT put component-specific or page-level styles here.
+//* Place all styles for reusable form components here.
+//* Includes BEM classes like .form, .form__input, .form__button, etc.
+//* Do NOT put global form resets or page-level layout styles here.
+//* Only styles specific to reusable form components belong in this file.
 //* ------------------------------------------------------------
+@use '../A-abstracts' as a;
 
 // =========================
 // Global Form Element Styles
@@ -17,8 +19,8 @@ select,
 button {
   font-family: inherit;
   font-size: 1rem;
-  color: var(--text-color-1);
-  background: var(--bg-light);
+  color: var(--dark-text);
+  background: var(--light-bg);
   border: 1px solid var(--primary-border);
   border-radius: a.rem(6);
   padding: a.rem(10) a.rem(12);
@@ -32,19 +34,18 @@ button {
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px var(--primary-color-light);
+  border-color: var(--primary-bg);
+  box-shadow: 0 0 0 2px var(--primary-bg-light);
 }
 
 label {
   font-weight: 600;
-  color: var(--text-color-2);
+  color: var(--light-text);
   margin-bottom: a.rem(6);
   display: block;
 }
 
 fieldset {
-  border: 1px solid var(--primary-border);
   border-radius: a.rem(6);
   padding: a.rem(16) a.rem(12);
   margin-bottom: a.rem(20);
@@ -53,15 +54,15 @@ fieldset {
 legend {
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--primary-color);
+  color: var(--primary-bg);
   padding: 0 a.rem(8);
 }
 
 button,
 input[type='submit'],
 input[type='button'] {
-  background: var(--primary-color);
-  color: #fff;
+  background: var(--primary-bg);
+  color: var(--light-text);
   border: none;
   border-radius: a.rem(6);
   padding: a.rem(10) a.rem(20);
@@ -73,5 +74,5 @@ input[type='button'] {
 button:hover,
 input[type='submit']:hover,
 input[type='button']:hover {
-  background: var(--primary-color-mid);
+  background: var(--primary-bg-mid);
 }

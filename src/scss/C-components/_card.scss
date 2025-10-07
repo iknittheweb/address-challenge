@@ -6,91 +6,122 @@
 //* Do NOT put global resets or page-level layout styles here.
 //* Only styles specific to the card component belong in this file.
 //* ------------------------------------------------------------
-// Variables for consistent styling
-$card-bg: #fff;
-$card-border-color: #ccc;
-$card-border-radius: 8px;
-$card-box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
-$card-padding: 20px;
+@use '../A-abstracts' as a;
 
 .card {
-  background-color: $card-bg;
-  border: 1px solid $card-border-color;
-  border-radius: $card-border-radius;
-  box-shadow: $card-box-shadow;
-  max-width: 400px; // Set maximum width to 400px
-  width: 100%; // Ensure card takes available width up to max-width
-  margin: 0 auto; // Center the card if it's smaller than container
-  overflow: hidden; // Ensures content doesn't spill out of rounded corners
+  background-color: var(--light-bg);
+  border: 2px solid var(--primary-border);
+  border-radius: a.rem(8);
+  box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
+  max-width: a.rem(400);
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
 
   // Make cards equal height with flexbox
   display: flex;
   flex-direction: column;
-  height: 100%; // Take full height of grid cell
+  height: 100%;
 
-  &__header {
-    padding: $card-padding;
-    border-bottom: 1px solid $card-border-color;
-    height: 4.5em; // Fixed height to accommodate 2 lines + padding
+  // Support both BEM naming (.card__header) and legacy naming (.card-header)
+  &__header,
+  &-header {
+    padding: a.rem(16) a.rem(20);
+    border-bottom: 1px solid var(--light-border);
+    height: a.rem(80); // Fixed height to accommodate all header text
     display: flex;
-    align-items: center; // Vertically center the title
+    align-items: center;
+    justify-content: center; // Center the text horizontally
+    text-align: center;
+    background-color: var(--primary-bg);
 
     h3 {
       margin: 0;
-      font-size: 1.2em;
-      line-height: 1.3; // Consistent line height for better spacing
-      width: 100%; // Ensure title takes full width for proper wrapping
+      font-size: a.rem(18);
+      line-height: 1.3;
+      color: var(--light-text);
+      width: 100%;
+      display: -webkit-box;
+      -webkit-line-clamp: 2; // Limit to 2 lines
+      line-clamp: 2; // Standard property for compatibility
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
   }
 
-  &__body {
-    padding: $card-padding;
-    flex: 1; // Take up remaining space
+  &__body,
+  &-body {
+    padding: 0; // Remove padding to let image fill width
+    flex: 1;
     display: flex;
     flex-direction: column;
-
-    p {
-      margin: 0;
-    }
+    position: relative;
   }
 
   &__figure {
     margin: 0;
-    flex: 1; // Allow figure to grow and take available space
+    flex: 1;
     display: flex;
     flex-direction: column;
 
     img {
       width: 100%;
-      height: auto;
+      height: a.rem(200); // Fixed height for uniform appearance
+      object-fit: cover; // Ensure proper aspect ratio
       display: block;
-      margin-inline: auto;
+      padding: a.rem(6);
     }
 
     figcaption {
-      -webkit-margin-after: 0.75em;
-      margin-block-end: 0.75em;
-      flex-grow: 1; // Push button to bottom
+      padding: a.rem(16) a.rem(20);
+      flex-grow: 1;
+      background-color: var(--light-bg);
+
+      p {
+        margin: 0;
+        color: var(--dark-text);
+        font-size: a.rem(14);
+        line-height: 1.4;
+      }
     }
   }
 
+  // Footer area for button
+  &__footer {
+    height: a.rem(60); // Fixed height for uniform footer
+    padding: a.rem(12) a.rem(20);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; // Position button to the right
+    background-color: var(--light-bg);
+    border-top: 1px solid var(--light-border);
+  }
+
   &__button {
-    display: block;
-    margin-left: auto;
-    margin-right: 0;
-    margin-top: auto; // Push button to bottom of card
-    text-align: center;
-    padding: 0.5em 1em;
-    border-radius: 4px;
-    background: #531045;
-    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: a.rem(8) a.rem(16);
+    border-radius: a.rem(4);
+    background: var(--primary-bg-mid);
+    color: var(--light-text);
     text-decoration: none;
     font-weight: 700;
-    transition: background 0.2s;
+    font-size: a.rem(14);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
 
+    // Ensure entire button is clickable
     &:hover,
     &:focus {
-      background: #9c22a5;
+      background: var(--primary-bg-light);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+    }
+
+    &:active {
+      transform: translateY(0);
     }
   }
 }

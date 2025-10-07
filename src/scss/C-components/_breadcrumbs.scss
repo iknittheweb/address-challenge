@@ -6,18 +6,19 @@
 //* Do NOT put global resets or page-level layout styles here.
 //* Only styles specific to the breadcrumbs component belong in this file.
 //* ------------------------------------------------------------
+@use '../A-abstracts' as a;
 
 // .breadcrumbs block styles and accessibility improvements combined
 
 .breadcrumbs {
-  background-color: var(--bg-light);
+  background-color: var(--light-bg);
   border-bottom: 1px solid var(--nav-border-bottom);
   padding-block: a.rem(12);
 }
 
 .breadcrumbs__current {
   .breadcrumbs__text {
-    color: var(--text-color-2);
+    color: var(--light-text);
     font-weight: 600;
   }
 }
@@ -49,7 +50,7 @@
 
   &:not(:last-child)::after {
     content: '›';
-    color: var(--text-color-1);
+    color: var(--dark-text);
     margin-left: a.rem(8);
     margin-right: a.rem(4);
     font-size: a.rem(16);
@@ -59,13 +60,13 @@
 }
 
 .breadcrumbs__link {
-  color: var(--primary-color-mid);
+  color: var(--primary-bg-mid);
   text-decoration: none;
   transition: color 0.2s ease;
 
   &:hover,
   &:focus {
-    color: var(--primary-color);
+    color: var(--primary-bg);
     text-decoration: underline;
   }
 

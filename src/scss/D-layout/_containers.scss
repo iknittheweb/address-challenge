@@ -1,3 +1,5 @@
+@use '../A-abstracts' as a;
+
 .wrapper {
   width: min(100% - a.rem(48), a.rem(1200));
   margin-inline: auto;
@@ -21,15 +23,5 @@
 .breadcrumbs {
   .wrapper {
     padding-block: 0; // Override any wrapper padding for breadcrumbs
-  }
-}
-
-.alien-form-page__wrapper {
-  position: relative;
-  z-index: 1;
-  padding: a.rem(40) 0;
-
-  @include a.breakpoint-down('699.98') {
-    padding: 0 a.rem(12);
   }
 }

@@ -50,7 +50,7 @@ Welcome to the codebase for my personal portfolio site! This project is a static
 
 ```
 ├── build.js                # Main build script (uses .env for config)
-├── component-build.js      # Component/page build system (uses .env for config)
+├── component-build.cjs     # Component/page build system (uses .env for config)
 ├── .env                    # Development environment variables (not committed)
 ├── .env.production         # Production environment variables (not committed)
 ├── .env.example            # Example env file (copy to .env/.env.production)
@@ -118,7 +118,7 @@ ASSET_URL=...     # The base path or URL for static assets
 - `npm run deploy` Build for production
 - `node build.js` Manual build (uses .env)
 - `node build.js production` Manual build (uses .env.production)
-- `node component-build.js` Build all pages/components
+- `node component-build.cjs` Build all pages/components
 - `npm run lint` Lint JS files with ESLint
 - `npm run format` Format code with Prettier
 - `npm test` Run all JavaScript unit tests (Jest)
@@ -182,7 +182,7 @@ ASSET_URL=...     # The base path or URL for static assets
 ## 🧩 How the Build System Works
 
 - **build.js**: Processes `index.template.html` and outputs `index.html`, replacing placeholders with environment-specific values.
-- **component-build.js**: Generates all pages from templates, injecting shared components and environment variables.
+- **component-build.cjs**: Generates all pages from templates, injecting shared components and environment variables.
 - **Environment variables** are loaded using [dotenv](https://www.npmjs.com/package/dotenv) and must be set in `.env`/`.env.production`.
 - **SCSS** is modular and compiled to `dist/styles.css`.
 - **Legacy CSS** in `src/css/` is being migrated to SCSS (one page at a time).

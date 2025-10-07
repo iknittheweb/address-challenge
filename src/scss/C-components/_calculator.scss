@@ -14,7 +14,7 @@
 //* Do NOT put global resets or page-level layout styles here.
 //* Only styles specific to the calculator component belong in this file.
 //* ------------------------------------------------------------
-@use 'A-abstracts/functions' as f;
+@use '../A-abstracts' as a;
 
 /* =====================================
    Calculator Display Component

@@ -1,0 +1,188 @@
+//* ------------------------------------------------------------
+//* CODE SHOWCASE COMPONENT
+//*
+//* Styles for expandable code snippets in portfolio cards
+//* Shows technical implementation details with proper syntax highlighting
+//* ------------------------------------------------------------
+@use '../A-abstracts' as a;
+
+.code-showcase {
+  margin-top: 1.5rem;
+  border: 1px solid var(--light-border, #e0e0e0);
+  border-radius: 6px;
+  background-color: var(--light-bg, #fafafa);
+
+  // Inside cards, reduce top margin for better visual flow
+  .card-body & {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  // Centered showcase (for site architecture overview)
+  &--centered {
+    max-width: 800px;
+    margin: 2rem auto;
+  }
+
+  summary {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--primary-text);
+    background-color: var(--primary-bg-pale);
+    border-radius: 6px 6px 0 0;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &:hover {
+      background-color: var(--secondary-bg);
+      color: var(--light-text);
+    }
+  }
+
+  // FontAwesome icon rotation animation
+  &__marker {
+    transition: transform 0.3s ease;
+    transform: rotate(0deg); // Default: pointing right
+  }
+
+  &[open] summary {
+    border-radius: 6px 6px 0 0;
+
+    &::before {
+      transform: rotate(90deg);
+    }
+  }
+
+  // When details is open, rotate marker 90 degrees down
+  &[open] &__marker {
+    transform: rotate(90deg);
+  }
+
+  .code-showcase__content {
+    padding: 1.25rem;
+    border-top: 1px solid var(--light-border, #e0e0e0);
+  }
+
+  pre {
+    background-color: var(--dark-bg, #2d2d2d);
+    color: var(--light-text, #f8f8f2);
+    padding: 1.25rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0 0 1rem 0; // 1rem bottom margin as requested
+
+    code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      font-size: inherit;
+    }
+  }
+
+  .code-showcase__explanation {
+    margin-top: 0; // Remove top margin since pre has bottom margin
+    margin-bottom: 0.5rem; // 0.5rem bottom margin as requested
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-color-2);
+  }
+
+  .code-showcase__links {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--light-border, #e0e0e0);
+
+    a {
+      color: var(--primary-text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+
+      &:hover {
+        text-decoration: underline;
+        color: var(--secondary-text);
+      }
+
+      &::after {
+        content: ' →';
+        font-weight: normal;
+      }
+    }
+  }
+
+  // Syntax highlighting for JavaScript
+  .language-javascript {
+    .comment {
+      color: #6a9955;
+    }
+    .keyword {
+      color: #569cd6;
+    }
+    .string {
+      color: #ce9178;
+    }
+    .function {
+      color: #dcdcaa;
+    }
+    .number {
+      color: #b5cea8;
+    }
+    .operator {
+      color: #d4d4d4;
+    }
+  }
+
+  // Syntax highlighting for SCSS
+  .language-scss {
+    .comment {
+      color: #6a9955;
+    }
+    .keyword {
+      color: #569cd6;
+    }
+    .property {
+      color: #9cdcfe;
+    }
+    .value {
+      color: #ce9178;
+    }
+    .selector {
+      color: #d7ba7d;
+    }
+    .variable {
+      color: #4fc1ff;
+    }
+  }
+}
+
+// Mobile responsiveness
+@include a.breakpoint-down('699.98') {
+  .code-showcase {
+    margin-top: 1rem;
+
+    &--centered {
+      margin: 1.5rem auto;
+    }
+
+    .code-showcase__content {
+      padding: 1rem;
+    }
+
+    pre {
+      font-size: 0.8rem;
+      padding: 1rem;
+    }
+
+    summary {
+      padding: 0.6rem 0.8rem;
+      font-size: 0.9rem;
+    }
+  }
+}

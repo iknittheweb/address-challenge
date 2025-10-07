@@ -12,13 +12,15 @@
 //* Organizing components separately makes it easier to manage and reuse UI elements, leading to a more modular and maintainable codebase.
 
 @forward 'about';
-@forward 'about1';
 @forward 'alien-form';
 @forward 'breadcrumbs';
 @forward 'buttons';
 @forward 'calculator';
 @forward 'card';
-@forward 'cards';
+@forward 'code-showcase';
+
+// 🎯 SKILLS CHART COMPONENT (Easy removal: delete this line and _skills-chart.scss)
+@forward 'skills-chart';
 @forward 'contact';
 @forward 'dropdown';
 @forward 'footer';

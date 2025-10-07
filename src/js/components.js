@@ -90,10 +90,10 @@ function createBreadcrumbs(category = '', categoryUrl = '', currentPage = '') {
             // Third breadcrumb: Category (optional - only if provided)
             category
               ? `
-          <li class="breadcrumb-item">
-            <a href="${categoryUrl}" class="breadcrumb-link">${category}</a>
-          </li>
-          `
+  <li class="breadcrumb-item">
+    <a href="${categoryUrl}" class="breadcrumb-link">${category}</a>
+  </li>
+  `
               : ''
           }
           <!-- Final breadcrumb: Current page (not a link, just text) -->
@@ -170,12 +170,7 @@ function createHeader(
             aria-expanded="false"
             aria-labelledby="nav-label"
           >
-            <img
-              alt="Open menu"
-              src="/src/img/icons/hamburger.svg"
-              width="30"
-              height="23"
-            />
+            <span class="fa-solid fa-bars" aria-hidden="true"></span>
           </button>
           <!-- Mobile Menu -->
           <div
@@ -186,23 +181,18 @@ function createHeader(
           >
             <!-- Button to close Mobile Menu -->
             <button id="btnClose" class="topnav__close">
-              <img
-                alt="Close menu"
-                src="/src/img/icons/close-button.svg"
-                width="26"
-                height="26"
-              />
+              <span class="fa-solid fa-xmark" aria-hidden="true"></span>
             </button>
             <ul class="topnav__links">
               ${navLinks.links
                 .map(
-                  (link) => `
-                <li class="topnav__item">
-                  <a class="topnav__link" href="${link.href}"${link.current ? ' aria-current="page"' : ''}>
-                    ${link.text}
-                  </a>
-                </li>
-              `
+                  link => `
+    <li class="topnav__item">
+      <a class="topnav__link" href="${link.href}"${link.current ? ' aria-current="page"' : ''}>
+        ${link.text}
+      </a>
+    </li>
+    `
                 )
                 .join('')}
             </ul>
@@ -380,7 +370,7 @@ window.UIComponents = {
 function adjustPortfolioNavLink() {
   // Look for a nav link with text 'Full Portfolio' or 'Portfolio'
   const navLinks = document.querySelectorAll('.topnav__link');
-  navLinks.forEach((link) => {
+  navLinks.forEach(link => {
     const text = link.textContent.trim().toLowerCase();
     if (text === 'portfolio' || text === 'full portfolio') {
       if (window.location.pathname === '/' || window.location.pathname.endsWith('index.html')) {

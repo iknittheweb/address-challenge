@@ -6,7 +6,25 @@
 //* Do NOT put global resets or page-level layout styles here.
 //* Only styles specific to the topnav component belong in this file.
 //* ------------------------------------------------------------
+@use '../A-abstracts' as a;
 /* stylelint-disable no-descending-specificity */
+
+// FontAwesome icon fixes for navigation buttons
+.fa-solid,
+.fa-regular,
+.fa-light,
+.fa-thin,
+.fa-duotone,
+.fa-brands {
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Pro', 'Font Awesome 6 Brands' !important;
+  font-weight: 900;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 .topnav {
   border-bottom: 2px solid var(--topnav-border);
@@ -14,6 +32,18 @@
   top: 0;
   z-index: 100;
   width: 100vw; /* Use viewport width to ensure full coverage */
+  transform: translateY(0);
+  transition: transform 0.3s ease-in-out;
+
+  // Auto-hide functionality
+  &.header-hidden {
+    transform: translateY(-100%);
+  }
+
+  // Respect reduced motion preferences
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 
   &,
   &__menu {
@@ -21,7 +51,7 @@
 
     &,
     & a {
-      color: var(--text-color-2);
+      color: var(--light-text);
     }
   }
 
@@ -67,7 +97,21 @@
     background: none;
     padding: 0;
     border: 0;
-    margin-inline: a.rem(16); // move in from the side
+
+    // FontAwesome icon sizing for navigation buttons
+    .fa-solid {
+      font-size: a.rem(24); // 1.5rem equivalent
+      display: inline-block;
+    }
+
+    @include a.breakpoint-down('699.98') {
+      position: absolute;
+      top: a.rem(12);
+    }
+
+    @include a.breakpoint('700') {
+      margin-inline: a.rem(16); // Only apply margin on desktop
+    }
   }
 
   &__open {
@@ -76,6 +120,7 @@
     }
 
     @include a.breakpoint-down('699.98') {
+      right: a.rem(16);
       // Fade-in animation for mobile hamburger menu
       opacity: 0;
       transform: translateY(-5px);
@@ -133,9 +178,7 @@
 
     @include a.breakpoint-down('699.98') {
       display: block;
-      -webkit-margin-start: auto;
-      margin-inline-start: auto;
-      -webkit-margin-after: 84px;
+      right: a.rem(28);
       margin-block-end: 84px;
     }
   }
@@ -158,8 +201,12 @@
   }
 
   &__item:first-child {
-    @include a.breakpoint('600') {
+    @include a.breakpoint('700') {
       display: none;
+    }
+
+    @include a.breakpoint-down('699.98') {
+      margin-top: a.rem(40);
     }
   }
 
@@ -168,7 +215,7 @@
     font-size: a.rem(20);
     line-height: 2;
     font-weight: 700;
-    color: var(--text-color-2);
+    color: var(--light-text);
     cursor: pointer;
 
     // Smooth transitions for desktop
@@ -192,7 +239,7 @@
       display: block;
       height: 3px;
       margin-top: 3px;
-      background: linear-gradient(to right, var(--link-underline-gradient1), var(--link-underline-gradient2) 80%);
+      background: linear-gradient(to right, var(--secondary-gradient-light), var(--primary-gradient-light) 80%);
       opacity: 0;
       transition: opacity 250ms ease-in-out;
     }

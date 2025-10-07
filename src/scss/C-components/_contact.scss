@@ -6,99 +6,144 @@
 //* Do NOT put global form resets or page-level layout styles here.
 //* Only styles specific to the contact form component belong in this file.
 //* ------------------------------------------------------------
+@use '../A-abstracts' as a;
 /* stylelint-disable no-descending-specificity */
 
+// LIGHT MODE COLOR SCHEME
 .contact {
   padding: a.rem(60) a.rem(20);
-  margin-inline: auto;
+  background: var(--primary-bg);
+  color: var(--light-text);
 
-  &__heading {
+  // Responsive padding for smaller screens
+  @include a.breakpoint-down('699.98') {
+    padding: a.rem(40) a.rem(16);
+  }
+
+  @include a.breakpoint-down('499.98') {
+    padding: a.rem(30) a.rem(12);
+  }
+
+  // Ensure proper centering on very small screens
+  @media (max-width: 360px) {
+    padding: a.rem(20) a.rem(8);
+  }
+
+  .contact__heading {
     text-align: center;
-    margin-bottom: a.rem(30);
+    margin-block: 0 a.rem(30);
+    background: var(--primary-bg);
+    color: var(--light-text);
   }
 
   &__intro {
     text-align: center;
     font-size: a.rem(18);
     margin-bottom: a.rem(40);
-    color: var(--text-color-1);
+    background: var(--primary-bg);
+    color: var(--light-text);
     max-width: a.rem(600);
+    width: 100%; // Ensure full width up to max-width
     margin-left: auto;
     margin-right: auto;
     line-height: 1.6;
+
+    // Responsive font size and spacing
+    @include a.breakpoint-down('699.98') {
+      font-size: a.rem(16);
+      margin-bottom: a.rem(30);
+    }
+
+    @include a.breakpoint-down('499.98') {
+      font-size: a.rem(15);
+      margin-bottom: a.rem(24);
+      line-height: 1.5;
+    }
   }
 
   &__form {
     max-width: a.rem(500);
+    width: 100%; // Ensure form takes available width up to max-width
     margin: 0 auto;
-    background: var(--primary-bg);
+    color: var(--primary-text);
+    background: var(--light-bg);
+    border: 2px solid var(--primary-bg, #1b1919);
+    outline: 4px solid var(--light-bg);
     border-radius: a.rem(12);
     box-shadow: 0 4px 20px rgb(68 15 72 / 10%);
     padding: a.rem(40);
-    border: 1px solid var(--border-color, #e0e0e0);
 
     @include a.breakpoint-down('699.98') {
       padding: a.rem(24);
+      margin: 0 auto; // Ensure centering is maintained
+    }
+
+    @include a.breakpoint-down('499.98') {
+      padding: a.rem(20);
+      border-radius: a.rem(8); // Smaller border radius on small screens
+    }
+
+    @media (max-width: 360px) {
+      padding: a.rem(16);
+      margin: 0 a.rem(4); // Small margins on very narrow screens
     }
   }
 
   &__fieldset {
-    border: none;
     padding: 0;
     margin: 0;
   }
 
   &__legend {
-    font-size: a.rem(20);
+    font-size: a.rem(28);
     font-weight: 600;
-    color: var(--text-color-2);
+    color: var(--primary-text);
     margin-bottom: a.rem(24);
     text-align: center;
     width: 100%;
     padding: 0;
   }
 
-  &__group {
-    margin-bottom: a.rem(20);
-  }
-
   &__label {
     display: block;
     font-weight: 600;
     margin-bottom: a.rem(8);
-    color: var(--text-color-2);
+    color: var(--primary-text);
     font-size: a.rem(20);
+  }
 
-    span {
-      color: var(--accent-color, #d32f2f);
-      margin-left: a.rem(2);
-    }
+  &__label--required {
+    font-size: a.rem(14);
+    color: var(--dark-error); // Mid range purple for required entry
+    margin-left: a.rem(4);
   }
 
   &__input {
+    width: 100%;
+    background: var(--primary-bg);
+    color: var(--light-text);
+    border: 2px solid var(--primary-border);
+
     &::placeholder {
-      color: var(--text-color-muted);
+      color: var(--light-text);
       opacity: 0.8;
       font-style: italic;
       transition: opacity 0.3s ease;
     }
 
+    &:hover,
     &:focus {
-      border-color: var(--primary-border);
-      outline: none;
+      border-color: var(--primary-border-mid);
+      outline: 1px solid var(--primary-border);
       box-shadow: 0 0 0 3px var(--contact-input-focus-shadow);
-      background: var(--bg-light);
-
-      &::placeholder {
-        opacity: 0.5;
-      }
+      background: var(--primary-bg-mid);
     }
 
-    &:invalid:not(:focus, :placeholder-shown) {
-      border-color: var(--error-color, #de1616);
+    &:invalid {
+      border-color: var(--light-error, #ff0a0a);
     }
 
-    &[type='email']:valid {
+    &:valid {
       border-color: var(--success-color, #2ca530);
     }
   }
@@ -111,7 +156,7 @@
   }
 
   &__error {
-    color: var(--error-color, #d32f2f);
+    color: var(--light-error, #d32f2f);
     font-size: a.rem(14);
     margin-top: a.rem(4);
     min-height: a.rem(20);
@@ -121,9 +166,9 @@
   &__submit {
     width: 100%;
     padding: a.rem(16);
-    background: var(--primary-color, #531045);
-    color: #fff;
-    border: 2px solid var(--contact-button-border);
+    background: var(--primary-bg, #531045);
+    color: var(--light-text);
+    border: 2px solid var(--primary-border);
     border-radius: a.rem(8);
     font-size: a.rem(18);
     font-weight: 700;
@@ -133,14 +178,18 @@
     font-family: inherit;
 
     &:hover {
-      background: var(--primary-color-dark, #2d0a30);
+      font-size: a.rem(22);
+      background: var(--primary-bg-light);
+      color: var(--primary-text);
+      outline: 2px solid var(--primary-border);
+      border-width: 1px;
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgb(68 15 72 / 30%);
     }
 
     &:focus {
       outline: none;
-      background: var(--primary-color-dark, #2d0a30);
+      background: var(--primary-bg, #2d0a30);
       box-shadow: 0 0 0 3px rgb(68 15 72 / 30%);
     }
 
@@ -155,51 +204,91 @@
       box-shadow: none;
     }
   }
-
-  // Responsive adjustments
-  @include a.breakpoint('600') {
-    // padding-inline: a.rem(10);
-
-    &__intro {
-      font-size: a.rem(16);
-      margin-bottom: a.rem(30);
-    }
-
-    &__legend {
-      font-size: a.rem(18);
-      margin-bottom: a.rem(20);
-    }
-  }
 }
 
+// DARK COLOR SCHEME
 .contact--inverse {
   background: var(--primary-bg);
-  color: var(--text-color-2);
+  color: var(--light-text);
 
-  .contact__input {
+  .contact__input--inverse {
     background: var(--primary-bg);
-    color: var(--text-color-2);
+    color: var(--light-text);
     border: 2px solid var(--primary-bg);
   }
 
-  .contact__intro,
-  .contact__legend {
-    color: var(--text-color-2);
+  .contact__intro--inverse,
+  .contact__legend--inverse {
+    color: var(--light-text); // Fixed: use light text for contrast against dark background
   }
 
-  .contact__label {
-    color: var(--text-color-accent);
+  .contact__label--inverse {
+    color: var(--light-text); // Fixed: use light text for contrast against dark background
   }
 
-  .contact__form {
-    background: var(--bg-light);
-    color: var(--text-color-1);
+  .contact__form--inverse {
+    background: var(--light-bg);
+    color: var(--dark-text);
     border: 1px solid var(--primary-bg);
   }
 
-  .contact__button {
-    background: var(--text-color-2);
+  .contact__button--inverse {
+    background: var(--light-text);
     color: var(--primary-bg);
     border: 1px solid var(--primary-bg);
+  }
+
+  // =========================
+  // Form Validation States
+  // =========================
+
+  &__input--error {
+    border-color: var(--dark-error) !important;
+    box-shadow: 0 0 0 2px var(--dark-error) !important;
+    background: var(--light-bg);
+  }
+
+  &__input--valid {
+    border-color: var(--secondary-bg) !important;
+    box-shadow: 0 0 0 2px var(--secondary-bg-light) !important;
+  }
+
+  &__error {
+    display: block;
+    min-height: a.rem(20);
+    margin-top: a.rem(4);
+    font-size: a.rem(14);
+    color: var(--dark-error);
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+
+    &--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &__success {
+    background: var(--secondary-bg-light);
+    color: var(--dark-text);
+    padding: a.rem(24);
+    border-radius: a.rem(12);
+    margin-bottom: a.rem(24);
+    box-shadow: 0 4px 12px rgb(66 196 57 / 20%);
+    border: 2px solid var(--secondary-bg);
+
+    p {
+      margin: 0;
+
+      &:first-child {
+        margin-bottom: a.rem(8);
+      }
+
+      strong {
+        color: var(--secondary-bg);
+      }
+    }
   }
 }

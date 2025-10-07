@@ -6,22 +6,174 @@
 //* Do NOT put global resets or page-level layout styles here.
 //* Only styles specific to the footer component belong in this file.
 //* ------------------------------------------------------------
+@use '../A-abstracts' as a;
 
-.home__footer {
-  background-color: var(--primary-bg);
-  color: var(--text-color-2);
-  padding-block: a.rem(16);
-  font-size: a.rem(10);
+.footer {
+  background: var(--primary-bg);
+  color: var(--light-text);
+  margin-top: a.rem(60);
 
-  @include a.breakpoint('900') {
-    padding-block: a.rem(24);
-    font-size: a.rem(16);
+  &__content {
+    padding: a.rem(60) a.rem(20) a.rem(20);
+
+    @include a.breakpoint-down('699.98') {
+      padding: a.rem(40) a.rem(16) a.rem(16);
+    }
   }
 
-  &-content {
-    display: block;
-    width: 80%;
-    margin: 0 auto;
+  &__sections {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: a.rem(40);
+    margin-bottom: a.rem(40);
+
+    @include a.breakpoint('600') {
+      grid-template-columns: repeat(2, 1fr);
+      gap: a.rem(40);
+    }
+
+    @include a.breakpoint('900') {
+      grid-template-columns: 2fr 1fr 1.5fr;
+      gap: a.rem(60);
+    }
+  }
+
+  &__section {
     text-align: center;
+
+    @include a.breakpoint('900') {
+      text-align: left;
+    }
+  }
+
+  &__heading {
+    font-size: a.rem(20);
+    font-weight: 700;
+    color: var(--light-text);
+    margin-bottom: a.rem(16);
+
+    @include a.breakpoint('900') {
+      font-size: a.rem(24);
+    }
+  }
+
+  &__description {
+    font-size: a.rem(16);
+    line-height: 1.6;
+    margin-bottom: a.rem(16);
+    opacity: 0.9;
+  }
+
+  &__nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: a.rem(12);
+    align-items: center;
+
+    @include a.breakpoint('900') {
+      align-items: flex-start;
+    }
+  }
+
+  &__nav-link {
+    color: var(--light-text);
+    text-decoration: none;
+    font-size: a.rem(16);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+
+    &:hover,
+    &:focus {
+      color: var(--primary-gradient-light);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--primary-gradient-light), var(--secondary-gradient-light));
+      transition: width 0.3s ease;
+    }
+
+    &:hover::after,
+    &:focus::after {
+      width: 100%;
+    }
+  }
+
+  &__contact-text {
+    font-size: a.rem(16);
+    line-height: 1.6;
+    margin-bottom: a.rem(20);
+    opacity: 0.9;
+  }
+
+  &__cta-link {
+    display: inline-block;
+    background: var(--primary-bg-mid);
+    color: var(--light-text);
+    padding: a.rem(12) a.rem(24);
+    border-radius: a.rem(6);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: a.rem(16);
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-bg-mid);
+
+    &:hover,
+    &:focus {
+      background: var(--primary-bg-light);
+      border-color: var(--primary-bg-light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgb(0 0 0 / 30%);
+    }
+  }
+
+  &__bottom {
+    border-top: 1px solid var(--primary-bg-mid);
+    padding-top: a.rem(20);
+  }
+
+  &__bottom-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: a.rem(8);
+    text-align: center;
+
+    @include a.breakpoint('600') {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+
+  &__copyright {
+    font-size: a.rem(14);
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  &__tagline {
+    font-size: a.rem(14);
+    margin: 0;
+    font-style: italic;
+    opacity: 0.8;
+  }
+}
+
+// Legacy styles for backward compatibility
+.home__footer {
+  @extend .footer;
+
+  &-content {
+    @extend .footer__content;
   }
 }

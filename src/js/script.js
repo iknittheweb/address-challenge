@@ -5,6 +5,26 @@
  */
 
 // =============================================================================
+// ACCESSIBILITY HELPER FUNCTIONS
+// =============================================================================
+
+// Helper function to announce messages to screen readers
+function announceToScreenReader(message) {
+  const announcement = document.createElement('div');
+  announcement.setAttribute('aria-live', 'polite');
+  announcement.setAttribute('aria-atomic', 'true');
+  announcement.className = 'sr-only';
+  announcement.textContent = message;
+  
+  document.body.appendChild(announcement);
+  
+  // Remove the announcement after a brief delay
+  setTimeout(() => {
+    document.body.removeChild(announcement);
+  }, 1000);
+}
+
+// =============================================================================
 // DOM ELEMENT REFERENCES
 // =============================================================================
 
@@ -28,6 +48,54 @@ const breakpoint = window.matchMedia('(width < 43.75em)');
 
 // Flag to prevent setting up navigation twice (important for component injection)
 let navigationInitialized = false;
+
+// =============================================================================
+// AUTO-HIDE HEADER FUNCTIONALITY
+// =============================================================================
+
+/**
+ * Auto-hide header implementation
+ * Hides header when scrolling down, shows when scrolling up or at top
+ */
+let lastScrollY = 0;
+let isScrolling = false;
+
+function handleHeaderAutoHide() {
+  const header = document.querySelector('.topnav');
+  if (!header) return;
+
+  const currentScrollY = window.scrollY;
+  
+  // Always show header at the very top
+  if (currentScrollY <= 10) {
+    header.classList.remove('header-hidden');
+    return;
+  }
+  
+  // Hide when scrolling down, show when scrolling up
+  if (currentScrollY > lastScrollY && currentScrollY > 100) {
+    // Scrolling down - hide header
+    header.classList.add('header-hidden');
+  } else if (currentScrollY < lastScrollY) {
+    // Scrolling up - show header
+    header.classList.remove('header-hidden');
+  }
+  
+  lastScrollY = currentScrollY;
+}
+
+/**
+ * Throttled scroll handler for better performance
+ */
+function onScroll() {
+  if (!isScrolling) {
+    window.requestAnimationFrame(() => {
+      handleHeaderAutoHide();
+      isScrolling = false;
+    });
+    isScrolling = true;
+  }
+}
 
 // =============================================================================
 // NAVIGATION ACCESSIBILITY SETUP
@@ -96,6 +164,14 @@ window.initializeNavigation = function () {
 
   // STEP 7: Mark as initialized and return success
   navigationInitialized = true;
+  
+  // Set up auto-hide header for this page if not already done
+  if (!window.autoHideInitialized) {
+    window.addEventListener('scroll', onScroll, { passive: true });
+    lastScrollY = window.scrollY;
+    window.autoHideInitialized = true;
+  }
+  
   return true; // Success - navigation is ready
 };
 
@@ -117,6 +193,12 @@ const initializeApp = () => {
   breakpoint.addEventListener('change', () => {
     setupTopNav(); // Update accessibility when screen size changes
   });
+  
+  // Initialize auto-hide header functionality
+  window.addEventListener('scroll', onScroll, { passive: true });
+  
+  // Initialize scroll position
+  lastScrollY = window.scrollY;
 };
 
 // =============================================================================
@@ -217,14 +299,389 @@ initializeApp();
  */
 document.addEventListener('DOMContentLoaded', function () {
   // Find dropdown elements (used on portfolio page for project categories)
-  const dropdownTitle = document.querySelector('.dropdown__title');
+  const dropdownTitleGroup = document.querySelector('.dropdown__title-group');
   const dropdownContent = document.querySelector('.dropdown__content');
 
   // Only set up dropdown if elements exist (not all pages have dropdowns)
-  if (dropdownTitle && dropdownContent) {
-    dropdownTitle.addEventListener('click', function () {
-      // Toggle the 'show' class to expand/collapse dropdown content
-      dropdownContent.classList.toggle('show');
+  if (dropdownTitleGroup && dropdownContent) {
+    
+    // Click handler
+    dropdownTitleGroup.addEventListener('click', function () {
+      toggleDropdown();
     });
+    
+    // Keyboard handler
+    dropdownTitleGroup.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleDropdown();
+      }
+      if (e.key === 'Escape') {
+        closeDropdown();
+      }
+    });
+    
+    function toggleDropdown() {
+      const isOpen = dropdownContent.classList.contains('show');
+      
+      if (isOpen) {
+        closeDropdown();
+      } else {
+        openDropdown();
+      }
+    }
+    
+    function openDropdown() {
+      dropdownContent.classList.add('show');
+      dropdownTitleGroup.classList.add('dropdown-open');
+      dropdownTitleGroup.setAttribute('aria-expanded', 'true');
+    }
+    
+    function closeDropdown() {
+      dropdownContent.classList.remove('show');
+      dropdownTitleGroup.classList.remove('dropdown-open');
+      dropdownTitleGroup.setAttribute('aria-expanded', 'false');
+      // Remove focus to prevent hover/focus styles from sticking
+      dropdownTitleGroup.blur();
+    }
   }
 });
+
+// =============================================================================
+// CONTACT FORM VALIDATION
+// =============================================================================
+
+/**
+ * Contact form validation and user feedback system
+ * Provides real-time validation, accessible error messages, and form submission handling
+ */
+document.addEventListener('DOMContentLoaded', () => {
+  const contactForm = document.querySelector('.contact__form');
+  
+  // Only initialize if contact form exists on the page
+  if (!contactForm) return;
+
+  // Get form elements
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const messageInput = document.getElementById('message');
+  const submitButton = contactForm.querySelector('.contact__submit');
+  
+  // Get error display elements
+  const nameError = document.getElementById('name-error');
+  const emailError = document.getElementById('email-error');
+  const messageError = document.getElementById('message-error');
+
+  // Validation rules and error messages
+  const validationRules = {
+    name: {
+      required: true,
+      minLength: 2,
+      maxLength: 100,
+      pattern: /^[a-zA-Z\s\-'\.]+$/,
+      messages: {
+        required: 'Please tell me your name so I know how to address you!',
+        minLength: 'Your name should be at least 2 characters long.',
+        maxLength: 'Please keep your name under 100 characters.',
+        pattern: 'Please use only letters, spaces, hyphens, apostrophes, and periods in your name.'
+      }
+    },
+    email: {
+      required: true,
+      pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      maxLength: 254,
+      messages: {
+        required: 'I need your email address to get back to you!',
+        pattern: 'Please enter a valid email address (like: you@example.com).',
+        maxLength: 'Please keep your email address under 254 characters.'
+      }
+    },
+    message: {
+      required: true,
+      minLength: 10,
+      maxLength: 1000,
+      messages: {
+        required: 'Please share your project ideas or questions with me!',
+        minLength: 'Could you tell me a bit more? At least 10 characters would be helpful.',
+        maxLength: 'Please keep your message under 1000 characters for now. We can discuss details later!'
+      }
+    }
+  };
+
+  /**
+   * Validates a single form field
+   * @param {HTMLElement} input - The input element to validate
+   * @param {string} fieldName - The field name in validationRules
+   * @returns {boolean} - True if valid, false if invalid
+   */
+  function validateField(input, fieldName) {
+    const rules = validationRules[fieldName];
+    const value = input.value.trim();
+    const errorElement = document.getElementById(`${fieldName}-error`);
+    
+    // Clear previous error state
+    clearFieldError(input, errorElement);
+    
+    // Required field check
+    if (rules.required && !value) {
+      showFieldError(input, errorElement, rules.messages.required);
+      return false;
+    }
+    
+    // Skip other validations if field is empty and not required
+    if (!value) return true;
+    
+    // Length validations
+    if (rules.minLength && value.length < rules.minLength) {
+      showFieldError(input, errorElement, rules.messages.minLength);
+      return false;
+    }
+    
+    if (rules.maxLength && value.length > rules.maxLength) {
+      showFieldError(input, errorElement, rules.messages.maxLength);
+      return false;
+    }
+    
+    // Pattern validation
+    if (rules.pattern && !rules.pattern.test(value)) {
+      showFieldError(input, errorElement, rules.messages.pattern);
+      return false;
+    }
+    
+    // Field is valid
+    showFieldSuccess(input);
+    return true;
+  }
+
+  /**
+   * Shows error state for a field
+   */
+  function showFieldError(input, errorElement, message) {
+    input.setAttribute('aria-invalid', 'true');
+    input.classList.add('contact__input--error');
+    errorElement.textContent = message;
+    errorElement.classList.add('contact__error--visible');
+  }
+
+  /**
+   * Shows success state for a field
+   */
+  function showFieldSuccess(input) {
+    input.setAttribute('aria-invalid', 'false');
+    input.classList.add('contact__input--valid');
+    input.classList.remove('contact__input--error');
+  }
+
+  /**
+   * Clears error/success state for a field
+   */
+  function clearFieldError(input, errorElement) {
+    input.removeAttribute('aria-invalid');
+    input.classList.remove('contact__input--error', 'contact__input--valid');
+    errorElement.textContent = '';
+    errorElement.classList.remove('contact__error--visible');
+  }
+
+  /**
+   * Validates entire form
+   * @returns {boolean} - True if all fields are valid
+   */
+  function validateForm() {
+    const nameValid = validateField(nameInput, 'name');
+    const emailValid = validateField(emailInput, 'email');
+    const messageValid = validateField(messageInput, 'message');
+    
+    return nameValid && emailValid && messageValid;
+  }
+
+  /**
+   * Handles form submission
+   */
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    
+    // Validate all fields
+    const isFormValid = validateForm();
+    
+    if (isFormValid) {
+      // Show success message (since we don't have an API)
+      showSubmissionSuccess();
+    } else {
+      // Focus first invalid field
+      const firstInvalidField = contactForm.querySelector('[aria-invalid="true"]');
+      if (firstInvalidField) {
+        firstInvalidField.focus();
+      }
+    }
+  }
+
+  /**
+   * Shows success message after form validation passes
+   */
+  function showSubmissionSuccess() {
+    // Create success message
+    const successMessage = document.createElement('div');
+    successMessage.className = 'contact__success';
+    successMessage.setAttribute('role', 'status');
+    successMessage.setAttribute('aria-live', 'polite');
+    successMessage.innerHTML = `
+      <p><strong>Thank you for reaching out!</strong></p>
+      <p>I've received your message and I'm excited to learn about your project. I'll get back to you within 24 hours to start our conversation!</p>
+    `;
+    
+    // Insert success message before form
+    contactForm.parentNode.insertBefore(successMessage, contactForm);
+    
+    // Hide form temporarily
+    contactForm.style.display = 'none';
+    
+    // Scroll to success message
+    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Reset form after a moment
+    setTimeout(() => {
+      contactForm.reset();
+      clearAllFieldStates();
+      contactForm.style.display = 'block';
+      successMessage.remove();
+    }, 5000);
+  }
+
+  /**
+   * Clears all field validation states
+   */
+  function clearAllFieldStates() {
+    [nameInput, emailInput, messageInput].forEach(input => {
+      const fieldName = input.name;
+      const errorElement = document.getElementById(`${fieldName}-error`);
+      clearFieldError(input, errorElement);
+    });
+  }
+
+  // Event listeners for real-time validation
+  nameInput.addEventListener('blur', () => validateField(nameInput, 'name'));
+  emailInput.addEventListener('blur', () => validateField(emailInput, 'email'));
+  messageInput.addEventListener('blur', () => validateField(messageInput, 'message'));
+  
+  // Clear errors when user starts typing
+  nameInput.addEventListener('input', () => {
+    if (nameInput.classList.contains('contact__input--error')) {
+      clearFieldError(nameInput, nameError);
+    }
+  });
+  
+  emailInput.addEventListener('input', () => {
+    if (emailInput.classList.contains('contact__input--error')) {
+      clearFieldError(emailInput, emailError);
+    }
+  });
+  
+  messageInput.addEventListener('input', () => {
+    if (messageInput.classList.contains('contact__input--error')) {
+      clearFieldError(messageInput, messageError);
+    }
+  });
+
+  // Form submission
+  contactForm.addEventListener('submit', handleFormSubmit);
+  
+  // 🎯 SKILLS CHART FUNCTIONALITY (Easy removal: delete this section)
+  initializeSkillsChart();
+});
+
+/*! =================================================================
+ * 🎯 INTERACTIVE SKILLS CHART FUNCTIONALITY
+ * =================================================================
+ * EASY REMOVAL: Delete this entire section to remove skills chart
+ * ================================================================= */
+function initializeSkillsChart() {
+  const skillsChart = document.getElementById('skills-chart');
+  if (!skillsChart) return; // Exit if skills chart doesn't exist
+
+  const tabs = skillsChart.querySelectorAll('.skills-chart__tab');
+  const categories = skillsChart.querySelectorAll('.skills-chart__category');
+  const progressBars = skillsChart.querySelectorAll('.skills-chart__progress-fill');
+
+  // Dropdown toggle functionality - only one open at a time
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      const isActive = tab.classList.contains('skills-chart__tab--active');
+      const category = categories[index];
+      
+      if (isActive) {
+        // Close the current dropdown
+        tab.classList.remove('skills-chart__tab--active');
+        tab.setAttribute('aria-expanded', 'false');
+        category.classList.remove('skills-chart__category--active');
+        
+        // Announce to screen readers
+        announceToScreenReader(`${tab.querySelector('.skills-chart__tab-text').textContent} section collapsed`);
+        
+        // Blur the tab to remove focus
+        tab.blur();
+      } else {
+        // Close all other dropdowns first
+        tabs.forEach((otherTab, otherIndex) => {
+          otherTab.classList.remove('skills-chart__tab--active');
+          otherTab.setAttribute('aria-expanded', 'false');
+          categories[otherIndex].classList.remove('skills-chart__category--active');
+        });
+        
+        // Open the clicked dropdown
+        tab.classList.add('skills-chart__tab--active');
+        tab.setAttribute('aria-expanded', 'true');
+        category.classList.add('skills-chart__category--active');
+
+        // Announce to screen readers
+        announceToScreenReader(`${tab.querySelector('.skills-chart__tab-text').textContent} section expanded`);
+
+        // Update progress bar ARIA values when opened
+        const progressBars = category.querySelectorAll('.skills-chart__progress-bar[role="progressbar"]');
+        progressBars.forEach(bar => {
+          const fill = bar.querySelector('.skills-chart__progress-fill');
+          const level = fill.getAttribute('data-level');
+          bar.setAttribute('aria-valuenow', level);
+        });
+
+        // Animate progress bars in the active category
+        const activeBars = category.querySelectorAll('.skills-chart__progress-fill');
+        setTimeout(() => {
+          activeBars.forEach(bar => {
+            const level = bar.getAttribute('data-level');
+            bar.style.width = level + '%';
+          });
+        }, 100);
+      }
+    });
+
+    // Keyboard navigation
+    tab.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        tab.click();
+      }
+    });
+  });
+
+  // No initial progress bar animation needed since all tabs start closed
+
+  // Intersection Observer for scroll-triggered animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Trigger animations when skills chart comes into view
+        const activeBars = entry.target.querySelectorAll('.skills-chart__category--active .skills-chart__progress-fill');
+        activeBars.forEach(bar => {
+          const level = bar.getAttribute('data-level');
+          bar.style.width = level + '%';
+        });
+      }
+    });
+  }, {
+    threshold: 0.3,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  observer.observe(skillsChart);
+}
+// 🎯 END SKILLS CHART FUNCTIONALITY
