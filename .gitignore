@@ -62,8 +62,8 @@ desktop.ini
 # Sass cache
 .sass-cache/
 
-# CSS source maps
-*.css.map
+# CSS source maps (uncomment to exclude from production)
+# *.css.map
 
 # Temporary test files
 src/scss/test.scss
