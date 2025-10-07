@@ -5,10 +5,12 @@
   "description": "I Knit The Web - Personal Portfolio Website",
   "scripts": {
     "build:dev": "node build.cjs development && npx sass src/scss/styles.scss dist/styles.css --style=expanded --source-map",
+    "build:local": "cross-env DOTENV_CONFIG_PATH=.env.local node build.cjs development && npx sass src/scss/styles.scss dist/styles.css --style=expanded --source-map",
     "build:prod": "cross-env NODE_ENV=production node build.cjs production && npx sass src/scss/styles.scss dist/styles.css --style=expanded --source-map && npx sass src/scss/styles.scss dist/styles.min.css --style=compressed --source-map",
     "build:prod-no-maps": "cross-env NODE_ENV=production node build.cjs production && npx sass src/scss/styles.scss dist/styles.css --style=expanded --no-source-map && npx sass src/scss/styles.scss dist/styles.min.css --style=compressed --no-source-map",
     "build:components": "node component-build.cjs",
     "dev": "npm run build:dev",
+    "local": "npm run build:local",
     "deploy": "npm run build:prod",
     "lint": "eslint \"src/**/*.js\" build.cjs component-build.cjs",
     "format": "prettier --write \"src/**/*.{js,css,scss,html}\" build.cjs component-build.cjs",
