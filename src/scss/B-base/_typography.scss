@@ -6,7 +6,7 @@
 //* Do NOT put component, page, or layout-specific styles here.
 //* ------------------------------------------------------------
 //* Handles global typography styles, such as font sizes, weights, and line heights.
-@use '../A-abstracts/functions' as f;
+@use '../A-abstracts' as a;
 
 :root {
   // Font Families
@@ -24,38 +24,38 @@ h3 {
 }
 
 h1 {
-  font-size: f.rem(42);
-  font-size: clamp(f.rem(42), 1.77rem + 3.64vw, f.rem(72));
+  font-size: a.rem(42);
+  font-size: clamp(a.rem(42), 1.77rem + 3.64vw, a.rem(72));
   line-height: 1;
-  -webkit-margin-after: f.rem(20);
-  margin-block-end: f.rem(20);
+  -webkit-margin-after: a.rem(20);
+  margin-block-end: a.rem(20);
 }
 
 h2 {
-  font-size: f.rem(36);
-  font-size: clamp(f.rem(36), 1.91rem + 1.45vw, f.rem(48));
+  font-size: a.rem(36);
+  font-size: clamp(a.rem(36), 1.91rem + 1.45vw, a.rem(48));
   line-height: 1.1;
-  -webkit-margin-after: f.rem(20);
-  margin-block-end: f.rem(20);
+  -webkit-margin-after: a.rem(20);
+  margin-block-end: a.rem(20);
 }
 
 h3 {
-  font-size: f.rem(24);
+  font-size: a.rem(24);
   line-height: 1;
-  -webkit-margin-after: f.rem(10);
-  margin-block-end: f.rem(10);
+  -webkit-margin-after: a.rem(10);
+  margin-block-end: a.rem(10);
 
   &.large {
-    font-size: f.rem(36);
-    font-size: clamp(f.rem(36), 2.02rem + 0.97vw, f.rem(44));
+    font-size: a.rem(36);
+    font-size: clamp(a.rem(36), 2.02rem + 0.97vw, a.rem(44));
 
     span {
       display: block;
-      font-size: f.rem(20);
-      font-size: clamp(f.rem(20), 1.14rem + 0.48vw, f.rem(24));
+      font-size: a.rem(20);
+      font-size: clamp(a.rem(20), 1.14rem + 0.48vw, a.rem(24));
       text-transform: uppercase;
-      -webkit-margin-after: f.rem(10);
-      margin-block-end: f.rem(10);
+      -webkit-margin-after: a.rem(10);
+      margin-block-end: a.rem(10);
     }
   }
 }
@@ -63,23 +63,23 @@ h3 {
 p {
   font-family: var(--font-2);
   margin-top: 0;
-  font-size: f.rem(18);
+  font-size: a.rem(18);
   line-height: 1.4;
 
   &.p--xsmall {
-    font-size: f.rem(16);
+    font-size: a.rem(16);
   }
 
   &.p--medium {
-    font-size: f.rem(20);
-    font-size: clamp(f.rem(20), 1.14rem + 0.48vw, f.rem(24));
+    font-size: a.rem(20);
+    font-size: clamp(a.rem(20), 1.14rem + 0.48vw, a.rem(24));
   }
 
   &.p--large {
-    font-size: f.rem(24);
-    font-size: clamp(f.rem(24), 1.39rem + 0.48vw, f.rem(28));
-    -webkit-margin-after: f.rem(40);
-    margin-block-end: f.rem(40);
+    font-size: a.rem(24);
+    font-size: clamp(a.rem(24), 1.39rem + 0.48vw, a.rem(28));
+    -webkit-margin-after: a.rem(40);
+    margin-block-end: a.rem(40);
   }
 }
 
@@ -91,14 +91,14 @@ a:active {
 }
 
 p > a {
-  color: var(--text-link);
+  color: var(--dark-text-link);
 }
 
 .link__cert {
-  color: var(--primary-color-mid);
+  color: var(--primary-bg-mid);
 
   &:hover {
-    color: var(--primary-color-light);
+    color: var(--primary-bg-light);
   }
 
   &::after {
@@ -107,10 +107,10 @@ p > a {
 }
 
 .link__site {
-  color: var(--secondary-color-mid);
+  color: var(--secondary-bg-mid);
 
   &:hover {
-    color: var(--secondary-color-light);
+    color: var(--secondary-bg-light);
   }
 
   &::after {

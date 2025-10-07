@@ -45,7 +45,7 @@
   height: 1px;
   overflow: hidden;
   z-index: 1000;
-  background: var(--primary-color-light);
+  background: var(--primary-bg-light);
   color: #000;
   padding: f.rem(8) f.rem(16);
   border-radius: 4px;
@@ -60,6 +60,33 @@
   top: f.rem(10);
   width: auto;
   height: auto;
-  outline: 3px solid var(--secondary-color-light);
+  outline: 3px solid var(--secondary-bg-light);
   box-shadow: 0 2px 8px rgb(0 0 0 / 20%);
+}
+
+/* =========================
+   Layout: Section Spacing
+   consistent vertical padding
+   for major page sections
+   ========================= */
+.section-padding {
+  padding-block: f.rem(40); // 2.5rem equivalent
+}
+
+/* =========================
+   Layout: keep defined group of words together so a line break doesn't divide them
+   ========================= */
+.nowrap {
+  white-space: nowrap;
+}
+
+/* =========================
+   Styling for inline FontAwesome icon svgs
+   ========================= */
+
+.inline-icon {
+  width: 1em; /* Scales with text size */
+  height: 1em;
+  vertical-align: middle;
+  color: inherit;
 }

@@ -15,6 +15,7 @@
 // Add more mixins here as your project grows.
 
 $breakpoints-up: (
+  // teeny
   '275': f.em(275),
   // tiny
   '400': f.em(400),
@@ -31,21 +32,29 @@ $breakpoints-up: (
   // large
   '1000': f.em(1000),
   // lg-xl
-  '1240': f.em(1240), // xl-xxl
+  '1240': f.em(1240),
+  // xl
 );
 
 $breakpoints-down: (
+  // teeny tiny
   '399.98': f.em(399.98),
+  // teeny
+  '485.98': f.em(485.98),
   // tiny
   '499.98': f.em(499.98),
   // xxsmall
   '599.98': f.em(599.98),
   // xsmall
   '699.98': f.em(699.98),
+  // xs-s
+  '785.98': f.em(785.98),
   // small
   '799.98': f.em(799.98),
+  // sm-med
+  '899.98': f.em(899.98),
   // medium
-  '999.98': f.em(999.98), // large
+  '999.98': f.em(999.98) // large
 );
 
 @mixin breakpoint($size) {

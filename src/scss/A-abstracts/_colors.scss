@@ -8,51 +8,59 @@
 :root {
   // Color Palette
 
-  // Primary color and variations formerly #440f48
-  --primary-color: #531045;
-  --primary-color-mid: #9c22a5;
-  --primary-color-light: #d049d9;
+  // Primary color and variations - deep purple family
+  --primary-bg: rgb(46, 10, 32); // Deep purple for strong contrast
+  --primary-bg-mid: #751c7d; // Medium purple for balanced contrast
+  --primary-bg-light: #c642cf; // Light purple for highlights
+  --primary-bg-pale: rgb(184, 156, 191); // Muted pale purple for better text readability
 
-  // Secondary color and variations
-  --secondary-color: #13480f;
-  --secondary-color-mid: #2ba522;
-  --secondary-color-light: #52d949;
+  // Secondary color and variations - deep green family
+  --secondary-bg: #0a2d08; // Deep forest green for strong contrast
+  --secondary-bg-mid: #1a3317; // Dark olive green for text
+  --secondary-bg-light: #42c439; // Bright green for accents
+  --secondary-bg-pale: #a8d4a5; // Muted pale green for better text readability
 
-  // Backgrounds
-  --primary-bg: #531045;
-  --bg-light: #e1dede;
+  // Neutral backgrounds
+  --light-bg: #e1dede; // Light neutral background
 
   // Borders
-  --primary-border: #531045;
+  --primary-border: #2d0a1f; // Deep purple border
+  --primary-border-mid: #751c7d; // Deep purple border
+  --light-border: #e1dede; // Light neutral border
+
+  --light-error: #ff0a0a; // Bright red for error messages on dark backgrounds
 
   // Text colors
-  --text-color-1: #333;
-  --text-color-2: #e1dede;
-  --text-color-accent: #531045;
-  --text-color-muted: #dadada;
-  --text-link: #000; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  --dark-text: #1a1a1a; // Very dark gray for primary text
+  --light-text: #e1dede; // Light gray for text on dark backgrounds
+  --primary-text: #2d0a1f; // Deep purple for accent text
+  --secondary-text: #0a2d08; // Deep green for secondary text
+  --dark-text-mid: #c0c0c0; // Medium gray for muted text
+  --dark-text-link: #1a1a1a; // Very dark gray for maximum link contrast
+
+  // FONTAWESOME STYLES
+  --fa-primary-color: #2e0a20;
+  --fa-secondary-color: #b89cbf;
 
   // Topnav
-  --menu-overlay: hsl(0deg 0% 42% / 50%); // covers the body when the mobile menu is open
-  --topnav-border: #e1dede; // to keep a delineation between the header and body content as it scrolls
-  --link-underline-gradient1: #d049d9;
-  --link-underline-gradient2: #52d949;
+  --light-overlay: hsl(0deg 0% 42% / 50%); // Semi-transparent gray overlay
+  --menu-overlay: hsl(0deg 0% 0% / 70%); // Dark overlay for mobile menu (70% opacity)
+  --primary-gradient-light: #c642cf; // Light purple maintaining original lightness
+  --secondary-gradient-light: #42c439; // Bright green maintaining original lightness
 
   // About
-  --dropdown-border: #531045;
-  --link-underline1: #d049d9;
-  --link-underline2: #52d949;
+  --primary-underline-light: #c642cf; // Light purple underline maintaining original lightness
+  --secondary-underline-light: #42c439; // Bright green underline maintaining original lightness
 
   // Contact
-  --contact-button-border: #e1dede;
-  --contact-input-focus-shadow: #5310451a;
-  --error-color: #de1616;
+  --primary-shadow: #2d0a1f1a; // Purple shadow with transparency
+  --dark-error: #751c7d; // mid purple for error messages on light backgrounds
 
   // Hero
-  --hero-text: #fff;
+  --light-text-hero: #e1dede; // White text for hero section
 
   // Calculator Page
-  --calc-display-bg: #fff; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  --calc-display-bg: #e1dede; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
 
   // Alien Page Form Colors
   // ---------------------------------
@@ -71,7 +79,12 @@
   --alien-accent: #000; //! (for text) NEED TO UPDATE THIS BASED ON ORIGINAL CSS
 
   // Effects
-  --alien-glow-color: #ff00d9; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  --primary-glow: #c642cf; // Light purple glow effect
+
+  // Skills Chart
+  --skills-tab-inactive-bg: rgba(255, 255, 255, 0.05); // Subtle background for inactive tabs
+  --skills-tab-inactive-text-opacity: 0.7; // Opacity for inactive tab text
+  --skills-tab-hover-opacity: 0.9; // Opacity for tab hover state
 
   // Font (not a color, but used in component)
   // --alien-font-family: 'Orbitron', sans-serif; // (keep in typography, not here)

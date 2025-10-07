@@ -6,3 +6,35 @@
 //* Do NOT put component, page, or layout-specific styles here.
 //* ------------------------------------------------------------
 //* Includes utility classes for common properties like margins, padding, text alignment, etc.
+
+// =============================================================================
+// ACCESSIBILITY UTILITIES
+// =============================================================================
+
+// Screen reader only content - visually hidden but accessible to screen readers
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Show screen reader content when focused (for skip links, etc.)
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+// =============================================================================
+// GENERAL UTILITIES
+// =============================================================================
