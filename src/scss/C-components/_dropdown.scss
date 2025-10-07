@@ -9,14 +9,14 @@
 @use '../A-abstracts' as a;
 
 .dropdown {
-  width: 80%;
+  width: 100%;
   margin: a.rem(24) auto;
   // Removed background-color to prevent conflicts with child elements
   // Individual elements set their own colors and backgrounds
 
   &__title-group {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     gap: a.rem(16);
     cursor: pointer;
@@ -92,14 +92,6 @@
   // When dropdown is open, rotate hand to point up (original position)
   &__title-group.dropdown-open &__icon {
     transform: rotate(0deg);
-  }
-
-  &__text-content {
-    display: flex;
-    flex-direction: column;
-    gap: a.rem(4);
-    flex-basis: 80%;
-    text-align: left;
   }
 
   &__title {

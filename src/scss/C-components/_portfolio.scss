@@ -35,20 +35,31 @@
     padding: 0 a.rem(10);
     justify-items: center;
 
-    // Default: single column for screens up to 650px
-    grid-template-columns: 1fr;
+    // Smooth auto-fit grid - automatically adjusts columns based on available space
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    max-width: 1200px;
+    margin: 0 auto;
 
-    // Two columns for medium screens (650px+) - this avoids the 575-600px issue
-    @media (width >= 650px) {
-      grid-template-columns: repeat(2, 1fr);
-      max-width: 900px;
-      margin: 0 auto;
-    }
+    // Smooth transitions for layout changes
+    transition:
+      grid-template-columns 0.3s ease,
+      max-width 0.3s ease,
+      gap 0.3s ease;
 
-    // Three columns for large screens (900px+)
-    @include a.breakpoint('900') {
-      grid-template-columns: repeat(3, 1fr);
-      max-width: 1200px;
+    // Container query enhancement for modern browsers
+    container-type: inline-size;
+
+    // Progressive enhancement with container queries
+    @supports (container-type: inline-size) {
+      @container (min-width: 600px) {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: a.rem(24);
+      }
+
+      @container (min-width: 900px) {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: a.rem(28);
+      }
     }
 
     // Fix for very small screens

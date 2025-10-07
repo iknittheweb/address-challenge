@@ -19,7 +19,7 @@ const path = require('path');
 // Load environment variables from .env or .env.production
 // Uses dotenv for easy environment management
 require('dotenv').config({
-  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env',
+  path: process.env.DOTENV_CONFIG_PATH || (process.env.NODE_ENV === 'production' ? '.env.production' : '.env'),
 });
 
 /*
@@ -53,6 +53,12 @@ try {
     .replace(/{{BASE_URL}}/g, baseUrl)
     .replace(/{{ASSET_URL}}/g, assetUrl)
     .replace(/{{CSS_FILE}}/g, cssFile);
+
+  // Remove template warning comment from the output
+  htmlContent = htmlContent.replace(
+    /<!--\s*🚨 IMPORTANT: This is a TEMPLATE file![\s\S]*?DO NOT edit index\.html directly - it gets overwritten!\s*-->\s*/,
+    ''
+  );
 
   // Write the processed HTML
   fs.writeFileSync(outputPath, htmlContent);
