@@ -9,13 +9,13 @@
 @use '../A-abstracts' as a;
 
 :root {
-  // Font Families with robust fallbacks
-  --font-1: 'Merriweather', Georgia, 'Times New Roman', Times, serif;
-  --font-2: 'Merriweather Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  --alien-font-family: 'Orbitron', 'Courier New', Courier, monospace;
+  // System fonts only - no external fonts to avoid CORS issues
+  --font-1: Georgia, 'Times New Roman', Times, serif;
+  --font-2: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --alien-font-family: 'Courier New', Courier, monospace;
 }
 
-// Fallback styles when Google Fonts fail to load
+// Keep fallback class for consistency, though now it's the same as default
 .fonts-failed {
   --font-1: Georgia, 'Times New Roman', Times, serif;
   --font-2: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
