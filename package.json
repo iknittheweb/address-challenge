@@ -4,8 +4,8 @@
   "type": "module",
   "description": "I Knit The Web - Personal Portfolio Website",
   "scripts": {
-    "build:dev": "node build.cjs development",
-    "build:prod": "node build.cjs production",
+    "build:dev": "node build.cjs development && npx sass src/scss/styles.scss dist/styles.css --style=expanded --source-map",
+    "build:prod": "node build.cjs production && npx sass src/scss/styles.scss dist/styles.css --style=expanded --no-source-map && npx sass src/scss/styles.scss dist/styles.min.css --style=compressed --no-source-map",
     "build:components": "node component-build.cjs",
     "dev": "npm run build:dev",
     "deploy": "npm run build:prod",
