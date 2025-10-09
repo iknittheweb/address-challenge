@@ -24,22 +24,21 @@
   height: 100%;
 
   // Support both BEM naming (.card__header) and legacy naming (.card-header)
-  &__header,
   &-header {
-    padding: a.rem(16) a.rem(20);
     border-bottom: 1px solid var(--light-border);
-    height: a.rem(80); // Fixed height to accommodate all header text
     display: flex;
     align-items: center;
     justify-content: center; // Center the text horizontally
     text-align: center;
+    text-wrap: balance;
     background-color: var(--primary-bg);
 
     h3 {
       margin: 0;
       font-size: a.rem(18);
-      line-height: 1.3;
-      color: var(--light-text);
+      line-height: 1.5;
+      height: a.rem(80); // Fixed height to accommodate all header text
+      padding: a.rem(16) a.rem(20) a.rem(20);
       width: 100%;
       display: -webkit-box;
       -webkit-line-clamp: 2; // Limit to 2 lines
@@ -123,5 +122,16 @@
     &:active {
       transform: translateY(0);
     }
+  }
+}
+a.card-header__link {
+  width: 100%;
+  height: a.rem(80); // Fixed height to accommodate all header text
+  color: var(--light-text);
+
+  &:hover,
+  &:focus {
+    background: var(--secondary-bg);
+    text-decoration: underline;
   }
 }

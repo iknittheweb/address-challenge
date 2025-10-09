@@ -4,6 +4,9 @@
  * It works with both static pages (like home) and dynamic component-injected pages
  */
 
+// DEBUG: Test if script is loading
+console.log('🔧 Script.js loaded successfully!');
+
 // =============================================================================
 // CSS AND DOM READY UTILITIES
 // =============================================================================
@@ -16,7 +19,7 @@ function waitForCSSAndDOM(callback) {
   function checkReady() {
     const domReady = document.readyState === 'complete' || document.readyState === 'interactive';
     const cssReady = document.documentElement.classList.contains('css-loaded') || window.mainCSSLoaded;
-    
+
     if (domReady && cssReady) {
       // Add small delay to ensure all rendering is complete
       requestAnimationFrame(() => {
@@ -40,9 +43,9 @@ function announceToScreenReader(message) {
   announcement.setAttribute('aria-atomic', 'true');
   announcement.className = 'sr-only';
   announcement.textContent = message;
-  
+
   document.body.appendChild(announcement);
-  
+
   // Remove the announcement after a brief delay
   setTimeout(() => {
     document.body.removeChild(announcement);
@@ -90,13 +93,13 @@ function handleHeaderAutoHide() {
   if (!header) return;
 
   const currentScrollY = window.scrollY;
-  
+
   // Always show header at the very top
   if (currentScrollY <= 10) {
     header.classList.remove('header-hidden');
     return;
   }
-  
+
   // Hide when scrolling down, show when scrolling up
   if (currentScrollY > lastScrollY && currentScrollY > 100) {
     // Scrolling down - hide header
@@ -105,7 +108,7 @@ function handleHeaderAutoHide() {
     // Scrolling up - show header
     header.classList.remove('header-hidden');
   }
-  
+
   lastScrollY = currentScrollY;
 }
 
@@ -189,14 +192,14 @@ window.initializeNavigation = function () {
 
   // STEP 7: Mark as initialized and return success
   navigationInitialized = true;
-  
+
   // Set up auto-hide header for this page if not already done
   if (!window.autoHideInitialized) {
     window.addEventListener('scroll', onScroll, { passive: true });
     lastScrollY = window.scrollY;
     window.autoHideInitialized = true;
   }
-  
+
   return true; // Success - navigation is ready
 };
 
@@ -218,10 +221,10 @@ const initializeApp = () => {
   breakpoint.addEventListener('change', () => {
     setupTopNav(); // Update accessibility when screen size changes
   });
-  
+
   // Initialize auto-hide header functionality
   window.addEventListener('scroll', onScroll, { passive: true });
-  
+
   // Initialize scroll position
   lastScrollY = window.scrollY;
 };
@@ -329,12 +332,12 @@ waitForCSSAndDOM(function () {
 
   // Only set up dropdown if elements exist (not all pages have dropdowns)
   if (dropdownTitleGroup && dropdownContent) {
-    
+
     // Click handler
     dropdownTitleGroup.addEventListener('click', function () {
       toggleDropdown();
     });
-    
+
     // Keyboard handler
     dropdownTitleGroup.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -345,23 +348,23 @@ waitForCSSAndDOM(function () {
         closeDropdown();
       }
     });
-    
+
     function toggleDropdown() {
       const isOpen = dropdownContent.classList.contains('show');
-      
+
       if (isOpen) {
         closeDropdown();
       } else {
         openDropdown();
       }
     }
-    
+
     function openDropdown() {
       dropdownContent.classList.add('show');
       dropdownTitleGroup.classList.add('dropdown-open');
       dropdownTitleGroup.setAttribute('aria-expanded', 'true');
     }
-    
+
     function closeDropdown() {
       dropdownContent.classList.remove('show');
       dropdownTitleGroup.classList.remove('dropdown-open');
@@ -382,7 +385,7 @@ waitForCSSAndDOM(function () {
  */
 waitForCSSAndDOM(() => {
   const contactForm = document.querySelector('.contact__form');
-  
+
   // Only initialize if contact form exists on the page
   if (!contactForm) return;
 
@@ -391,7 +394,7 @@ waitForCSSAndDOM(() => {
   const emailInput = document.getElementById('email');
   const messageInput = document.getElementById('message');
   const submitButton = contactForm.querySelector('.contact__submit');
-  
+
   // Get error display elements
   const nameError = document.getElementById('name-error');
   const emailError = document.getElementById('email-error');
@@ -443,36 +446,36 @@ waitForCSSAndDOM(() => {
     const rules = validationRules[fieldName];
     const value = input.value.trim();
     const errorElement = document.getElementById(`${fieldName}-error`);
-    
+
     // Clear previous error state
     clearFieldError(input, errorElement);
-    
+
     // Required field check
     if (rules.required && !value) {
       showFieldError(input, errorElement, rules.messages.required);
       return false;
     }
-    
+
     // Skip other validations if field is empty and not required
     if (!value) return true;
-    
+
     // Length validations
     if (rules.minLength && value.length < rules.minLength) {
       showFieldError(input, errorElement, rules.messages.minLength);
       return false;
     }
-    
+
     if (rules.maxLength && value.length > rules.maxLength) {
       showFieldError(input, errorElement, rules.messages.maxLength);
       return false;
     }
-    
+
     // Pattern validation
     if (rules.pattern && !rules.pattern.test(value)) {
       showFieldError(input, errorElement, rules.messages.pattern);
       return false;
     }
-    
+
     // Field is valid
     showFieldSuccess(input);
     return true;
@@ -515,7 +518,7 @@ waitForCSSAndDOM(() => {
     const nameValid = validateField(nameInput, 'name');
     const emailValid = validateField(emailInput, 'email');
     const messageValid = validateField(messageInput, 'message');
-    
+
     return nameValid && emailValid && messageValid;
   }
 
@@ -524,10 +527,10 @@ waitForCSSAndDOM(() => {
    */
   function handleFormSubmit(event) {
     event.preventDefault();
-    
+
     // Validate all fields
     const isFormValid = validateForm();
-    
+
     if (isFormValid) {
       // Show success message (since we don't have an API)
       showSubmissionSuccess();
@@ -553,16 +556,16 @@ waitForCSSAndDOM(() => {
       <p><strong>Thank you for reaching out!</strong></p>
       <p>I've received your message and I'm excited to learn about your project. I'll get back to you within 24 hours to start our conversation!</p>
     `;
-    
+
     // Insert success message before form
     contactForm.parentNode.insertBefore(successMessage, contactForm);
-    
+
     // Hide form temporarily
     contactForm.style.display = 'none';
-    
+
     // Scroll to success message
     successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    
+
     // Reset form after a moment
     setTimeout(() => {
       contactForm.reset();
@@ -587,20 +590,20 @@ waitForCSSAndDOM(() => {
   nameInput.addEventListener('blur', () => validateField(nameInput, 'name'));
   emailInput.addEventListener('blur', () => validateField(emailInput, 'email'));
   messageInput.addEventListener('blur', () => validateField(messageInput, 'message'));
-  
+
   // Clear errors when user starts typing
   nameInput.addEventListener('input', () => {
     if (nameInput.classList.contains('contact__input--error')) {
       clearFieldError(nameInput, nameError);
     }
   });
-  
+
   emailInput.addEventListener('input', () => {
     if (emailInput.classList.contains('contact__input--error')) {
       clearFieldError(emailInput, emailError);
     }
   });
-  
+
   messageInput.addEventListener('input', () => {
     if (messageInput.classList.contains('contact__input--error')) {
       clearFieldError(messageInput, messageError);
@@ -609,7 +612,7 @@ waitForCSSAndDOM(() => {
 
   // Form submission
   contactForm.addEventListener('submit', handleFormSubmit);
-  
+
   // 🎯 SKILLS CHART FUNCTIONALITY (Easy removal: delete this section)
   initializeSkillsChart();
 });
@@ -632,16 +635,16 @@ function initializeSkillsChart() {
     tab.addEventListener('click', () => {
       const isActive = tab.classList.contains('skills-chart__tab--active');
       const category = categories[index];
-      
+
       if (isActive) {
         // Close the current dropdown
         tab.classList.remove('skills-chart__tab--active');
         tab.setAttribute('aria-expanded', 'false');
         category.classList.remove('skills-chart__category--active');
-        
+
         // Announce to screen readers
         announceToScreenReader(`${tab.querySelector('.skills-chart__tab-text').textContent} section collapsed`);
-        
+
         // Blur the tab to remove focus
         tab.blur();
       } else {
@@ -651,7 +654,7 @@ function initializeSkillsChart() {
           otherTab.setAttribute('aria-expanded', 'false');
           categories[otherIndex].classList.remove('skills-chart__category--active');
         });
-        
+
         // Open the clicked dropdown
         tab.classList.add('skills-chart__tab--active');
         tab.setAttribute('aria-expanded', 'true');
