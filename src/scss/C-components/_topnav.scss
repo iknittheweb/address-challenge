@@ -26,6 +26,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+// Auto-hide header class for scroll behavior
+.header-hidden {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+  will-change: transform;
+  /* Optional: add shadow fade or opacity if desired */
+}
+
 .topnav {
   border-bottom: 2px solid var(--topnav-border);
   position: sticky;
@@ -59,7 +67,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding-block: a.rem(12);
+    padding-block: a.rem(12) !important;
     margin-inline: auto;
 
     @include a.breakpoint-down('699.98') {
