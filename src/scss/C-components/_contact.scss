@@ -156,7 +156,7 @@
   }
 
   &__error {
-    color: var(--light-error, #d32f2f);
+    color: var(--light-error, #ff0a0a);
     font-size: a.rem(14);
     margin-top: a.rem(4);
     min-height: a.rem(20);
@@ -193,8 +193,8 @@
 
     &:hover {
       font-size: a.rem(22);
-      background: var(--primary-bg-light);
-      color: var(--primary-text);
+      background: var(--primary-bg);
+      color: var(--light-text);
       outline: 2px solid var(--primary-border);
       border-width: 1px;
       transform: translateY(-2px);

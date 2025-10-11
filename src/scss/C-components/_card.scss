@@ -8,6 +8,7 @@
 //* ------------------------------------------------------------
 @use '../A-abstracts' as a;
 
+// CARD COMPONENT
 .card {
   background-color: var(--light-bg);
   border: 2px solid var(--primary-border);
@@ -17,11 +18,10 @@
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
-
-  // Make cards equal height with flexbox
+  min-height: 32rem; // Minimum height for all cards
   display: flex;
   flex-direction: column;
-  height: 100%;
+  // Remove height: 100% so cards only grow if their own content expands
 
   // Only support BEM naming (.card__header)
   &__header {
