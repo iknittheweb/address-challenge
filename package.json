@@ -4,12 +4,10 @@
   "type": "module",
   "description": "I Knit The Web - Personal Portfolio Website",
   "scripts": {
-    "build:dev": "node build.cjs development && npx sass src/scss/styles.scss dist/styles.css --style=expanded --source-map",
-    "build:local": "cross-env DOTENV_CONFIG_PATH=.env.local node build.cjs development && npx sass src/scss/styles.scss dist/styles.css --style=expanded --source-map",
-    "build:prod": "cross-env NODE_ENV=production node build.cjs production && npx sass src/scss/styles.scss dist/styles.css --style=expanded --source-map && npx sass src/scss/styles.scss dist/styles.min.css --style=compressed --source-map",
-    "build:prod-no-maps": "cross-env NODE_ENV=production node build.cjs production && npx sass src/scss/styles.scss dist/styles.css --style=expanded --no-source-map && npx sass src/scss/styles.scss dist/styles.min.css --style=compressed --no-source-map",
+  "build:local": "cross-env DOTENV_CONFIG_PATH=.env node component-build.cjs all && npx sass src/scss/styles.scss dist/css/styles.css --style=expanded --source-map && npx sass src/scss/styles.scss dist/css/styles.min.css --style=compressed --source-map && npx sass src/scss/E-pages/home/home.scss dist/css/home.css --style=expanded --source-map && npx sass src/scss/E-pages/home/home.scss dist/css/home.min.css --style=compressed --source-map && npx sass src/scss/E-pages/about/about.scss dist/css/about.css --style=expanded --source-map && npx sass src/scss/E-pages/about/about.scss dist/css/about.min.css --style=compressed --source-map && npx sass src/scss/E-pages/contact/contact.scss dist/css/contact.css --style=expanded --source-map && npx sass src/scss/E-pages/contact/contact.scss dist/css/contact.min.css --style=compressed --source-map && npx sass src/scss/E-pages/portfolio/portfolio.scss dist/css/portfolio.css --style=expanded --source-map && npx sass src/scss/E-pages/portfolio/portfolio.scss dist/css/portfolio.min.css --style=compressed --source-map && npx sass src/scss/E-pages/calculator/calculator.scss dist/css/calculator.css --style=expanded --source-map && npx sass src/scss/E-pages/calculator/calculator.scss dist/css/calculator.min.css --style=compressed --source-map && npx postcss dist/css/styles.css -o dist/css/styles.purged.css && npx postcss dist/css/styles.min.css -o dist/css/styles.purged.min.css && npx postcss dist/css/home.min.css -o dist/css/home.purged.min.css && npx postcss dist/css/about.min.css -o dist/css/about.purged.min.css && npx postcss dist/css/contact.min.css -o dist/css/contact.purged.min.css && npx postcss dist/css/portfolio.min.css -o dist/css/portfolio.purged.min.css && npx postcss dist/css/calculator.min.css -o dist/css/calculator.purged.min.css",
+  "build:prod": "cross-env NODE_ENV=production node build.cjs production && npx sass src/scss/styles.scss dist/css/styles.css --style=expanded --source-map && npx sass src/scss/styles.scss dist/css/styles.min.css --style=compressed --source-map && npx sass src/scss/E-pages/home/home.scss dist/css/home.css --style=expanded --source-map && npx sass src/scss/E-pages/home/home.scss dist/css/home.min.css --style=compressed --source-map && npx sass src/scss/E-pages/about/about.scss dist/css/about.css --style=expanded --source-map && npx sass src/scss/E-pages/about/about.scss dist/css/about.min.css --style=compressed --source-map && npx sass src/scss/E-pages/contact/contact.scss dist/css/contact.css --style=expanded --source-map && npx sass src/scss/E-pages/contact/contact.scss dist/css/contact.min.css --style=compressed --source-map && npx sass src/scss/E-pages/portfolio/portfolio.scss dist/css/portfolio.css --style=expanded --source-map && npx sass src/scss/E-pages/portfolio/portfolio.scss dist/css/portfolio.min.css --style=compressed --source-map && npx sass src/scss/E-pages/calculator/calculator.scss dist/css/calculator.css --style=expanded --source-map && npx sass src/scss/E-pages/calculator/calculator.scss dist/css/calculator.min.css --style=compressed --source-map && npx postcss dist/css/styles.css -o dist/css/styles.purged.css && npx postcss dist/css/styles.min.css -o dist/css/styles.purged.min.css && npx postcss dist/css/home.min.css -o dist/css/home.purged.min.css && npx postcss dist/css/about.min.css -o dist/css/about.purged.min.css && npx postcss dist/css/contact.min.css -o dist/css/contact.purged.min.css && npx postcss dist/css/portfolio.min.css -o dist/css/portfolio.purged.min.css && npx postcss dist/css/calculator.min.css -o dist/css/calculator.purged.min.css",
+  "alt": "cross-env DOTENV_CONFIG_PATH=.env.alt node build.cjs alt && npx sass src/scss/styles.scss dist/css/styles.css --style=expanded --source-map && npx sass src/scss/styles.scss dist/css/styles.min.css --style=compressed --source-map && npx sass src/scss/E-pages/home/home.scss dist/css/home.css --style=expanded --source-map && npx sass src/scss/E-pages/home/home.scss dist/css/home.min.css --style=compressed --source-map && npx sass src/scss/E-pages/about/about.scss dist/css/about.css --style=expanded --source-map && npx sass src/scss/E-pages/about/about.scss dist/css/about.min.css --style=compressed --source-map && npx sass src/scss/E-pages/contact/contact.scss dist/css/contact.css --style=expanded --source-map && npx sass src/scss/E-pages/contact/contact.scss dist/css/contact.min.css --style=compressed --source-map && npx sass src/scss/E-pages/portfolio/portfolio.scss dist/css/portfolio.css --style=expanded --source-map && npx sass src/scss/E-pages/portfolio/portfolio.scss dist/css/portfolio.min.css --style=compressed --source-map && npx sass src/scss/E-pages/calculator/calculator.scss dist/css/calculator.css --style=expanded --source-map && npx sass src/scss/E-pages/calculator/calculator.scss dist/css/calculator.min.css --style=compressed --source-map && npx postcss dist/css/styles.css -o dist/css/styles.purged.css && npx postcss dist/css/styles.min.css -o dist/css/styles.purged.min.css && npx postcss dist/css/home.min.css -o dist/css/home.purged.min.css && npx postcss dist/css/about.min.css -o dist/css/about.purged.min.css && npx postcss dist/css/contact.min.css -o dist/css/contact.purged.min.css && npx postcss dist/css/portfolio.min.css -o dist/css/portfolio.purged.min.css && npx postcss dist/css/calculator.min.css -o dist/css/calculator.purged.min.css",
     "build:components": "node component-build.cjs",
-    "dev": "npm run build:dev",
     "local": "npm run build:local",
     "deploy": "npm run build:prod",
     "lint": "eslint \"src/**/*.js\" build.cjs component-build.cjs",
@@ -19,7 +17,7 @@
     "test:style": "stylelint \"src/**/*.scss\"",
     "test:a11y": "node tests/example.accessibility.js",
     "prepare": "husky install",
-    "//": "🚨 REMEMBER: Run 'npm run dev' after editing template, 'npm run deploy' before going live!"
+  "//": "🚨 REMEMBER: Run 'npm run local' after editing template, 'npm run deploy' before going live!"
   },
   "keywords": [
     "web development",
@@ -35,6 +33,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.3",
+    "@fullhuman/postcss-purgecss": "^7.0.2",
     "axe-core": "^4.10.3",
     "babel-jest": "^30.2.0",
     "commitizen": "^4.3.1",
@@ -46,6 +45,8 @@
     "husky": "^9.1.7",
     "jest": "^30.2.0",
     "lint-staged": "^16.2.3",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
     "prettier": "^3.6.2",
     "sass": "^1.93.2",
     "stylelint": "^16.24.0",

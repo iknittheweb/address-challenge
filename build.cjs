@@ -1,17 +1,30 @@
 #!/usr/bin/env node
+// ------------------------------------------------------------
+// BEGINNER-FRIENDLY EXPLANATORY COMMENTS
+// ------------------------------------------------------------
+// This file is a build script for your project.
+// It automates tasks like compiling, bundling, or processing files before deployment.
+//
+// Key concepts:
+// - Build script: Automates repetitive tasks for you
+// - Compilation: Converts code to a format browsers understand
+// - Automation: Saves time and reduces manual errors
+// ------------------------------------------------------------
 
 /*
-  🔧 BUILD SCRIPT - Automatically updates URLs for different environments
-  
+  BUILD SCRIPT - Updates URLs and injects environment variables for different environments
+
   USAGE:
-  - npm run dev     → Builds for development (GitHub Pages)
-  - npm run deploy  → Builds for production (Custom Domain)
-  
-  📝 Remember to:
+  - npm run local   -> Builds for local development (.env, GitHub Pages)
+  - npm run deploy  -> Builds for production (.env.production, custom domain)
+  - npm run alt     -> Builds for alternate environment (.env.alt, alternate GitHub Pages or staging)
+
+  Workflow:
   1. Edit index.template.html (NOT index.html)
-  2. Run npm run dev after making changes
+  2. Run npm run local after making changes for local dev
   3. Run npm run deploy before pushing to production
-  4. Update production baseUrl below when you get your custom domain
+  4. Run npm run alt for alternate environments (if needed)
+  5. Update .env.production and .env.alt as needed for your URLs and settings
 */
 
 const fs = require('fs');
@@ -35,7 +48,7 @@ const assetUrl = process.env.ASSET_URL;
 const cssFile = process.env.CSS_FILE || 'styles.css'; // Default to development CSS
 
 if (!baseUrl || !assetUrl) {
-  console.error('❌ BASE_URL and ASSET_URL must be set in your .env or .env.production file.');
+  console.error('BASE_URL and ASSET_URL must be set in your .env or .env.production file.');
   process.exit(1);
 }
 
@@ -56,18 +69,18 @@ try {
 
   // Remove template warning comment from the output
   htmlContent = htmlContent.replace(
-    /<!--\s*🚨 IMPORTANT: This is a TEMPLATE file![\s\S]*?DO NOT edit index\.html directly - it gets overwritten!\s*-->\s*/,
+    /<!--\s*IMPORTANT: This is a TEMPLATE file![\s\S]*?DO NOT edit index\.html directly - it gets overwritten!\s*-->\s*/,
     ''
   );
 
   // Write the processed HTML
   fs.writeFileSync(outputPath, htmlContent);
 
-  console.log(`✅ Built ${outputPath}`);
-  console.log(`🌐 Base URL: ${baseUrl}`);
-  console.log(`🖼️ Asset URL: ${assetUrl}`);
-  console.log(`🎨 CSS File: ${cssFile}`);
+  console.log(`Built ${outputPath}`);
+  console.log(`Base URL: ${baseUrl}`);
+  console.log(`Asset URL: ${assetUrl}`);
+  console.log(`CSS File: ${cssFile}`);
 } catch (error) {
-  console.error('❌ Build failed:', error.message);
+  console.error('Build failed:', error.message);
   process.exit(1);
 }
