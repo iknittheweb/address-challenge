@@ -9,7 +9,7 @@
   // Color Palette
 
   // Primary color and variations - deep purple family
-  --primary-bg: #2e0a20; // Deep purple for strong contrast
+  --primary-bg: #500f44; // Deep purple for strong contrast
   --primary-bg-mid: #751c7d; // Medium purple for balanced contrast
   --primary-bg-light: #c642cf; // Light purple for highlights
   --primary-bg-pale: #c493d2; // Muted pale purple for better text readability
@@ -24,22 +24,22 @@
   --light-bg: #e1dede; // Light neutral background
 
   // Borders
-  --primary-border: #2d0a1f; // Deep purple border
+  --primary-border: #500f44; // Deep purple border
   --primary-border-mid: #751c7d; // Deep purple border
   --light-border: #e1dede; // Light neutral border
 
-  --light-error: #ff0a0a; // Bright red for error messages on dark backgrounds
+  --light-error: #c642cf; // Bright for error messages on dark backgrounds
 
   // Text colors
   --dark-text: #1a1a1a; // Very dark gray for primary text
   --light-text: #e1dede; // Light gray for text on dark backgrounds
-  --primary-text: #2d0a1f; // Deep purple for accent text
+  --primary-text: #500f44; // Deep purple for accent text
   --secondary-text: #0a2d08; // Deep green for secondary text
   --dark-text-mid: #c0c0c0; // Medium gray for muted text
   --dark-text-link: #1a1a1a; // Very dark gray for maximum link contrast
 
   // FONTAWESOME STYLES
-  --fa-primary-color: #2e0a20;
+  --fa-primary-color: #500f44;
   --fa-secondary-color: #b89cbf;
 
   // Topnav
@@ -53,7 +53,7 @@
   --secondary-underline-light: #42c439; // Bright green underline maintaining original lightness
 
   // Contact
-  --primary-shadow: #2d0a1f1a; // Purple shadow with transparency
+  --primary-shadow: #500f441a; // Purple shadow with transparency
   --dark-error: #751c7d; // mid purple for error messages on light backgrounds
 
   // Hero

@@ -3,6 +3,7 @@
 .wrapper {
   width: min(100% - a.rem(48), a.rem(1200));
   margin-inline: auto;
+  padding-block: a.rem(60);
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
   // More aggressive margin reduction for very small screens

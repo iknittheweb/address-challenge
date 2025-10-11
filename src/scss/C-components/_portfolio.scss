@@ -1,5 +1,5 @@
 //* ------------------------------------------------------------
-//* PORTFOLIO COMPONENT PARTIAL
+//* PORTFOLIO COMPONENT PARTIAL FOR INDEX.HTML, NOT PORTFOLIO.HTML
 //*
 //* Place all styles for the reusable .portfolio component here.
 //* Includes BEM classes like .portfolio, .portfolio__heading, .portfolio__intro, etc.
@@ -24,9 +24,9 @@
     font-size: a.rem(18);
     margin-bottom: a.rem(20);
     color: var(--dark-text);
-    max-width: a.rem(600);
     margin-left: auto;
     margin-right: auto;
+    text-wrap: balance;
   }
 
   &__row {

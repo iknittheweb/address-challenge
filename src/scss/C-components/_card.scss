@@ -23,8 +23,8 @@
   flex-direction: column;
   height: 100%;
 
-  // Support both BEM naming (.card__header) and legacy naming (.card-header)
-  &-header {
+  // Only support BEM naming (.card__header)
+  &__header {
     border-bottom: 1px solid var(--light-border);
     display: flex;
     align-items: center;
@@ -34,6 +34,7 @@
     background-color: var(--primary-bg);
 
     h3 {
+      color: var(--light-text);
       margin: 0;
       font-size: a.rem(18);
       line-height: 1.5;
@@ -48,8 +49,7 @@
     }
   }
 
-  &__body,
-  &-body {
+  &__body {
     padding: 0; // Remove padding to let image fill width
     flex: 1;
     display: flex;
@@ -124,7 +124,7 @@
     }
   }
 }
-a.card-header__link {
+a.card__header-link {
   width: 100%;
   height: a.rem(80); // Fixed height to accommodate all header text
   color: var(--light-text);
