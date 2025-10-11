@@ -1,21 +1,28 @@
-/**
- * COMPONENT INJECTION SYSTEM
- *
- * This file creates reusable header and footer templates that get injected
- * into pages dynamically. This allows us to maintain headers/footers in one
- * place instead of copying HTML to every page.
- *
- * Used by: calculator.html and other component-based pages
- * Not used by: index.html (uses static HTML)
- */
+// ------------------------------------------------------------
+// BEGINNER-FRIENDLY EXPLANATORY COMMENTS
+// ------------------------------------------------------------
+// COMPONENT INJECTION SYSTEM
+// This file creates reusable header and footer templates that get injected
+// into pages dynamically. This lets you maintain headers/footers in one place
+// instead of copying HTML to every page.
+//
+// Used by: calculator.html and other component-based pages
+// Not used by: index.html (uses static HTML)
+//
+// Key concepts:
+// - Component injection: Dynamically adds shared sections (header/footer) to pages.
+// - Navigation configs: Different sets of navigation links for different pages.
+// - Reusability: Change header/footer in one file and update all pages at once.
+// ------------------------------------------------------------
 
-// =============================================================================
+// ------------------------------------------------------------
 // NAVIGATION CONFIGURATION
-// =============================================================================
+// ------------------------------------------------------------
 
 /**
- * Different navigation setups for different types of pages
- * Each config defines what links appear and where they go
+ * NAV_CONFIGS defines different navigation setups for different types of pages.
+ * Each config lists the links that should appear in the navigation bar and where they go.
+ * You can add, remove, or change links for each page type here.
  */
 const NAV_CONFIGS = {
   // HOME PAGE: Links to internal sections and full portfolio
@@ -143,7 +150,7 @@ function createHeader(
     <header class="topnav">
       <!-- ACCESSIBILITY: Hidden heading for screen readers -->
       <h1 class="visually-hidden">I Knit The Web Header</h1>
-      
+
       <div class="wrapper topnav__wrapper">
         <!-- LOGO: Clickable logo that goes to homepage -->
         <a href="/" class="topnav__homelink hover-fade">
@@ -155,12 +162,12 @@ function createHeader(
             height="250"
           />
         </a>
-        
+
         <!-- NAVIGATION: Mobile hamburger menu system -->
         <nav class="topnav__nav" aria-label="Main navigation">
           <!-- ACCESSIBILITY: Hidden label for screen readers -->
           <span id="nav-label" hidden> Navigation </span>
-          
+
           <!-- MOBILE: Dark overlay that appears behind open mobile menu -->
           <div id="overlay" class="topnav__overlay"></div>
           <!-- Button to open Mobile Menu -->
@@ -200,7 +207,7 @@ function createHeader(
         </nav>
       </div>
     </header>
-    
+
     ${breadcrumbData ? createBreadcrumbs(breadcrumbData.category, breadcrumbData.categoryUrl, breadcrumbData.currentPage) : ''}
   `;
 }
@@ -230,6 +237,9 @@ function createFooter() {
  * @param {string} pageSubtitle - Optional page subtitle
  * @param {object} breadcrumbData - Optional breadcrumb information
  */
+// @==================
+// @BOOKMARK: header
+// @==================
 function injectHeader(
   config = 'home', // Default navigation config
   pageTitle = '', // No title by default

@@ -3,18 +3,42 @@
  * This file handles the mobile hamburger menu and responsive navigation
  * It works with both static pages (like home) and dynamic component-injected pages
  */
+// ------------------------------------------------------------
+// BEGINNER-FRIENDLY EXPLANATORY COMMENTS
+// ------------------------------------------------------------
+// This file controls the navigation system for your website.
+// It manages the mobile hamburger menu, responsive navigation, and accessibility features.
+// It works for both static pages (like the homepage) and pages built from components.
+// @==================
+// @BOOKMARK: header
+// @==================
+// Header navigation and auto-hide logic are managed below.
+// Key concepts:
+// - Responsive navigation: Adapts menu for mobile and desktop users.
+// - Hamburger menu: Shows/hides navigation on small screens.
+// - Accessibility: Ensures navigation is usable for everyone, including screen readers.
+// - DOM/CSS readiness: Waits for the page and styles to fully load before running scripts.
+// ------------------------------------------------------------
 
 // DEBUG: Test if script is loading
 console.log('🔧 Script.js loaded successfully!');
 
-// =============================================================================
+// ------------------------------------------------------------
 // CSS AND DOM READY UTILITIES
-// =============================================================================
+// ------------------------------------------------------------
 
 /**
- * Wait for both DOM and CSS to be fully loaded before initializing
- * This prevents layout thrashing and FOUC issues
+ * Wait for both the DOM (HTML structure) and CSS (styles) to be fully loaded before running code.
+ * This helps prevent layout issues and "flash of unstyled content" (FOUC).
  */
+// Example usage:
+// waitForCSSAndDOM(function() {
+//   // your code here
+// });
+// Example usage:
+// waitForCSSAndDOM(function() {
+//   // your code here
+// });
 function waitForCSSAndDOM(callback) {
   function checkReady() {
     const domReady = document.readyState === 'complete' || document.readyState === 'interactive';
@@ -37,6 +61,14 @@ function waitForCSSAndDOM(callback) {
 // =============================================================================
 
 // Helper function to announce messages to screen readers
+// ------------------------------------------------------------
+// ACCESSIBILITY HELPER FUNCTIONS
+// ------------------------------------------------------------
+
+/**
+ * Helper function to announce messages to screen readers for accessibility.
+ * Usage: announceToScreenReader('Menu opened');
+ */
 function announceToScreenReader(message) {
   const announcement = document.createElement('div');
   announcement.setAttribute('aria-live', 'polite');
@@ -54,6 +86,8 @@ function announceToScreenReader(message) {
 
 // =============================================================================
 // DOM ELEMENT REFERENCES
+  // BOOKMARK: header
+  // Auto-hide header logic.
 // =============================================================================
 
 // Get references to main page sections (these stay constant)
@@ -77,6 +111,8 @@ const breakpoint = window.matchMedia('(width < 43.75em)');
 // Flag to prevent setting up navigation twice (important for component injection)
 let navigationInitialized = false;
 
+  // BOOKMARK: nav
+  // Navigation accessibility setup.
 // =============================================================================
 // AUTO-HIDE HEADER FUNCTIONALITY
 // =============================================================================

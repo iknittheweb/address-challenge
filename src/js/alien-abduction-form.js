@@ -1,32 +1,47 @@
+// ------------------------------------------------------------
+// BEGINNER-FRIENDLY EXPLANATORY COMMENTS
+// ------------------------------------------------------------
+// This file handles the "Alien Abduction" form submission using JavaScript.
+// It prevents the default form submission, collects form data, and sends it using AJAX (XMLHttpRequest).
+//
+// Key concepts:
+// - Event listeners: Run code when the user submits the form.
+// - Prevent default: Stops the browser from reloading the page on submit.
+// - AJAX: Sends form data to the server without reloading the page.
+// - Data encoding: Prepares form fields for safe transmission.
+// ------------------------------------------------------------
+
+// Get the first <form> element on the page
 var form = document.getElementsByTagName('form')[0];
+
+// Listen for the form's submit event
 form.addEventListener('submit', function (e) {
+  // Prevent the browser's default form submission (no page reload)
   e.preventDefault();
+  // Call our custom function to send the data
   sendData();
 });
 
-// https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_forms_through_JavaScript
+// Function to collect form data and send it using AJAX
+// Reference: https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_forms_through_JavaScript
 function sendData() {
+  // Create a new XMLHttpRequest object for AJAX
   var XHR = new XMLHttpRequest();
   var urlEncodedData = '';
   var urlEncodedDataPairs = [];
 
+  // Collect each form field and encode its value
   urlEncodedDataPairs.push(
     encodeURIComponent('name') + '=' + encodeURIComponent(form.querySelector('[name=\'name\']').value)
   );
   urlEncodedDataPairs.push(
-    encodeURIComponent('send_to') +
-      '=' +
-      encodeURIComponent(form.querySelector('[name=\'send_to\']').value)
+    encodeURIComponent('send_to') + '=' + encodeURIComponent(form.querySelector('[name=\'send_to\']').value)
   );
   urlEncodedDataPairs.push(
-    encodeURIComponent('email') +
-      '=' +
-      encodeURIComponent(form.querySelector('[name=\'email\']').value)
+    encodeURIComponent('email') + '=' + encodeURIComponent(form.querySelector('[name=\'email\']').value)
   );
   urlEncodedDataPairs.push(
-    encodeURIComponent('phone') +
-      '=' +
-      encodeURIComponent(form.querySelector('[name=\'phone\']').value)
+    encodeURIComponent('phone') + '=' + encodeURIComponent(form.querySelector('[name=\'phone\']').value)
   );
   urlEncodedDataPairs.push(
     encodeURIComponent('date') + '=' + encodeURIComponent(form.querySelector('[name=\'date\']').value)
@@ -35,7 +50,7 @@ function sendData() {
     encodeURIComponent('qty') + '=' + encodeURIComponent(form.querySelector('[name=\'qty\']').value)
   );
 
-  // radio buttons
+  // Collect radio button value for 'ufotype'
   let radio = document.getElementsByName('ufotype');
   for (var i = 0, length = radio.length; i < length; i++) {
     if (radio[i].checked) {
