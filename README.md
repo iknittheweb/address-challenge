@@ -42,7 +42,8 @@ Use `npm audit fix --force` for major/breaking changes (review changelogs first)
 
 # I Knit The Web - Portfolio Website
 
-Welcome to the codebase for my personal portfolio site! This project is a static site built with custom HTML, SCSS, and JavaScript, featuring a flexible build system for easy environment management and modular page/component generation.
+Welcome to the codebase for my personal portfolio site! This project is a static site built with custom HTML, SCSS, and
+JavaScript, featuring a flexible build system for easy environment management and modular page/component generation.
 
 ---
 
@@ -114,8 +115,8 @@ ASSET_URL=...     # The base path or URL for static assets
 
 ## 🔄 NPM Scripts & Commands
 
-- `npm run dev` Build for development/testing
-- `npm run deploy` Build for production
+- `npm run local` Build for local development (all pages, purged CSS)
+- `npm run deploy` Build for production (all pages, purged CSS)
 - `node build.js` Manual build (uses .env)
 - `node build.js production` Manual build (uses .env.production)
 - `node component-build.cjs` Build all pages/components
@@ -158,7 +159,8 @@ ASSET_URL=...     # The base path or URL for static assets
 
 ### Conventional Commits & Commitizen
 
-- This project uses the [Conventional Commits](https://www.conventionalcommits.org/) standard for clear, consistent commit messages.
+- This project uses the [Conventional Commits](https://www.conventionalcommits.org/) standard for clear, consistent
+  commit messages.
 - Use Commitizen to be guided through writing commit messages:
 
   ```bash
@@ -181,9 +183,11 @@ ASSET_URL=...     # The base path or URL for static assets
 
 ## 🧩 How the Build System Works
 
-- **build.js**: Processes `index.template.html` and outputs `index.html`, replacing placeholders with environment-specific values.
+- **build.js**: Processes `index.template.html` and outputs `index.html`, replacing placeholders with
+  environment-specific values.
 - **component-build.cjs**: Generates all pages from templates, injecting shared components and environment variables.
-- **Environment variables** are loaded using [dotenv](https://www.npmjs.com/package/dotenv) and must be set in `.env`/`.env.production`.
+- **Environment variables** are loaded using [dotenv](https://www.npmjs.com/package/dotenv) and must be set in
+  `.env`/`.env.production`.
 - **SCSS** is modular and compiled to `dist/styles.css`.
 - **Legacy CSS** in `src/css/` is being migrated to SCSS (one page at a time).
 
@@ -209,7 +213,9 @@ ASSET_URL=...     # The base path or URL for static assets
 
 ## 💡 About This Project
 
-This site is a showcase of my web development work, built with a focus on maintainability, modularity, and best practices. The build system is custom, but inspired by modern static site generators. If you have questions or want to contribute, see the docs or contact me.
+This site is a showcase of my web development work, built with a focus on maintainability, modularity, and best
+practices. The build system is custom, but inspired by modern static site generators. If you have questions or want to
+contribute, see the docs or contact me.
 
 ---
 
