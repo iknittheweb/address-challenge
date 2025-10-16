@@ -5,7 +5,10 @@
 //* Only @mixin definitions and related code belong in this file.
 //* Do NOT put any CSS rules, variables, or placeholder selectors here.
 //* ------------------------------------------------------------
+// Place all global SCSS mixins here (e.g., breakpoints, utilities).
 @use 'functions' as f;
+// =========================
+// =========================
 @use 'sass:map';
 
 // =========================
@@ -63,7 +66,7 @@ $breakpoints-down: (
 }
 
 @mixin breakpoint-down($size) {
-  @media (max-width: map.get($breakpoints-down, $size)) {
+  @media (max-width: #{map.get($breakpoints-down, $size)}) {
     @content;
   }
 }
