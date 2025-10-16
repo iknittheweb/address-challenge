@@ -20,7 +20,7 @@
   - npm run alt     -> Builds for alternate environment (.env.alt, alternate GitHub Pages or staging)
 
   Workflow:
-  1. Edit index.template.html (NOT index.html)
+  1. Edit index.template.html (NOT index.html) // Sass should compile scss into dist/css
   2. Run npm run local after making changes for local dev
   3. Run npm run deploy before pushing to production
   4. Run npm run alt for alternate environments (if needed)
