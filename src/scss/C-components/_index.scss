@@ -11,17 +11,15 @@
 //& Why It’s Important:
 //* Organizing components separately makes it easier to manage and reuse UI elements, leading to a more modular and maintainable codebase.
 
-@forward 'hero';
-@forward 'about';
+@forward 'about-section';
 @forward 'alien-form';
 @forward 'breadcrumbs';
 @forward 'buttons';
 @forward 'calculator';
 @forward 'card';
 @forward 'code-showcase';
-
-// 🎯 SKILLS CHART COMPONENT (Easy removal: delete this line and _skills-chart.scss)
-@forward 'skills-chart';
+@forward 'hero';
+@forward 'skills-chart'; // 🎯 SKILLS CHART COMPONENT (Easy removal: delete this line and _skills-chart.scss)
 @forward 'contact';
 @forward 'sparkle-animations';
 @forward 'dropdown';

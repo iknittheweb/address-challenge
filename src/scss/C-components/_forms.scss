@@ -18,7 +18,7 @@ textarea,
 select,
 button {
   font-family: inherit;
-  font-size: 1rem;
+  font-size: a.rem(16);
   color: var(--dark-text);
   background: var(--light-bg);
   border: 1px solid var(--primary-border);
@@ -52,7 +52,7 @@ fieldset {
 }
 
 legend {
-  font-size: 1.1rem;
+  font-size: a.rem(17.6);
   font-weight: 600;
   color: var(--primary-bg);
   padding: 0 a.rem(8);

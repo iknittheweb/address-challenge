@@ -6,7 +6,7 @@
 //* Do NOT put global resets or page-level layout styles here.
 //* Only styles specific to the topnav component belong in this file.
 //* ------------------------------------------------------------
-@use '../A-abstracts' as a;
+@use '../A-abstracts/index' as a;
 /* stylelint-disable no-descending-specificity */
 
 // FontAwesome icon fixes for navigation buttons
@@ -205,16 +205,6 @@
       flex-direction: column;
       align-items: center;
       opacity: 1; // Ensure mobile links are always visible
-    }
-  }
-
-  &__item:first-child {
-    @include a.breakpoint('700') {
-      display: none;
-    }
-
-    @include a.breakpoint-down('699.98') {
-      margin-top: a.rem(40);
     }
   }
 

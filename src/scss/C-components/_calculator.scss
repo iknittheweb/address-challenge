@@ -14,7 +14,7 @@
 //* Do NOT put global resets or page-level layout styles here.
 //* Only styles specific to the calculator component belong in this file.
 //* ------------------------------------------------------------
-@use '../A-abstracts' as a;
+@use '../A-abstracts/index' as a;
 
 /* =====================================
    Calculator Display Component
@@ -22,13 +22,13 @@
 .calculator__display {
   text-align: right;
   font-family: 'Courier New', Courier, monospace;
-  padding: 20px 5px;
-  font-size: 40px;
-  border-radius: 4px;
+  padding: a.rem(20) a.rem(5);
+  font-size: a.rem(40);
+  border-radius: a.rem(4);
 
   @include a.breakpoint-down('599.98') {
-    font-size: 24px;
-    padding: 10px 2px;
+    font-size: a.rem(24);
+    padding: a.rem(10) a.rem(2);
   }
 }
 
@@ -46,18 +46,18 @@
   background-color: var(--calc-button-bg);
   color: var(--calc-text-dark);
   border: none;
-  font-size: 40px;
-  height: 100px;
+  font-size: a.rem(40);
+  height: a.rem(100);
   flex-basis: 24.5%;
-  border-radius: 4px;
+  border-radius: a.rem(4);
   transition:
     background 0.2s,
     color 0.2s,
     outline 0.2s;
 
   @include a.breakpoint-down('599.98') {
-    font-size: 24px;
-    height: 60px;
+    font-size: a.rem(24);
+    height: a.rem(60);
   }
 }
 

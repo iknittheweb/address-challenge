@@ -6,7 +6,7 @@
 //* Do NOT put global form resets or page-level layout styles here.
 //* Only styles specific to the contact form component belong in this file.
 //* ------------------------------------------------------------
-@use '../A-abstracts' as a;
+@use '../A-abstracts/index' as a;
 /* stylelint-disable no-descending-specificity */
 
 // LIGHT MODE COLOR SCHEME

@@ -4,29 +4,29 @@
 //* Styles for expandable code snippets in portfolio cards
 //* Shows technical implementation details with proper syntax highlighting
 //* ------------------------------------------------------------
-@use '../A-abstracts' as a;
+@use '../A-abstracts/index' as a;
 
 .code-showcase {
-  margin-top: 1.5rem;
+  margin-top: a.rem(24);
   border: 1px solid var(--light-border, #e0e0e0);
-  border-radius: 6px;
+  border-radius: a.rem(6);
   background-color: var(--light-bg, #fafafa);
 
   // Inside cards, reduce top margin for better visual flow
   .card__body & {
-    margin-top: 1rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin-top: a.rem(16);
+    margin-left: a.rem(16);
+    margin-right: a.rem(16);
   }
 
   // Centered showcase (for site architecture overview)
   &--centered {
-    max-width: 800px;
-    margin: 2rem auto;
+    max-width: a.rem(800);
+    margin: a.rem(32) auto;
   }
 
   summary {
-    padding: 0.75rem 1rem;
+    padding: a.rem(12) a.rem(16);
     cursor: pointer;
     font-weight: 600;
     color: var(--primary-text);
@@ -35,7 +35,7 @@
     user-select: none;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: a.rem(8);
 
     &:hover {
       background-color: var(--secondary-bg);
@@ -81,7 +81,7 @@
   }
 
   .code-showcase__content {
-    padding: 1.25rem;
+    padding: a.rem(20);
     border-top: 1px solid var(--light-border, #e0e0e0);
     background: var(--primary-bg-pale);
   }
@@ -89,13 +89,13 @@
   pre {
     background-color: var(--dark-bg, #2d2d2d);
     color: var(--light-text, #f8f8f2);
-    padding: 1.25rem;
+    padding: a.rem(20);
     border-radius: 4px;
     overflow-x: auto;
     font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
-    font-size: 0.9rem;
+    font-size: a.rem(14.4);
     line-height: 1.4;
-    margin: 0 0 1rem 0; // 1rem bottom margin as requested
+    margin: 0 0 a.rem(16) 0;
 
     code {
       background: none;
@@ -107,22 +107,22 @@
 
   .code-showcase__explanation {
     margin-top: 0; // Remove top margin since pre has bottom margin
-    margin-bottom: 0.5rem; // 0.5rem bottom margin as requested
-    font-size: 0.95rem;
+    margin-bottom: a.rem(8);
+    font-size: a.rem(15.2);
     line-height: 1.5;
     color: var(--text-color-2);
   }
 
   .code-showcase__links {
-    margin-top: 1rem;
-    padding-top: 0.75rem;
+    margin-top: a.rem(16);
+    padding-top: a.rem(12);
     border-top: 1px solid var(--light-border, #e0e0e0);
 
     a {
       color: var(--primary-text);
       text-decoration: none;
       font-weight: 500;
-      font-size: 0.9rem;
+      font-size: a.rem(14.4);
 
       &:hover {
         text-decoration: underline;
@@ -184,24 +184,24 @@
 // Mobile responsiveness
 @include a.breakpoint-down('699.98') {
   .code-showcase {
-    margin-top: 1rem;
+    margin-top: a.rem(16);
 
     &--centered {
-      margin: 1.5rem auto;
+      margin: a.rem(24) auto;
     }
 
     .code-showcase__content {
-      padding: 1rem;
+      padding: a.rem(16);
     }
 
     pre {
-      font-size: 0.8rem;
-      padding: 1rem;
+      font-size: a.rem(12.8);
+      padding: a.rem(16);
     }
 
     summary {
-      padding: 0.6rem 0.8rem;
-      font-size: 0.9rem;
+      padding: a.rem(9.6) a.rem(12.2);
+      font-size: a.rem(14.4);
     }
   }
 }

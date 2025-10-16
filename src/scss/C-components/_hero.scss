@@ -1,0 +1,78 @@
+@use '../A-abstracts' as a;
+
+.hero {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+  padding: a.rem(80) 0 a.rem(48);
+  // margin-bottom: a.rem(40);
+  text-align: center;
+  color: var(--hero-text);
+  background-image: url('/src/img/pages/open-laptops.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  text-wrap: balance;
+  color: var(--light-text);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: repeating-linear-gradient(120deg, rgb(255 255 255 / 7%) 0 2px, transparent 2px 24px);
+  opacity: 0.7;
+  animation: heroSparkle 24s linear infinite;
+}
+
+@keyframes heroSparkle {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 120px 60px;
+  }
+}
+
+.hero > * {
+  position: relative;
+  z-index: 3;
+}
+
+.hero__banner {
+  width: 80%;
+  height: auto;
+  margin: a.rem(10) auto 0 auto;
+  display: block;
+  position: relative;
+
+  // Soft edge blur effect
+  mask: radial-gradient(ellipse at center, black 60%, transparent 90%);
+  -webkit-mask: radial-gradient(ellipse at center, black 60%, transparent 90%);
+}
+
+.hero__title,
+.hero__subtitle,
+.hero__intro {
+  color: #fff;
+}

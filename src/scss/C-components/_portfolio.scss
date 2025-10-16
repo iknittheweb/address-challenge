@@ -7,16 +7,16 @@
 //* Only styles specific to the portfolio component belong in this file.
 //* ------------------------------------------------------------
 
-@use '../A-abstracts' as a;
+@use '../A-abstracts/index' as a;
 
 .portfolio {
-  -webkit-margin-after: 4rem;
-  margin-block-end: 4rem;
+  -webkit-margin-after: a.rem(64);
+  margin-block-end: a.rem(64);
   padding-block: a.rem(50);
 
   .portfolio__heading {
     text-align: center;
-    margin: 0 0 20px 0;
+    margin: 0 0 a.rem(20) 0;
   }
 
   &__intro {
@@ -38,7 +38,7 @@
 
     // Smooth auto-fit grid - automatically adjusts columns based on available space
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    max-width: 1200px;
+    max-width: a.rem(1200);
     margin: 0 auto;
 
     // Smooth transitions for layout changes

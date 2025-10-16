@@ -1,12 +1,5 @@
-//* ALIEN ABDUCTION FORM COMPONENT PARTIAL
-//*
-//* Place all styles for the reusable .alien-form component here.
-//* Includes BEM classes like .alien-form, .alien-form__input, etc.
-//* Do NOT put global form resets or page-level layout styles here.
-//* Only styles specific to the alien abduction form component belong in this file.
-//* ------------------------------------------------------------
+@use '../A-abstracts/index' as a;
 
-//* ------------------------------------------------------------
 //* ALIEN ABDUCTION FORM COMPONENT PARTIAL
 //*
 //* Place all styles for the reusable .alien-form component here.
@@ -14,7 +7,6 @@
 //* Do NOT put global form resets or page-level layout styles here.
 //* Only styles specific to the alien abduction form component belong in this file.
 //* ------------------------------------------------------------
-@use '../A-abstracts' as a;
 
 /* =====================================
    Alien Form Component
@@ -110,14 +102,12 @@
 
   @include a.breakpoint-down('699.98') {
     grid-template-columns: 1fr;
-    gap: a.rem(16);
-    // The .alien-form-page__wrapper class has been moved to _alien-form-page.scss
+    gap: a.rem(16); // The .alien-form-page__wrapper class has been moved to _alien-form-page.scss
   }
 
-  /* =====================================
-   Labels & Form Controls
-   ===================================== */
-
+  /*! =====================================
+  !Labels & Form Controls
+  !===================================== */
   .alien-form__label {
     font-family: var(--alien-font-family);
     font-size: a.rem(14);
