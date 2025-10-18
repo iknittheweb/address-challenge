@@ -32,50 +32,42 @@ function sendData() {
 
   // Collect each form field and encode its value
   urlEncodedDataPairs.push(
-    encodeURIComponent('name') + '=' + encodeURIComponent(form.querySelector('[name=\'name\']').value)
+    encodeURIComponent('name') + '=' + encodeURIComponent(form.querySelector("[name='name']").value)
   );
   urlEncodedDataPairs.push(
-    encodeURIComponent('send_to') + '=' + encodeURIComponent(form.querySelector('[name=\'send_to\']').value)
+    encodeURIComponent('send_to') + '=' + encodeURIComponent(form.querySelector("[name='send_to']").value)
   );
   urlEncodedDataPairs.push(
-    encodeURIComponent('email') + '=' + encodeURIComponent(form.querySelector('[name=\'email\']').value)
+    encodeURIComponent('email') + '=' + encodeURIComponent(form.querySelector("[name='email']").value)
   );
   urlEncodedDataPairs.push(
-    encodeURIComponent('phone') + '=' + encodeURIComponent(form.querySelector('[name=\'phone\']').value)
+    encodeURIComponent('phone') + '=' + encodeURIComponent(form.querySelector("[name='phone']").value)
   );
   urlEncodedDataPairs.push(
-    encodeURIComponent('date') + '=' + encodeURIComponent(form.querySelector('[name=\'date\']').value)
+    encodeURIComponent('date') + '=' + encodeURIComponent(form.querySelector("[name='date']").value)
   );
   urlEncodedDataPairs.push(
-    encodeURIComponent('qty') + '=' + encodeURIComponent(form.querySelector('[name=\'qty\']').value)
+    encodeURIComponent('qty') + '=' + encodeURIComponent(form.querySelector("[name='qty']").value)
   );
 
   // Collect radio button value for 'ufotype'
   let radio = document.getElementsByName('ufotype');
   for (var i = 0, length = radio.length; i < length; i++) {
     if (radio[i].checked) {
-      urlEncodedDataPairs.push(
-        encodeURIComponent('ufotype') + '=' + encodeURIComponent(radio[i].value)
-      );
+      urlEncodedDataPairs.push(encodeURIComponent('ufotype') + '=' + encodeURIComponent(radio[i].value));
     }
   }
 
   // dropdown menu
-  var dropdown = form.querySelector('[name=\'abtype\']');
+  var dropdown = form.querySelector("[name='abtype']");
   urlEncodedDataPairs.push(
-    encodeURIComponent('abtype') +
-      '=' +
-      encodeURIComponent(dropdown.options[dropdown.selectedIndex].text)
+    encodeURIComponent('abtype') + '=' + encodeURIComponent(dropdown.options[dropdown.selectedIndex].text)
   );
   urlEncodedDataPairs.push(
-    encodeURIComponent('comments') +
-      '=' +
-      encodeURIComponent(form.querySelector('[name=\'comments\']').value)
+    encodeURIComponent('comments') + '=' + encodeURIComponent(form.querySelector("[name='comments']").value)
   );
   urlEncodedDataPairs.push(
-    encodeURIComponent('subscribe') +
-      '=' +
-      encodeURIComponent(form.querySelector('[name=\'subscribe\']').checked)
+    encodeURIComponent('subscribe') + '=' + encodeURIComponent(form.querySelector("[name='subscribe']").checked)
   );
 
   // Combine the pairs into a single string and replace all %-encoded spaces to

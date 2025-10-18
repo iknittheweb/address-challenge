@@ -218,7 +218,7 @@ window.initializeNavigation = function () {
 
   //     STEP 5: Set up navigation links
   //     Each navigation link gets a click handler that intelligently closes mobile menu
-  menuTopNav.querySelectorAll('a').forEach(link => {
+  menuTopNav.querySelectorAll('a').forEach((link) => {
     link.removeEventListener('click', handleNavLinkClick); //     Remove old listener
     link.addEventListener('click', handleNavLinkClick); //     Add new listener
   });
@@ -594,18 +594,18 @@ waitForCSSAndDOM(() => {
         },
         body: formData,
       })
-        .then(response => {
+        .then((response) => {
           //     If Formspree returns success, show thank you message
           if (response.ok) {
             showSubmissionSuccess();
           } else {
             //     If Formspree returns error, show error message
-            return response.json().then(data => {
+            return response.json().then((data) => {
               throw new Error(data.error || 'Submission failed. Please try again later.');
             });
           }
         })
-        .catch(error => {
+        .catch((error) => {
           //     Network or server error: show error message
           showSubmissionError(error.message);
         });
@@ -674,7 +674,7 @@ waitForCSSAndDOM(() => {
    * Useful after resetting the form.
    */
   function clearAllFieldStates() {
-    [nameInput, emailInput, messageInput].forEach(input => {
+    [nameInput, emailInput, messageInput].forEach((input) => {
       const fieldName = input.name;
       const errorElement = document.getElementById(`${fieldName}-error`);
       clearFieldError(input, errorElement);
@@ -762,7 +762,7 @@ function initializeSkillsChart() {
 
         //     Update progress bar ARIA values when opened
         const progressBars = category.querySelectorAll('.skills-chart__progress-bar[role="progressbar"]');
-        progressBars.forEach(bar => {
+        progressBars.forEach((bar) => {
           const fill = bar.querySelector('.skills-chart__progress-fill');
           const level = fill.getAttribute('data-level');
           bar.setAttribute('aria-valuenow', level);
@@ -771,7 +771,7 @@ function initializeSkillsChart() {
         //     Animate progress bars in the active category
         const activeBars = category.querySelectorAll('.skills-chart__progress-fill');
         setTimeout(() => {
-          activeBars.forEach(bar => {
+          activeBars.forEach((bar) => {
             const level = bar.getAttribute('data-level');
             bar.style.width = level + '%';
           });
@@ -780,7 +780,7 @@ function initializeSkillsChart() {
     });
 
     //     Keyboard navigation
-    tab.addEventListener('keydown', e => {
+    tab.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         tab.click();
@@ -792,14 +792,14 @@ function initializeSkillsChart() {
 
   //     Intersection Observer for scroll-triggered animations
   const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
+    (entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           //     Trigger animations when skills chart comes into view
           const activeBars = entry.target.querySelectorAll(
             '.skills-chart__category--active .skills-chart__progress-fill'
           );
-          activeBars.forEach(bar => {
+          activeBars.forEach((bar) => {
             const level = bar.getAttribute('data-level');
             bar.style.width = level + '%';
           });

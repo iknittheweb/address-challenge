@@ -193,7 +193,7 @@ function createHeader(
             <ul class="topnav__links">
               ${navLinks.links
                 .map(
-                  link => `
+                  (link) => `
     <li class="topnav__item">
       <a class="topnav__link" href="${link.href}"${link.current ? ' aria-current="page"' : ''}>
         ${link.text}
@@ -380,7 +380,7 @@ window.UIComponents = {
 function adjustPortfolioNavLink() {
   // Look for a nav link with text 'Full Portfolio' or 'Portfolio'
   const navLinks = document.querySelectorAll('.topnav__link');
-  navLinks.forEach(link => {
+  navLinks.forEach((link) => {
     const text = link.textContent.trim().toLowerCase();
     if (text === 'portfolio' || text === 'full portfolio') {
       if (window.location.pathname === '/' || window.location.pathname.endsWith('index.html')) {
