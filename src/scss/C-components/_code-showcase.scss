@@ -4,7 +4,7 @@
 //* Styles for expandable code snippets in portfolio cards
 //* Shows technical implementation details with proper syntax highlighting
 //* ------------------------------------------------------------
-@use '../A-abstracts/index' as a;
+@use 'A-abstracts' as a;
 
 .code-showcase {
   margin-top: a.rem(24);

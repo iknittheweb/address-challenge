@@ -31,7 +31,6 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.3",
-    "@fullhuman/postcss-purgecss": "^7.0.2",
     "axe-core": "^4.10.3",
     "babel-jest": "^30.2.0",
     "commitizen": "^4.3.1",
@@ -50,6 +49,7 @@
     "postcss-cli": "^11.0.1",
     "postcss-prettify": "^0.3.4",
     "prettier": "^3.6.2",
+    "purgecss": "^7.0.2",
     "stylelint": "^16.25.0",
     "stylelint-config-recommended-scss": "^16.0.2",
     "stylelint-config-standard": "^39.0.0",

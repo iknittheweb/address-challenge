@@ -6,7 +6,8 @@
 //* Do NOT put global resets or page-level layout styles here.
 //* Only styles specific to the topnav component belong in this file.
 //* ------------------------------------------------------------
-@use '../A-abstracts/index' as a;
+@use 'A-abstracts' as a;
+
 /* stylelint-disable no-descending-specificity */
 
 // FontAwesome icon fixes for navigation buttons

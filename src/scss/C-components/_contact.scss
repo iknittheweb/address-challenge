@@ -6,7 +6,9 @@
 //* Do NOT put global form resets or page-level layout styles here.
 //* Only styles specific to the contact form component belong in this file.
 //* ------------------------------------------------------------
-@use '../A-abstracts/index' as a;
+
+@use 'A-abstracts' as a;
+
 /* stylelint-disable no-descending-specificity */
 
 // LIGHT MODE COLOR SCHEME
@@ -120,7 +122,7 @@
 
   &__input {
     width: 100%;
-    background: var(--primary-bg);
+    background: var(--secondary-bg);
     color: var(--light-text);
     border: 2px solid var(--primary-border);
 
@@ -166,7 +168,7 @@
   &__submit {
     width: 100%;
     padding: a.rem(16);
-    background: var(--primary-bg, #531045);
+    background: var(--secondary-bg, #531045);
     color: var(--light-text);
     border: 2px solid var(--primary-border);
     border-radius: a.rem(8);

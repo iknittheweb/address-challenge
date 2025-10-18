@@ -7,7 +7,7 @@
 //* Only styles specific to the about component belong in this file.
 //* ------------------------------------------------------------
 
-@use '../A-abstracts/index' as a;
+@use 'A-abstracts' as a;
 
 .about {
   background-color: var(--primary-bg);
