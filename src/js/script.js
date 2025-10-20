@@ -21,7 +21,44 @@
 // ------------------------------------------------------------
 
 //     DEBUG: Test if script is loading
-console.log('🔧 Script.js loaded successfully!');
+// Main entry for Vite. Import all modules and initialize Sentry.
+import { initializeNavigation } from './navigation.js';
+import * as bodyScrollLock from './bodyScrollLock.min.js';
+
+// Initialize navigation (for static pages)
+initializeNavigation();
+
+// Dynamically import dropdown functionality only on portfolio page
+if (document.body.classList.contains('portfolio')) {
+  import('./dropdown.js').then((module) => {
+    if (module.initializeDropdown) module.initializeDropdown();
+  });
+}
+
+// Dynamically import contact form functionality only on contact page
+if (document.body.classList.contains('contact')) {
+  import('./contactForm.js').then((module) => {
+    if (module.initializeContactForm) module.initializeContactForm();
+  });
+}
+
+// Dynamically import skills chart functionality only if #skills-chart exists
+if (document.getElementById('skills-chart')) {
+  import('./skillsChart.js').then((module) => {
+    if (module.initializeSkillsChart) module.initializeSkillsChart();
+  });
+}
+
+// Sentry error tracking
+// Sentry error tracking (already imported above)
+// Sentry.init({ dsn: 'https://a1fa50cd94e090dd1ef4446510f2ea55@o4510218279256064.ingest.us.sentry.io/4510218286006272' });
+
+//     Initialize the app immediately for static pages
+initializeApp();
+
+// ;=============================================================================
+//     DROPDOWN FUNCTIONALITY (for portfolio page)
+// ;=============================================================================
 
 // ------------------------------------------------------------
 //     CSS AND DOM READY UTILITIES
@@ -815,3 +852,9 @@ function initializeSkillsChart() {
   observer.observe(skillsChart);
 }
 //     🎯 END SKILLS CHART FUNCTIONALITY
+
+// ;=============================================================================
+//     SENTRY ERROR TRACKING SETUP
+// ;=============================================================================
+import * as Sentry from '@sentry/browser';
+Sentry.init({ dsn: 'https://a1fa50cd94e090dd1ef4446510f2ea55@o4510218279256064.ingest.us.sentry.io/4510218286006272' });
