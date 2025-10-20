@@ -6,14 +6,15 @@
 //* Do NOT put global resets or page-level layout styles here.
 //* Only styles specific to the breadcrumbs component belong in this file.
 //* ------------------------------------------------------------
-@use 'A-abstracts' as a;
+@use '../A-abstracts/functions' as f;
+@use '../A-abstracts/mixins' as m;
 
 // .breadcrumbs block styles and accessibility improvements combined
 
 .breadcrumbs {
   background-color: var(--light-bg);
   border-bottom: 1px solid var(--nav-border-bottom);
-  padding-block: a.rem(12);
+  padding-block: f.rem(12);
 }
 
 .breadcrumbs__current {
@@ -32,14 +33,14 @@
   display: flex !important;
   flex-wrap: wrap;
   align-items: center;
-  gap: a.rem(8);
+  gap: f.rem(8);
   margin: 0 !important;
   padding: 0 !important;
   list-style: none !important;
-  font-size: a.rem(14);
+  font-size: f.rem(14);
 
-  @include a.breakpoint('600') {
-    font-size: a.rem(16);
+  @include m.breakpoint('600') {
+    font-size: f.rem(16);
   }
 }
 
@@ -51,9 +52,9 @@
   &:not(:last-child)::after {
     content: '›';
     color: var(--dark-text);
-    margin-left: a.rem(8);
-    margin-right: a.rem(4);
-    font-size: a.rem(16);
+    margin-left: f.rem(8);
+    margin-right: f.rem(4);
+    font-size: f.rem(16);
     font-weight: 300;
     opacity: 0.6;
   }
@@ -71,13 +72,13 @@
   }
 
   // Reduce touch target on mobile to save space
-  @include a.breakpoint-down('699.98') {
-    padding: a.rem(4);
+  @include m.breakpoint-down('699.98') {
+    padding: f.rem(4);
   }
 }
 
 // Mobile optimization
-@include a.breakpoint-down('499.98') {
+@include m.breakpoint-down('499.98') {
   .breadcrumbs__item:first-child {
     // On very small screens, hide "Home" and start with "Portfolio" to save space
     display: none;

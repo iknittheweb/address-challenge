@@ -1,5 +1,3 @@
-@use 'A-abstracts' as a;
-
 //* ALIEN ABDUCTION FORM COMPONENT PARTIAL
 //*
 //* Place all styles for the reusable .alien-form component here.
@@ -8,6 +6,9 @@
 //* Only styles specific to the alien abduction form component belong in this file.
 //* ------------------------------------------------------------
 
+@use '../A-abstracts/functions' as f;
+@use '../A-abstracts/mixins' as m;
+
 /* =====================================
    Alien Form Component
    ===================================== */
@@ -15,8 +16,8 @@
 .alien-form {
   background: rgb(var(--alien-secondary-bg), 0.1);
   border: 2px solid var(--alien-border-color);
-  border-radius: a.rem(12);
-  padding: a.rem(40);
+  border-radius: f.rem(12);
+  padding: f.rem(40);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   box-shadow:
@@ -28,7 +29,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: a.rem(12);
+    border-radius: f.rem(12);
     background: linear-gradient(135deg, rgb(0 255 65 / 3%) 0%, rgb(255 51 102 / 3%) 100%);
     pointer-events: none;
   }
@@ -37,13 +38,13 @@
 .alien-form__inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: a.rem(40);
+  gap: f.rem(40);
   position: relative;
   z-index: 1;
 
-  @include a.breakpoint-down('799.98') {
+  @include m.breakpoint-down('799.98') {
     grid-template-columns: 1fr;
-    gap: a.rem(24);
+    gap: f.rem(24);
   }
 }
 
@@ -53,8 +54,8 @@
 
 .alien-form__fieldset {
   border: 2px solid var(--alien-border-color);
-  border-radius: a.rem(8);
-  padding: a.rem(24);
+  border-radius: f.rem(8);
+  padding: f.rem(24);
   background: rgb(10 10 10 / 80%);
   position: relative;
   transition: all 0.3s ease;
@@ -72,15 +73,15 @@
 
 .alien-form__legend {
   font-family: var(--alien-font-family);
-  font-size: a.rem(18);
+  font-size: f.rem(18);
   font-weight: 600;
   color: var(--alien-accent);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  padding: 0 a.rem(12);
+  padding: 0 f.rem(12);
   background: var(--alien-primary-bg);
   border: 1px solid var(--alien-accent);
-  border-radius: a.rem(4);
+  border-radius: f.rem(4);
   text-shadow: 0 0 8px var(--alien-glow-color);
 }
 
@@ -97,12 +98,12 @@
 .alien-form__details {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: a.rem(24);
-  margin-top: a.rem(16);
+  gap: f.rem(24);
+  margin-top: f.rem(16);
 
-  @include a.breakpoint-down('699.98') {
+  @include m.breakpoint-down('699.98') {
     grid-template-columns: 1fr;
-    gap: a.rem(16); // The .alien-form-page__wrapper class has been moved to _alien-form-page.scss
+    gap: f.rem(16); // The .alien-form-page__wrapper class has been moved to _alien-form-page.scss
   }
 
   /*! =====================================
@@ -110,10 +111,10 @@
   !===================================== */
   .alien-form__label {
     font-family: var(--alien-font-family);
-    font-size: a.rem(14);
+    font-size: f.rem(14);
     font-weight: 500;
     color: var(--alien-text-light);
-    margin-bottom: a.rem(4);
+    margin-bottom: f.rem(4);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     display: block;
@@ -124,11 +125,11 @@
   .alien-form__select {
     background: rgb(0 0 0 / 80%);
     border: 2px solid var(--alien-border-color);
-    border-radius: a.rem(6);
-    padding: a.rem(12) a.rem(16);
+    border-radius: f.rem(6);
+    padding: f.rem(12) f.rem(16);
     color: var(--alien-text-light);
     font-family: var(--alien-font-family);
-    font-size: a.rem(14);
+    font-size: f.rem(14);
     transition: all 0.3s ease;
     position: relative;
     width: 100%;
@@ -190,10 +191,10 @@
         content: '';
         position: absolute;
         top: 50%;
-        right: a.rem(12);
+        right: f.rem(12);
         transform: translateY(-50%);
-        width: a.rem(16);
-        height: a.rem(16);
+        width: f.rem(16);
+        height: f.rem(16);
         border: 2px solid var(--alien-border-color);
         border-top: 2px solid var(--alien-accent);
         border-radius: 50%;
@@ -235,7 +236,7 @@
   }
 
   .alien-form__textarea {
-    min-height: a.rem(120);
+    min-height: f.rem(120);
     resize: vertical;
   }
 
@@ -253,9 +254,9 @@
     // Custom dropdown arrow
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%2300ff41' viewBox='0 0 16 16'%3e%3cpath d='m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    background-position: right a.rem(12) center;
-    background-size: a.rem(16);
-    padding-right: a.rem(40);
+    background-position: right f.rem(12) center;
+    background-size: f.rem(16);
+    padding-right: f.rem(40);
 
     // Cross-browser native dropdown arrow hiding
     &::-webkit-outer-spin-button,
@@ -284,7 +285,7 @@
     @supports not (((-webkit-appearance: none) or (-moz-appearance: none) or (appearance: none))) {
       // Keep native styling if appearance isn't supported
       background-image: none;
-      padding-right: a.rem(16);
+      padding-right: f.rem(16);
     }
   }
 
@@ -292,11 +293,11 @@
   .alien-form__option {
     background: rgb(0 0 0 / 95%) !important;
     color: var(--alien-text-light) !important;
-    padding: a.rem(12) a.rem(16) !important;
+    padding: f.rem(12) f.rem(16) !important;
     font-family: var(--alien-font-family) !important;
-    font-size: a.rem(14) !important;
+    font-size: f.rem(14) !important;
     border: none !important;
-    min-height: a.rem(40) !important;
+    min-height: f.rem(40) !important;
 
     &:hover,
     &:focus {
@@ -324,10 +325,10 @@
 
   .alien-form__radio-group-label {
     font-family: var(--alien-font-family);
-    font-size: a.rem(14);
+    font-size: f.rem(14);
     font-weight: 500;
     color: var(--alien-text-light);
-    margin: a.rem(16) 0 a.rem(8);
+    margin: f.rem(16) 0 f.rem(8);
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
@@ -335,15 +336,15 @@
   .alien-form__radio-group {
     display: flex;
     flex-direction: column;
-    gap: a.rem(8);
+    gap: f.rem(8);
   }
 
   .alien-form__radio-label {
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: a.rem(8);
-    border-radius: a.rem(6);
+    padding: f.rem(8);
+    border-radius: f.rem(6);
     transition: all 0.3s ease;
 
     &:hover {
@@ -355,11 +356,11 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    width: a.rem(18);
-    height: a.rem(18);
+    width: f.rem(18);
+    height: f.rem(18);
     border: 2px solid var(--alien-border-color);
     border-radius: 50%;
-    margin-right: a.rem(12);
+    margin-right: f.rem(12);
     position: relative;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -375,8 +376,8 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: a.rem(6);
-        height: a.rem(6);
+        width: f.rem(6);
+        height: f.rem(6);
         background: var(--alien-primary-bg);
         border-radius: 50%;
       }
@@ -390,7 +391,7 @@
 
   .alien-form__radio-text {
     font-family: var(--alien-font-family);
-    font-size: a.rem(14);
+    font-size: f.rem(14);
     color: var(--alien-text-light);
     line-height: 1.4;
   }
@@ -403,11 +404,11 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: a.rem(12);
+    padding: f.rem(12);
     border: 2px solid var(--alien-border-color);
-    border-radius: a.rem(6);
+    border-radius: f.rem(6);
     transition: all 0.3s ease;
-    margin: a.rem(16) 0;
+    margin: f.rem(16) 0;
 
     &:hover {
       border-color: var(--alien-accent);
@@ -419,11 +420,11 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    width: a.rem(18);
-    height: a.rem(18);
+    width: f.rem(18);
+    height: f.rem(18);
     border: 2px solid var(--alien-border-color);
-    border-radius: a.rem(4);
-    margin-right: a.rem(12);
+    border-radius: f.rem(4);
+    margin-right: f.rem(12);
     position: relative;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -440,7 +441,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         color: var(--alien-primary-bg);
-        font-size: a.rem(12);
+        font-size: f.rem(12);
         font-weight: bold;
       }
     }
@@ -453,7 +454,7 @@
 
   .alien-form__checkbox-text {
     font-family: var(--alien-font-family);
-    font-size: a.rem(14);
+    font-size: f.rem(14);
     color: var(--alien-text-light);
     line-height: 1.4;
   }
@@ -465,17 +466,17 @@
   .alien-form__submit {
     background: linear-gradient(135deg, var(--alien-accent) 0%, var(--alien-accent-secondary) 100%);
     border: none;
-    border-radius: a.rem(8);
-    padding: a.rem(16) a.rem(32);
+    border-radius: f.rem(8);
+    padding: f.rem(16) f.rem(32);
     color: var(--alien-primary-bg);
     font-family: var(--alien-font-family);
-    font-size: a.rem(16);
+    font-size: f.rem(16);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: a.rem(24);
+    margin-top: f.rem(24);
     position: relative;
     overflow: hidden;
 
@@ -517,17 +518,17 @@
    Responsive Design
    ===================================== */
 
-  @include a.breakpoint-down('799.98') {
+  @include m.breakpoint-down('799.98') {
     .alien-form {
-      padding: a.rem(24);
+      padding: f.rem(24);
     }
 
     .alien-form__fieldset {
-      padding: a.rem(16);
+      padding: f.rem(16);
     }
 
     .alien-form__details {
-      gap: a.rem(16);
+      gap: f.rem(16);
     }
   }
 
@@ -544,12 +545,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: a.rem(32);
-    gap: a.rem(12);
+    margin-bottom: f.rem(32);
+    gap: f.rem(12);
 
     &-step {
-      width: a.rem(12);
-      height: a.rem(12);
+      width: f.rem(12);
+      height: f.rem(12);
       border-radius: 50%;
       background: var(--alien-border-color);
       transition: all 0.3s ease;
@@ -565,8 +566,8 @@
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          width: a.rem(6);
-          height: a.rem(6);
+          width: f.rem(6);
+          height: f.rem(6);
           background: var(--alien-primary-bg);
           border-radius: 50%;
         }
@@ -583,14 +584,14 @@
           left: 50%;
           transform: translate(-50%, -50%);
           color: var(--alien-primary-bg);
-          font-size: a.rem(8);
+          font-size: f.rem(8);
           font-weight: bold;
         }
       }
     }
 
     &-connector {
-      width: a.rem(24);
+      width: f.rem(24);
       height: 2px;
       background: var(--alien-border-color);
       transition: all 0.3s ease;
@@ -613,11 +614,11 @@
       &::after {
         content: '✓';
         position: absolute;
-        right: a.rem(12);
+        right: f.rem(12);
         top: 50%;
         transform: translateY(-50%);
         color: var(--alien-accent);
-        font-size: a.rem(14);
+        font-size: f.rem(14);
         font-weight: bold;
       }
     }
@@ -637,7 +638,7 @@
       .alien-form__legend::after {
         content: ' ✓';
         color: var(--alien-accent);
-        margin-left: a.rem(8);
+        margin-left: f.rem(8);
       }
     }
   }
@@ -646,55 +647,55 @@
    Enhanced Responsive Design
    ===================================== */
 
-  @include a.breakpoint-down('999.98') {
+  @include m.breakpoint-down('999.98') {
     .alien-form__inner {
-      gap: a.rem(32);
+      gap: f.rem(32);
     }
   }
 
-  @include a.breakpoint-down('799.98') {
+  @include m.breakpoint-down('799.98') {
     .alien-form {
-      padding: a.rem(24);
+      padding: f.rem(24);
     }
 
     .alien-form__fieldset {
-      padding: a.rem(16);
+      padding: f.rem(16);
     }
 
     .alien-form__details {
-      gap: a.rem(16);
+      gap: f.rem(16);
     }
 
     .alien-form__input,
     .alien-form__textarea,
     .alien-form__select {
-      font-size: a.rem(16); // Prevent zoom on iOS
+      font-size: f.rem(16); // Prevent zoom on iOS
     }
   }
 
-  @include a.breakpoint-down('699.98') {
+  @include m.breakpoint-down('699.98') {
     .alien-form {
-      padding: a.rem(16);
+      padding: f.rem(16);
     }
 
     .alien-form__fieldset {
-      padding: a.rem(12);
+      padding: f.rem(12);
     }
 
     .alien-form__legend {
-      font-size: a.rem(16);
+      font-size: f.rem(16);
     }
 
     .alien-form__progress {
-      margin-bottom: a.rem(20);
+      margin-bottom: f.rem(20);
 
       &-step {
-        width: a.rem(10);
-        height: a.rem(10);
+        width: f.rem(10);
+        height: f.rem(10);
       }
 
       &-connector {
-        width: a.rem(16);
+        width: f.rem(16);
       }
     }
 

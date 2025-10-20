@@ -6,7 +6,8 @@
 //* Only styles specific to the calculator component belong in this file.
 //* ------------------------------------------------------------
 
-@use 'A-abstracts' as a;
+@use '../A-abstracts/functions' as f;
+@use '../A-abstracts/mixins' as m;
 
 /* =====================================
    Calculator Display Component
@@ -14,13 +15,13 @@
 .calculator__display {
   text-align: right;
   font-family: 'Courier New', Courier, monospace;
-  padding: a.rem(20) a.rem(5);
-  font-size: a.rem(40);
-  border-radius: a.rem(4);
+  padding: f.rem(20) f.rem(5);
+  font-size: f.rem(40);
+  border-radius: f.rem(4);
 
-  @include a.breakpoint-down('599.98') {
-    font-size: a.rem(24);
-    padding: a.rem(10) a.rem(2);
+  @include m.breakpoint-down('599.98') {
+    font-size: f.rem(24);
+    padding: f.rem(10) f.rem(2);
   }
 }
 
@@ -38,18 +39,18 @@
   background-color: var(--calc-button-bg);
   color: var(--calc-text-dark);
   border: none;
-  font-size: a.rem(40);
-  height: a.rem(100);
+  font-size: f.rem(40);
+  height: f.rem(100);
   flex-basis: 24.5%;
-  border-radius: a.rem(4);
+  border-radius: f.rem(4);
   transition:
     background 0.2s,
     color 0.2s,
     outline 0.2s;
 
-  @include a.breakpoint-down('599.98') {
-    font-size: a.rem(24);
-    height: a.rem(60);
+  @include m.breakpoint-down('599.98') {
+    font-size: f.rem(24);
+    height: f.rem(60);
   }
 }
 

@@ -7,17 +7,18 @@
 //* Only styles specific to the about component belong in this file.
 //* ------------------------------------------------------------
 
-@use 'A-abstracts' as a;
+@use '../A-abstracts/functions' as f;
+@use '../A-abstracts/mixins' as m;
 
 .about {
   background-color: var(--primary-bg);
   color: var(--light-text);
-  padding-block: a.rem(60);
+  padding-block: f.rem(60);
 
   &__content {
     display: flex;
     flex-wrap: wrap;
-    gap: a.rem(32);
+    gap: f.rem(32);
     align-items: center;
     padding-bottom: 60px;
     color: var(--light-text);
@@ -27,9 +28,9 @@
   &__profile {
     flex: 0 0 40%;
     min-width: 250px;
-    width: a.rem(300);
+    width: f.rem(300);
 
-    @include a.breakpoint-down('699.98') {
+    @include m.breakpoint-down('699.98') {
       flex: none;
       width: 100%;
     }
@@ -71,7 +72,7 @@
     max-width: 100%; // Prevent overflow
     overflow-wrap: break-word; // Break long words if needed
 
-    @include a.breakpoint-down('699.98') {
+    @include m.breakpoint-down('699.98') {
       flex: none;
       min-width: 0;
     }
@@ -82,7 +83,7 @@
     }
 
     p:not(.dropdown__title) {
-      margin-bottom: a.rem(8);
+      margin-bottom: f.rem(8);
     }
 
     .fa-brands {
@@ -92,7 +93,7 @@
     }
   }
   &__heading {
-    margin: -10px 0 a.rem(16) 0 !important;
+    margin: -10px 0 f.rem(16) 0 !important;
     text-align: left !important;
   }
   .bonafides {
@@ -114,16 +115,16 @@
     container-type: inline-size;
 
     // Smoother breakpoint using mixin
-    @include a.breakpoint('1000') {
+    @include m.breakpoint('1000') {
       flex-direction: row;
-      gap: a.rem(16);
+      gap: f.rem(16);
     }
 
     // Progressive enhancement
     @supports (container-type: inline-size) {
       @container (min-width: 800px) {
         flex-direction: row;
-        gap: a.rem(16);
+        gap: f.rem(16);
       }
     }
   }

@@ -4,29 +4,30 @@
 //* Styles for expandable code snippets in portfolio cards
 //* Shows technical implementation details with proper syntax highlighting
 //* ------------------------------------------------------------
-@use 'A-abstracts' as a;
+@use '../A-abstracts/functions' as f;
+@use '../A-abstracts/mixins' as m;
 
 .code-showcase {
-  margin-top: a.rem(24);
+  margin-top: f.rem(24);
   border: 1px solid var(--light-border, #e0e0e0);
-  border-radius: a.rem(6);
+  border-radius: f.rem(6);
   background-color: var(--light-bg, #fafafa);
 
   // Inside cards, reduce top margin for better visual flow
   .card__body & {
-    margin-top: a.rem(16);
-    margin-left: a.rem(16);
-    margin-right: a.rem(16);
+    margin-top: f.rem(16);
+    margin-left: f.rem(16);
+    margin-right: f.rem(16);
   }
 
   // Centered showcase (for site architecture overview)
   &--centered {
-    max-width: a.rem(800);
-    margin: a.rem(32) auto;
+    max-width: f.rem(800);
+    margin: f.rem(32) auto;
   }
 
   summary {
-    padding: a.rem(12) a.rem(16);
+    padding: f.rem(12) f.rem(16);
     cursor: pointer;
     font-weight: 600;
     color: var(--primary-text);
@@ -35,7 +36,7 @@
     user-select: none;
     display: flex;
     align-items: center;
-    gap: a.rem(8);
+    gap: f.rem(8);
 
     &:hover {
       background-color: var(--secondary-bg);
@@ -81,7 +82,7 @@
   }
 
   .code-showcase__content {
-    padding: a.rem(20);
+    padding: f.rem(20);
     border-top: 1px solid var(--light-border, #e0e0e0);
     background: var(--primary-bg-pale);
   }
@@ -89,13 +90,13 @@
   pre {
     background-color: var(--dark-bg, #2d2d2d);
     color: var(--light-text, #f8f8f2);
-    padding: a.rem(20);
+    padding: f.rem(20);
     border-radius: 4px;
     overflow-x: auto;
     font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
-    font-size: a.rem(14.4);
+    font-size: f.rem(14.4);
     line-height: 1.4;
-    margin: 0 0 a.rem(16) 0;
+    margin: 0 0 f.rem(16) 0;
 
     code {
       background: none;
@@ -107,22 +108,22 @@
 
   .code-showcase__explanation {
     margin-top: 0; // Remove top margin since pre has bottom margin
-    margin-bottom: a.rem(8);
-    font-size: a.rem(15.2);
+    margin-bottom: f.rem(8);
+    font-size: f.rem(15.2);
     line-height: 1.5;
     color: var(--text-color-2);
   }
 
   .code-showcase__links {
-    margin-top: a.rem(16);
-    padding-top: a.rem(12);
+    margin-top: f.rem(16);
+    padding-top: f.rem(12);
     border-top: 1px solid var(--light-border, #e0e0e0);
 
     a {
       color: var(--primary-text);
       text-decoration: none;
       font-weight: 500;
-      font-size: a.rem(14.4);
+      font-size: f.rem(14.4);
 
       &:hover {
         text-decoration: underline;
@@ -182,26 +183,26 @@
 }
 
 // Mobile responsiveness
-@include a.breakpoint-down('699.98') {
+@include m.breakpoint-down('699.98') {
   .code-showcase {
-    margin-top: a.rem(16);
+    margin-top: f.rem(16);
 
     &--centered {
-      margin: a.rem(24) auto;
+      margin: f.rem(24) auto;
     }
 
     .code-showcase__content {
-      padding: a.rem(16);
+      padding: f.rem(16);
     }
 
     pre {
-      font-size: a.rem(12.8);
-      padding: a.rem(16);
+      font-size: f.rem(12.8);
+      padding: f.rem(16);
     }
 
     summary {
-      padding: a.rem(9.6) a.rem(12.2);
-      font-size: a.rem(14.4);
+      padding: f.rem(9.6) f.rem(12.2);
+      font-size: f.rem(14.4);
     }
   }
 }

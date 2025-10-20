@@ -1,4 +1,4 @@
-@use 'A-abstracts' as a;
+@use '../A-abstracts/functions' as f;
 
 .hero {
   position: relative;
@@ -12,8 +12,8 @@
   align-items: center;
   justify-content: center;
   min-height: 340px;
-  padding: a.rem(80) 0 a.rem(48);
-  // margin-bottom: a.rem(40);
+  padding: f.rem(80) 0 f.rem(48);
+  // margin-bottom: f.rem(40);
   text-align: center;
   color: var(--hero-text);
   background-image: url('/src/img/pages/open-laptops.jpg');
@@ -62,7 +62,7 @@
 .hero__banner {
   width: 80%;
   height: auto;
-  margin: a.rem(10) auto 0 auto;
+  margin: f.rem(10) auto 0 auto;
   display: block;
   position: relative;
 

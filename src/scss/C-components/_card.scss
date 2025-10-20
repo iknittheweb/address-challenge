@@ -6,7 +6,7 @@
 //* Do NOT put global resets or page-level layout styles here.
 //* Only styles specific to the card component belong in this file.
 //* ------------------------------------------------------------
-@use 'A-abstracts' as a;
+@use '../A-abstracts/functions' as f;
 
 // CARD COMPONENT
 
@@ -14,13 +14,13 @@
 .card {
   background-color: var(--light-bg); // Sets card background color
   border: 2px solid var(--primary-border); // Adds a border around the card
-  border-radius: a.rem(8); // Rounds the corners of the card
+  border-radius: f.rem(8); // Rounds the corners of the card
   box-shadow: 0 4px 8px rgb(0 0 0 / 10%); // Adds a subtle shadow for depth
-  max-width: a.rem(400); // Maximum width for card
+  max-width: f.rem(400); // Maximum width for card
   width: 100%; // Card takes full width of parent
   margin: 0 auto; // Centers the card horizontally
   overflow: hidden; // Prevents content from overflowing
-  min-height: a.rem(512); // Ensures all cards have a minimum height
+  min-height: f.rem(512); // Ensures all cards have a minimum height
   display: flex; // Uses flexbox for layout
   flex-direction: column; // Stacks children vertically
   // Remove height: 100% so cards only grow if their own content expands
@@ -38,10 +38,10 @@
     h3 {
       color: var(--light-text); // Header text color
       margin: 0; // Removes default margin
-      font-size: a.rem(18); // Sets font size
+      font-size: f.rem(18); // Sets font size
       line-height: 1.5; // Sets line height
-      height: a.rem(80); // Fixed height for header
-      padding: a.rem(16) a.rem(20) a.rem(20); // Padding around header text
+      height: f.rem(80); // Fixed height for header
+      padding: f.rem(16) f.rem(20) f.rem(20); // Padding around header text
       width: 100%; // Header takes full width
       display: -webkit-box; // For line clamping
       -webkit-line-clamp: 2; // Limit header to 2 lines (Webkit)
@@ -69,21 +69,21 @@
 
     img {
       width: 100%; // Image fills card width
-      height: a.rem(200); // Fixed image height for uniform cards
+      height: f.rem(200); // Fixed image height for uniform cards
       object-fit: cover; // Crop/scale image to fit area
       display: block; // Remove inline spacing
-      padding: a.rem(6); // Padding around image
+      padding: f.rem(6); // Padding around image
     }
 
     figcaption {
-      padding: a.rem(16) a.rem(20); // Padding for caption
+      padding: f.rem(16) f.rem(20); // Padding for caption
       flex-grow: 1; // Caption grows to fill space
       background-color: var(--light-bg); // Caption background
 
       p {
         margin: 0; // Remove default margin
         color: var(--dark-text); // Caption text color
-        font-size: a.rem(14); // Caption font size
+        font-size: f.rem(14); // Caption font size
         line-height: 1.4; // Caption line height
       }
     }
@@ -91,8 +91,8 @@
 
   // Footer area for button
   &__footer {
-    height: a.rem(60); // Fixed height for uniform footer
-    padding: a.rem(12) a.rem(20); // Padding for footer
+    height: f.rem(60); // Fixed height for uniform footer
+    padding: f.rem(12) f.rem(20); // Padding for footer
     display: flex; // Flexbox for footer layout
     align-items: center; // Vertically center button
     justify-content: flex-end; // Align button to the right
@@ -105,13 +105,13 @@
     display: inline-flex; // Button uses flexbox for content
     align-items: center; // Vertically center button text/icon
     justify-content: center; // Horizontally center button text/icon
-    padding: a.rem(8) a.rem(16); // Padding inside button
-    border-radius: a.rem(4); // Rounded button corners
+    padding: f.rem(8) f.rem(16); // Padding inside button
+    border-radius: f.rem(4); // Rounded button corners
     background: var(--primary-bg-mid); // Button background color
     color: var(--light-text); // Button text color
     text-decoration: none; // Remove underline from links
     font-weight: 700; // Bold button text
-    font-size: a.rem(14); // Button font size
+    font-size: f.rem(14); // Button font size
     transition: all 0.2s ease; // Smooth hover/focus transitions
     cursor: pointer; // Pointer cursor on hover
     border: none; // Remove default border
@@ -134,7 +134,7 @@
 // Link in card header
 card__header-link {
   width: 100%; // Link takes full header width
-  height: a.rem(80); // Fixed height for header link
+  height: f.rem(80); // Fixed height for header link
   color: var(--light-text); // Link text color
 
   &:hover,

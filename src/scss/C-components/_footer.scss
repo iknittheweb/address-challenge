@@ -6,61 +6,62 @@
 //* Do NOT put global resets or page-level layout styles here.
 //* Only styles specific to the footer component belong in this file.
 //* ------------------------------------------------------------
-@use 'A-abstracts' as a;
+@use '../A-abstracts/functions' as f;
+@use '../A-abstracts/mixins' as m;
 
 .footer {
   background: var(--primary-bg);
   color: var(--light-text);
-  margin-top: a.rem(60);
+  margin-top: f.rem(60);
 
   &__content {
-    padding: a.rem(60) a.rem(20) a.rem(20);
+    padding: f.rem(60) f.rem(20) f.rem(20);
 
-    @include a.breakpoint-down('699.98') {
-      padding: a.rem(40) a.rem(16) a.rem(16);
+    @include m.breakpoint-down('699.98') {
+      padding: f.rem(40) f.rem(16) f.rem(16);
     }
   }
 
   &__sections {
     display: grid;
     grid-template-columns: 1fr;
-    gap: a.rem(40);
-    margin-bottom: a.rem(40);
+    gap: f.rem(40);
+    margin-bottom: f.rem(40);
 
-    @include a.breakpoint('600') {
+    @include m.breakpoint('600') {
       grid-template-columns: repeat(2, 1fr);
-      gap: a.rem(40);
+      gap: f.rem(40);
     }
 
-    @include a.breakpoint('900') {
+    @include m.breakpoint('900') {
       grid-template-columns: 2fr 1fr 1.5fr;
-      gap: a.rem(60);
+      gap: f.rem(60);
     }
   }
 
   &__section {
     text-align: center;
 
-    @include a.breakpoint('900') {
+    @include m.breakpoint('900') {
       text-align: left;
     }
   }
 
   &__heading {
-    font-size: a.rem(20);
+    font-size: f.rem(20);
     font-weight: 700;
     color: var(--light-text);
-    margin-bottom: a.rem(16);
+    margin-bottom: f.rem(16);
 
-    @include a.breakpoint('900') {
-      font-size: a.rem(24);
+    @include m.breakpoint('900') {
+      font-size: f.rem(24);
     }
   }
 
   &__description {
-    font-size: a.rem(16);
+    font-size: f.rem(16);
     line-height: 1.6;
-    margin-bottom: a.rem(16);
+    margin-bottom: f.rem(16);
     opacity: 0.9;
   }
 
@@ -70,10 +71,10 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: a.rem(12);
+    gap: f.rem(12);
     align-items: center;
 
-    @include a.breakpoint('900') {
+    @include m.breakpoint('900') {
       align-items: flex-start;
     }
   }
@@ -81,7 +82,7 @@
   &__nav-link {
     color: var(--light-text);
     text-decoration: none;
-    font-size: a.rem(16);
+    font-size: f.rem(16);
     font-weight: 500;
     transition: color 0.3s ease;
     position: relative;
@@ -109,9 +110,9 @@
   }
 
   &__contact-text {
-    font-size: a.rem(16);
+    font-size: f.rem(16);
     line-height: 1.6;
-    margin-bottom: a.rem(20);
+    margin-bottom: f.rem(20);
     opacity: 0.9;
   }
 
@@ -119,11 +120,11 @@
     display: inline-block;
     background: var(--primary-bg-mid);
     color: var(--light-text);
-    padding: a.rem(12) a.rem(24);
-    border-radius: a.rem(6);
+    padding: f.rem(12) f.rem(24);
+    border-radius: f.rem(6);
     text-decoration: none;
     font-weight: 700;
-    font-size: a.rem(16);
+    font-size: f.rem(16);
     transition: all 0.3s ease;
     border: 2px solid var(--primary-bg-mid);
 
@@ -138,17 +139,17 @@
 
   &__bottom {
     border-top: 1px solid var(--primary-bg-mid);
-    padding-top: a.rem(20);
+    padding-top: f.rem(20);
   }
 
   &__bottom-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: a.rem(8);
+    gap: f.rem(8);
     text-align: center;
 
-    @include a.breakpoint('600') {
+    @include m.breakpoint('600') {
       flex-direction: row;
       justify-content: space-between;
       text-align: left;
@@ -156,13 +157,13 @@
   }
 
   &__copyright {
-    font-size: a.rem(14);
+    font-size: f.rem(14);
     margin: 0;
     opacity: 0.8;
   }
 
   &__tagline {
-    font-size: a.rem(14);
+    font-size: f.rem(14);
     margin: 0;
     font-style: italic;
     opacity: 0.8;

@@ -6,7 +6,8 @@
 //* Do NOT put global resets or page-level layout styles here.
 //* Only styles specific to the topnav component belong in this file.
 //* ------------------------------------------------------------
-@use 'A-abstracts' as a;
+@use '../A-abstracts/functions' as f;
+@use '../A-abstracts/mixins' as m;
 
 /* stylelint-disable no-descending-specificity */
 
@@ -68,25 +69,25 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding-block: a.rem(12) !important;
+    padding-block: f.rem(12) !important;
     margin-inline: auto;
 
-    @include a.breakpoint-down('699.98') {
+    @include m.breakpoint-down('699.98') {
       position: relative;
     }
   }
 
   &__homelink {
-    margin-left: a.rem(24);
+    margin-left: f.rem(24);
   }
 
   &__logo {
-    width: a.rem(120);
-    height: a.rem(120);
+    width: f.rem(120);
+    height: f.rem(120);
   }
 
   &__overlay {
-    @include a.breakpoint-down('699.98') {
+    @include m.breakpoint-down('699.98') {
       position: fixed;
       inset: 0;
       background-color: var(--menu-overlay);
@@ -109,27 +110,27 @@
 
     // FontAwesome icon sizing for navigation buttons
     .fa-solid {
-      font-size: a.rem(24); // 1.5rem equivalent
+      font-size: f.rem(24); // 1.5rem equivalent
       display: inline-block;
     }
 
-    @include a.breakpoint-down('699.98') {
+    @include m.breakpoint-down('699.98') {
       position: absolute;
-      top: a.rem(12);
+      top: f.rem(12);
     }
 
-    @include a.breakpoint('700') {
-      margin-inline: a.rem(16); // Only apply margin on desktop
+    @include m.breakpoint('700') {
+      margin-inline: f.rem(16); // Only apply margin on desktop
     }
   }
 
   &__open {
-    @include a.breakpoint('700') {
+    @include m.breakpoint('700') {
       display: none;
     }
 
-    @include a.breakpoint-down('699.98') {
-      right: a.rem(16);
+    @include m.breakpoint-down('699.98') {
+      right: f.rem(16);
       // Fade-in animation for mobile hamburger menu
       opacity: 0;
       transform: translateY(-5px);
@@ -137,7 +138,7 @@
     }
 
     &[aria-expanded='true'] + .topnav__menu {
-      @include a.breakpoint-down('699.98') {
+      @include m.breakpoint-down('699.98') {
         display: block; // Show the mobile menu
         transform: translateY(0); // Slide it into view
       }
@@ -149,7 +150,7 @@
   }
 
   &__menu {
-    @include a.breakpoint('700') {
+    @include m.breakpoint('700') {
       // Desktop: Normal menu behavior
       display: block;
       position: static;
@@ -162,7 +163,7 @@
       inset: auto;
     }
 
-    @include a.breakpoint-down('699.98') {
+    @include m.breakpoint-down('699.98') {
       // Mobile: Hidden by default, only shown when menu is opened
       display: none;
       width: 100vw;
@@ -185,24 +186,24 @@
   &__close {
     display: none;
 
-    @include a.breakpoint-down('699.98') {
+    @include m.breakpoint-down('699.98') {
       display: block;
-      right: a.rem(28);
+      right: f.rem(28);
       margin-block-end: 84px;
     }
   }
 
   &__links {
     display: flex;
-    gap: a.rem(40);
+    gap: f.rem(40);
 
     // Smooth transition for desktop appearance
-    @include a.breakpoint('700') {
+    @include m.breakpoint('700') {
       opacity: 0;
       animation: fade-in-links 400ms ease-in-out 200ms forwards;
     }
 
-    @include a.breakpoint-down('699.98') {
+    @include m.breakpoint-down('699.98') {
       flex-direction: column;
       align-items: center;
       opacity: 1; // Ensure mobile links are always visible
@@ -211,14 +212,14 @@
 
   &__link {
     display: block;
-    font-size: a.rem(20);
+    font-size: f.rem(20);
     line-height: 2;
     font-weight: 700;
     color: var(--light-text);
     cursor: pointer;
 
     // Smooth transitions for desktop
-    @include a.breakpoint('700') {
+    @include m.breakpoint('700') {
       opacity: 0;
       transform: translateY(-10px);
       transition:
@@ -248,8 +249,8 @@
     }
   }
 
-  @include a.breakpoint('600') {
-    font-size: a.rem(16);
+  @include m.breakpoint('600') {
+    font-size: f.rem(16);
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
