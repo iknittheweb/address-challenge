@@ -225,10 +225,14 @@ This project uses the BEM (Block\_\_Element--Modifier) naming convention for all
 
 ```scss
 .block {
-}
-.block__element {
-}
-.block__element--modifier {
+
+**Edit `.template.html` files in `src/templates/` for all page content.**
+
+**IMPORTANT:**
+- The build system automatically replaces page-specific placeholders (e.g., `{{TITLE}}`, `{{DESCRIPTION}}`, `{{KEYWORDS}}`, `{{OG_IMAGE}}`, `{{PAGE_NAME}}`) with generic defaults if not set in your template.
+- A warning comment is added at the top of each generated HTML file reminding you to check and update these values before deploying.
+- Always review the top of your generated HTML files in `dist/pages/` for the warning comment and ensure all placeholders have meaningful, page-specific content.
+- To update, edit your `.template.html` file and rebuild.
 }
 ```
 
