@@ -36,7 +36,9 @@
     "transformIgnorePatterns": [
       "/node_modules/(?!parse5|jsdom)"
     ],
-    "setupFiles": ["<rootDir>/jest.setup.js"]
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ]
   },
   "dependencies": {
     "@sentry/browser": "^10.20.0",
@@ -53,7 +55,8 @@
     "commitizen": "^4.3.1",
     "cross-env": "^10.1.0",
     "cssnano": "^7.1.1",
-    "cypress": "^15.3.0",
+    "cypress": "^13.6.0",
+    "cypress-image-snapshot": "^4.0.1",
     "cz-conventional-changelog": "^3.0.1",
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
