@@ -4,15 +4,18 @@
   "type": "module",
   "description": "I Knit The Web - Personal Portfolio Website",
   "scripts": {
-    "build:local": "node build.cjs && node purge-and-minify.cjs",
+    "build:local": "node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && node build.cjs && node component-build.cjs && npm run test:a11y:all && npm run test:e2e && npm run test:style",
     "local": "npm run build:local",
-    "build:prod": "cross-env NODE_ENV=production node build.cjs production && node purge-and-minify.cjs",
-    "build:alt": "node build.cjs alt && node purge-and-minify.cjs",
+    "build:prod": "node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && cross-env NODE_ENV=production node build.cjs production && node component-build.cjs && npm run test:a11y:all && npm run test:e2e && npm run test:style",
+    "prod": "npm run build:prod",
+    "build:alt": "node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && node build.cjs alt && node component-build.cjs && npm run test:a11y:all && npm run test:e2e && npm run test:style",
     "build:css": "node purge-and-minify.cjs",
+    "css": "npm run build:css",
     "test": "jest",
     "test:e2e": "cypress open",
     "test:style": "stylelint \"src/**/*.scss\"",
-    "test:a11y": "node tests/example.accessibility.js",
+    "test:a11y": "node tests/example.accessibility.cjs",
+    "test:a11y:all": "jest tests/multi-page.accessibility.auto.test.cjs",
     "prepare": "husky install",
     "format:json": "prettier --write \"**/*.json\""
   },
@@ -25,12 +28,26 @@
   ],
   "author": "I Knit The Web",
   "license": "MIT",
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "testEnvironment": "jsdom",
+    "transformIgnorePatterns": [
+      "/node_modules/(?!parse5|jsdom)"
+    ],
+    "setupFiles": ["<rootDir>/jest.setup.js"]
+  },
   "dependencies": {
+    "@sentry/browser": "^10.20.0",
     "dotenv": "^17.2.3",
-    "sass": "^1.93.2"
+    "sass": "^1.93.2",
+    "sharp": "^0.34.4"
   },
   "devDependencies": {
+    "@babel/core": "^7.28.4",
     "@babel/preset-env": "^7.28.3",
+    "@lhci/cli": "^0.15.1",
     "axe-core": "^4.10.3",
     "babel-jest": "^30.2.0",
     "commitizen": "^4.3.1",
@@ -43,6 +60,8 @@
     "http-server": "^14.1.1",
     "husky": "^9.1.7",
     "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "jsdom": "^27.0.1",
     "lint-staged": "^16.2.3",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.5.6",
@@ -53,11 +72,15 @@
     "stylelint": "^16.25.0",
     "stylelint-config-recommended-scss": "^16.0.2",
     "stylelint-config-standard": "^39.0.0",
-    "stylelint-scss": "^6.12.1"
+    "stylelint-scss": "^6.12.1",
+    "vite": "^7.1.11"
   },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
-  }
+  },
+  "lighthouse:ci": "lhci autorun",
+  "dev": "vite",
+  "build": "vite build"
 }
