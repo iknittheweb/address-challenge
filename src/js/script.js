@@ -22,6 +22,7 @@
 
 //     DEBUG: Test if script is loading
 // Main entry for Vite. Import all modules and initialize Sentry.
+import * as Sentry from '@sentry/browser';
 import { initializeNavigation } from './navigation.js';
 import * as bodyScrollLock from './bodyScrollLock.min.js';
 
@@ -50,8 +51,7 @@ if (document.getElementById('skills-chart')) {
 }
 
 // Sentry error tracking
-// Sentry error tracking (already imported above)
-// Sentry.init({ dsn: 'https://a1fa50cd94e090dd1ef4446510f2ea55@o4510218279256064.ingest.us.sentry.io/4510218286006272' });
+Sentry.init({ dsn: 'https://a1fa50cd94e090dd1ef4446510f2ea55@o4510218279256064.ingest.us.sentry.io/4510218286006272' });
 
 //     Initialize the app immediately for static pages
 initializeApp();
@@ -852,9 +852,3 @@ function initializeSkillsChart() {
   observer.observe(skillsChart);
 }
 //     🎯 END SKILLS CHART FUNCTIONALITY
-
-// ;=============================================================================
-//     SENTRY ERROR TRACKING SETUP
-// ;=============================================================================
-import * as Sentry from '@sentry/browser';
-Sentry.init({ dsn: 'https://a1fa50cd94e090dd1ef4446510f2ea55@o4510218279256064.ingest.us.sentry.io/4510218286006272' });
