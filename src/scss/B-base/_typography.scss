@@ -7,7 +7,7 @@
 //* ------------------------------------------------------------
 //* Handles global typography styles, such as font sizes, weights, and line heights.
 
-@use 'functions' as f;
+@use '../A-abstracts/functions' as f;
 
 :root {
   --font-1: 'Merriweather', 'Georgia', serif;
