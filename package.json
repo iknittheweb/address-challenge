@@ -4,6 +4,7 @@
   "type": "module",
   "description": "I Knit The Web - Personal Portfolio Website",
   "scripts": {
+    "postinstall": "cypress install",
     "postbuild:fix-html": "node scripts/remove-trailing-slashes.cjs dist/pages && node scripts/remove-trailing-slashes.cjs dist",
     "build:local": "node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && node build.cjs && node component-build.cjs && npm run postbuild:fix-html && npm run test:a11y:all && npm run test:e2e && npm run test:style",
     "local": "npm run build:local",
