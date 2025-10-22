@@ -31,6 +31,9 @@
   ],
   "author": "I Knit The Web",
   "license": "MIT",
+  "engines": {
+    "node": "20.x"
+  },
   "jest": {
     "transform": {
       "^.+\\.js$": "babel-jest"
