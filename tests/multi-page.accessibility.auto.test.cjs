@@ -9,7 +9,7 @@ test('multi-page accessibility: all pages', async () => {
     'dist/pages/about.html',
     'dist/pages/contact.html',
     'dist/pages/portfolio.html',
-    'index.html',
+    'dist/index.html',
   ];
   for (const page of pages) {
     if (!fs.existsSync(page)) {
