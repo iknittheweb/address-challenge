@@ -15,7 +15,7 @@
     "build:css": "npm run compile:scss && node purge-and-minify.cjs",
     "css": "npm run build:css",
     "test": "jest",
-    "test:e2e": "cypress open",
+  "test:e2e": "cypress run",
     "test:style": "stylelint \"src/**/*.scss\"",
     "test:a11y": "node tests/example.accessibility.cjs",
     "test:a11y:all": "jest tests/multi-page.accessibility.auto.test.cjs",
