@@ -92,15 +92,16 @@
       margin-inline: auto;
     }
   }
+
   &__heading {
     margin: -10px 0 f.rem(16) 0 !important;
     text-align: left !important;
   }
+
   .bonafides {
     display: flex;
     // gap: 1rem;
-    flex-direction: column;
-    flex-wrap: wrap;
+    flex-flow: column wrap;
     justify-content: center;
     align-items: center;
     width: 80%;

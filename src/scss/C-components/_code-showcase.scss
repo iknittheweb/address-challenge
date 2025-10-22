@@ -47,7 +47,16 @@
       position: relative;
       transition: opacity 0.3s;
     }
-    .card details:not([open]) & {
+
+    &[open] summary {
+      border-radius: 6px 6px 0 0;
+  
+      &::before {
+        transform: rotate(90deg);
+      }
+    }
+  
+      .card details:not([open]) & {
       opacity: 0;
       pointer-events: none;
       position: absolute;
@@ -55,6 +64,7 @@
       top: 0;
       left: 0;
     }
+
     .card details[open] & {
       opacity: 1;
       pointer-events: auto;
@@ -66,14 +76,6 @@
   &__marker {
     transition: transform 0.3s ease;
     transform: rotate(0deg); // Default: pointing right
-  }
-
-  &[open] summary {
-    border-radius: 6px 6px 0 0;
-
-    &::before {
-      transform: rotate(90deg);
-    }
   }
 
   // When details is open, rotate marker 90 degrees down
@@ -93,7 +95,7 @@
     padding: f.rem(20);
     border-radius: 4px;
     overflow-x: auto;
-    font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+    font-family: 'Fira Code', Consolas, Monaco, monospace;
     font-size: f.rem(14.4);
     line-height: 1.4;
     margin: 0 0 f.rem(16) 0;
@@ -142,18 +144,23 @@
     .comment {
       color: #6a9955;
     }
+
     .keyword {
       color: #569cd6;
     }
+
     .string {
       color: #ce9178;
     }
+
     .function {
       color: #dcdcaa;
     }
+
     .number {
       color: #b5cea8;
     }
+
     .operator {
       color: #d4d4d4;
     }
@@ -164,18 +171,23 @@
     .comment {
       color: #6a9955;
     }
+
     .keyword {
       color: #569cd6;
     }
+
     .property {
       color: #9cdcfe;
     }
+
     .value {
       color: #ce9178;
     }
+
     .selector {
       color: #d7ba7d;
     }
+
     .variable {
       color: #4fc1ff;
     }

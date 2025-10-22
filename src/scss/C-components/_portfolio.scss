@@ -34,8 +34,7 @@
     display: grid;
     gap: f.rem(20);
     padding: 0 f.rem(10);
-    justify-items: center;
-    align-items: start; // Prevent cards from stretching to match tallest
+    place-items: start center; // Prevent cards from stretching to match tallest
 
     // Smooth auto-fit grid - automatically adjusts columns based on available space
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));

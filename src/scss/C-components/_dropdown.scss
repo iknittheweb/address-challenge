@@ -32,6 +32,18 @@
     border-radius: f.rem(8);
 
     // Better focus management
+    &:hover {
+      background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+      color: var(--light-text);
+      border-color: var(--light-border);
+    }
+
+    &:focus {
+      background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+      color: var(--light-text);
+      border-color: var(--light-border);
+    }
+
     &:focus-visible {
       outline: 2px solid var(--light-text);
       outline-offset: 2px;
@@ -41,44 +53,18 @@
     &:has(~ .dropdown__content.show) {
       opacity: 0.7;
 
-      &:focus-visible {
-        outline-color: var(--light-text);
-      }
-
-      // Prevent hover/focus color inversion when open
-      &:hover,
-      &:focus {
-        background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
-        color: var(--light-text);
-        border-color: var(--light-border);
-      }
-    }
-
-    // When closed: ensure full opacity and allow hover inversion
-    &:not(:has(~ .dropdown__content.show)) {
-      opacity: 1; // Explicitly reset opacity
-
-      &:hover,
-      &:focus {
-        background: var(--light-bg);
-        color: var(--primary-text);
-        border-color: var(--light-border);
-
-        // .dropdown__icon {
-        //   color: var(--primary-text);
-        // }
-      }
-
-      &:focus-visible {
-        outline-color: var(--primary-text);
+      &:not(:has(~ .dropdown__content.show)) {
+        opacity: 1; // Explicitly reset opacity
+        &:focus-visible {
+          outline-color: var(--light-text);
+        }
       }
     }
   }
 
   &__icon {
-    color: var(--light-text);
     font-size: f.rem(20);
-    color: currentColor;
+    color: currentcolor;
     transition: transform 0.3s ease;
     display: inline-block;
     line-height: 1;
@@ -102,7 +88,7 @@
   &__subtitle {
     margin: 0;
     font-size: f.rem(13);
-    color: rgba(255, 255, 255, 0.8);
+    color: rgb(255 255 255 / 80%);
     font-style: italic;
     font-weight: 400;
     line-height: 1.3;
@@ -110,7 +96,7 @@
 
     // Ensure good contrast for accessibility
     @media (prefers-contrast: high) {
-      color: #ffffff;
+      color: #fff;
       font-weight: 500;
     }
 

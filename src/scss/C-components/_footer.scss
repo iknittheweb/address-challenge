@@ -9,7 +9,7 @@
 @use '../A-abstracts/functions' as f;
 @use '../A-abstracts/mixins' as m;
 
-.footer {
+%footer {
   background: var(--primary-bg);
   color: var(--light-text);
   margin-top: f.rem(60);
@@ -172,9 +172,9 @@
 
 // Legacy styles for backward compatibility
 .home__footer {
-  @extend .footer;
+  @extend %footer;
 
   &-content {
-    @extend .footer__content;
+    @extend %footer__content;
   }
 }

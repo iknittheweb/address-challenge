@@ -28,7 +28,7 @@
   }
 
   // Ensure proper centering on very small screens
-  @media (max-width: 360px) {
+  @media (width <= 360px) {
     padding: f.rem(20) f.rem(8);
   }
 
@@ -86,7 +86,7 @@
       border-radius: f.rem(8); // Smaller border radius on small screens
     }
 
-    @media (max-width: 360px) {
+    @media (width <= 360px) {
       padding: f.rem(16);
       margin: 0 f.rem(4); // Small margins on very narrow screens
     }
@@ -190,7 +190,7 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      background: linear-gradient(90deg, transparent, rgb(255 255 255 / 20%), transparent);
       transition: left 0.5s ease;
     }
 
