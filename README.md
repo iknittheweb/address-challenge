@@ -56,7 +56,7 @@ JavaScript, featuring a flexible build system for easy environment management an
 ├── .env.production         # Production environment variables (not committed)
 ├── .env.example            # Example env file (copy to .env/.env.production)
 ├── index.template.html     # Main HTML template (edit this, not index.html)
-├── index.html              # Generated output (do not edit directly)
+├── dist/index.html         # Generated output (do not edit directly)
 ├── dist/                   # Compiled CSS output
 ├── src/
 │   ├── css/                # Legacy CSS files (to be migrated to SCSS)
@@ -88,7 +88,7 @@ JavaScript, featuring a flexible build system for easy environment management an
 npm run dev
 ```
 
-This generates `index.html` and other pages using development URLs from `.env`.
+This generates `dist/index.html` and other pages using development URLs from `.env`.
 
 ### 3. Build for Production
 
@@ -183,7 +183,7 @@ ASSET_URL=...     # The base path or URL for static assets
 
 ## 🧩 How the Build System Works
 
-- **build.js**: Processes `index.template.html` and outputs `index.html`, replacing placeholders with
+- **build.js**: Processes `index.template.html` and outputs `dist/index.html`, replacing placeholders with
   environment-specific values.
 - **component-build.cjs**: Generates all pages from templates, injecting shared components and environment variables.
 - **Environment variables** are loaded using [dotenv](https://www.npmjs.com/package/dotenv) and must be set in
