@@ -53,7 +53,7 @@ console.log('Building HTML with environment variables...');
 
 // Read the template HTML file
 const templatePath = path.join(__dirname, 'index.template.html');
-const outputPath = path.join(__dirname, 'index.html');
+const outputPath = path.join(__dirname, 'dist', 'index.html');
 
 try {
   let htmlContent = fs.readFileSync(templatePath, 'utf8');
