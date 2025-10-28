@@ -751,11 +751,11 @@ waitForCSSAndDOM(() => {
   initializeSkillsChart();
 });
 
-/*! =================================================================
- * 🎯 INTERACTIVE SKILLS CHART FUNCTIONALITY
- * =================================================================
- * EASY REMOVAL: Delete this entire section to remove skills chart
- * ================================================================= */
+// * =================================================================
+// * 🎯 INTERACTIVE SKILLS CHART FUNCTIONALITY
+// * =================================================================
+// * EASY REMOVAL: Delete this entire section to remove skills chart
+// * ================================================================= */
 function initializeSkillsChart() {
   const skillsChart = document.getElementById('skills-chart');
   if (!skillsChart) return; //     Exit if skills chart doesn't exist
@@ -852,3 +852,23 @@ function initializeSkillsChart() {
   observer.observe(skillsChart);
 }
 //     🎯 END SKILLS CHART FUNCTIONALITY
+
+// * =======================================================================================
+// -    HERO SECTION BACKGROUND IMAGE DETECTION AND SWAP
+// * =======================================================================================
+// *      This section detects WebP support and swaps the hero background image accordingly.
+// * ======================================================================================= */
+
+function canUseWebP() {
+  var elem = document.createElement('canvas');
+  if (!!(elem.getContext && elem.getContext('2d'))) {
+    return elem.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+  }
+  return false;
+}
+if (canUseWebP()) {
+  var hero = document.getElementById('hero');
+  if (hero) {
+    hero.style.backgroundImage = "url('{{BASE_URL}}{{HERO_BG_URL_WEBP}}')";
+  }
+}
