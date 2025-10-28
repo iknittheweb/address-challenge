@@ -167,5 +167,10 @@ src/js/navigation.js
 src/js/skillsChart.js
 
 build-log.txt
-log.2025-10-23.08.00.am.txt
+*log*.txt
 
+# Script explanations and generated documentation
+generate-envs_explanation.txt
+
+
+.github/copilot-instructions.md
