@@ -36,9 +36,20 @@ const Handlebars = require('handlebars');
 Handlebars.registerHelper('eq', function (a, b) {
   return a === b;
 });
-require('dotenv').config({
-  path: process.env.DOTENV_CONFIG_PATH || (process.env.NODE_ENV === 'production' ? '.env.production' : '.env'),
-});
+
+// Determine build mode from command line argument (e.g., node build.cjs alt)
+const mode = process.argv[2] ? process.argv[2].toLowerCase() : '';
+let dotenvPath = '.env';
+if (process.env.DOTENV_CONFIG_PATH) {
+  dotenvPath = process.env.DOTENV_CONFIG_PATH;
+} else if (mode === 'alt') {
+  dotenvPath = '.env.alt';
+} else if (mode === 'netlify-alt') {
+  dotenvPath = '.env.netlify-alt';
+} else if (mode === 'prod' || mode === 'production') {
+  dotenvPath = '.env.production';
+}
+require('dotenv').config({ path: dotenvPath });
 
 let baseUrl = process.env.BASE_URL;
 const assetUrl = process.env.ASSET_URL;
