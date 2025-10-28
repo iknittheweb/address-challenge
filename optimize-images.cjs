@@ -11,13 +11,13 @@ const SUPPORTED_EXT = ['.jpg', '.jpeg', '.png'];
 const QUALITY = 80; // Adjust as needed
 const OUTPUT_DIR = path.join(__dirname, 'dist/img');
 
-function getAllImages(dir) {
+function getAllFiles(dir) {
   let results = [];
   fs.readdirSync(dir, { withFileTypes: true }).forEach((entry) => {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      results = results.concat(getAllImages(fullPath));
-    } else if (SUPPORTED_EXT.includes(path.extname(entry.name).toLowerCase())) {
+      results = results.concat(getAllFiles(fullPath));
+    } else {
       results.push(fullPath);
     }
   });
@@ -44,15 +44,26 @@ async function optimizeImage(file) {
 }
 
 async function main() {
-  const images = getAllImages(IMG_DIR);
-  if (images.length === 0) {
-    console.log('No images found to optimize.');
+  const files = getAllFiles(IMG_DIR);
+  if (files.length === 0) {
+    console.log('No files found in src/img.');
     return;
   }
-  for (const img of images) {
-    await optimizeImage(img);
+  for (const file of files) {
+    const ext = path.extname(file).toLowerCase();
+    const relPath = path.relative(IMG_DIR, file);
+    const outPath = path.join(OUTPUT_DIR, relPath);
+    const outDir = path.dirname(outPath);
+    if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+    // Copy all files as-is
+    fs.copyFileSync(file, outPath);
+    // Optimize only supported image types
+    if (SUPPORTED_EXT.includes(ext)) {
+      await optimizeImage(file);
+    }
+    console.log(`Copied: ${file} -> ${outPath}`);
   }
-  console.log('Image optimization complete. All optimized images are in dist/img/.');
+  console.log('All files copied to dist/img/. JPEG/PNG/WebP optimized as usual.');
 }
 
 main();
