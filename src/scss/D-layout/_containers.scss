@@ -13,7 +13,7 @@
   }
 
   // Additional fix for extremely narrow screens
-  @media (width <= 360px) {
+  @media (max-width: 360px) {
     width: min(100% - f.rem(8), f.rem(1200)); // Minimal margins for very narrow screens
   }
 }

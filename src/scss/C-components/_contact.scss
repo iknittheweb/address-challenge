@@ -28,7 +28,7 @@
   }
 
   // Ensure proper centering on very small screens
-  @media (width <= 360px) {
+  @media (max-width: 360px) {
     padding: f.rem(20) f.rem(8);
   }
 
@@ -86,7 +86,7 @@
       border-radius: f.rem(8); // Smaller border radius on small screens
     }
 
-    @media (width <= 360px) {
+    @media (max-width: 360px) {
       padding: f.rem(16);
       margin: 0 f.rem(4); // Small margins on very narrow screens
     }

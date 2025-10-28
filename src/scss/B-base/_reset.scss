@@ -17,7 +17,7 @@
    ========================================================================== */
 html {
   line-height: 1.15;
-  text-size-adjust: 100%;
+  webkit-text-size-adjust: 100%;
 }
 
 /* Universal Reset
@@ -258,14 +258,6 @@ button {
   /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
   /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
   appearance: button;
-}
-
-button::-moz-focus-inner,
-[type='button']::-moz-focus-inner,
-[type='reset']::-moz-focus-inner,
-[type='submit']::-moz-focus-inner {
-  border-style: none;
-  padding: 0;
 }
 
 button:-moz-focusring,
