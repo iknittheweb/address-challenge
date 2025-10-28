@@ -22,7 +22,10 @@
 
 //     DEBUG: Test if script is loading
 // Main entry for Vite. Import all modules and initialize Sentry.
-import * as Sentry from '@sentry/browser';
+// Sentry error tracking via CDN (browser compatible)
+// Add this to your HTML before other scripts:
+// <script src="https://browser.sentry-cdn.com/7.100.1/bundle.min.js" crossorigin="anonymous"></script>
+// Then use window.Sentry below
 import { initializeNavigation } from './navigation.js';
 import * as bodyScrollLock from './bodyScrollLock.min.js';
 
@@ -50,8 +53,14 @@ if (document.getElementById('skills-chart')) {
   });
 }
 
-// Sentry error tracking
-Sentry.init({ dsn: 'https://a1fa50cd94e090dd1ef4446510f2ea55@o4510218279256064.ingest.us.sentry.io/4510218286006272' });
+// Sentry error tracking (browser global)
+if (window.Sentry) {
+  window.Sentry.init({
+    dsn: 'https://a1fa50cd94e090dd1ef4446510f2ea55@o4510218279256064.ingest.us.sentry.io/4510218286006272',
+  });
+  // Example: capture a test error
+  // window.Sentry.captureException(new Error('Test error from GitHub Pages deployment'));
+}
 
 //     Initialize the app immediately for static pages
 initializeApp();
