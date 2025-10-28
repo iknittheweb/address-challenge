@@ -30,7 +30,7 @@ const NAV_CONFIGS = {
     links: [
       { href: '#main-content', text: 'Home' }, // Jump to top of current page
       { href: '#about', text: 'About' }, // Jump to About section
-      { href: '/src/pages/portfolio.html', text: 'Full Portfolio' }, // Go to portfolio page
+      { href: '#portfolio', text: 'Portfolio' }, // Scroll to portfolio section on homepage
       { href: '#contact', text: 'Contact' }, // Jump to Contact section
     ],
   },
@@ -382,12 +382,15 @@ function adjustPortfolioNavLink() {
   const navLinks = document.querySelectorAll('.topnav__link');
   navLinks.forEach((link) => {
     const text = link.textContent.trim().toLowerCase();
-    if (text === 'portfolio' || text === 'full portfolio') {
+    if (text === 'portfolio') {
       if (window.location.pathname === '/' || window.location.pathname.endsWith('index.html')) {
         link.setAttribute('href', '#portfolio');
       } else {
-        link.setAttribute('href', '/index.html#portfolio');
+        link.setAttribute('href', '/portfolio.html');
       }
+    }
+    if (text === 'full portfolio') {
+      link.setAttribute('href', '/portfolio.html');
     }
   });
 }
