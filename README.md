@@ -85,7 +85,7 @@ JavaScript, featuring a flexible build system for easy environment management an
 ### 2. Build for Development
 
 ```bash
-npm run dev
+npm run local
 ```
 
 This generates `dist/index.html` and other pages using development URLs from `.env`.
@@ -93,7 +93,7 @@ This generates `dist/index.html` and other pages using development URLs from `.e
 ### 3. Build for Production
 
 ```bash
-npm run deploy
+npm run prod
 ```
 
 This generates files using production URLs from `.env.production`.
@@ -116,7 +116,7 @@ ASSET_URL=...     # The base path or URL for static assets
 ## 🔄 NPM Scripts & Commands
 
 - `npm run local` Build for local development (all pages, purged CSS)
-- `npm run deploy` Build for production (all pages, purged CSS)
+- `npm run prod` Build for production (all pages, purged CSS)
 - `node build.js` Manual build (uses .env)
 - `node build.js production` Manual build (uses .env.production)
 - `node component-build.cjs` Build all pages/components
