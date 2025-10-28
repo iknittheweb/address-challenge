@@ -4,12 +4,17 @@ const { JSDOM } = require('jsdom');
 
 test('multi-page accessibility: all pages', async () => {
   const pages = [
-    'dist/pages/minimal-accessibility-test.html',
-    'dist/pages/new-page.html',
-    'dist/pages/about.html',
-    'dist/pages/contact.html',
-    'dist/pages/portfolio.html',
-    'dist/index.html',
+    'alien-abduction-form.html',
+    'calculator.html',
+    'css-position-cheat-sheet.html',
+    'BasicVerticalNavbars.html',
+    'Desc-List-Challenge.html',
+    'index.html',
+    'minimal-accessibility-test.html',
+    'multi-level-navbar.html',
+    'navbar-link-filling-li.html',
+    'new-page.html',
+    'portfolio.html',
   ];
   for (const page of pages) {
     if (!fs.existsSync(page)) {
@@ -34,8 +39,8 @@ test('multi-page accessibility: all pages', async () => {
       }
     );
 
-    console.log(`\n--- DEBUG: Loaded HTML for ${page} (preprocessed) ---\n`);
-    console.log(html.slice(0, 5000));
+    // console.log(`\n--- DEBUG: Loaded HTML for ${page} (preprocessed) ---\n`);
+    // console.log(html.slice(0, 5000)); // Removed for best practice: too verbose
     if (!html.includes('<html lang="en"')) {
       console.warn(`\nWARNING: <html lang="en"> not found in ${page}!\n`);
     }
