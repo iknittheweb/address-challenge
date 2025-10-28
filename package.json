@@ -4,13 +4,13 @@
   "type": "module",
   "description": "I Knit The Web - Personal Portfolio Website",
   "scripts": {
-    "build:alt": "cross-env DOTENV_CONFIG_PATH=.env.alt node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && node build.cjs alt && node component-build.cjs && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:titlecase-env && npm run test:a11y:all && npm run test:e2e && npm run test:style",
+    "build:alt": "cross-env DOTENV_CONFIG_PATH=.env.alt node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && node build.cjs alt && node component-build.cjs && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:titlecase-env && npm run test:a11y:all && npm run test:e2e && npm run lint:js && npm run lint:html && npm run test:style",
     "alt": "npm run build:alt",
-    "build:local": "cross-env DOTENV_CONFIG_PATH=.env node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && node build.cjs && node component-build.cjs && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:titlecase-env && npm run test:a11y:all && npm run test:e2e && npm run test:style",
+    "build:local": "cross-env DOTENV_CONFIG_PATH=.env node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && node build.cjs && node component-build.cjs && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:titlecase-env && npm run test:a11y:all && npm run test:e2e && npm run lint:js && npm run lint:html && npm run test:style",
     "local": "npm run build:local",
-    "build:netlify-alt": "cross-env DOTENV_CONFIG_PATH=.env.netlify-alt cross-env DOTENV_CONFIG_PATH=.env.alt node build.cjs alt && cross-env DOTENV_CONFIG_PATH=.env.alt node component-build.cjs && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:titlecase-env",
+    "build:netlify-alt": "cross-env DOTENV_CONFIG_PATH=.env.netlify-alt cross-env DOTENV_CONFIG_PATH=.env.alt node build.cjs alt && cross-env DOTENV_CONFIG_PATH=.env.alt node component-build.cjs && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:titlecase-env && npm run lint:js && npm run lint:html && npm run test:style",
     "netlify-alt": "npm run build:netlify-alt",
-    "build:prod": "cross-env DOTENV_CONFIG_PATH=.env.production node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && cross-env NODE_ENV=production node build.cjs production && node component-build.cjs && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:titlecase-env && npm run test:a11y:all && npm run test:e2e && npm run test:style",
+    "build:prod": "cross-env DOTENV_CONFIG_PATH=.env.production node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && cross-env NODE_ENV=production node build.cjs production && node component-build.cjs && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:titlecase-env && npm run test:a11y:all && npm run test:e2e && npm run lint:js && npm run lint:html && npm run test:style",
     "prod": "npm run build:prod",
     "build:all-css": "sass src/scss/styles.scss dist/css/styles.css --no-source-map && sass src/scss/E-pages/:dist/css/ --no-source-map && node purge-and-minify.cjs",
     "css": "npm run build:all-css",
@@ -23,7 +23,9 @@
     "test": "jest",
     "test:a11y:all": "jest tests/multi-page.accessibility.auto.test.cjs",
     "test:e2e": "cypress run",
-    "test:style": "stylelint \"src/**/*.scss\""
+    "test:style": "stylelint \"src/**/*.scss\"",
+    "lint:js": "eslint \"src/**/*.js\"",
+    "lint:html": "htmlhint \"src/**/*.html\""
   },
   "keywords": [
     "web development",
@@ -73,6 +75,7 @@
     "cz-conventional-changelog": "^3.0.1",
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
+    "htmlhint": "^1.7.1",
     "http-server": "^14.1.1",
     "husky": "^9.1.7",
     "jest": "^30.2.0",
