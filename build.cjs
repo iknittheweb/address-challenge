@@ -15,72 +15,149 @@
   BUILD SCRIPT - Updates URLs and injects environment variables for different environments
 
   USAGE:
-  - npm run local   -> Builds for local development (.env, GitHub Pages)
-  - npm run deploy  -> Builds for production (.env.production, custom domain)
-  - npm run alt     -> Builds for alternate environment (.env.alt, alternate GitHub Pages or staging)
+  - npm run local       -> Builds for local development (.env, live server)
+  - npm run alt         -> Builds for alternate environment (.env.alt, GitHub Pages)
+  - npm run netlify-alt -> Builds for alternate environment (.env.netlify-alt, Netlify)
+  - npm run prod        -> Builds for production (.env.production, custom domain)
 
   Workflow:
-  1. Edit index.template.html (NOT index.html) // Sass should compile scss into dist/css
+  1. Edit index.template.html (NOT index.html) // Sass should compile src/scss/styles.css and entry-point scss files from src/scss/E-pages/ into dist/css
   2. Run npm run local after making changes for local dev
-  3. Run npm run deploy before pushing to production
-  4. Run npm run alt for alternate environments (if needed)
-  5. Update .env.production and .env.alt as needed for your URLs and settings
+  3. Run npm run alt for alternate environments (GitHub Pages)
+  4. Run npm run netlify-alt for alternate environments (Netlify)
+  5. Run npm run prod before pushing to production
+  6. Update .env, .env.alt, .env.netlify-alt, and .env.production as needed for your URLs and settings
 */
 
 const fs = require('fs');
 const path = require('path');
-// Load environment variables from .env or .env.production
-// Uses dotenv for easy environment management
+const Handlebars = require('handlebars');
+// Register 'eq' helper for conditional logic in templates
+Handlebars.registerHelper('eq', function (a, b) {
+  return a === b;
+});
 require('dotenv').config({
   path: process.env.DOTENV_CONFIG_PATH || (process.env.NODE_ENV === 'production' ? '.env.production' : '.env'),
 });
 
-/*
-  Environment variable usage:
-  - BASE_URL: The base URL for your site (e.g., https://iknittheweb.github.io or your custom domain)
-  - ASSET_URL: The base path or URL for your static assets (e.g., /src/img or https://yourdomain.com/src/img)
-*/
-
-const baseUrl = process.env.BASE_URL;
+let baseUrl = process.env.BASE_URL;
 const assetUrl = process.env.ASSET_URL;
+
+// Remove trailing slash from BASE_URL if present
+if (baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
+
+// In local development, remove leading slash from any path concatenated to BASE_URL
+function normalizeUrl(url) {
+  if (process.env.NODE_ENV !== 'production' && url.startsWith('/')) {
+    return url.slice(1);
+  }
+  return url;
+}
 
 if (!baseUrl || !assetUrl) {
   console.error('BASE_URL and ASSET_URL must be set in your .env or .env.production file.');
   process.exit(1);
 }
 
-console.log('Building HTML with environment variables...');
+console.log('Building HTML with Handlebars and environment variables...');
 
-// Read the template HTML file
 const templatePath = path.join(__dirname, 'index.template.html');
-const distDir = path.join(__dirname, 'dist');
-const outputPath = path.join(distDir, 'index.html');
+const outputPath = path.join(__dirname, 'index.html');
 
-// Ensure dist directory exists
-if (!fs.existsSync(distDir)) {
-  fs.mkdirSync(distDir, { recursive: true });
-}
+// No need to create dist/ directory; output goes to project root
 try {
-  let htmlContent = fs.readFileSync(templatePath, 'utf8');
+  const templateSrc = fs.readFileSync(templatePath, 'utf8');
+  const template = Handlebars.compile(templateSrc);
 
-  // Replace placeholders with environment-specific values
-  htmlContent = htmlContent.replace(/{{BASE_URL}}/g, baseUrl).replace(/{{ASSET_URL}}/g, assetUrl);
+  // Prepare SCHEMA_JSON for ld+json block
+  // Choose schema for each template
+  let schemaData;
+  if (templatePath.endsWith('about.template.html')) {
+    schemaData = {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Marta',
+      description: 'Web developer specializing in accessible, handcrafted websites.',
+      url: baseUrl + normalizeUrl('/dist/pages/about.html'),
+      url: baseUrl + normalizeUrl('/about.html'),
+      image: assetUrl + 'src/img/pages/Profile.png',
+      sameAs: [],
+      knowsAbout: ['HTML', 'CSS', 'JavaScript', 'Accessibility', 'SCSS/Sass'],
+    };
+  } else if (templatePath.endsWith('new-page.template.html')) {
+    schemaData = {
+      '@context': 'https://schema.org',
+      '@type': process.env.SCHEMA_TYPE || 'WebPage',
+      name: process.env.SCHEMA_NAME || 'New Page',
+      description: process.env.SCHEMA_DESCRIPTION || 'Description for new page.',
+      url: process.env.SCHEMA_URL || baseUrl + normalizeUrl('/dist/pages/new-page.html'),
+      url: process.env.SCHEMA_URL || baseUrl + normalizeUrl('/new-page.html'),
+      image: process.env.SCHEMA_IMAGE || assetUrl + 'src/img/pages/default.png',
+      sameAs: process.env.SCHEMA_SAMEAS ? JSON.parse(process.env.SCHEMA_SAMEAS) : [],
+      knowsAbout: process.env.SCHEMA_KNOWSABOUT
+        ? JSON.parse(process.env.SCHEMA_KNOWSABOUT)
+        : ['HTML', 'CSS', 'JavaScript'],
+    };
+  } else if (templatePath.endsWith('portfolio.template.html')) {
+    schemaData = {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'I Knit The Web',
+      jobTitle: 'Web Developer',
+      description: 'Professional web developer specializing in handcrafted websites for small budgets and big dreams',
+      url: baseUrl,
+      sameAs: [],
+      knowsAbout: ['HTML', 'CSS', 'JavaScript', 'SCSS', 'Web Design', 'Responsive Design'],
+    };
+  } else if (templatePath.endsWith('multi-level-navbar.template.html')) {
+    schemaData = {
+      '@context': 'https://schema.org',
+      '@type': 'Project',
+      name: 'Multi-Level navbar',
+      description:
+        'A demonstration of a multi-level navigation bar built with HTML and CSS, featuring dropdown menus, nested navigation, and responsive design for modern web interfaces.',
+      url: baseUrl + normalizeUrl('/dist/pages/multi-level-navbar.html'),
+      url: baseUrl + normalizeUrl('/multi-level-navbar.html'),
+      image: process.env.SCHEMA_IMAGE || assetUrl + 'src/img/pages/navbar.png',
+      sameAs: ['https://github.com/iknittheweb', 'https://twitter.com/iknittheweb'],
+      knowsAbout: ['HTML', 'CSS', 'Navigation', 'Responsive Design', 'Frontend Development'],
+    };
+  } else if (templatePath.endsWith('contact.template.html')) {
+    schemaData = {
+      '@context': 'https://schema.org',
+      '@type': 'ContactPage',
+      name: 'Contact',
+      description: 'Contact Marta at I Knit the Web for handcrafted, accessible websites.',
+      url: baseUrl + normalizeUrl('/dist/pages/contact.html'),
+      url: baseUrl + normalizeUrl('/contact.html'),
+      image: assetUrl + 'src/img/pages/heading-banner-dark.svg',
+      sameAs: [],
+      knowsAbout: ['Web Development', 'Accessibility', 'HTML', 'CSS', 'JavaScript'],
+    };
+  } else {
+    schemaData = {};
+  }
+  const context = Object.assign({}, process.env, { SCHEMA_JSON: JSON.stringify(schemaData, null, 2) });
+  const htmlContent = template(context);
 
   // Remove template warning and workflow comments from the output
-  htmlContent = htmlContent.replace(
+  let finalHtml = htmlContent.replace(
     /<!--\s*IMPORTANT: This is a TEMPLATE file![\s\S]*?DO NOT edit index\.html directly - it gets overwritten!\s*-->/,
     ''
   );
-  // Remove all BEGINNER-FRIENDLY and workflow comments
-  htmlContent = htmlContent.replace(/<!--\s*-{2,}\s*BEGINNER-FRIENDLY EXPLANATORY COMMENTS[\s\S]*?-{2,}\s*-->/g, '');
-  htmlContent = htmlContent.replace(
+  finalHtml = finalHtml.replace(/<!--\s*-{2,}\s*BEGINNER-FRIENDLY EXPLANATORY COMMENTS[\s\S]*?-{2,}\s*-->/g, '');
+  finalHtml = finalHtml.replace(
     /<!--\s*Build System Workflow \(2025\):[\s\S]*?DO NOT edit the generated \*\.html file directly[\s\S]*?-->/g,
     ''
   );
 
-  // Write the processed HTML
-  fs.writeFileSync(outputPath, htmlContent);
+  // Warn if unreplaced placeholders remain
+  const unreplaced = finalHtml.match(/{{[A-Z0-9_]+}}/g);
+  if (unreplaced && unreplaced.length > 0) {
+    console.warn(`\u26a0\ufe0f Unreplaced placeholders found in index.html:`, unreplaced);
+  }
 
+  fs.writeFileSync(outputPath, finalHtml);
   console.log(`Built ${outputPath}`);
   console.log(`Base URL: ${baseUrl}`);
   console.log(`Asset URL: ${assetUrl}`);
