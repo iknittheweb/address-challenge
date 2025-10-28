@@ -174,3 +174,5 @@ generate-envs_explanation.txt
 
 
 .github/copilot-instructions.md
+build-cjs.txt
+eslint-report.txt
