@@ -111,18 +111,39 @@ BASE_URL=...      # The base URL for your site
 ASSET_URL=...     # The base path or URL for static assets
 ```
 
+## 🔄 NPM Scripts & Commands
+
+```
+BASE_URL=...         # The base URL for your site
+ASSET_URL=...        # The base path or URL for static assets
+CSS_FILE=...         # CSS file name (expanded or minified)
+ROBOTS=...           # SEO robots meta value
+CANONICAL_URL=...    # Canonical URL for SEO
+```
+
+Alternate environments supported:
+
+- `.env.alt` for alternate local/staging builds
+- `.env.netlify-alt` for Netlify-specific builds
+
+Use `npm run alt` to build with alternate environment files.
+
 ---
 
 ## 🔄 NPM Scripts & Commands
 
 - `npm run local` Build for local development (all pages, purged CSS)
 - `npm run prod` Build for production (all pages, purged CSS)
+- `npm run alt` Build for alternate environment (uses .env.alt)
 - `node build.js` Manual build (uses .env)
 - `node build.js production` Manual build (uses .env.production)
 - `node component-build.cjs` Build all pages/components
 - `npm run lint` Lint JS files with ESLint
 - `npm run format` Format code with Prettier
 - `npm test` Run all JavaScript unit tests (Jest)
+- `npm run test:e2e` Run end-to-end tests (Cypress)
+- `npm run test:style` Lint SCSS files (Stylelint)
+- `npm run test:a11y` Run accessibility tests (axe-core)
 - `npm run test:e2e` Run end-to-end tests (Cypress)
 - `npm run test:style` Lint SCSS files (Stylelint)
 - `npm run test:a11y` Run accessibility tests (axe-core)
