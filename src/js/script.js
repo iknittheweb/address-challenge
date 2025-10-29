@@ -28,6 +28,7 @@
 // Then use window.Sentry below
 import { initializeNavigation } from './navigation.js';
 import './navigation.js';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 // Initialize navigation (for static pages)
 initializeNavigation();
@@ -339,7 +340,7 @@ function openMobileMenu() {
   overlay.style.transitionDuration = '400ms'; //     Overlay fade animation
 
   //     STEP 5: Prevent body scrolling while menu is open (if library is loaded)
-  if (window.bodyScrollLock) window.bodyScrollLock.disableBodyScroll(menuTopNav);
+  disableBodyScroll(menuTopNav);
 
   //     STEP 6: Move keyboard focus to close button for accessibility
   btnClose.focus(); //     User can immediately press Enter to close menu
@@ -378,7 +379,7 @@ function closeMobileMenu() {
   menuTopNav.setAttribute('inert', ''); //     Menu becomes non-interactive
 
   //     STEP 4: Re-enable body scrolling (if library is loaded)
-  if (window.bodyScrollLock) window.bodyScrollLock.enableBodyScroll(menuTopNav);
+  enableBodyScroll(menuTopNav);
 
   //     STEP 5: Clean up animations after menu closes
   //     We wait 500ms to let the close animation finish, then remove inline styles
