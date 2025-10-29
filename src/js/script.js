@@ -27,6 +27,7 @@
 // <script src="https://browser.sentry-cdn.com/7.100.1/bundle.min.js" crossorigin="anonymous"></script>
 // Then use window.Sentry below
 import { initializeNavigation } from './navigation.js';
+import './navigation.js';
 import * as bodyScrollLock from './bodyScrollLock.min.js';
 
 // Initialize navigation (for static pages)
