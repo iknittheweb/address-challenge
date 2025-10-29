@@ -41,8 +41,9 @@ test('multi-page accessibility: all pages', async () => {
 
     // console.log(`\n--- DEBUG: Loaded HTML for ${page} (preprocessed) ---\n`);
     // console.log(html.slice(0, 5000)); // Removed for best practice: too verbose
-    if (!html.includes('<html lang="en"')) {
-      console.warn(`\nWARNING: <html lang="en"> not found in ${page}!\n`);
+    // Accept <html lang="en"> with any additional attributes (e.g., class)
+    if (!/<html\s+lang=["']en["'](\s|>)/i.test(html)) {
+      console.warn(`\nWARNING: <html lang=\"en\" (with optional attributes) not found in ${page}!\n`);
     }
     const dom = new JSDOM(html, { runScripts: 'dangerously', resources: 'usable' });
     // Inject axe-core into the jsdom window
