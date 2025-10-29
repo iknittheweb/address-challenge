@@ -1,4 +1,5 @@
 // navigation.js
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 // Handles navigation, mobile menu, header auto-hide, and accessibility
 // navigation.js (ES module)
 // Utility: Wait for DOM and CSS
@@ -115,7 +116,7 @@ function openMobileMenu() {
   menuTopNav.setAttribute('tabindex', '-1');
   menuTopNav.style.transitionDuration = '400ms';
   overlay.style.transitionDuration = '400ms';
-  if (window.bodyScrollLock) window.bodyScrollLock.disableBodyScroll(menuTopNav);
+  disableBodyScroll(menuTopNav);
   btnClose.focus();
   trapFocus(menuTopNav, closeMobileMenu);
 }
@@ -132,7 +133,7 @@ function closeMobileMenu() {
   menuTopNav.setAttribute('inert', '');
   menuTopNav.setAttribute('aria-hidden', 'true');
   overlay.setAttribute('aria-hidden', 'true');
-  if (window.bodyScrollLock) window.bodyScrollLock.enableBodyScroll(menuTopNav);
+  enableBodyScroll(menuTopNav);
   setTimeout(() => {
     menuTopNav.removeAttribute('style');
     overlay.removeAttribute('style');
