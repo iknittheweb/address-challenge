@@ -1,6 +1,6 @@
 {
   "name": "iknittheweb-website",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "description": "I Knit The Web - Personal Portfolio Website",
   "scripts": {
@@ -14,18 +14,20 @@
     "prod": "npm run build:prod",
     "build:all-css": "sass src/scss/styles.scss dist/css/styles.css --no-source-map && sass src/scss/E-pages/:dist/css/ --no-source-map && node purge-and-minify.cjs",
     "css": "npm run build:all-css",
-    "format:json": "prettier --write \"**/*.json\"",
+    "format:json": "prettier --write **/*.json",
     "generate-envs": "node scripts/generate-envs.cjs",
     "postbuild:fix-html": "node scripts/remove-trailing-slashes.cjs .",
     "postbuild:titlecase-env": "node scripts/titlecase-env.cjs",
     "postinstall": "cypress install",
     "prepare": "husky install",
+    "commit": "cz",
+    "release": "standard-version",
     "test": "jest",
     "test:a11y:all": "jest tests/multi-page.accessibility.auto.test.cjs",
     "test:e2e": "cypress run",
-    "test:style": "stylelint \"src/**/*.scss\"",
-    "lint:js": "eslint \"src/**/*.js\"",
-    "lint:html": "htmlhint \"src/**/*.html\""
+    "test:style": "stylelint src/**/*.scss",
+    "lint:js": "eslint src/**/*.js",
+    "lint:html": "htmlhint src/**/*.html"
   },
   "keywords": [
     "web development",
@@ -53,6 +55,7 @@
   },
   "dependencies": {
     "@sentry/browser": "^10.20.0",
+    "body-scroll-lock": "^4.0.0-beta.0",
     "canvas": "^3.2.0",
     "dotenv": "^17.2.3",
     "handlebars": "^4.7.8",
@@ -88,6 +91,7 @@
     "postcss-prettify": "^0.3.4",
     "prettier": "^3.6.2",
     "purgecss": "^7.0.2",
+    "standard-version": "^9.5.0",
     "stylelint": "^16.25.0",
     "stylelint-config-recommended-scss": "^16.0.2",
     "stylelint-config-standard": "^39.0.0",
