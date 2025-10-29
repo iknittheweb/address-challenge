@@ -163,7 +163,6 @@ src/img/pages/open-laptops.jpg
 # Ignore if not ready for production
 src/js/contactForm.js     
 src/js/dropdown.js
-src/js/navigation.js
 src/js/skillsChart.js
 
 build-log.txt
