@@ -78,17 +78,6 @@ build/
 !*.template.html         
 
 # =============================================================
-# ENVIRONMENT & CONFIGURATION FILES
-# =============================================================
-# Environment variable files (secrets/settings)
-.env                      
-.env*
-.env.local
-.env.development
-.env.production
-.env.alt
-
-# =============================================================
 # IDE & EDITOR SETTINGS
 # =============================================================
 # VS Code project settings
