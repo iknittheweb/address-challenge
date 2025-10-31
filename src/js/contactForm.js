@@ -90,18 +90,17 @@ waitForCSSAndDOM(() => {
     input.classList.add('contact__input--error');
     errorElement.textContent = message;
     errorElement.classList.add('contact__error--visible');
-    // Ensure error message is associated with input
-    if (!input.hasAttribute('aria-describedby')) {
-      input.setAttribute('aria-describedby', errorElement.id);
-    }
+    // Always associate error message with input
+    input.setAttribute('aria-describedby', errorElement.id);
   }
   function showFieldSuccess(input) {
     input.setAttribute('aria-invalid', 'false');
     input.classList.add('contact__input--valid');
     input.classList.remove('contact__input--error');
+    input.removeAttribute('aria-describedby');
   }
   function clearFieldError(input, errorElement) {
-    input.removeAttribute('aria-invalid');
+    input.setAttribute('aria-invalid', 'false');
     input.classList.remove('contact__input--error', 'contact__input--valid');
     errorElement.textContent = '';
     errorElement.classList.remove('contact__error--visible');
