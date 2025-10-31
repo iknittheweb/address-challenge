@@ -10,9 +10,7 @@
 @function rem($pixel) {
   @if math.is-unitless($pixel) {
     @return math.div($pixel, 16) + rem;
-  }
-
- @else {
+  } @else {
     @error 'Don\'t use units when using the rem() function; only numbers.';
   }
 }
@@ -20,9 +18,7 @@
 @function em($pixel) {
   @if math.is-unitless($pixel) {
     @return math.div($pixel, 16) + em;
-  }
-
- @else {
+  } @else {
     @error 'Don\'t use units when using the em() function; only numbers.';
   }
 }
