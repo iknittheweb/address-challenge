@@ -33,10 +33,12 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 // Initialize navigation (for static pages)
 initializeNavigation();
 
-// Dynamically import dropdown functionality only on portfolio page
-if (document.body.classList.contains('portfolio')) {
+// Dynamically import dropdown functionality wherever .dropdown exists
+if (document.querySelector('.dropdown')) {
   import('./dropdown.js').then((module) => {
-    if (module.initializeDropdown) module.initializeDropdown();
+    if (typeof module.initializeDropdown === 'function') {
+      module.initializeDropdown();
+    }
   });
 }
 
@@ -47,10 +49,12 @@ if (document.body.classList.contains('contact')) {
   });
 }
 
-// Dynamically import skills chart functionality only if #skills-chart exists
+// Dynamically import skills chart functionality wherever #skills-chart exists
 if (document.getElementById('skills-chart')) {
   import('./skillsChart.js').then((module) => {
-    if (module.initializeSkillsChart) module.initializeSkillsChart();
+    if (typeof module.initializeSkillsChart === 'function') {
+      module.initializeSkillsChart();
+    }
   });
 }
 
