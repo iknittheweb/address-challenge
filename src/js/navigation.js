@@ -107,6 +107,7 @@ export function initializeNavigation() {
 
 function openMobileMenu() {
   if (!btnOpen || !main || !footer || !menuTopNav || !overlay || !btnClose) return;
+  if (btnOpen.hasAttribute('aria-disabled') || btnOpen.classList.contains('topnav__open--disabled')) return;
   btnOpen.setAttribute('aria-expanded', 'true');
   main.setAttribute('inert', '');
   footer.setAttribute('inert', '');
@@ -119,6 +120,11 @@ function openMobileMenu() {
   disableBodyScroll(menuTopNav);
   btnClose.focus();
   trapFocus(menuTopNav, closeMobileMenu);
+  // Focus first nav link for keyboard users
+  setTimeout(() => {
+    const items = menuTopNav.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
+    if (items.length) items[0].focus();
+  }, 10);
 }
 
 function handleNavLinkClick() {
@@ -127,6 +133,7 @@ function handleNavLinkClick() {
 
 function closeMobileMenu() {
   if (!btnOpen || !main || !footer || !menuTopNav || !overlay) return;
+  if (btnOpen.hasAttribute('aria-disabled') || btnOpen.classList.contains('topnav__open--disabled')) return;
   btnOpen.setAttribute('aria-expanded', 'false');
   main.removeAttribute('inert');
   footer.removeAttribute('inert');
@@ -179,6 +186,26 @@ function trapFocus(container, onClose) {
           firstEl.focus();
         }
       }
+    }
+    // Arrow key navigation inside menu
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      const items = Array.from(container.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])'));
+      const idx = items.indexOf(document.activeElement);
+      if (items.length) {
+        let nextIdx = idx;
+        if (e.key === 'ArrowDown') {
+          nextIdx = (idx + 1) % items.length;
+        } else if (e.key === 'ArrowUp') {
+          nextIdx = (idx - 1 + items.length) % items.length;
+        }
+        items[nextIdx].focus();
+        e.preventDefault();
+      }
+    }
+    // Escape closes menu
+    if (e.key === 'Escape') {
+      if (typeof onClose === 'function') onClose();
+      btnOpen.focus();
     }
   }
   container.addEventListener('keydown', focusHandler);

@@ -28,7 +28,10 @@
 // Then use window.Sentry below
 import { initializeNavigation } from './navigation.js';
 import './navigation.js';
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+} from 'https://cdn.jsdelivr.net/npm/body-scroll-lock@4.0.0-beta.0/lib/bodyScrollLock.min.js';
 
 // Initialize navigation (for static pages)
 initializeNavigation();
@@ -419,13 +422,22 @@ waitForCSSAndDOM(function () {
 
   //     Only set up dropdown if elements exist (not all pages have dropdowns)
   if (dropdownTitleGroup && dropdownContent) {
-    //     Click handler
+    // Prevent interaction if dropdown is disabled
+    function isDropdownDisabled() {
+      return (
+        dropdownTitleGroup.hasAttribute('aria-disabled') || dropdownTitleGroup.classList.contains('dropdown--disabled')
+      );
+    }
+
+    // Click handler
     dropdownTitleGroup.addEventListener('click', function () {
+      if (isDropdownDisabled()) return;
       toggleDropdown();
     });
 
-    //     Keyboard handler
+    // Keyboard handler
     dropdownTitleGroup.addEventListener('keydown', function (e) {
+      if (isDropdownDisabled()) return;
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         toggleDropdown();
@@ -437,7 +449,6 @@ waitForCSSAndDOM(function () {
 
     function toggleDropdown() {
       const isOpen = dropdownContent.classList.contains('show');
-
       if (isOpen) {
         closeDropdown();
       } else {
@@ -449,13 +460,18 @@ waitForCSSAndDOM(function () {
       dropdownContent.classList.add('show');
       dropdownTitleGroup.classList.add('dropdown-open');
       dropdownTitleGroup.setAttribute('aria-expanded', 'true');
+      dropdownTitleGroup.setAttribute('tabindex', '0');
+      dropdownContent.setAttribute('aria-hidden', 'false');
+      // Focus first item if available
+      const firstItem = dropdownContent.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+      if (firstItem) firstItem.focus();
     }
 
     function closeDropdown() {
       dropdownContent.classList.remove('show');
       dropdownTitleGroup.classList.remove('dropdown-open');
       dropdownTitleGroup.setAttribute('aria-expanded', 'false');
-      //     Remove focus to prevent hover/focus styles from sticking
+      dropdownContent.setAttribute('aria-hidden', 'true');
       dropdownTitleGroup.blur();
     }
   }
@@ -471,6 +487,20 @@ waitForCSSAndDOM(function () {
  * All logic is wrapped in waitForCSSAndDOM to ensure the DOM and CSS are loaded before running.
  */
 waitForCSSAndDOM(() => {
+  // Utility: Escape HTML to prevent XSS
+  function escapeHTML(str) {
+    return str.replace(/[&<>'"`=]/g, function (c) {
+      return {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+        '`': '&#96;',
+        '=': '&#61;',
+      }[c];
+    });
+  }
   //     Select the contact form by its class name
   const contactForm = document.querySelector('.contact__form');
 
@@ -583,7 +613,7 @@ waitForCSSAndDOM(() => {
   function showFieldError(input, errorElement, message) {
     input.setAttribute('aria-invalid', 'true'); //     Accessibility: mark as invalid
     input.classList.add('contact__input--error'); //     Add error styling
-    errorElement.textContent = message; //     Show error message
+    errorElement.textContent = escapeHTML(message); //     Show error message safely
     errorElement.classList.add('contact__error--visible'); //     Make error visible
   }
 
@@ -712,7 +742,7 @@ waitForCSSAndDOM(() => {
     errorMessage.className = 'contact__error contact__error--visible';
     errorMessage.setAttribute('role', 'alert'); //     Accessibility: announce error
     errorMessage.setAttribute('aria-live', 'assertive');
-    errorMessage.innerHTML = `<p><strong>Sorry, something went wrong:</strong></p><p>${message}</p>`;
+    errorMessage.innerHTML = `<p><strong>Sorry, something went wrong:</strong></p><p>${escapeHTML(message)}</p>`;
     contactForm.parentNode.insertBefore(errorMessage, contactForm);
     errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
     setTimeout(() => {

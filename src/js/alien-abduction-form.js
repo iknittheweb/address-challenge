@@ -23,6 +23,20 @@ form.addEventListener('submit', function (e) {
 });
 
 // Function to collect form data and send it using AJAX
+// Utility: Escape HTML to prevent XSS
+function escapeHTML(str) {
+  return String(str).replace(/[&<>'"`=]/g, function (c) {
+    return {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+      '`': '&#96;',
+      '=': '&#61;',
+    }[c];
+  });
+}
 // Reference: https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_forms_through_JavaScript
 function sendData() {
   // Create a new XMLHttpRequest object for AJAX
@@ -80,7 +94,7 @@ function sendData() {
       if (XHR.status === 200) {
         alert('Your order has been received! Check your email.');
       } else {
-        alert('Oh oh! We have a problem! ' + XHR.responseText + '.');
+        alert('Oh oh! We have a problem! ' + escapeHTML(XHR.responseText) + '.');
       }
     }
   });
