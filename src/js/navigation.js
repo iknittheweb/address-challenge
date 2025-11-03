@@ -1,8 +1,5 @@
 // navigation.js
-import {
-  disableBodyScroll,
-  enableBodyScroll,
-} from 'https://cdn.jsdelivr.net/npm/body-scroll-lock@4.0.0-beta.0/lib/bodyScrollLock.min.js';
+import bodyScrollLock from 'https://cdn.jsdelivr.net/npm/body-scroll-lock@4.0.0-beta.0/lib/bodyScrollLock.min.js';
 // Handles navigation, mobile menu, header auto-hide, and accessibility
 // navigation.js (ES module)
 // Utility: Wait for DOM and CSS
@@ -39,6 +36,8 @@ let btnOpen, btnClose, menuTopNav, overlay, main, footer;
 let lastScrollY = 0,
   isScrolling = false,
   navigationInitialized = false;
+
+// Replace all usage of disableBodyScroll/enableBodyScroll with bodyScrollLock.disableBodyScroll and bodyScrollLock.enableBodyScroll
 const breakpoint = window.matchMedia('(width < 43.75em)');
 
 function handleHeaderAutoHide() {
