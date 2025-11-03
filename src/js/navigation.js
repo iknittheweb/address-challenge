@@ -1,5 +1,8 @@
 // navigation.js
-import { disableBodyScroll, enableBodyScroll } from './bodyScrollLock.min.js';
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+} from 'https://cdn.jsdelivr.net/npm/body-scroll-lock@4.0.0-beta.0/lib/bodyScrollLock.min.js';
 // Handles navigation, mobile menu, header auto-hide, and accessibility
 // navigation.js (ES module)
 // Utility: Wait for DOM and CSS
