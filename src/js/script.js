@@ -67,9 +67,6 @@ if (window.Sentry) {
   // window.Sentry.captureException(new Error('Test error from GitHub Pages deployment'));
 }
 
-//     Initialize the app immediately for static pages
-initializeApp();
-
 // ;=============================================================================
 //     DROPDOWN FUNCTIONALITY (for portfolio page)
 // ;=============================================================================
