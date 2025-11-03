@@ -1,5 +1,5 @@
 // navigation.js
-import bodyScrollLock from 'https://cdn.jsdelivr.net/npm/body-scroll-lock@4.0.0-beta.0/lib/bodyScrollLock.min.js';
+const bodyScrollLock = window.bodyScrollLock;
 // Handles navigation, mobile menu, header auto-hide, and accessibility
 // navigation.js (ES module)
 // Utility: Wait for DOM and CSS
