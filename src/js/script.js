@@ -28,10 +28,7 @@
 // Then use window.Sentry below
 import { initializeNavigation } from './navigation.js';
 import './navigation.js';
-import {
-  disableBodyScroll,
-  enableBodyScroll,
-} from 'https://cdn.jsdelivr.net/npm/body-scroll-lock@4.0.0-beta.0/lib/bodyScrollLock.min.js';
+const bodyScrollLock = window.bodyScrollLock;
 
 // Initialize navigation (for static pages)
 initializeNavigation();
