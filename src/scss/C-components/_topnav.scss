@@ -9,7 +9,7 @@
 @use '../A-abstracts/functions' as f;
 @use '../A-abstracts/mixins' as m;
 
-/* stylelint-disable no-descending-specificity */
+//* stylelint-disable no-descending-specificity */
 
 // FontAwesome icon fixes for navigation buttons
 .fa-solid,
@@ -141,6 +141,10 @@
       @include m.breakpoint-down('699.98') {
         display: block; // Show the mobile menu
         transform: translateY(0); // Slide it into view
+
+        &:hover {
+          cursor: pointer;
+        }
       }
 
       @media (prefers-reduced-motion) {
