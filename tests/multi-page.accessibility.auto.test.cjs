@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { JSDOM } = require('jsdom');
+const { JSDOM, VirtualConsole } = require('jsdom');
 
 test('multi-page accessibility: all pages', async () => {
   const pages = [
@@ -45,7 +45,17 @@ test('multi-page accessibility: all pages', async () => {
     if (!/<html\s+lang=["']en["'](\s|>)/i.test(html)) {
       console.warn(`\nWARNING: <html lang=\"en\" (with optional attributes) not found in ${page}!\n`);
     }
-    const dom = new JSDOM(html, { runScripts: 'dangerously', resources: 'usable' });
+    // Suppress jsdom image load warnings
+    const virtualConsole = new VirtualConsole();
+    virtualConsole.on('error', (msg) => {
+      if (typeof msg === 'string' && msg.includes('Could not load img')) return;
+      console.error(msg);
+    });
+    const dom = new JSDOM(html, {
+      runScripts: 'dangerously',
+      resources: 'usable',
+      virtualConsole,
+    });
     // Inject axe-core into the jsdom window
     const axeSource = fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
     dom.window.eval(axeSource);
