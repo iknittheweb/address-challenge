@@ -10,7 +10,7 @@
 @use '../A-abstracts/functions' as f;
 @use '../A-abstracts/mixins' as m;
 
-/* stylelint-disable no-descending-specificity */
+//* stylelint-disable no-descending-specificity */
 
 // LIGHT MODE COLOR SCHEME
 .contact {
@@ -280,7 +280,7 @@
       animation-delay: 0.9s;
     }
   }
-}
+
 
 // DARK COLOR SCHEME
 .contact--inverse {
@@ -313,7 +313,7 @@
     color: var(--primary-bg);
     border: 1px solid var(--primary-bg);
   }
-
+}
   // =========================
   // Form Validation States
   // =========================
