@@ -179,3 +179,13 @@ templateFiles.forEach((templatePath) => {
     console.error(`Build failed for ${templatePath}:`, error.message);
   }
 });
+// Copy JS files from src/js to dist/js
+const jsSrcDir = path.join(__dirname, 'src', 'js');
+const jsDistDir = path.join(__dirname, 'dist', 'js');
+if (!fs.existsSync(jsDistDir)) fs.mkdirSync(jsDistDir, { recursive: true });
+
+const jsFiles = fs.readdirSync(jsSrcDir).filter((f) => f.endsWith('.js'));
+jsFiles.forEach((file) => {
+  fs.copyFileSync(path.join(jsSrcDir, file), path.join(jsDistDir, file));
+  console.log(`Copied ${file} to dist/js/`);
+});
