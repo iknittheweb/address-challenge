@@ -173,3 +173,6 @@ cypress/downloads/
 .tmp/
 .jest/
 coverage/
+
+# Cypress test artifacts
+cypress/screenshots/

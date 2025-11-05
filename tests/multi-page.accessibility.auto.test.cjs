@@ -9,7 +9,7 @@ test('multi-page accessibility: all pages', async () => {
     'css-position-cheat-sheet.html',
     'BasicVerticalNavbars.html',
     'Desc-List-Challenge.html',
-    'index.html',
+    '../index.html',
     'minimal-accessibility-test.html',
     'multi-level-navbar.html',
     'navbar-link-filling-li.html',
