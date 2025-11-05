@@ -269,15 +269,19 @@ function injectHeader(
     headerContainer.insertAdjacentHTML('afterbegin', headerHTML);
   }
 
+  // Expose header injection status for Cypress
+  window.headerInjected = true;
+
   // Re-initialize navigation after header injection
   setTimeout(() => {
     if (window.initializeNavigation) {
       const success = window.initializeNavigation();
+      window.navigationInitializedAfterHeader = !!success;
       if (!success) {
         // Retry if elements weren't ready
         setTimeout(() => {
           if (window.initializeNavigation) {
-            window.initializeNavigation();
+            window.navigationInitializedAfterHeader = !!window.initializeNavigation();
           }
         }, 100);
       }
@@ -295,6 +299,8 @@ function injectFooter() {
     // Insert at the end of body if no placeholder
     footerContainer.insertAdjacentHTML('beforeend', footerHTML);
   }
+  // Expose footer injection status for Cypress
+  window.footerInjected = true;
 }
 
 // Auto-detection based on page context

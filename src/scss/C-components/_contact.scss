@@ -281,39 +281,38 @@
     }
   }
 
-
-// DARK COLOR SCHEME
-.contact--inverse {
-  background: var(--primary-bg);
-  color: var(--light-text);
-
-  .contact__input--inverse {
+  // DARK COLOR SCHEME
+  .contact--inverse {
     background: var(--primary-bg);
     color: var(--light-text);
-    border: 2px solid var(--primary-bg);
-  }
 
-  .contact__intro--inverse,
-  .contact__legend--inverse {
-    color: var(--light-text); // Fixed: use light text for contrast against dark background
-  }
+    .contact__input--inverse {
+      background: var(--primary-bg);
+      color: var(--light-text);
+      border: 2px solid var(--primary-bg);
+    }
 
-  .contact__label--inverse {
-    color: var(--light-text); // Fixed: use light text for contrast against dark background
-  }
+    .contact__intro--inverse,
+    .contact__legend--inverse {
+      color: var(--light-text); // Fixed: use light text for contrast against dark background
+    }
 
-  .contact__form--inverse {
-    background: var(--light-bg);
-    color: var(--dark-text);
-    border: 1px solid var(--primary-bg);
-  }
+    .contact__label--inverse {
+      color: var(--light-text); // Fixed: use light text for contrast against dark background
+    }
 
-  .contact__button--inverse {
-    background: var(--light-text);
-    color: var(--primary-bg);
-    border: 1px solid var(--primary-bg);
+    .contact__form--inverse {
+      background: var(--light-bg);
+      color: var(--dark-text);
+      border: 1px solid var(--primary-bg);
+    }
+
+    .contact__button--inverse {
+      background: var(--light-text);
+      color: var(--primary-bg);
+      border: 1px solid var(--primary-bg);
+    }
   }
-}
   // =========================
   // Form Validation States
   // =========================
@@ -331,17 +330,23 @@
 
   &__error {
     display: block;
-    min-height: f.rem(20);
     margin-top: f.rem(4);
     font-size: f.rem(14);
     color: var(--dark-error);
     font-weight: 500;
     opacity: 0;
+    max-height: 0;
+    overflow: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease;
 
     &--visible {
+      display: block;
       opacity: 1;
+      max-height: 200px;
+      min-height: f.rem(20);
+      height: auto;
+      overflow: visible;
       transform: translateY(0);
     }
   }

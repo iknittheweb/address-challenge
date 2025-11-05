@@ -37,6 +37,13 @@ let lastScrollY = 0,
   isScrolling = false,
   navigationInitialized = false;
 
+// Expose navigation state for Cypress tests
+window.navigationTestState = {
+  menuOpen: false,
+  focusTrapActive: false,
+  initialized: false,
+};
+
 // Replace all usage of disableBodyScroll/enableBodyScroll with bodyScrollLock.disableBodyScroll and bodyScrollLock.enableBodyScroll
 const breakpoint = window.matchMedia('(width < 43.75em)');
 
@@ -99,6 +106,7 @@ export function initializeNavigation() {
   });
   setupTopNav();
   navigationInitialized = true;
+  window.navigationTestState.initialized = true;
   if (!window.autoHideInitialized) {
     window.addEventListener('scroll', onScroll, { passive: true });
     lastScrollY = window.scrollY;
@@ -122,6 +130,8 @@ function openMobileMenu() {
   disableBodyScroll(menuTopNav);
   btnClose.focus();
   trapFocus(menuTopNav, closeMobileMenu);
+  window.navigationTestState.menuOpen = true;
+  window.navigationTestState.focusTrapActive = true;
   // Focus first nav link for keyboard users
   setTimeout(() => {
     const items = menuTopNav.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
@@ -143,6 +153,8 @@ function closeMobileMenu() {
   menuTopNav.setAttribute('aria-hidden', 'true');
   overlay.setAttribute('aria-hidden', 'true');
   enableBodyScroll(menuTopNav);
+  window.navigationTestState.menuOpen = false;
+  window.navigationTestState.focusTrapActive = false;
   setTimeout(() => {
     menuTopNav.removeAttribute('style');
     overlay.removeAttribute('style');
@@ -175,6 +187,7 @@ function trapFocus(container, onClose) {
   if (!focusableEls.length) return;
   const firstEl = focusableEls[0];
   const lastEl = focusableEls[focusableEls.length - 1];
+  window.navigationTestState.focusTrapActive = true;
   function focusHandler(e) {
     if (e.key === 'Tab') {
       if (e.shiftKey) {
@@ -216,6 +229,7 @@ function trapFocus(container, onClose) {
   function cleanupTrap() {
     container.removeEventListener('keydown', focusHandler);
     delete container.dataset.focusTrap;
+    window.navigationTestState.focusTrapActive = false;
   }
   if (typeof onClose === 'function') {
     const observer = new MutationObserver(() => {
