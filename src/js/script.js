@@ -622,13 +622,13 @@ waitForCSSAndDOM(() => {
    * @param {string} message - The error message to show
    */
   function showFieldError(input, errorElement, message) {
-    input.setAttribute('aria-invalid', 'true'); //     Accessibility: mark as invalid
-    input.classList.add('contact__input--error'); //     Add error styling
+    input.setAttribute('aria-invalid', 'true'); // Accessibility: mark as invalid
+    input.classList.add('contact__input--error'); // Add error styling
     errorElement.textContent = escapeHTML(message); //     Show error message safely
-    errorElement.classList.add('contact__error--visible'); //     Make error visible
-    errorElement.style.display = 'block'; //     Ensure error is always visible
-    errorElement.style.height = 'auto'; //     Ensure error has height
-    errorElement.style.maxHeight = '200px'; //     Prevent collapse
+    errorElement.classList.add('contact__error--visible'); // Make error visible
+    errorElement.style.display = 'block'; // Ensure error is always visible
+    errorElement.style.height = 'auto'; // Ensure error has height
+    errorElement.style.maxHeight = '200px'; // Prevent collapse
     // Expose error state for Cypress
     if (input === nameInput) window.contactFormErrorState.name = true;
     if (input === emailInput) window.contactFormErrorState.email = true;
