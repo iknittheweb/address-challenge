@@ -129,8 +129,5 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
 } else {
   document.addEventListener('DOMContentLoaded', initializeSkillsChart);
 }
-// Export for dynamic import compatibility
-export function initializeDropdown() {
-  // This stub is for dynamic import. Real logic is already executed on load.
-}
-// adding a comment to test
+
+export function initializeSkillsChart() {}

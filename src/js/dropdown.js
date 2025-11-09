@@ -181,8 +181,4 @@ waitForCSSAndDOM(function () {
   }
 });
 
-// Export for dynamic import compatibility
-export function initializeDropdown() {
-  // This stub is for dynamic import. Real logic is already executed on load.
-}
-// adding a comment to test
+export function initializeDropdown() {}
