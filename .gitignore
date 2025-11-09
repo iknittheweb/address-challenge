@@ -150,10 +150,6 @@ src/img/pages/open-laptops.jpg
 # UNUSED OR EXPERIMENTAL JS COMPONENTS
 # =============================================================
 # Ignore if not ready for production
-src/js/contactForm.js     
-src/js/dropdown.js
-src/js/skillsChart.js
-
 build-log.txt
 *log*.txt
 
