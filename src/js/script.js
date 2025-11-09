@@ -129,14 +129,24 @@ if (document.querySelector('.dropdown')) {
 
 // Dynamically import contact form functionality only on contact page
 if (document.body.classList.contains('contact')) {
-  import('./contactForm.js').then((module) => {
+  // Use absolute path for production to avoid 404s on GitHub Pages
+  const contactFormPath =
+    window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? './contactForm.js'
+      : `${window.location.origin}${window.location.pathname.replace(/\/[^/]*$/, '')}/dist/js/contactForm.js`;
+  import(contactFormPath).then((module) => {
     if (module.initializeContactForm) module.initializeContactForm();
   });
 }
 
 // Dynamically import skills chart functionality wherever #skills-chart exists
 if (document.getElementById('skills-chart')) {
-  import('./skillsChart.js').then((module) => {
+  // Use absolute path for production to avoid 404s on GitHub Pages
+  const skillsChartPath =
+    window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? './skillsChart.js'
+      : `${window.location.origin}${window.location.pathname.replace(/\/[^/]*$/, '')}/dist/js/skillsChart.js`;
+  import(skillsChartPath).then((module) => {
     if (typeof module.initializeSkillsChart === 'function') {
       module.initializeSkillsChart();
     }
