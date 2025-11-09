@@ -171,13 +171,21 @@ function showSubmissionSuccess() {
     successMessage.remove();
   }, 5000);
 }
+function escapeHTML(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 function showSubmissionError(message) {
   const errorMessage = document.createElement('div');
   errorMessage.className = 'contact__error contact__error--visible';
   errorMessage.setAttribute('role', 'alert');
   errorMessage.setAttribute('aria-live', 'assertive');
   errorMessage.setAttribute('aria-atomic', 'true');
-  errorMessage.innerHTML = `<p><strong>Sorry, something went wrong:</strong></p><p>${message}</p>`;
+  errorMessage.innerHTML = `<p><strong>Sorry, something went wrong:</strong></p><p>${escapeHTML(message)}</p>`;
   contactForm.parentNode.insertBefore(errorMessage, contactForm);
   errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
   // Announce to screen reader

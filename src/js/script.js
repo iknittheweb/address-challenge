@@ -1,80 +1,43 @@
 // =====================
-// Inline Event Handler Migration (from all templates)
+// CSP-Compliant Stylesheet and Font Loader
 // =====================
 document.addEventListener('DOMContentLoaded', function () {
-  // relStylesheet: onload handler for <link rel="preload" as="style">
-  document.querySelectorAll('link[data-js-onload="relStylesheet"]').forEach(function (el) {
+  // Promote <link rel="preload" as="style"> to stylesheet on load
+  document.querySelectorAll('link[rel="preload"][as="style"]').forEach(function (el) {
     el.addEventListener('load', function handler() {
       el.rel = 'stylesheet';
-      el.onload = null;
     });
   });
 
-  // mainCSSLoaded: onload handler for <link rel="stylesheet">
-  document.querySelectorAll('link[data-js-onload="mainCSSLoaded"]').forEach(function (el) {
+  // Track when main stylesheet is loaded
+  document.querySelectorAll('link[rel="stylesheet"][href*="styles"]').forEach(function (el) {
     el.addEventListener('load', function () {
       window.mainCSSLoaded = true;
     });
   });
 
-  // fontsFailed: onerror handler for Google Fonts <link>
-  document.querySelectorAll('link[data-js-onerror="fontsFailed"]').forEach(function (el) {
+  // Font fallback: remove failed Google Fonts links and mark document
+  document.querySelectorAll('link[rel="stylesheet"][href*="fonts.googleapis.com"]').forEach(function (el) {
     el.addEventListener('error', function () {
       el.remove();
       document.documentElement.classList.add('fonts-failed');
     });
   });
 
-  // mediaAll: onload handler for <link rel="stylesheet" media="print">
-  document.querySelectorAll('link[data-js-onload="mediaAll"]').forEach(function (el) {
-    el.addEventListener('load', function handler() {
-      el.media = 'all';
-      el.onload = null;
-    });
-  });
+  // If you want to support print-then-all media swap, do it here (if needed)
+  // document.querySelectorAll('link[rel="stylesheet"][media="print"]').forEach(function (el) {
+  //   el.addEventListener('load', function handler() {
+  //     el.media = 'all';
+  //   });
+  // });
 
-  // showSkipLink: onfocus handler for skip links
-  document.querySelectorAll('a[data-js-onfocus="showSkipLink"]').forEach(function (el) {
+  // Show skip link on focus (if you use skip links)
+  document.querySelectorAll('a.skip-link').forEach(function (el) {
     el.addEventListener('focus', function () {
       el.style.position = 'static';
       el.style.width = 'auto';
       el.style.height = 'auto';
       el.style.left = '0';
-    });
-  });
-});
-// =====================
-// Inline Event Handler Migration (from index.template.html)
-// =====================
-document.addEventListener('DOMContentLoaded', function () {
-  // relStylesheet: onload handler for <link rel="preload" as="style">
-  document.querySelectorAll('link[data-js-onload="relStylesheet"]').forEach(function (el) {
-    el.addEventListener('load', function handler() {
-      el.rel = 'stylesheet';
-      el.onload = null;
-    });
-  });
-
-  // mainCSSLoaded: onload handler for <link rel="stylesheet">
-  document.querySelectorAll('link[data-js-onload="mainCSSLoaded"]').forEach(function (el) {
-    el.addEventListener('load', function () {
-      window.mainCSSLoaded = true;
-    });
-  });
-
-  // fontsFailed: onerror handler for Google Fonts <link>
-  document.querySelectorAll('link[data-js-onerror="fontsFailed"]').forEach(function (el) {
-    el.addEventListener('error', function () {
-      el.remove();
-      document.documentElement.classList.add('fonts-failed');
-    });
-  });
-
-  // mediaAll: onload handler for <link rel="stylesheet" media="print">
-  document.querySelectorAll('link[data-js-onload="mediaAll"]').forEach(function (el) {
-    el.addEventListener('load', function handler() {
-      el.media = 'all';
-      el.onload = null;
     });
   });
 });
