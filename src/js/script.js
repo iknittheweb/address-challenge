@@ -1055,10 +1055,14 @@ function canUseWebP() {
   }
   return false;
 }
-if (canUseWebP()) {
-  var hero = document.getElementById('hero');
-  if (hero) {
-    hero.style.backgroundImage = "url('{{BASE_URL}}{{HERO_BG_URL_WEBP}}')";
+var hero = document.getElementById('hero');
+if (hero) {
+  // Always set both WebP and JPG as fallback using modern CSS if possible
+  // JS fallback for browsers without WebP support
+  if (canUseWebP()) {
+    hero.style.backgroundImage = "url('img/pages/open-laptops.webp')";
+  } else {
+    hero.style.backgroundImage = "url('img/pages/open-laptops.jpg')";
   }
 }
 
