@@ -115,7 +115,12 @@ initializeNavigation();
 
 // Dynamically import dropdown functionality wherever .dropdown exists
 if (document.querySelector('.dropdown')) {
-  import('./dropdown.js').then((module) => {
+  // Use absolute path for production to avoid 404s on GitHub Pages
+  const dropdownPath =
+    window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? './dropdown.js'
+      : `${window.location.origin}${window.location.pathname.replace(/\/[^/]*$/, '')}/dist/js/dropdown.js`;
+  import(dropdownPath).then((module) => {
     if (typeof module.initializeDropdown === 'function') {
       module.initializeDropdown();
     }
