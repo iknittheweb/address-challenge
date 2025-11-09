@@ -1,3 +1,83 @@
+// =====================
+// Inline Event Handler Migration (from all templates)
+// =====================
+document.addEventListener('DOMContentLoaded', function () {
+  // relStylesheet: onload handler for <link rel="preload" as="style">
+  document.querySelectorAll('link[data-js-onload="relStylesheet"]').forEach(function (el) {
+    el.addEventListener('load', function handler() {
+      el.rel = 'stylesheet';
+      el.onload = null;
+    });
+  });
+
+  // mainCSSLoaded: onload handler for <link rel="stylesheet">
+  document.querySelectorAll('link[data-js-onload="mainCSSLoaded"]').forEach(function (el) {
+    el.addEventListener('load', function () {
+      window.mainCSSLoaded = true;
+    });
+  });
+
+  // fontsFailed: onerror handler for Google Fonts <link>
+  document.querySelectorAll('link[data-js-onerror="fontsFailed"]').forEach(function (el) {
+    el.addEventListener('error', function () {
+      el.remove();
+      document.documentElement.classList.add('fonts-failed');
+    });
+  });
+
+  // mediaAll: onload handler for <link rel="stylesheet" media="print">
+  document.querySelectorAll('link[data-js-onload="mediaAll"]').forEach(function (el) {
+    el.addEventListener('load', function handler() {
+      el.media = 'all';
+      el.onload = null;
+    });
+  });
+
+  // showSkipLink: onfocus handler for skip links
+  document.querySelectorAll('a[data-js-onfocus="showSkipLink"]').forEach(function (el) {
+    el.addEventListener('focus', function () {
+      el.style.position = 'static';
+      el.style.width = 'auto';
+      el.style.height = 'auto';
+      el.style.left = '0';
+    });
+  });
+});
+// =====================
+// Inline Event Handler Migration (from index.template.html)
+// =====================
+document.addEventListener('DOMContentLoaded', function () {
+  // relStylesheet: onload handler for <link rel="preload" as="style">
+  document.querySelectorAll('link[data-js-onload="relStylesheet"]').forEach(function (el) {
+    el.addEventListener('load', function handler() {
+      el.rel = 'stylesheet';
+      el.onload = null;
+    });
+  });
+
+  // mainCSSLoaded: onload handler for <link rel="stylesheet">
+  document.querySelectorAll('link[data-js-onload="mainCSSLoaded"]').forEach(function (el) {
+    el.addEventListener('load', function () {
+      window.mainCSSLoaded = true;
+    });
+  });
+
+  // fontsFailed: onerror handler for Google Fonts <link>
+  document.querySelectorAll('link[data-js-onerror="fontsFailed"]').forEach(function (el) {
+    el.addEventListener('error', function () {
+      el.remove();
+      document.documentElement.classList.add('fonts-failed');
+    });
+  });
+
+  // mediaAll: onload handler for <link rel="stylesheet" media="print">
+  document.querySelectorAll('link[data-js-onload="mediaAll"]').forEach(function (el) {
+    el.addEventListener('load', function handler() {
+      el.media = 'all';
+      el.onload = null;
+    });
+  });
+});
 /**
  * NAVIGATION SYSTEM
  * This file handles the mobile hamburger menu and responsive navigation
@@ -966,3 +1046,18 @@ if (canUseWebP()) {
     hero.style.backgroundImage = "url('{{BASE_URL}}{{HERO_BG_URL_WEBP}}')";
   }
 }
+
+// Handle image load errors for all images with data-js-onerror="imgErrorHandler"
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('img[data-js-onerror="imgErrorHandler"]').forEach(function (img) {
+    img.onerror = function (e) {
+      // Example fallback: hide broken image, show alt text, or swap src
+      img.style.display = 'none';
+      if (img.nextElementSibling && img.nextElementSibling.tagName === 'FIGCAPTION') {
+        img.nextElementSibling.style.display = 'block';
+      }
+      // Optionally, log or handle error globally
+      // console.warn('Image failed to load:', img.src);
+    };
+  });
+});
