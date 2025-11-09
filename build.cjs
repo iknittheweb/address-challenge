@@ -57,15 +57,6 @@ const assetUrl = process.env.ASSET_URL;
 // Remove trailing slash from BASE_URL if present
 if (baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
 
-// Only remove leading slash in local build mode (npm run local)
-// Set BUILD_MODE=local in your npm run local script for clarity
-function normalizeUrl(url) {
-  if ((process.env.BUILD_MODE === 'local' || process.env.NODE_ENV === 'development') && url.startsWith('/')) {
-    return url.slice(1);
-  }
-  return url;
-}
-
 if (!baseUrl || !assetUrl) {
   console.error('BASE_URL and ASSET_URL must be set in your .env or .env.production file.');
   process.exit(1);
@@ -92,8 +83,8 @@ templateFiles.forEach((templatePath) => {
         '@type': 'Person',
         name: 'Marta',
         description: 'Web developer specializing in accessible, handcrafted websites.',
-        url: baseUrl + normalizeUrl('/dist/pages/about.html'),
-        url: baseUrl + normalizeUrl('/about.html'),
+        url: baseUrl + '/dist/pages/about.html',
+        url: baseUrl + '/about.html',
         image: assetUrl + 'src/img/pages/Profile.png',
         sameAs: [],
         knowsAbout: ['HTML', 'CSS', 'JavaScript', 'Accessibility', 'SCSS/Sass'],
@@ -104,8 +95,8 @@ templateFiles.forEach((templatePath) => {
         '@type': process.env.SCHEMA_TYPE || 'WebPage',
         name: process.env.SCHEMA_NAME || 'New Page',
         description: process.env.SCHEMA_DESCRIPTION || 'Description for new page.',
-        url: process.env.SCHEMA_URL || baseUrl + normalizeUrl('/dist/pages/new-page.html'),
-        url: process.env.SCHEMA_URL || baseUrl + normalizeUrl('/new-page.html'),
+        url: process.env.SCHEMA_URL || baseUrl + '/dist/pages/new-page.html',
+        url: process.env.SCHEMA_URL || baseUrl + '/new-page.html',
         image: process.env.SCHEMA_IMAGE || assetUrl + 'src/img/pages/default.png',
         sameAs: process.env.SCHEMA_SAMEAS ? JSON.parse(process.env.SCHEMA_SAMEAS) : [],
         knowsAbout: process.env.SCHEMA_KNOWSABOUT
@@ -130,8 +121,8 @@ templateFiles.forEach((templatePath) => {
         name: 'Multi-Level navbar',
         description:
           'A demonstration of a multi-level navigation bar built with HTML and CSS, featuring dropdown menus, nested navigation, and responsive design for modern web interfaces.',
-        url: baseUrl + normalizeUrl('/dist/pages/multi-level-navbar.html'),
-        url: baseUrl + normalizeUrl('/multi-level-navbar.html'),
+        url: baseUrl + '/dist/pages/multi-level-navbar.html',
+        url: baseUrl + '/multi-level-navbar.html',
         image: process.env.SCHEMA_IMAGE || assetUrl + 'src/img/pages/navbar.png',
         sameAs: ['https://github.com/iknittheweb', 'https://twitter.com/iknittheweb'],
         knowsAbout: ['HTML', 'CSS', 'Navigation', 'Responsive Design', 'Frontend Development'],
@@ -142,8 +133,8 @@ templateFiles.forEach((templatePath) => {
         '@type': 'ContactPage',
         name: 'Contact',
         description: 'Contact Marta at I Knit the Web for handcrafted, accessible websites.',
-        url: baseUrl + normalizeUrl('/dist/pages/contact.html'),
-        url: baseUrl + normalizeUrl('/contact.html'),
+        url: baseUrl + '/dist/pages/contact.html',
+        url: baseUrl + '/contact.html',
         image: assetUrl + 'src/img/pages/heading-banner-dark.svg',
         sameAs: [],
         knowsAbout: ['Web Development', 'Accessibility', 'HTML', 'CSS', 'JavaScript'],
@@ -152,11 +143,10 @@ templateFiles.forEach((templatePath) => {
       schemaData = {};
     }
 
-    // Always use normalizeUrl for script/asset paths in context
     const context = Object.assign({}, process.env, {
       SCHEMA_JSON: JSON.stringify(schemaData, null, 2),
-      HOME_JS_FILE: normalizeUrl('/dist/js/script.js'),
-      HOME_CSS_FILE: normalizeUrl('/dist/css/styles.css'),
+      HOME_JS_FILE: '/dist/js/script.js',
+      HOME_CSS_FILE: '/dist/css/styles.css',
       // Add other asset/script paths here as needed
     });
     const htmlContent = template(context);
