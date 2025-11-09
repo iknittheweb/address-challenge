@@ -57,9 +57,10 @@ const assetUrl = process.env.ASSET_URL;
 // Remove trailing slash from BASE_URL if present
 if (baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
 
-// In local development, remove leading slash from any path concatenated to BASE_URL
+// Only remove leading slash in local build mode (npm run local)
+// Set BUILD_MODE=local in your npm run local script for clarity
 function normalizeUrl(url) {
-  if (process.env.NODE_ENV !== 'production' && url.startsWith('/')) {
+  if ((process.env.BUILD_MODE === 'local' || process.env.NODE_ENV === 'development') && url.startsWith('/')) {
     return url.slice(1);
   }
   return url;
