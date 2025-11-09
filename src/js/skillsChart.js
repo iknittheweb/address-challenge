@@ -130,4 +130,4 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
   document.addEventListener('DOMContentLoaded', initializeSkillsChart);
 }
 
-export function initializeSkillsChart() {}
+export { initializeSkillsChart };

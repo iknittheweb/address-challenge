@@ -1,22 +1,8 @@
 // dropdown.js
 // Handles dropdown menu logic for portfolio and other sections
 // dropdown.js (ES module)
-function waitForCSSAndDOM(callback) {
-  function checkReady() {
-    const domReady = document.readyState === 'complete' || document.readyState === 'interactive';
-    const cssReady = document.documentElement.classList.contains('css-loaded') || window.mainCSSLoaded;
-    if (domReady && cssReady) {
-      requestAnimationFrame(() => {
-        requestAnimationFrame(callback);
-      });
-    } else {
-      requestAnimationFrame(checkReady);
-    }
-  }
-  checkReady();
-}
 
-waitForCSSAndDOM(function () {
+function initializeDropdown() {
   const dropdownTitleGroup = document.querySelector('.dropdown__title-group');
   const dropdownContent = document.querySelector('.dropdown__content');
   if (dropdownTitleGroup) dropdownTitleGroup.setAttribute('data-cy', 'dropdown-trigger');
@@ -179,6 +165,13 @@ waitForCSSAndDOM(function () {
     });
     observer.observe(container, { attributes: true });
   }
-});
+}
 
-export function initializeDropdown() {}
+// Initialize on DOM ready for static pages
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  initializeDropdown();
+} else {
+  document.addEventListener('DOMContentLoaded', initializeDropdown);
+}
+
+export { initializeDropdown };
