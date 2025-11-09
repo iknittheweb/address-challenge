@@ -1060,9 +1060,9 @@ if (hero) {
   // Always set both WebP and JPG as fallback using modern CSS if possible
   // JS fallback for browsers without WebP support
   if (canUseWebP()) {
-    hero.style.backgroundImage = "url('img/pages/open-laptops.webp')";
+    hero.style.backgroundImage = "url('dist/img/pages/open-laptops.webp')";
   } else {
-    hero.style.backgroundImage = "url('img/pages/open-laptops.jpg')";
+    hero.style.backgroundImage = "url('dist/img/pages/open-laptops.jpg')";
   }
 }
 
