@@ -151,7 +151,14 @@ templateFiles.forEach((templatePath) => {
     } else {
       schemaData = {};
     }
-    const context = Object.assign({}, process.env, { SCHEMA_JSON: JSON.stringify(schemaData, null, 2) });
+
+    // Always use normalizeUrl for script/asset paths in context
+    const context = Object.assign({}, process.env, {
+      SCHEMA_JSON: JSON.stringify(schemaData, null, 2),
+      HOME_JS_FILE: normalizeUrl('/dist/js/script.js'),
+      HOME_CSS_FILE: normalizeUrl('/dist/css/styles.css'),
+      // Add other asset/script paths here as needed
+    });
     const htmlContent = template(context);
 
     // Remove template warning and workflow comments from the output
