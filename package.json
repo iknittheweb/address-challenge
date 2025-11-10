@@ -19,7 +19,7 @@
     "format:json": "prettier --write **/*.json",
     "generate-envs": "node scripts/generate-envs.cjs",
   "postbuild:fix-html": "node scripts/remove-trailing-slashes.cjs .",
-  "postbuild:clean-links": "node remove-link-onload.js",
+  "postbuild:clean-links": "node remove-link-onload.cjs",
     "postbuild:titlecase-env": "node scripts/titlecase-env.cjs",
     "postinstall": "cypress install",
     "prepare": "husky install",
