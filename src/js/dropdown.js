@@ -25,9 +25,26 @@ function initializeDropdown() {
 
     let lastTrigger = null;
 
-    dropdownTitleGroup.addEventListener('click', function () {
+    dropdownTitleGroup.addEventListener('click', function (e) {
       console.log('[Dropdown] Click event on trigger');
+      const isOpen = dropdownContent.classList.contains('show');
+      console.log('[Dropdown] Trigger clicked. Dropdown is currently', isOpen ? 'OPEN' : 'CLOSED');
       toggleDropdown();
+      // Diagnostic: log after toggling
+      setTimeout(() => {
+        const nowOpen = dropdownContent.classList.contains('show');
+        console.log('[Dropdown] After toggle, dropdown is', nowOpen ? 'OPEN' : 'CLOSED');
+      }, 0);
+    });
+    // Outside click-to-close logic
+    document.addEventListener('click', function (e) {
+      // Only act if dropdown is open
+      if (!dropdownContent.classList.contains('show')) return;
+      // If click is inside dropdown or trigger, do nothing
+      if (dropdownContent.contains(e.target) || dropdownTitleGroup.contains(e.target)) return;
+      // Otherwise, close dropdown
+      console.log('[Dropdown] Outside click detected, closing dropdown');
+      closeDropdown();
     });
     dropdownTitleGroup.addEventListener('keydown', function (e) {
       console.log('[Dropdown] Keydown event:', e.key);
