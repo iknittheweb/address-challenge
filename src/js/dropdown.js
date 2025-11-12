@@ -105,7 +105,6 @@ function initializeDropdown() {
       dropdownTitleGroup.classList.remove('dropdown-open');
       dropdownTitleGroup.setAttribute('aria-expanded', 'false');
       // Reset dropdown visibility for Cypress tests
-      dropdownContent.style.maxHeight = '';
       dropdownContent.style.opacity = '';
       dropdownContent.style.display = '';
       window.dropdownTestState.isOpen = false;
