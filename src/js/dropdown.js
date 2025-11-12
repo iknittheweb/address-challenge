@@ -94,7 +94,6 @@ function initializeDropdown() {
           items[0].setAttribute('data-cy', 'dropdown-first-item');
         }
         // Ensure dropdown is visible for Cypress tests
-        dropdownContent.style.maxHeight = '400px';
         dropdownContent.style.opacity = '1';
         dropdownContent.style.display = 'block';
       }, 10);
