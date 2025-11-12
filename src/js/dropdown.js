@@ -95,7 +95,6 @@ function initializeDropdown() {
         }
         // Ensure dropdown is visible for Cypress tests
         dropdownContent.style.opacity = '1';
-        dropdownContent.style.display = 'block';
       }, 10);
     }
     function closeDropdown() {
