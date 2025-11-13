@@ -185,11 +185,4 @@ function initializeDropdown() {
   }
 }
 
-// Initialize on DOM ready for static pages
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-  initializeDropdown();
-} else {
-  document.addEventListener('DOMContentLoaded', initializeDropdown);
-}
-
 export { initializeDropdown };
