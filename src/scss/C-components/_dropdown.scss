@@ -185,3 +185,9 @@
     }
   }
 }
+.dropdown__content.show {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 9999 !important;
+}
