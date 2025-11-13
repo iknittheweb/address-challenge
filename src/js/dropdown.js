@@ -5,6 +5,8 @@
 function initializeDropdown() {
   const dropdownTitleGroup = document.querySelector('.dropdown__title-group');
   const dropdownContent = document.querySelector('.dropdown__content');
+  if (window.dropdownInitialized) return;
+  window.dropdownInitialized = true;
   if (dropdownTitleGroup) dropdownTitleGroup.setAttribute('data-cy', 'dropdown-trigger');
   if (dropdownContent) dropdownContent.setAttribute('data-cy', 'dropdown-content');
   // Expose dropdown state for Cypress
