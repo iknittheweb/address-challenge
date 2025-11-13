@@ -27,6 +27,7 @@ function initializeDropdown() {
 
     let lastTrigger = null;
 
+    console.log('[Dropdown] Adding click event listener to trigger');
     dropdownTitleGroup.addEventListener('click', function (e) {
       console.log('[Dropdown] Click event on trigger');
       const isOpen = dropdownContent.classList.contains('show');
