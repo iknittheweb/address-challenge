@@ -191,3 +191,6 @@
   visibility: visible !important;
   z-index: 9999 !important;
 }
+.dropdown__content.show {
+  display: block !important;
+}
