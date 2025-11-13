@@ -491,67 +491,7 @@ initializeApp();
  * Set up dropdown menus once DOM and CSS are fully loaded
  * This is separate from navigation and handles expandable content sections
  */
-waitForCSSAndDOM(function () {
-  //     Find dropdown elements (used on portfolio page for project categories)
-  const dropdownTitleGroup = document.querySelector('.dropdown__title-group');
-  const dropdownContent = document.querySelector('.dropdown__content');
-
-  //     Only set up dropdown if elements exist (not all pages have dropdowns)
-  if (dropdownTitleGroup && dropdownContent) {
-    // Prevent interaction if dropdown is disabled
-    function isDropdownDisabled() {
-      return (
-        dropdownTitleGroup.hasAttribute('aria-disabled') || dropdownTitleGroup.classList.contains('dropdown--disabled')
-      );
-    }
-
-    // Click handler
-    dropdownTitleGroup.addEventListener('click', function () {
-      if (isDropdownDisabled()) return;
-      toggleDropdown();
-    });
-
-    // Keyboard handler
-    dropdownTitleGroup.addEventListener('keydown', function (e) {
-      if (isDropdownDisabled()) return;
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleDropdown();
-      }
-      if (e.key === 'Escape') {
-        closeDropdown();
-      }
-    });
-
-    function toggleDropdown() {
-      const isOpen = dropdownContent.classList.contains('show');
-      if (isOpen) {
-        closeDropdown();
-      } else {
-        openDropdown();
-      }
-    }
-
-    function openDropdown() {
-      dropdownContent.classList.add('show');
-      dropdownTitleGroup.classList.add('dropdown-open');
-      dropdownTitleGroup.setAttribute('aria-expanded', 'true');
-      dropdownTitleGroup.setAttribute('tabindex', '0');
-      dropdownContent.setAttribute('aria-hidden', 'false');
-      // Focus first item if available
-      const firstItem = dropdownContent.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
-      if (firstItem) firstItem.focus();
-    }
-
-    function closeDropdown() {
-      dropdownContent.classList.remove('show');
-      dropdownTitleGroup.classList.remove('dropdown-open');
-      dropdownTitleGroup.setAttribute('aria-expanded', 'false');
-      dropdownContent.setAttribute('aria-hidden', 'true');
-      dropdownTitleGroup.blur();
-    }
-  }
-});
+// ...existing code...
 
 // ;=============================================================================
 //     CONTACT FORM VALIDATION & SUBMISSION
