@@ -89,6 +89,26 @@
     background: var(--primary-bg-pale);
     margin-top: 0; // Remove top margin for alignment
     margin-bottom: 0; // Remove bottom margin for alignment
+    transition:
+      visibility 0.3s,
+      max-height 0.3s,
+      opacity 0.3s;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  details[open] > .code-showcase__content,
+  &.open > .code-showcase__content {
+    max-height: 2000px; // Large enough to fit content
+    opacity: 1;
+    visibility: visible;
+    overflow: visible;
+    transition:
+      visibility 0.3s,
+      max-height 0.3s,
+      opacity 0.3s;
   }
 
   pre {
