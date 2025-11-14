@@ -91,10 +91,10 @@
     margin-bottom: 0; // Remove bottom margin for alignment
     display: none; // Hide by default
   }
+}
 
-  details.code-showcase[open] .code-showcase__content {
-    display: block; // Show when parent <details class="code-showcase"> is open
-  }
+details.code-showcase[open] .code-showcase__content {
+  display: block; // Show when parent <details class="code-showcase"> is open
 }
 
 pre {
