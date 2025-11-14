@@ -8,14 +8,14 @@
 @use '../A-abstracts/mixins' as m;
 
 .code-showcase {
-  margin-top: f.rem(24);
+  margin-top: 0; // Remove top margin for top alignment
   border: 1px solid var(--light-border, #e0e0e0);
   border-radius: f.rem(6);
   background-color: var(--light-bg, #fafafa);
 
   // Inside cards, reduce top margin for better visual flow
   .card__body & {
-    margin-top: f.rem(16);
+    margin-top: 0; // Remove margin for alignment
     margin-left: f.rem(16);
     margin-right: f.rem(16);
   }
@@ -87,6 +87,8 @@
     padding: f.rem(20);
     border-top: 1px solid var(--light-border, #e0e0e0);
     background: var(--primary-bg-pale);
+    margin-top: 0; // Remove top margin for alignment
+    margin-bottom: 0; // Remove bottom margin for alignment
   }
 
   pre {

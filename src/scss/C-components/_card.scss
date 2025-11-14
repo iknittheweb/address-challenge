@@ -98,6 +98,7 @@
     justify-content: flex-end; // Align button to the right
     background-color: var(--light-bg); // Footer background color
     border-top: 1px solid var(--light-border); // Line above footer
+    // Do NOT use margin-top: auto here if you want top-aligned footers when cards are different heights
   }
 
   // Card button styles
