@@ -96,6 +96,18 @@
   }
 }
 
+.code-showcase,
+details.code-showcase {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.code-showcase > summary,
+details.code-showcase > summary {
+  margin: 0;
+}
+
 details.code-showcase[open] .code-showcase__content {
   display: block; // Show when parent <details class="code-showcase"> is open
 }
