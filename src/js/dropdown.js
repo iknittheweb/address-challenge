@@ -27,17 +27,13 @@ function initializeDropdown() {
 
     let lastTrigger = null;
 
-    console.log('[Dropdown] Adding click event listener to trigger');
     dropdownTitleGroup.addEventListener('click', function (e) {
       e.stopPropagation();
-      console.log('[Dropdown] Click event on trigger');
       const isOpen = dropdownContent.classList.contains('show');
-      console.log('[Dropdown] Trigger clicked. Dropdown is currently', isOpen ? 'OPEN' : 'CLOSED');
       toggleDropdown();
       // Diagnostic: log after toggling
       setTimeout(() => {
         const nowOpen = dropdownContent.classList.contains('show');
-        console.log('[Dropdown] After toggle, dropdown is', nowOpen ? 'OPEN' : 'CLOSED');
       }, 0);
     });
     // Outside click-to-close logic
@@ -47,11 +43,9 @@ function initializeDropdown() {
       // If click is inside dropdown or trigger, do nothing
       if (dropdownContent.contains(e.target) || dropdownTitleGroup.contains(e.target)) return;
       // Otherwise, close dropdown
-      console.log('[Dropdown] Outside click detected, closing dropdown');
       closeDropdown();
     });
     dropdownTitleGroup.addEventListener('keydown', function (e) {
-      console.log('[Dropdown] Keydown event:', e.key);
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         toggleDropdown();
@@ -81,7 +75,6 @@ function initializeDropdown() {
       }
     }
     function openDropdown() {
-      console.log('[Dropdown] openDropdown called');
       dropdownContent.classList.add('show');
       dropdownContent.setAttribute('aria-hidden', 'false');
       dropdownTitleGroup.classList.add('dropdown-open');
@@ -102,8 +95,6 @@ function initializeDropdown() {
       }, 10);
     }
     function closeDropdown() {
-      console.log('[Dropdown] closeDropdown called');
-      console.log('[Dropdown] .show class present after close:', dropdownContent.classList.contains('show'));
       dropdownContent.classList.remove('show');
       dropdownContent.setAttribute('aria-hidden', 'true');
       dropdownTitleGroup.classList.remove('dropdown-open');
@@ -118,7 +109,6 @@ function initializeDropdown() {
 
   // Trap focus within dropdown menu
   function trapFocus(container, onClose) {
-    console.log('[Dropdown] trapFocus activated');
     const focusableSelectors = [
       'a[href]',
       'button:not([disabled])',
