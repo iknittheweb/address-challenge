@@ -8,6 +8,9 @@
 @use '../A-abstracts/mixins' as m;
 
 .code-showcase {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   margin-top: 0; // Remove top margin for top alignment
   border: 1px solid var(--light-border, #e0e0e0);
   border-radius: f.rem(6);
