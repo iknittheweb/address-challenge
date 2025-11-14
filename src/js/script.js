@@ -85,16 +85,11 @@ if (document.querySelector('.dropdown')) {
       : `${window.location.origin}${window.location.pathname.replace(/\/[^/]*$/, '')}/dist/js/dropdown.js`;
   import(dropdownPath)
     .then((module) => {
-      console.log('[DEBUG] dropdown.js module:', module);
       if (typeof module.initializeDropdown === 'function') {
         module.initializeDropdown();
-      } else {
-        console.warn('[DEBUG] initializeDropdown not found in dropdown.js');
       }
     })
-    .catch((err) => {
-      console.error('[DEBUG] Failed to import dropdown.js:', err);
-    });
+    .catch(() => {});
 }
 
 // Dynamically import contact form functionality only on contact page
@@ -118,16 +113,11 @@ if (document.getElementById('skills-chart')) {
       : `${window.location.origin}${window.location.pathname.replace(/\/[^/]*$/, '')}/dist/js/skillsChart.js`;
   import(skillsChartPath)
     .then((module) => {
-      console.log('[DEBUG] skillsChart.js module:', module);
       if (typeof module.initializeSkillsChart === 'function') {
         module.initializeSkillsChart();
-      } else {
-        console.warn('[DEBUG] initializeSkillsChart not found in skillsChart.js');
       }
     })
-    .catch((err) => {
-      console.error('[DEBUG] Failed to import skillsChart.js:', err);
-    });
+    .catch(() => {});
 }
 
 // Sentry error tracking (browser global)

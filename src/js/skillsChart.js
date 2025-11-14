@@ -13,6 +13,8 @@ function announceToScreenReader(message) {
   }, 1000);
 }
 function initializeSkillsChart() {
+  if (window.skillsChartInitialized) return;
+  window.skillsChartInitialized = true;
   const skillsChart = document.getElementById('skills-chart');
   if (!skillsChart) {
     console.log('[SkillsChart] No #skills-chart element found. Initialization aborted.');
