@@ -98,7 +98,7 @@
     pointer-events: none;
   }
 
-  details[open] > .code-showcase__content {
+  details[open] .code-showcase__content {
     max-height: 2000px; // Large enough for content
     opacity: 1;
     pointer-events: auto;
