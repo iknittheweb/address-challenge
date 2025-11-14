@@ -47,12 +47,21 @@ function initializeSkillsChart() {
   // Tab click and keyboard navigation
   tabs.forEach((tab, index) => {
     tab.addEventListener('click', () => {
-      activateTab(index);
+      // If this tab is already active, close all tabs (toggle off)
+      if (tab.classList.contains('skills-chart__tab--active')) {
+        closeAllTabs();
+      } else {
+        activateTab(index);
+      }
     });
     tab.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        activateTab(index);
+        if (tab.classList.contains('skills-chart__tab--active')) {
+          closeAllTabs();
+        } else {
+          activateTab(index);
+        }
       }
       if (e.key === 'ArrowRight') {
         e.preventDefault();
@@ -68,6 +77,24 @@ function initializeSkillsChart() {
       }
     });
   });
+
+  // Close all tabs when clicking outside the skills chart
+  document.addEventListener('click', function (e) {
+    if (!skillsChart.contains(e.target)) {
+      closeAllTabs();
+    }
+  });
+
+  function closeAllTabs() {
+    tabs.forEach((tab, i) => {
+      tab.classList.remove('skills-chart__tab--active');
+      tab.setAttribute('aria-selected', 'false');
+      tab.setAttribute('tabindex', '-1');
+      tab.setAttribute('aria-expanded', 'false');
+      categories[i].classList.remove('skills-chart__category--active');
+      categories[i].setAttribute('aria-hidden', 'true');
+    });
+  }
 
   function activateTab(activeIndex) {
     tabs.forEach((tab, i) => {
