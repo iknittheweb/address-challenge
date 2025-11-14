@@ -17,16 +17,11 @@ function initializeSkillsChart() {
   window.skillsChartInitialized = true;
   const skillsChart = document.getElementById('skills-chart');
   if (!skillsChart) {
-    console.log('[SkillsChart] No #skills-chart element found. Initialization aborted.');
     return;
   }
-  console.log('[SkillsChart] Initializing skills chart logic');
   const tabs = skillsChart.querySelectorAll('.skills-chart__tab');
   const categories = skillsChart.querySelectorAll('.skills-chart__category');
   const progressBars = skillsChart.querySelectorAll('.skills-chart__progress-fill');
-  console.log(
-    `[SkillsChart] Found ${tabs.length} tabs, ${categories.length} categories, ${progressBars.length} progress bars`
-  );
 
   // ARIA roles for tablist, tab, tabpanel
   skillsChart.setAttribute('role', 'tablist');
@@ -56,13 +51,10 @@ function initializeSkillsChart() {
   // Tab click and keyboard navigation
   tabs.forEach((tab, index) => {
     tab.addEventListener('click', () => {
-      console.log(`[SkillsChart] Tab clicked: index=${index}, id=${tab.id}`);
       // If this tab is already active, close all tabs (toggle off)
       if (tab.classList.contains('skills-chart__tab--active')) {
-        console.log('[SkillsChart] Tab already active, closing all tabs');
         closeAllTabs();
       } else {
-        console.log(`[SkillsChart] Activating tab index=${index}`);
         activateTab(index);
       }
     });
@@ -70,24 +62,20 @@ function initializeSkillsChart() {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         if (tab.classList.contains('skills-chart__tab--active')) {
-          console.log('[SkillsChart] Keyboard: Tab already active, closing all tabs');
           closeAllTabs();
         } else {
-          console.log(`[SkillsChart] Keyboard: Activating tab index=${index}`);
           activateTab(index);
         }
       }
       if (e.key === 'ArrowRight') {
         e.preventDefault();
         const next = (index + 1) % tabs.length;
-        console.log(`[SkillsChart] Keyboard: ArrowRight to tab index=${next}`);
         tabs[next].focus();
         activateTab(next);
       }
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
         const prev = (index - 1 + tabs.length) % tabs.length;
-        console.log(`[SkillsChart] Keyboard: ArrowLeft to tab index=${prev}`);
         tabs[prev].focus();
         activateTab(prev);
       }
@@ -97,13 +85,11 @@ function initializeSkillsChart() {
   // Close all tabs when clicking outside the skills chart
   document.addEventListener('click', function (e) {
     if (!skillsChart.contains(e.target)) {
-      console.log('[SkillsChart] Outside click detected, closing all tabs');
       closeAllTabs();
     }
   });
 
   function closeAllTabs() {
-    console.log('[SkillsChart] closeAllTabs called');
     tabs.forEach((tab, i) => {
       tab.classList.remove('skills-chart__tab--active');
       tab.setAttribute('aria-selected', 'false');
@@ -115,10 +101,8 @@ function initializeSkillsChart() {
   }
 
   function activateTab(activeIndex) {
-    console.log(`[SkillsChart] activateTab called for index=${activeIndex}`);
     tabs.forEach((tab, i) => {
       if (i === activeIndex) {
-        console.log(`[SkillsChart] Activating tab: index=${i}, id=${tab.id}`);
         tab.classList.add('skills-chart__tab--active');
         tab.setAttribute('aria-selected', 'true');
         tab.setAttribute('tabindex', '0');
