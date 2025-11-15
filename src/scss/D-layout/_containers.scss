@@ -3,7 +3,7 @@
 
 .wrapper {
   width: 100%;
-  max-width: f.rem(1200);
+  // max-width: f.rem(1200);
   margin-inline: auto;
   padding-block: f.rem(60);
   transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -11,9 +11,6 @@
   // Add horizontal padding for small screens
   @include m.breakpoint-down('499.98') {
     padding-inline: f.rem(8);
-  }
-  @media (max-width: 360px) {
-    padding-inline: f.rem(4);
   }
 }
 
