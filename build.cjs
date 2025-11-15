@@ -16,7 +16,6 @@
 // alternate environments (like GitHub Pages or Netlify), or production.
 // =====================================================================
 
-
 /*
   =====================================================================
   BUILD SCRIPT OVERVIEW
@@ -39,7 +38,6 @@
   =====================================================================
 */
 
-
 // Import required Node.js modules
 const fs = require('fs'); // For reading and writing files
 const path = require('path'); // For handling file paths
@@ -50,7 +48,6 @@ const Handlebars = require('handlebars'); // For processing HTML templates
 Handlebars.registerHelper('eq', function (a, b) {
   return a === b;
 });
-
 
 // =============================================================
 // STEP 1: Determine which environment file to use
@@ -72,7 +69,6 @@ if (process.env.DOTENV_CONFIG_PATH) {
 // Load environment variables from the selected .env file
 require('dotenv').config({ path: dotenvPath });
 
-
 // =============================================================
 // STEP 2: Get BASE_URL and ASSET_URL from environment variables
 // =============================================================
@@ -88,12 +84,10 @@ if (!baseUrl || !assetUrl) {
   process.exit(1);
 }
 
-
 // =============================================================
 // STEP 3: Find and process all HTML template files
 // =============================================================
 console.log('Building HTML for all template files...');
-
 
 // Use glob to find all .template.html files in the project root and src/templates
 const glob = require('glob');
@@ -101,17 +95,18 @@ const templateFiles = glob
   .sync(path.join(__dirname, '*.template.html'))
   .concat(glob.sync(path.join(__dirname, 'src', 'templates', '*.template.html')));
 
-
 // Loop through each template file and process it
 templateFiles.forEach((templatePath) => {
   try {
+    // DEBUG: Print which template is being processed and what baseUrl is used
+    console.log(`[DEBUG] Processing template: ${templatePath}`);
+    console.log(`[DEBUG] Using BASE_URL: ${baseUrl}`);
     // Read the template file as a string
     const templateSrc = fs.readFileSync(templatePath, 'utf8');
     // Compile the template using Handlebars
     const template = Handlebars.compile(templateSrc);
 
     // Prepare schema.org JSON-LD data for SEO and rich results
-    // This block customizes the schema for each template type
     let schemaData;
     if (templatePath.endsWith('about.template.html')) {
       schemaData = {
@@ -181,7 +176,7 @@ templateFiles.forEach((templatePath) => {
 
     // Create the context object for the template
     // This includes all environment variables and custom values
-    const context = Object.assign({}, process.env, {
+    let context = Object.assign({}, process.env, {
       SCHEMA_JSON: JSON.stringify(schemaData, null, 2), // For ld+json blocks
       HOME_JS_FILE: '/dist/js/script.js', // Main JS file path
       HOME_CSS_FILE: '/dist/css/styles.css', // Main CSS file path
@@ -189,7 +184,19 @@ templateFiles.forEach((templatePath) => {
     });
 
     // Render the template with the context
-    const htmlContent = template(context);
+    let htmlContent = template(context);
+
+    // Extra debug for portfolio.template.html (must be after context is created)
+    if (templatePath.endsWith('portfolio.template.html')) {
+      console.log('[DEBUG][portfolio] context.BASE_URL:', context.BASE_URL);
+      console.log('[DEBUG][portfolio] context.ASSET_URL:', context.ASSET_URL);
+      const lines = htmlContent.split(/\r?\n/);
+      lines.forEach((line, idx) => {
+        if (line.includes('localhost') || line.includes('5500')) {
+          console.log(`[DEBUG][portfolio] Rendered line ${idx + 1}:`, line.trim());
+        }
+      });
+    }
 
     // Remove template warnings and workflow comments from the output HTML
     let finalHtml = htmlContent.replace(
