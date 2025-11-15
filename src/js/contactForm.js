@@ -57,7 +57,7 @@ function validateField(input, fieldName) {
   const value = input.value.trim();
   const errorElement = document.getElementById(`${fieldName}-error`);
   clearFieldError(input, errorElement);
-  console.log('[contactForm.js] validateField', fieldName, value);
+  console.log('[contactForm.js] validateField', { fieldName, value, rules, errorElement });
   if (rules.required && !value) {
     console.log('[contactForm.js] showFieldError required', fieldName);
     showFieldError(input, errorElement, rules.messages.required);
@@ -84,13 +84,23 @@ function validateField(input, fieldName) {
   return true;
 }
 function showFieldError(input, errorElement, message) {
-  console.log('[contactForm.js] showFieldError', input.id, message);
+  console.log('[contactForm.js] showFieldError', { inputId: input.id, errorElement, message });
+  if (!message) {
+    console.warn('[contactForm.js] showFieldError called with empty message!', { inputId: input.id, errorElement });
+    errorElement.textContent = '[DEBUG] No error message provided.';
+  }
   input.setAttribute('aria-invalid', 'true');
   input.classList.add('contact__input--error');
   errorElement.textContent = message;
   errorElement.classList.add('contact__error--visible');
   // Always associate error message with input
   input.setAttribute('aria-describedby', errorElement.id);
+  // Debug: log the errorElement after update
+  console.log('[contactForm.js] errorElement after update', {
+    id: errorElement.id,
+    text: errorElement.textContent,
+    class: errorElement.className,
+  });
 }
 function showFieldSuccess(input) {
   input.setAttribute('aria-invalid', 'false');
