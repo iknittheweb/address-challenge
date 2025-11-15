@@ -45,33 +45,8 @@ window.navigationTestState = {
 };
 
 // Replace all usage of disableBodyScroll/enableBodyScroll with bodyScrollLock.disableBodyScroll and bodyScrollLock.enableBodyScroll
+
 const breakpoint = window.matchMedia('(width < 43.75em)');
-
-function handleHeaderAutoHide() {
-  const header = document.querySelector('.topnav');
-  if (!header) return;
-  const currentScrollY = window.scrollY;
-  if (currentScrollY <= 10) {
-    header.classList.remove('header-hidden');
-    return;
-  }
-  if (currentScrollY > lastScrollY && currentScrollY > 100) {
-    header.classList.add('header-hidden');
-  } else if (currentScrollY < lastScrollY) {
-    header.classList.remove('header-hidden');
-  }
-  lastScrollY = currentScrollY;
-}
-
-function onScroll() {
-  if (!isScrolling) {
-    window.requestAnimationFrame(() => {
-      handleHeaderAutoHide();
-      isScrolling = false;
-    });
-    isScrolling = true;
-  }
-}
 
 function setupTopNav() {
   if (!menuTopNav) return;
@@ -107,11 +82,7 @@ export function initializeNavigation() {
   setupTopNav();
   navigationInitialized = true;
   window.navigationTestState.initialized = true;
-  if (!window.autoHideInitialized) {
-    window.addEventListener('scroll', onScroll, { passive: true });
-    lastScrollY = window.scrollY;
-    window.autoHideInitialized = true;
-  }
+  // Removed header auto-hide scroll logic
   return true;
 }
 
