@@ -2,19 +2,18 @@
 @use '../A-abstracts/mixins' as m;
 
 .wrapper {
-  width: min(100% - f.rem(48), f.rem(1200));
+  width: 100%;
+  max-width: f.rem(1200);
   margin-inline: auto;
   padding-block: f.rem(60);
-  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
-  // More aggressive margin reduction for very small screens
+  // Add horizontal padding for small screens
   @include m.breakpoint-down('499.98') {
-    width: min(100% - f.rem(16), f.rem(1200)); // Reduce to 16px margins
+    padding-inline: f.rem(8);
   }
-
-  // Additional fix for extremely narrow screens
   @media (max-width: 360px) {
-    width: min(100% - f.rem(8), f.rem(1200)); // Minimal margins for very narrow screens
+    padding-inline: f.rem(4);
   }
 }
 
