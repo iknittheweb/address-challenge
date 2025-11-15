@@ -27,14 +27,8 @@
   -webkit-font-smoothing: antialiased;
 }
 
-body {
-  padding: 0;
-  margin: 0;
-}
-
 .topnav {
   border-bottom: 2px solid var(--topnav-border);
-  /* Removed sticky/fixed positioning so header scrolls with page */
   width: 100%;
   background-color: var(--primary-bg);
   transform: none;
@@ -73,7 +67,6 @@ body {
 
   &__overlay {
     @include m.breakpoint-down('699.98') {
-      position: fixed;
       inset: 0;
       background-color: var(--menu-overlay);
       opacity: 0;
@@ -97,11 +90,6 @@ body {
     .fa-solid {
       font-size: f.rem(24); // 1.5rem equivalent
       display: inline-block;
-    }
-
-    @include m.breakpoint-down('699.98') {
-      position: absolute;
-      top: f.rem(12);
     }
 
     @include m.breakpoint('700') {
@@ -156,7 +144,6 @@ body {
       // Mobile: Hidden by default, only shown when menu is opened
       display: none;
       width: 100vw;
-      position: fixed;
       inset: 0 0 auto;
       padding: 12px 24px 120px;
       border-radius: 0 0 20px 20px;
