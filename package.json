@@ -10,7 +10,7 @@
     "build:alt": "cross-env DOTENV_CONFIG_PATH=.env.alt node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && node build.cjs alt && node component-build.cjs alt && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:clean-links && npm run postbuild:titlecase-env && npm run test:a11y:all && npm run test:e2e && npm run lint:js && npm run lint:html && npm run test:style",
     "build:alt:log": "powershell -ExecutionPolicy Bypass -File ./scripts/build-with-logs.ps1",
     "build:alt:skip-tests": "cross-env DOTENV_CONFIG_PATH=.env.alt node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && node build.cjs alt && node component-build.cjs alt && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:clean-links && npm run postbuild:titlecase-env",
-    "build:alt:skip-tests:log": "powershell -ExecutionPolicy Bypass -File ./scripts/build-alt-skip-tests-with-logs.ps1",
+    "bastl": "powershell -ExecutionPolicy Bypass -File ./scripts/build-alt-skip-tests-with-logs.ps1",
     "alt": "npm run build:alt:skip-tests:log",
     "build:log": "powershell -ExecutionPolicy Bypass -File ./scripts/build-with-logs.ps1",
     "build:netlify-alt": "cross-env DOTENV_CONFIG_PATH=.env.netlify-alt cross-env node build.cjs alt && cross-env node component-build.cjs && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:clean-links && npm run postbuild:titlecase-env && npm run lint:js && npm run lint:html && npm run test:style",
