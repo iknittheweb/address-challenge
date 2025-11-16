@@ -179,7 +179,7 @@ templateFiles.forEach((templatePath) => {
     let context = Object.assign({}, process.env, {
       SCHEMA_JSON: JSON.stringify(schemaData, null, 2), // For ld+json blocks
       HOME_JS_FILE: '/dist/js/script.js', // Main JS file path
-      HOME_CSS_FILE: '/dist/css/styles.css', // Main CSS file path
+      HOME_CSS_FILE: process.env.HOME_CSS_FILE || '/dist/css/styles.css',
       // Add other asset/script paths here as needed
     });
 
