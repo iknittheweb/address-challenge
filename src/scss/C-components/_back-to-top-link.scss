@@ -1,35 +1,54 @@
+// If the section uses --primary-text as background, override link color
+.about,
+.contact,
+.footer {
+  & .back-to-top-link {
+    color: var(--light-bg, #e1dede);
+    background: none;
+  }
+  & .back-to-top-link:hover,
+  & .back-to-top-link:focus {
+    color: var(--primary-text, #500f44);
+    background: var(--light-bg, #e1dede);
+  }
+}
 // Styles for the back-to-top link component
 .back-to-top-link {
-  display: inline-block;
-  float: right;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
   margin: 0 0 1rem 1rem;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--primary-gradient-light, #7b2ff2);
+  color: var(--primary-text, #500f44); // Deep purple, high contrast
   background: none;
   border: none;
   text-decoration: underline;
   cursor: pointer;
-  transition: color 0.2s;
+  transition:
+    color 0.2s,
+    background 0.2s;
+  outline: none;
+  text-align: right;
+  width: 100%;
 
   &:hover,
   &:focus {
-    color: var(--secondary-gradient-light, #f357a8);
+    color: var(--light-bg, #e1dede); // Light neutral for contrast
+    background: var(--primary-bg, #500f44); // Invert for strong contrast
     text-decoration: none;
+    border-radius: 0.25em;
   }
 
   @media (max-width: 700px) {
-    float: none;
-    display: block;
-    text-align: right;
     margin: 0 0 1rem 0;
   }
 }
 
 // Footer variant for spacing
 .back-to-top-link--footer {
-  display: block;
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
   margin: 2rem 0 0 0;
   font-size: 1.1rem;
 }

@@ -143,7 +143,7 @@
     }
 
     &:invalid {
-      border-color: var(--light-error, #ff0a0a);
+      border-color: var(--primary-bright-error-border-border, #ff0a0a);
     }
 
     &:valid {
@@ -159,7 +159,7 @@
   }
 
   &__error {
-    color: var(--light-error, #ff0a0a);
+    color: var(--primary-bright-error-border-border, #ff0a0a);
     font-size: f.rem(14);
     margin-top: f.rem(4);
     min-height: f.rem(20);
