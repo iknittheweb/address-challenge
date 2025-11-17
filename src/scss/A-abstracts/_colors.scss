@@ -20,14 +20,17 @@
   --secondary-bg-light: #42c439; // Bright green for accents
   --secondary-bg-pale: #a8d4a5; // Muted pale green for better text readability
 
-  // Neutral backgrounds
+  // Backgrounds
   --light-bg: #e1dede; // Light neutral background
+  --mid-bg: #666; // Medium gray background
+  --dark-bg: #000000; // Pure black for dark mode backgrounds
 
   // Borders
   --primary-border: #500f44; // Deep purple border
   --primary-border-mid: #751c7d; // Deep purple border
   --light-border: #e1dede; // Light neutral border
   --primary-bright-error-border: #c642cf; // Bright for error messages on dark backgrounds
+  --alt-border: #eb3b5a; // Bright for error messages on dark backgrounds
 
   // Text colors
   --dark-text: #1a1a1a; // Very dark gray for primary text
@@ -86,9 +89,4 @@
   --skills-tab-inactive-bg: rgb(255 255 255 / 5%); // Subtle background for inactive tabs
   --skills-tab-inactive-text-opacity: 0.7; // Opacity for inactive tab text
   --skills-tab-hover-opacity: 0.9; // Opacity for tab hover state
-
-  // Font (not a color, but used in component)
-  // --alien-font-family: 'Orbitron', sans-serif; // (keep in typography, not here)
-
-  // If you add new custom properties for Alien Form, add them here by usage.
 }
