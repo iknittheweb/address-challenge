@@ -70,7 +70,8 @@
     "dotenv": "^17.2.3",
     "handlebars": "^4.7.8",
     "sass": "^1.93.2",
-    "sharp": "^0.34.4"
+    "sharp": "^0.34.4",
+    "svgo": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",
