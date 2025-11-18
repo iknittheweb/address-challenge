@@ -27,7 +27,6 @@
     "postbuild:clean-links": "node remove-link-onload.cjs",
     "postbuild:fix-html": "node scripts/remove-trailing-slashes.cjs .",
     "postbuild:titlecase-env": "node scripts/titlecase-env.cjs",
-    "postinstall": "node scripts/conditional-cypress-install.cjs",
     "prepare": "husky install",
     "process:html": "node build.cjs alt && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:clean-links && npm run postbuild:titlecase-env",
     "prod": "npm run build:prod",
