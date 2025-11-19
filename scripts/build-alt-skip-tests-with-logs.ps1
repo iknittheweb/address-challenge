@@ -9,8 +9,14 @@ if (!(Test-Path $logDir)) {
 $timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
 $logFile = "$logDir/build-alt-skip-tests-$timestamp.log"
 
+
 # Run the build:alt:skip-tests script and log output
 npm run build:alt:skip-tests *>&1 | Tee-Object -FilePath $logFile
+
+# Minify home-styles.css after build
+Write-Host "Minifying home-styles.css..."
+node ./scripts/minify-home-styles.cjs
+Write-Host "Minification complete."
 
 # Get all log files sorted by LastWriteTime descending
 $logFiles = Get-ChildItem -Path $logDir -Filter "build-alt-skip-tests-*.log" | Sort-Object LastWriteTime -Descending
