@@ -176,3 +176,13 @@ coverage/
 
 # Cypress test artifacts
 cypress/screenshots/
+
+# Ignore local CI/build artifact folder (created by workflow)
+ /artifacts/
+
+# Ignore source maps in the published dist folder (prevents accidentally publishing .map files)
+ /dist/*.map
+ /dist/**/*.map
+
+# Optional: ignore any other build outputs you don't want in the repo
+ /node_modules/
