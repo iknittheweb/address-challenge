@@ -137,8 +137,7 @@ function initializeApp() {
   breakpoint.addEventListener('change', () => {
     setupTopNav();
   });
-  window.addEventListener('scroll', onScroll, { passive: true });
-  lastScrollY = window.scrollY;
+  // Removed scroll event listener and onScroll reference (no longer needed)
 }
 
 // Start app for static pages
