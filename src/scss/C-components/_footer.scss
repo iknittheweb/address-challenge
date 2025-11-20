@@ -178,3 +178,18 @@
     @extend %footer__content;
   }
 }
+
+// Add selectors for .footer and its BEM children to match index.template.html
+.footer {
+  @extend %footer;
+
+  &__content {
+    @extend %footer__content;
+  }
+  &__sections {
+    @extend %footer__sections;
+  }
+  &__tagline {
+    @extend %footer__tagline;
+  }
+}
