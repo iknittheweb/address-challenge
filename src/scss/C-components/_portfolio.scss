@@ -31,6 +31,13 @@
     text-wrap: balance;
   }
 
+  .portfolio__link {
+    padding: f.rem(12) f.rem(24);
+    background: var(--primary-bg);
+    color: var(--light-text);
+    display: block;
+  }
+
   &__row {
     display: grid;
     gap: f.rem(20);
