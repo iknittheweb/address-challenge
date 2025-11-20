@@ -122,6 +122,11 @@ pre {
   font-size: f.rem(14.4);
   line-height: 1.4;
   margin: 0 0 f.rem(16) 0;
+  max-width: 600px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-x: auto;
+  overflow-y: visible;
 
   code {
     background: none;
