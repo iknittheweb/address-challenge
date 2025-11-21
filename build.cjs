@@ -38,6 +38,9 @@
   =====================================================================
 */
 
+// --- Ensure all .env* files have sections for every page template ---
+require('./sync-env-sections.cjs');
+
 // Import required Node.js modules
 const fs = require('fs'); // For reading and writing files
 const path = require('path'); // For handling file paths
@@ -80,7 +83,9 @@ if (baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
 
 // Safety check: Make sure required variables are set
 if (!baseUrl || !assetUrl) {
-  console.error('BASE_URL and ASSET_URL must be set in your .env or .env.production file.');
+  console.error(
+    'BASE_URL and ASSET_URL must be set in your .env or .env.production file.'
+  );
   process.exit(1);
 }
 
@@ -93,7 +98,9 @@ console.log('Building HTML for all template files...');
 const glob = require('glob');
 const templateFiles = glob
   .sync(path.join(__dirname, '*.template.html'))
-  .concat(glob.sync(path.join(__dirname, 'src', 'templates', '*.template.html')));
+  .concat(
+    glob.sync(path.join(__dirname, 'src', 'templates', '*.template.html'))
+  );
 
 // Loop through each template file and process it
 templateFiles.forEach((templatePath) => {
@@ -113,7 +120,8 @@ templateFiles.forEach((templatePath) => {
         '@context': 'https://schema.org',
         '@type': 'Person',
         name: 'Marta',
-        description: 'Web developer specializing in accessible, handcrafted websites.',
+        description:
+          'Web developer specializing in accessible, handcrafted websites.',
         url: baseUrl + '/dist/pages/about.html', // For legacy support
         url: baseUrl + '/about.html',
         image: assetUrl + 'src/img/pages/Profile.png',
@@ -125,11 +133,15 @@ templateFiles.forEach((templatePath) => {
         '@context': 'https://schema.org',
         '@type': process.env.SCHEMA_TYPE || 'WebPage',
         name: process.env.SCHEMA_NAME || 'New Page',
-        description: process.env.SCHEMA_DESCRIPTION || 'Description for new page.',
+        description:
+          process.env.SCHEMA_DESCRIPTION || 'Description for new page.',
         url: process.env.SCHEMA_URL || baseUrl + '/dist/pages/new-page.html', // For legacy support
         url: process.env.SCHEMA_URL || baseUrl + '/new-page.html',
-        image: process.env.SCHEMA_IMAGE || assetUrl + 'src/img/pages/default.png',
-        sameAs: process.env.SCHEMA_SAMEAS ? JSON.parse(process.env.SCHEMA_SAMEAS) : [],
+        image:
+          process.env.SCHEMA_IMAGE || assetUrl + 'src/img/pages/default.png',
+        sameAs: process.env.SCHEMA_SAMEAS
+          ? JSON.parse(process.env.SCHEMA_SAMEAS)
+          : [],
         knowsAbout: process.env.SCHEMA_KNOWSABOUT
           ? JSON.parse(process.env.SCHEMA_KNOWSABOUT)
           : ['HTML', 'CSS', 'JavaScript'],
@@ -140,10 +152,18 @@ templateFiles.forEach((templatePath) => {
         '@type': 'Person',
         name: 'I Knit The Web',
         jobTitle: 'Web Developer',
-        description: 'Professional web developer specializing in handcrafted websites for small budgets and big dreams',
+        description:
+          'Professional web developer specializing in handcrafted websites for small budgets and big dreams',
         url: baseUrl,
         sameAs: [],
-        knowsAbout: ['HTML', 'CSS', 'JavaScript', 'SCSS', 'Web Design', 'Responsive Design'],
+        knowsAbout: [
+          'HTML',
+          'CSS',
+          'JavaScript',
+          'SCSS',
+          'Web Design',
+          'Responsive Design',
+        ],
       };
     } else if (templatePath.endsWith('multi-level-navbar.template.html')) {
       schemaData = {
@@ -154,21 +174,38 @@ templateFiles.forEach((templatePath) => {
           'A demonstration of a multi-level navigation bar built with HTML and CSS, featuring dropdown menus, nested navigation, and responsive design for modern web interfaces.',
         url: baseUrl + '/dist/pages/multi-level-navbar.html', // For legacy support
         url: baseUrl + '/multi-level-navbar.html',
-        image: process.env.SCHEMA_IMAGE || assetUrl + 'src/img/pages/navbar.png',
-        sameAs: ['https://github.com/iknittheweb', 'https://twitter.com/iknittheweb'],
-        knowsAbout: ['HTML', 'CSS', 'Navigation', 'Responsive Design', 'Frontend Development'],
+        image:
+          process.env.SCHEMA_IMAGE || assetUrl + 'src/img/pages/navbar.png',
+        sameAs: [
+          'https://github.com/iknittheweb',
+          'https://twitter.com/iknittheweb',
+        ],
+        knowsAbout: [
+          'HTML',
+          'CSS',
+          'Navigation',
+          'Responsive Design',
+          'Frontend Development',
+        ],
       };
     } else if (templatePath.endsWith('contact.template.html')) {
       schemaData = {
         '@context': 'https://schema.org',
         '@type': 'ContactPage',
         name: 'Contact',
-        description: 'Contact Marta at I Knit the Web for handcrafted, accessible websites.',
+        description:
+          'Contact Marta at I Knit the Web for handcrafted, accessible websites.',
         url: baseUrl + '/dist/pages/contact.html', // For legacy support
         url: baseUrl + '/contact.html',
         image: assetUrl + 'src/img/pages/heading-banner-dark.svg',
         sameAs: [],
-        knowsAbout: ['Web Development', 'Accessibility', 'HTML', 'CSS', 'JavaScript'],
+        knowsAbout: [
+          'Web Development',
+          'Accessibility',
+          'HTML',
+          'CSS',
+          'JavaScript',
+        ],
       };
     } else {
       schemaData = {};
@@ -193,7 +230,10 @@ templateFiles.forEach((templatePath) => {
       const lines = htmlContent.split(/\r?\n/);
       lines.forEach((line, idx) => {
         if (line.includes('localhost') || line.includes('5500')) {
-          console.log(`[DEBUG][portfolio] Rendered line ${idx + 1}:`, line.trim());
+          console.log(
+            `[DEBUG][portfolio] Rendered line ${idx + 1}:`,
+            line.trim()
+          );
         }
       });
     }
@@ -203,7 +243,10 @@ templateFiles.forEach((templatePath) => {
       /<!--\s*IMPORTANT: This is a TEMPLATE file![\s\S]*?DO NOT edit index\.html directly - it gets overwritten!\s*-->/,
       ''
     );
-    finalHtml = finalHtml.replace(/<!--\s*-{2,}\s*BEGINNER-FRIENDLY EXPLANATORY COMMENTS[\s\S]*?-{2,}\s*-->/g, '');
+    finalHtml = finalHtml.replace(
+      /<!--\s*-{2,}\s*BEGINNER-FRIENDLY EXPLANATORY COMMENTS[\s\S]*?-{2,}\s*-->/g,
+      ''
+    );
     finalHtml = finalHtml.replace(
       /<!--\s*Build System Workflow \(2025\):[\s\S]*?DO NOT edit the generated \*\.html file directly[\s\S]*?-->/g,
       ''
@@ -212,11 +255,16 @@ templateFiles.forEach((templatePath) => {
     // Warn if any Handlebars placeholders were not replaced
     const unreplaced = finalHtml.match(/{{[A-Z0-9_]+}}/g);
     if (unreplaced && unreplaced.length > 0) {
-      console.warn(`\u26a0\ufe0f Unreplaced placeholders found in ${templatePath}:`, unreplaced);
+      console.warn(
+        `\u26a0\ufe0f Unreplaced placeholders found in ${templatePath}:`,
+        unreplaced
+      );
     }
 
     // Write the final HTML to the output file (same name, .html extension)
-    const outputFileName = path.basename(templatePath).replace('.template.html', '.html');
+    const outputFileName = path
+      .basename(templatePath)
+      .replace('.template.html', '.html');
     const outputPath = path.join(__dirname, outputFileName);
     fs.writeFileSync(outputPath, finalHtml);
     console.log(`Built ${outputPath}`);
