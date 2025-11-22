@@ -18,7 +18,9 @@
 .fa-thin,
 .fa-duotone,
 .fa-brands {
-  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Pro', 'Font Awesome 6 Brands', sans-serif !important;
+  font-family:
+    'Font Awesome 6 Free', 'Font Awesome 6 Pro', 'Font Awesome 6 Brands',
+    sans-serif !important;
   font-weight: 900;
   font-style: normal;
   font-variant: normal;
@@ -216,7 +218,11 @@
       display: block;
       height: 3px;
       margin-top: 3px;
-      background: linear-gradient(to right, var(--secondary-gradient-light), var(--primary-gradient-light) 80%);
+      background: linear-gradient(
+        to right,
+        var(--secondary-gradient-light),
+        var(--primary-gradient-light) 80%
+      );
       opacity: 0;
       transition: opacity 250ms ease-in-out;
     }
@@ -246,30 +252,6 @@
   }
 }
 
-@keyframes fade-in-links {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fade-in-link {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @keyframes fade-in-link {
   from {
     opacity: 0;
@@ -283,18 +265,6 @@
 }
 
 // Keyframe animation for hamburger menu fade-in
-@keyframes fade-in-hamburger {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @keyframes fade-in-hamburger {
   from {
     opacity: 0;
