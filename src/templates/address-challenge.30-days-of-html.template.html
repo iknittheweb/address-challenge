@@ -3,28 +3,77 @@
   lang="en"
   class="no-js">
   <head>
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-eval' https://browser.sentry-cdn.com https://kit.fontawesome.com https://cdn.jsdelivr.net https://ka-p.fontawesome.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://kit.fontawesome.com https://ka-p.fontawesome.com; font-src 'self' https://fonts.gstatic.com https://kit.fontawesome.com https://ka-p.fontawesome.com; img-src 'self' data: https://github.com https://fonts.gstatic.com https://kit.fontawesome.com https://ka-p.fontawesome.com; connect-src 'self' https://formspree.io/f/mpwyyeaa https://formspree.io https://sentry.io https://fonts.googleapis.com https://fonts.gstatic.com https://ka-p.fontawesome.com https://kit-upload.fontawesome.com https://kit.fontawesome.com https://cdn.jsdelivr.net; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io" />
     <meta charset="UTF-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-eval' https://browser.sentry-cdn.com https://kit.fontawesome.com https://cdn.jsdelivr.net https://ka-p.fontawesome.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://kit.fontawesome.com https://ka-p.fontawesome.com; font-src 'self' https://fonts.gstatic.com https://kit.fontawesome.com https://ka-p.fontawesome.com; img-src 'self' data: https://github.com https://fonts.gstatic.com https://kit.fontawesome.com https://ka-p.fontawesome.com; connect-src 'self' https://formspree.io/f/mpwyyeaa https://formspree.io https://sentry.io https://fonts.googleapis.com https://fonts.gstatic.com https://ka-p.fontawesome.com https://kit-upload.fontawesome.com https://kit.fontawesome.com https://cdn.jsdelivr.net; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io" />
     <title>&lt;Address&gt; Challenge | I Knit The Web</title>
+    <!-- Preconnects for faster font and icon loading -->
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com" />
+    <link
+      rel="preconnect"
+      href="https://ka-p.fontawesome.com" />
+
+    <!-- Preload critical stylesheets -->
+    <link
+      rel="preload"
+      href="{{GOOGLE_FONTS_LINK}}"
+      as="style" />
     <link
       rel="preload"
       as="style"
       href="{{BASE_URL}}{{ADDRESS-CHALLENGE_CSS_FILE}}" />
+
+    <!-- Main font and site stylesheets -->
+    <link
+      rel="stylesheet"
+      href="{{GOOGLE_FONTS_LINK}}" />
     <link
       rel="stylesheet"
       href="{{BASE_URL}}{{ADDRESS-CHALLENGE_CSS_FILE}}" />
+
+    <!-- FontAwesome CDN stylesheet for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Fallback styles for no-JS environments -->
     <noscript>
       <style>
         body {
           visibility: visible;
         }
       </style>
+      <link
+        href="{{GOOGLE_FONTS_LINK}}"
+        rel="stylesheet" />
     </noscript>
+
+    <!-- Favicons and manifest -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{ASSET_URL}}/favicon_io/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{{ASSET_URL}}/favicon_io/apple-touch-icon.png" />
+    <link
+      rel="manifest"
+      href="{{BASE_URL}}/manifest.json" />
+    <link
+      rel="canonical"
+      href="{{BASE_URL}}{{ADDRESS-CHALLENGE_OG_URL}}" />
+
+    <!-- SEO and social meta tags -->
     <meta
       name="description"
       content="{{ADDRESS-CHALLENGE_DESCRIPTION}}" />
@@ -37,9 +86,6 @@
     <meta
       name="robots"
       content="{{ROBOTS}}" />
-    <link
-      rel="canonical"
-      href="{{BASE_URL}}{{ADDRESS-CHALLENGE_OG_URL}}" />
     <meta
       property="og:title"
       content="{{ADDRESS-CHALLENGE_OG_TITLE}}" />
@@ -68,6 +114,16 @@
       name="twitter:image"
       content="{{ASSET_URL}}/branding/logo.png" />
 
+    <!-- Fallback styles for no-JS environments -->
+    <noscript>
+      <style>
+        body {
+          visibility: visible;
+        }
+      </style>
+    </noscript>
+
+    <!-- Inline critical CSS for FOUC prevention -->
     <style>
       .no-js body {
         visibility: hidden;
@@ -77,57 +133,23 @@
       }
     </style>
 
+    <!-- Critical polyfill: FOUC fix script -->
     <script src="{{BASE_URL}}/dist/js/fouc-fix.js"></script>
 
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="{{ASSET_URL}}/favicon_io/favicon.ico" />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="{{ASSET_URL}}/favicon_io/apple-touch-icon.png" />
-    <link
-      rel="manifest"
-      href="{{BASE_URL}}/manifest.json" />
-
-    <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com" />
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com" />
-    <link
-      rel="preconnect"
-      href="https://ka-p.fontawesome.com" />
-
-    <link
-      rel="preload"
-      href="{{GOOGLE_FONTS_LINK}}"
-      as="style" />
-    <link
-      href="{{GOOGLE_FONTS_LINK}}"
-      rel="stylesheet" />
-    <noscript>
-      <link
-        href="{{GOOGLE_FONTS_LINK}}"
-        rel="stylesheet" />
-    </noscript>
-
+    <!-- Third-party monitoring/analytics: Sentry -->
     <script
       src="https://browser.sentry-cdn.com/7.100.1/bundle.min.js"
       crossorigin="anonymous"></script>
 
+    <!-- Structured data for SEO -->
     <script type="application/ld+json">
       {{{ADDRESS-CHALLENGE_SCHEMA_JSON}}}
     </script>
 
-    <script
-      defer
-      src="https://kit.fontawesome.com/94262366bd.js"
-      crossorigin="anonymous"></script>
-
+    <!-- Third-party library: body-scroll-lock -->
     <script src="https://cdn.jsdelivr.net/npm/body-scroll-lock@4.0.0-beta.0/lib/bodyScrollLock.min.js"></script>
+
+    <!-- Main app/module script -->
     <script
       type="module"
       src="{{BASE_URL}}/dist/js/script.js"></script>
