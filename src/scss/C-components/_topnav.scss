@@ -27,6 +27,14 @@
   text-rendering: auto;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
+  // Show and position close button in overlay
+  .topnav__close {
+    display: block;
+    position: absolute;
+    top: f.rem(24);
+    right: f.rem(24);
+    z-index: 1001;
+  }
 }
 
 .topnav {
@@ -231,7 +239,13 @@
     @include m.breakpoint-down('699.98') {
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       opacity: 1; // Ensure mobile links are always visible
+      min-height: 100vh;
+      width: 100vw;
+      padding: 0;
+      margin: 0;
+      position: relative;
     }
   }
 
