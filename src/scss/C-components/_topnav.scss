@@ -104,11 +104,11 @@
     z-index: 100;
 
     // hamburger menu button
+    // Hamburger menu button: visible when menu is closed
     .topnav__open {
       @include m.breakpoint-down('699.98') {
         display: block;
         right: f.rem(16);
-        // Fade-in animation for mobile hamburger menu
         opacity: 0;
         transform: translateY(-5px);
         animation: fade-in-hamburger 400ms ease-out 150ms forwards;
@@ -116,9 +116,14 @@
       @include m.breakpoint('700') {
         display: none;
       }
+      &[aria-expanded='true'] {
+        @include m.breakpoint-down('699.98') {
+          display: none;
+        }
+      }
     }
 
-    // menu close button
+    // Close button: visible when menu is open
     .topnav__close {
       @include m.breakpoint-down('699.98') {
         display: none;
@@ -128,15 +133,8 @@
       @include m.breakpoint('700') {
         display: none;
       }
-    }
-
-    &[data-menu-open='true'] {
-      .topnav__open {
-        @include m.breakpoint-down('699.98') {
-          display: none;
-        }
-      }
-      .topnav__close {
+      // Show when hamburger aria-expanded is true
+      #btnOpen[aria-expanded='true'] ~ & {
         @include m.breakpoint-down('699.98') {
           display: block;
         }
@@ -161,7 +159,6 @@
     }
   }
 
-  // &,
   &__menu {
     // .topnav__menu: <div> navigation menu container
     background-color: var(--primary-bg);
@@ -216,14 +213,6 @@
       opacity: 1; // Ensure mobile links are always visible
       position: relative;
       gap: f.rem(4);
-    }
-  }
-
-  &__item {
-    // .topnav__item: <li> navigation list item
-    @include m.breakpoint-down('699.98') {
-      border-bottom: 2px solid var(--light-border);
-      border-bottom-right-radius: 15px;
     }
   }
 
