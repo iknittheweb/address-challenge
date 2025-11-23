@@ -106,25 +106,20 @@
     }
 
     @include m.breakpoint-down('699.98') {
-      right: f.rem(16);
       // Fade-in animation for mobile hamburger menu
       opacity: 0;
       transform: translateY(-5px);
       animation: fade-in-hamburger 400ms ease-out 150ms forwards;
+      position: absolute;
+      top: f.rem(16);
+      right: f.rem(16);
+      z-index: 100;
+      display: block;
     }
 
-    &[aria-expanded='true'] + .topnav__menu {
+    &[aria-expanded='true'] {
       @include m.breakpoint-down('699.98') {
-        display: block; // Show the mobile menu
-        transform: translateY(0); // Slide it into view
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
-
-      @media (prefers-reduced-motion) {
-        opacity: 1;
+        display: none !important;
       }
     }
   }
@@ -164,11 +159,18 @@
 
   &__close {
     display: none;
-
     @include m.breakpoint-down('699.98') {
-      display: block;
-      right: f.rem(28);
-      margin-block-end: 84px;
+      position: absolute;
+      top: f.rem(16);
+      right: f.rem(16);
+      z-index: 100;
+      display: none;
+    }
+    // Show close button only when menu is open
+    .topnav__menu[aria-hidden='false'] & {
+      @include m.breakpoint-down('699.98') {
+        display: block !important;
+      }
     }
   }
 
