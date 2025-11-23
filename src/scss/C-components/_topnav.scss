@@ -38,84 +38,48 @@
 }
 
 .topnav {
+  // .topnav: <nav> main navigation container
   width: 100%;
   background-color: var(--primary-bg);
-  transform: none;
-  transition: none;
-  padding-inline: f.rem(24);
 
-  // Show mobile menu when toggle is open
-  &__toggle[data-menu-open='true'] + .topnav__menu {
-    @include m.breakpoint-down('699.98') {
-      display: block;
-      // position: fixed;
-      // top: 0;
-      // left: 0;
-      // width: 100vw;
-      // height: 100vh;
-      // z-index: 999;
-      background: var(--primary-bg);
-      transform: translateY(0);
-      opacity: 1;
-      padding: 0 f.rem(24) 0 0;
-    }
-  }
-  &__toggle {
-    position: absolute;
-    right: f.rem(16);
-    top: f.rem(16);
-    display: flex;
-    flex-direction: column;
-    z-index: 100;
-
-    .topnav__open {
-      display: block;
-    }
-    .topnav__close {
-      display: none;
-    }
-
-    &[data-menu-open='true'] {
-      .topnav__open {
-        display: none;
-      }
-      .topnav__close {
-        display: block;
-      }
-    }
-  }
-  &,
-  &__menu {
-    background-color: var(--primary-bg);
-
-    &,
-    & a {
-      color: var(--light-text);
-    }
-  }
-
+  // .topnav__wrapper: <div> wraps logo and navigation
   &__wrapper {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding-block: f.rem(12) !important;
-    margin-inline: auto;
 
     @include m.breakpoint-down('699.98') {
       position: relative;
     }
   }
 
-  &__homelink {
-    margin-left: f.rem(24);
-  }
-
   &__logo {
+    // .topnav__logo: <img> logo inside .topnav__homelink
     width: f.rem(120);
     height: f.rem(120);
   }
 
+  // Hide logo when mobile menu is open
+  &__toggle[data-menu-open='true'] ~ .topnav__wrapper .topnav__homelink {
+    // .topnav__homelink: <a> wrapping the logo image
+    @include m.breakpoint-down('699.98') {
+      display: none;
+    }
+  }
+
+  // Show mobile menu when toggle is open
+  &__toggle[data-menu-open='true'] + .topnav__menu {
+    // .topnav__menu: <div> navigation menu container
+    @include m.breakpoint-down('699.98') {
+      display: block;
+      background: var(--primary-bg);
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
   &__overlay {
+    // .topnav__overlay: <div> overlay for mobile menu
     @include m.breakpoint-down('699.98') {
       inset: 0;
       background-color: var(--menu-overlay);
@@ -130,99 +94,116 @@
     }
   }
 
+  &__toggle {
+    // .topnav__toggle: <div> containing hamburger and close buttons
+    position: absolute;
+    right: f.rem(16);
+    top: f.rem(16);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+
+    // hamburger menu button
+    .topnav__open {
+      display: block;
+
+      @include m.breakpoint-down('699.98') {
+        right: f.rem(16);
+        // Fade-in animation for mobile hamburger menu
+        opacity: 0;
+        transform: translateY(-5px);
+        animation: fade-in-hamburger 400ms ease-out 150ms forwards;
+      }
+
+      &[aria-expanded='true'] + .topnav__menu {
+        @include m.breakpoint-down('699.98') {
+          display: block; // Show the mobile menu
+          transform: translateY(0); // Slide it into view
+
+          .topnav__menu:hover {
+            cursor: pointer;
+          }
+        }
+
+        @media (prefers-reduced-motion) {
+          opacity: 1;
+        }
+      }
+    }
+
+    // menu close button
+    .topnav__close {
+      display: none;
+
+      @include m.breakpoint-down('699.98') {
+        display: block;
+        right: f.rem(28);
+        margin-block-end: f.rem(84);
+      }
+    }
+
+    &[data-menu-open='true'] {
+      .topnav__open {
+        display: none;
+      }
+      .topnav__close {
+        display: block;
+      }
+    }
+  }
+
   &__open,
   &__close {
+    // .topnav__open: <button> hamburger menu button
+    // .topnav__close: <button> close menu button
     background: none;
-    padding: 0;
-    border: 0;
 
     // FontAwesome icon sizing for navigation buttons
     .fa-solid {
       font-size: f.rem(24); // 1.5rem equivalent
       display: inline-block;
     }
-
-    @include m.breakpoint('700') {
-      margin-inline: f.rem(16); // Only apply margin on desktop
-    }
   }
 
-  &__open {
-    @include m.breakpoint('700') {
-      display: none;
-    }
-
-    @include m.breakpoint-down('699.98') {
-      right: f.rem(16);
-      // Fade-in animation for mobile hamburger menu
-      opacity: 0;
-      transform: translateY(-5px);
-      animation: fade-in-hamburger 400ms ease-out 150ms forwards;
-    }
-
-    &[aria-expanded='true'] + .topnav__menu {
-      @include m.breakpoint-down('699.98') {
-        display: block; // Show the mobile menu
-        transform: translateY(0); // Slide it into view
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
-
-      @media (prefers-reduced-motion) {
-        opacity: 1;
-      }
-    }
-  }
-
+  &,
   &__menu {
+    // .topnav__menu: <div> navigation menu container
+    background-color: var(--primary-bg);
+
     @include m.breakpoint('700') {
       // Desktop: Normal menu behavior
       display: block;
       position: static;
-      transform: none;
-      transition: none;
-      width: auto;
-      padding: 0;
-      box-shadow: none;
-      inset: auto;
     }
 
     @include m.breakpoint-down('699.98') {
       // Mobile: Hidden by default, only shown when menu is opened
       display: none;
-      position: fixed;
+      position: fixed; // Overlay menu for mobile
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 999;
       background: var(--primary-bg);
-      padding: 0;
-      box-shadow: none;
-      transform: translateY(-100%); // Use transform instead of translate
+      box-shadow: 0 2px 12px rgb(0 0 0 / 10%);
+      transform: translateY(-100%); // Slide out of view by default
       transition: transform 350ms ease-in-out;
+      font-size: f.rem(16);
+      z-index: 1000;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      touch-action: manipulation;
 
       @media (prefers-reduced-motion) {
         transform: translateY(0);
-        opacity: 0;
+        opacity: 1;
         transition-property: opacity;
       }
     }
   }
 
-  &__close {
-    display: none;
-
-    @include m.breakpoint-down('699.98') {
-      display: block;
-      right: f.rem(28);
-      margin-block-end: 84px;
-    }
-  }
-
   &__links {
+    // .topnav__links: <ul> navigation links list
     display: flex;
     gap: f.rem(40);
 
@@ -237,19 +218,35 @@
       align-items: center;
       justify-content: center;
       opacity: 1; // Ensure mobile links are always visible
-      padding: 0;
-      margin: 0;
       position: relative;
+      gap: f.rem(4);
+    }
+  }
+
+  &__item {
+    // .topnav__item: <li> navigation list item
+    @include m.breakpoint-down('699.98') {
+      border-bottom: 2px solid var(--light-border);
+      border-bottom-right-radius: 15px;
     }
   }
 
   &__link {
+    // .topnav__link: <a> navigation link inside <li>
     display: block;
-    font-size: f.rem(20);
-    line-height: 2;
+    font-size: f.rem(24);
     font-weight: 700;
     color: var(--light-text);
     cursor: pointer;
+
+    @include m.breakpoint-down('699.98') {
+      display: block;
+      font-size: f.rem(24);
+      text-align: left;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    }
 
     // Smooth transitions for desktop
     @include m.breakpoint('700') {
@@ -258,6 +255,9 @@
       transition:
         opacity 300ms ease-out,
         transform 300ms ease-out;
+      font-size: f.rem(16);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
 
       // Staggered animation delay for each link
       @for $i from 1 through 6 {
@@ -285,26 +285,8 @@
       opacity: 1;
     }
   }
-
-  @include m.breakpoint('600') {
-    font-size: f.rem(16);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
 }
 
-.topnav__item {
-  @include m.breakpoint-down('699.98') {
-    width: 100%;
-    margin: 0;
-    padding: f.rem(8) 0;
-    border-bottom: 1px solid var(--light-border);
-    border-bottom-right-radius: 5px;
-    &:last-child {
-      border-bottom: none;
-    }
-  }
-}
 
 // Keyframe animations for smooth desktop menu appearance
 @keyframes fade-in-links {
