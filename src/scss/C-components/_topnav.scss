@@ -58,7 +58,6 @@
       transform: translateY(0);
       opacity: 1;
       padding: 0 f.rem(24) 0 0;
-      border-radius: 0;
     }
   }
   &__toggle {
@@ -186,7 +185,6 @@
       transition: none;
       width: auto;
       padding: 0;
-      border-radius: 0;
       box-shadow: none;
       inset: auto;
     }
@@ -202,7 +200,6 @@
       z-index: 999;
       background: var(--primary-bg);
       padding: 0;
-      border-radius: 0;
       box-shadow: none;
       transform: translateY(-100%); // Use transform instead of translate
       transition: transform 350ms ease-in-out;
@@ -296,9 +293,18 @@
   }
 }
 
-// .fa-bars {
-//   color: red;
-// }
+.topnav__item {
+  @include m.breakpoint-down('699.98') {
+    width: 100%;
+    margin: 0;
+    padding: f.rem(8) 0;
+    border-bottom: 1px solid var(--light-border);
+    border-bottom-right-radius: 5px;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
 
 // Keyframe animations for smooth desktop menu appearance
 @keyframes fade-in-links {
