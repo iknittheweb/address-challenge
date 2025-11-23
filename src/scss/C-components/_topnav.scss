@@ -30,6 +30,30 @@
 }
 
 .topnav {
+  &__toggle {
+    position: absolute;
+    right: f.rem(16);
+    top: f.rem(16);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+
+    .topnav__open {
+      display: block;
+    }
+    .topnav__close {
+      display: none;
+    }
+
+    &[data-menu-open='true'] {
+      .topnav__open {
+        display: none;
+      }
+      .topnav__close {
+        display: block;
+      }
+    }
+  }
   border-bottom: 2px solid var(--light-border);
   width: 100%;
   background-color: var(--primary-bg);
