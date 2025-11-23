@@ -104,10 +104,10 @@
     text-wrap: balance;
 
     // Ensure good contrast for accessibility
-    @media (prefers-contrast: high) {
-      color: #fff;
-      font-weight: 500;
-    }
+    // @media (prefers-contrast: high) {
+    //   color: #fff;
+    //   font-weight: 500;
+    // }
 
     // Respect reduced motion preferences
     @media (prefers-reduced-motion: reduce) {

@@ -45,7 +45,6 @@
       width: 100%; // Header takes full width
       display: -webkit-box; // For line clamping
       -webkit-line-clamp: 2; // Limit header to 2 lines (Webkit)
-      line-clamp: 2; // Standard property for compatibility
       -webkit-box-orient: vertical; // For line clamping
       overflow: hidden; // Hide overflow text
     }

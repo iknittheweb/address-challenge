@@ -30,7 +30,7 @@
 }
 
 .topnav {
-  border-bottom: 2px solid var(--topnav-border);
+  border-bottom: 2px solid var(--light-border);
   width: 100%;
   background-color: var(--primary-bg);
   transform: none;
@@ -239,9 +239,9 @@
   }
 }
 
-.fa-bars {
-  color: red;
-}
+// .fa-bars {
+//   color: red;
+// }
 
 // Keyframe animations for smooth desktop menu appearance
 @keyframes fade-in-links {
