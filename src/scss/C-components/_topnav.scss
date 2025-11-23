@@ -38,7 +38,6 @@
 }
 
 .topnav {
-  border-bottom: 2px solid var(--light-border);
   width: 100%;
   background-color: var(--primary-bg);
   transform: none;
@@ -49,12 +48,12 @@
   &__toggle[data-menu-open='true'] + .topnav__menu {
     @include m.breakpoint-down('699.98') {
       display: block;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 999;
+      // position: fixed;
+      // top: 0;
+      // left: 0;
+      // width: 100vw;
+      // height: 100vh;
+      // z-index: 999;
       background: var(--primary-bg);
       transform: translateY(0);
       opacity: 1;
