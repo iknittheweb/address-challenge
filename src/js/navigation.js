@@ -110,7 +110,7 @@ function openMobileMenu() {
   menuTopNav.setAttribute('tabindex', '-1');
   menuTopNav.style.transitionDuration = '400ms';
   overlay.style.transitionDuration = '400ms';
-  disableBodyScroll(menuTopNav);
+  bodyScrollLock.disableBodyScroll(menuTopNav);
   btnClose.focus();
   trapFocus(menuTopNav, closeMobileMenu);
   window.navigationTestState.menuOpen = true;
@@ -143,7 +143,7 @@ function closeMobileMenu() {
   menuTopNav.setAttribute('inert', '');
   menuTopNav.setAttribute('aria-hidden', 'true');
   overlay.setAttribute('aria-hidden', 'true');
-  enableBodyScroll(menuTopNav);
+  bodyScrollLock.enableBodyScroll(menuTopNav);
   window.navigationTestState.menuOpen = false;
   window.navigationTestState.focusTrapActive = false;
   setTimeout(() => {
