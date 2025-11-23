@@ -30,6 +30,14 @@
 }
 
 .topnav {
+  // Show mobile menu when toggle is open
+  &__toggle[data-menu-open='true'] + .topnav__menu {
+    @include m.breakpoint-down('699.98') {
+      display: block;
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
   &__toggle {
     position: absolute;
     right: f.rem(16);
