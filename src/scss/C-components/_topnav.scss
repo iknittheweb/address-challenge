@@ -105,49 +105,41 @@
 
     // hamburger menu button
     .topnav__open {
-      display: block;
-
       @include m.breakpoint-down('699.98') {
+        display: block;
         right: f.rem(16);
         // Fade-in animation for mobile hamburger menu
         opacity: 0;
         transform: translateY(-5px);
         animation: fade-in-hamburger 400ms ease-out 150ms forwards;
       }
-
-      &[aria-expanded='true'] + .topnav__menu {
-        @include m.breakpoint-down('699.98') {
-          display: block; // Show the mobile menu
-          transform: translateY(0); // Slide it into view
-
-          .topnav__menu:hover {
-            cursor: pointer;
-          }
-        }
-
-        @media (prefers-reduced-motion) {
-          opacity: 1;
-        }
+      @include m.breakpoint('700') {
+        display: none;
       }
     }
 
     // menu close button
     .topnav__close {
-      display: none;
-
       @include m.breakpoint-down('699.98') {
-        display: block;
+        display: none;
         right: f.rem(28);
         margin-block-end: f.rem(84);
+      }
+      @include m.breakpoint('700') {
+        display: none;
       }
     }
 
     &[data-menu-open='true'] {
       .topnav__open {
-        display: none;
+        @include m.breakpoint-down('699.98') {
+          display: none;
+        }
       }
       .topnav__close {
-        display: block;
+        @include m.breakpoint-down('699.98') {
+          display: block;
+        }
       }
     }
   }
@@ -161,7 +153,7 @@
     @include m.breakpoint('700') {
       display: none;
     }
-    
+
     // FontAwesome icon sizing for navigation buttons
     .fa-solid {
       font-size: f.rem(24); // 1.5rem equivalent
@@ -238,6 +230,7 @@
   &__link {
     // .topnav__link: <a> navigation link inside <li>
     display: block;
+    padding: f.rem(8) f.rem(16);
     font-size: f.rem(24);
     font-weight: 700;
     color: var(--light-text);
@@ -290,7 +283,6 @@
     }
   }
 }
-
 
 // Keyframe animations for smooth desktop menu appearance
 @keyframes fade-in-links {
