@@ -104,40 +104,30 @@
     z-index: 100;
 
     // hamburger menu button
-    // Hamburger menu button: visible when menu is closed
-    .topnav__open {
-      @include m.breakpoint-down('699.98') {
+    @include m.breakpoint-down('699.98') {
+      .topnav__open[aria-expanded='false'] {
         display: block;
         right: f.rem(16);
         opacity: 0;
         transform: translateY(-5px);
         animation: fade-in-hamburger 400ms ease-out 150ms forwards;
       }
-      @include m.breakpoint('700') {
+      .topnav__open[aria-expanded='true'] {
         display: none;
       }
-      &[aria-expanded='true'] {
-        @include m.breakpoint-down('699.98') {
-          display: none;
-        }
-      }
-    }
-
-    // Close button: visible when menu is open
-    .topnav__close {
-      @include m.breakpoint-down('699.98') {
+      .topnav__close {
         display: none;
         right: f.rem(28);
         margin-block-end: f.rem(84);
       }
-      @include m.breakpoint('700') {
-        display: none;
+      .topnav__open[aria-expanded='true'] ~ .topnav__close {
+        display: block;
       }
-      // Show when hamburger aria-expanded is true
-      #btnOpen[aria-expanded='true'] ~ & {
-        @include m.breakpoint-down('699.98') {
-          display: block;
-        }
+    }
+    @include m.breakpoint('700') {
+      .topnav__open,
+      .topnav__close {
+        display: none;
       }
     }
   }
