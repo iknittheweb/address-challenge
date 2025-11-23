@@ -38,6 +38,13 @@
 }
 
 .topnav {
+  border-bottom: 2px solid var(--light-border);
+  width: 100%;
+  background-color: var(--primary-bg);
+  transform: none;
+  transition: none;
+  padding-inline: f.rem(24);
+
   // Show mobile menu when toggle is open
   &__toggle[data-menu-open='true'] + .topnav__menu {
     @include m.breakpoint-down('699.98') {
@@ -79,13 +86,6 @@
       }
     }
   }
-  border-bottom: 2px solid var(--light-border);
-  width: 100%;
-  background-color: var(--primary-bg);
-  transform: none;
-  transition: none;
-  padding-inline: f.rem(24);
-
   &,
   &__menu {
     background-color: var(--primary-bg);
@@ -241,8 +241,6 @@
       align-items: center;
       justify-content: center;
       opacity: 1; // Ensure mobile links are always visible
-      min-height: 100vh;
-      width: 100vw;
       padding: 0;
       margin: 0;
       position: relative;
