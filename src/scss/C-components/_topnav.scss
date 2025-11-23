@@ -57,7 +57,7 @@
       background: var(--primary-bg);
       transform: translateY(0);
       opacity: 1;
-      padding: 0;
+      padding: 0 f.rem(24) 0 0;
       border-radius: 0;
     }
   }
