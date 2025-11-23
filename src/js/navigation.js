@@ -5,8 +5,12 @@ const bodyScrollLock = window.bodyScrollLock;
 // Utility: Wait for DOM and CSS
 function waitForCSSAndDOM(callback) {
   function checkReady() {
-    const domReady = document.readyState === 'complete' || document.readyState === 'interactive';
-    const cssReady = document.documentElement.classList.contains('css-loaded') || window.mainCSSLoaded;
+    const domReady =
+      document.readyState === 'complete' ||
+      document.readyState === 'interactive';
+    const cssReady =
+      document.documentElement.classList.contains('css-loaded') ||
+      window.mainCSSLoaded;
     if (domReady && cssReady) {
       requestAnimationFrame(() => {
         requestAnimationFrame(callback);
@@ -64,6 +68,7 @@ function setupTopNav() {
 export function initializeNavigation() {
   btnOpen = document.querySelector('#btnOpen');
   btnClose = document.querySelector('#btnClose');
+  const toggleContainer = btnOpen?.closest('.topnav__toggle');
   menuTopNav = document.querySelector('#menuTopNav');
   overlay = document.querySelector('#overlay');
   main = document.querySelector('#main-content');
@@ -87,9 +92,16 @@ export function initializeNavigation() {
 }
 
 function openMobileMenu() {
-  if (!btnOpen || !main || !footer || !menuTopNav || !overlay || !btnClose) return;
-  if (btnOpen.hasAttribute('aria-disabled') || btnOpen.classList.contains('topnav__open--disabled')) return;
+  if (!btnOpen || !main || !footer || !menuTopNav || !overlay || !btnClose)
+    return;
+  const toggleContainer = btnOpen.closest('.topnav__toggle');
+  if (
+    btnOpen.hasAttribute('aria-disabled') ||
+    btnOpen.classList.contains('topnav__open--disabled')
+  )
+    return;
   btnOpen.setAttribute('aria-expanded', 'true');
+  if (toggleContainer) toggleContainer.setAttribute('data-menu-open', 'true');
   main.setAttribute('inert', '');
   footer.setAttribute('inert', '');
   menuTopNav.removeAttribute('inert');
@@ -105,7 +117,9 @@ function openMobileMenu() {
   window.navigationTestState.focusTrapActive = true;
   // Focus first nav link for keyboard users
   setTimeout(() => {
-    const items = menuTopNav.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
+    const items = menuTopNav.querySelectorAll(
+      'a, button, [tabindex]:not([tabindex="-1"])'
+    );
     if (items.length) items[0].focus();
   }, 10);
 }
@@ -116,8 +130,14 @@ function handleNavLinkClick() {
 
 function closeMobileMenu() {
   if (!btnOpen || !main || !footer || !menuTopNav || !overlay) return;
-  if (btnOpen.hasAttribute('aria-disabled') || btnOpen.classList.contains('topnav__open--disabled')) return;
+  if (
+    btnOpen.hasAttribute('aria-disabled') ||
+    btnOpen.classList.contains('topnav__open--disabled')
+  )
+    return;
   btnOpen.setAttribute('aria-expanded', 'false');
+  const toggleContainer = btnOpen.closest('.topnav__toggle');
+  if (toggleContainer) toggleContainer.setAttribute('data-menu-open', 'false');
   main.removeAttribute('inert');
   footer.removeAttribute('inert');
   menuTopNav.setAttribute('inert', '');
@@ -174,7 +194,9 @@ function trapFocus(container, onClose) {
     }
     // Arrow key navigation inside menu
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-      const items = Array.from(container.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])'));
+      const items = Array.from(
+        container.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])')
+      );
       const idx = items.indexOf(document.activeElement);
       if (items.length) {
         let nextIdx = idx;
