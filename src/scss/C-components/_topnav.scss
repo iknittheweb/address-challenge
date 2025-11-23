@@ -158,6 +158,10 @@
     // .topnav__close: <button> close menu button
     background: none;
 
+    @include m.breakpoint('700') {
+      display: none;
+    }
+    
     // FontAwesome icon sizing for navigation buttons
     .fa-solid {
       font-size: f.rem(24); // 1.5rem equivalent
@@ -165,7 +169,7 @@
     }
   }
 
-  &,
+  // &,
   &__menu {
     // .topnav__menu: <div> navigation menu container
     background-color: var(--primary-bg);
