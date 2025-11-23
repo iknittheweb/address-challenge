@@ -88,7 +88,6 @@
     background: none;
     padding: 0;
     border: 0;
-    cursor: pointer;
 
     // FontAwesome icon sizing for navigation buttons
     .fa-solid {
@@ -107,20 +106,25 @@
     }
 
     @include m.breakpoint-down('699.98') {
+      right: f.rem(16);
       // Fade-in animation for mobile hamburger menu
       opacity: 0;
       transform: translateY(-5px);
       animation: fade-in-hamburger 400ms ease-out 150ms forwards;
-      position: absolute;
-      top: f.rem(16);
-      right: f.rem(16);
-      z-index: 100;
-      display: block;
     }
 
-    &[aria-expanded='true'] {
+    &[aria-expanded='true'] + .topnav__menu {
       @include m.breakpoint-down('699.98') {
-        display: none !important;
+        display: block; // Show the mobile menu
+        transform: translateY(0); // Slide it into view
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      @media (prefers-reduced-motion) {
+        opacity: 1;
       }
     }
   }
@@ -160,18 +164,11 @@
 
   &__close {
     display: none;
+
     @include m.breakpoint-down('699.98') {
-      position: absolute;
-      top: f.rem(16);
-      right: f.rem(16);
-      z-index: 100;
-      display: none;
-    }
-    // Show close button only when menu is open
-    .topnav__menu[aria-hidden='false'] & {
-      @include m.breakpoint-down('699.98') {
-        display: block !important;
-      }
+      display: block;
+      right: f.rem(28);
+      margin-block-end: 84px;
     }
   }
 
