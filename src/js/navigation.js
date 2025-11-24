@@ -66,6 +66,7 @@ function setupTopNav() {
 }
 
 export function initializeNavigation() {
+  console.log('Initializing navigation...');
   btnOpen = document.querySelector('#btnOpen');
   btnClose = document.querySelector('#btnClose');
   const toggleContainer = btnOpen?.closest('.topnav__toggle');
@@ -74,23 +75,23 @@ export function initializeNavigation() {
   main = document.querySelector('#main-content');
   footer = document.querySelector('footer');
   if (!btnOpen || !btnClose || !menuTopNav || !overlay) return false;
-    // Remove existing open/close logic
-    btnOpen.removeEventListener('click', openMobileMenu);
-    btnClose.removeEventListener('click', closeMobileMenu);
-    btnOpen.addEventListener('click', function () {
-      menuTopNav.classList.add('menu--open');
-      btnOpen.style.display = 'none';
-      btnClose.style.display = 'block';
-    });
-    btnClose.addEventListener('click', function () {
-      menuTopNav.classList.remove('menu--open');
-      btnOpen.style.display = 'block';
-      btnClose.style.display = 'none';
-    });
-    // Initial state: menu hidden, open button visible, close button hidden
+  // Remove existing open/close logic
+  btnOpen.removeEventListener('click', openMobileMenu);
+  btnClose.removeEventListener('click', closeMobileMenu);
+  btnOpen.addEventListener('click', function () {
+    menuTopNav.classList.add('menu--open');
+    btnOpen.style.display = 'none';
+    btnClose.style.display = 'block';
+  });
+  btnClose.addEventListener('click', function () {
     menuTopNav.classList.remove('menu--open');
     btnOpen.style.display = 'block';
     btnClose.style.display = 'none';
+  });
+  // Initial state: menu hidden, open button visible, close button hidden
+  menuTopNav.classList.remove('menu--open');
+  btnOpen.style.display = 'block';
+  btnClose.style.display = 'none';
   document.removeEventListener('keydown', handleGlobalKeydown);
   document.addEventListener('keydown', handleGlobalKeydown);
   menuTopNav.querySelectorAll('a').forEach((link) => {
@@ -107,8 +108,8 @@ export function initializeNavigation() {
 function openMobileMenu() {
   if (!btnOpen || !main || !footer || !menuTopNav || !overlay || !btnClose)
     return;
-    // Removed all logic for aria/data/inert/logo hiding
-    // This function is now handled by the new event listeners in initializeNavigation
+  // Removed all logic for aria/data/inert/logo hiding
+  // This function is now handled by the new event listeners in initializeNavigation
 }
 
 function handleNavLinkClick() {
@@ -117,7 +118,7 @@ function handleNavLinkClick() {
 
 function closeMobileMenu() {
   if (!btnOpen || !main || !footer || !menuTopNav || !overlay) return;
-    // This function is now handled by the new event listeners in initializeNavigation
+  // This function is now handled by the new event listeners in initializeNavigation
 }
 
 function initializeApp() {
