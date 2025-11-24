@@ -27,14 +27,6 @@
   text-rendering: auto;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
-  // Show and position close button in overlay
-  .topnav__close {
-    display: block;
-    position: absolute;
-    top: f.rem(24);
-    right: f.rem(24);
-    z-index: 1001;
-  }
 }
 
 .topnav {
@@ -59,12 +51,9 @@
     height: f.rem(120);
   }
 
-  // Hide logo when mobile menu is open
-  &__toggle[data-menu-open='true'] ~ .topnav__wrapper .topnav__homelink {
-    // .topnav__homelink: <a> wrapping the logo image
-    @include m.breakpoint-down('699.98') {
-      display: none;
-    }
+  // Hide logo when menu is open (JS toggles .logo--hidden)
+  &__homelink.logo--hidden {
+    display: none !important;
   }
 
   // Show mobile menu when toggle is open
@@ -75,22 +64,6 @@
       background: var(--primary-bg);
       transform: translateY(0);
       opacity: 1;
-    }
-  }
-
-  &__overlay {
-    // .topnav__overlay: <div> overlay for mobile menu
-    @include m.breakpoint-down('699.98') {
-      inset: 0;
-      background-color: var(--menu-overlay);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 400ms ease-in-out;
-
-      &:has(+ .topnav__open[aria-expanded='true']) {
-        opacity: 1;
-        pointer-events: all;
-      }
     }
   }
 
@@ -120,10 +93,12 @@
         right: f.rem(28);
         margin-block-end: f.rem(84);
       }
-      .topnav__open[aria-expanded='true'] ~ .topnav__close {
+      // Show close button when menu is open (hamburger aria-expanded is true)
+      .topnav__open[aria-expanded='true'] + .topnav__close {
         display: block;
       }
     }
+
     @include m.breakpoint('700') {
       .topnav__open,
       .topnav__close {
