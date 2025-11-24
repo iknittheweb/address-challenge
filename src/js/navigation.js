@@ -110,6 +110,9 @@ function openMobileMenu() {
   menuTopNav.setAttribute('tabindex', '-1');
   menuTopNav.style.transitionDuration = '400ms';
   overlay.style.transitionDuration = '400ms';
+  // Update close icon aria-hidden for accessibility
+  const closeIcon = btnClose.querySelector('.fa-xmark');
+  if (closeIcon) closeIcon.setAttribute('aria-hidden', 'false');
   bodyScrollLock.disableBodyScroll(menuTopNav);
   btnClose.focus();
   trapFocus(menuTopNav, closeMobileMenu);
@@ -143,6 +146,9 @@ function closeMobileMenu() {
   menuTopNav.setAttribute('inert', '');
   menuTopNav.setAttribute('aria-hidden', 'true');
   overlay.setAttribute('aria-hidden', 'true');
+  // Update close icon aria-hidden for accessibility
+  const closeIcon = btnClose.querySelector('.fa-xmark');
+  if (closeIcon) closeIcon.setAttribute('aria-hidden', 'true');
   bodyScrollLock.enableBodyScroll(menuTopNav);
   window.navigationTestState.menuOpen = false;
   window.navigationTestState.focusTrapActive = false;
