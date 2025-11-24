@@ -98,6 +98,12 @@
     // Always show close button if menu is open, regardless of screen size
     &[data-menu-open='true'] .topnav__close {
       display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      position: absolute;
+      top: f.rem(16);
+      right: f.rem(16);
+      z-index: 1001;
     }
     @include m.breakpoint('700') {
       .topnav__open {
