@@ -93,15 +93,14 @@
         right: f.rem(28);
         margin-block-end: f.rem(84);
       }
-      // Show close button when menu is open (robust: parent data-menu-open)
-      &[data-menu-open='true'] .topnav__close {
-        display: block;
-      }
     }
 
+    // Always show close button if menu is open, regardless of screen size
+    &[data-menu-open='true'] .topnav__close {
+      display: block !important;
+    }
     @include m.breakpoint('700') {
-      .topnav__open,
-      .topnav__close {
+      .topnav__open {
         display: none;
       }
     }
