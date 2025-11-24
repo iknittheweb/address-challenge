@@ -93,8 +93,8 @@
         right: f.rem(28);
         margin-block-end: f.rem(84);
       }
-      // Show close button when menu is open (hamburger aria-expanded is true)
-      .topnav__open[aria-expanded='true'] + .topnav__close {
+      // Show close button when menu is open (robust: parent data-menu-open)
+      &[data-menu-open='true'] .topnav__close {
         display: block;
       }
     }
