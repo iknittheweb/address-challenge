@@ -74,10 +74,23 @@ export function initializeNavigation() {
   main = document.querySelector('#main-content');
   footer = document.querySelector('footer');
   if (!btnOpen || !btnClose || !menuTopNav || !overlay) return false;
-  btnOpen.removeEventListener('click', openMobileMenu);
-  btnClose.removeEventListener('click', closeMobileMenu);
-  btnOpen.addEventListener('click', openMobileMenu);
-  btnClose.addEventListener('click', closeMobileMenu);
+    // Remove existing open/close logic
+    btnOpen.removeEventListener('click', openMobileMenu);
+    btnClose.removeEventListener('click', closeMobileMenu);
+    btnOpen.addEventListener('click', function () {
+      menuTopNav.classList.add('menu--open');
+      btnOpen.style.display = 'none';
+      btnClose.style.display = 'block';
+    });
+    btnClose.addEventListener('click', function () {
+      menuTopNav.classList.remove('menu--open');
+      btnOpen.style.display = 'block';
+      btnClose.style.display = 'none';
+    });
+    // Initial state: menu hidden, open button visible, close button hidden
+    menuTopNav.classList.remove('menu--open');
+    btnOpen.style.display = 'block';
+    btnClose.style.display = 'none';
   document.removeEventListener('keydown', handleGlobalKeydown);
   document.addEventListener('keydown', handleGlobalKeydown);
   menuTopNav.querySelectorAll('a').forEach((link) => {
@@ -94,37 +107,8 @@ export function initializeNavigation() {
 function openMobileMenu() {
   if (!btnOpen || !main || !footer || !menuTopNav || !overlay || !btnClose)
     return;
-  const toggleContainer = btnOpen.closest('.topnav__toggle');
-  if (
-    btnOpen.hasAttribute('aria-disabled') ||
-    btnOpen.classList.contains('topnav__open--disabled')
-  )
-    return;
-  btnOpen.setAttribute('aria-expanded', 'true');
-  if (toggleContainer) toggleContainer.setAttribute('data-menu-open', 'true');
-  main.setAttribute('inert', '');
-  footer.setAttribute('inert', '');
-  menuTopNav.removeAttribute('inert');
-  menuTopNav.setAttribute('aria-hidden', 'false');
-  overlay.setAttribute('aria-hidden', 'false');
-  menuTopNav.setAttribute('tabindex', '-1');
-  menuTopNav.style.transitionDuration = '400ms';
-  overlay.style.transitionDuration = '400ms';
-  // Update close icon aria-hidden for accessibility (global selector)
-  const closeIcon = document.querySelector('#btnClose .fa-xmark');
-  if (closeIcon) closeIcon.setAttribute('aria-hidden', 'false');
-  bodyScrollLock.disableBodyScroll(menuTopNav);
-  btnClose.focus();
-  trapFocus(menuTopNav, closeMobileMenu);
-  window.navigationTestState.menuOpen = true;
-  window.navigationTestState.focusTrapActive = true;
-  // Focus first nav link for keyboard users
-  setTimeout(() => {
-    const items = menuTopNav.querySelectorAll(
-      'a, button, [tabindex]:not([tabindex="-1"])'
-    );
-    if (items.length) items[0].focus();
-  }, 10);
+    // Removed all logic for aria/data/inert/logo hiding
+    // This function is now handled by the new event listeners in initializeNavigation
 }
 
 function handleNavLinkClick() {
@@ -133,29 +117,7 @@ function handleNavLinkClick() {
 
 function closeMobileMenu() {
   if (!btnOpen || !main || !footer || !menuTopNav || !overlay) return;
-  if (
-    btnOpen.hasAttribute('aria-disabled') ||
-    btnOpen.classList.contains('topnav__open--disabled')
-  )
-    return;
-  btnOpen.setAttribute('aria-expanded', 'false');
-  const toggleContainer = btnOpen.closest('.topnav__toggle');
-  if (toggleContainer) toggleContainer.setAttribute('data-menu-open', 'false');
-  main.removeAttribute('inert');
-  footer.removeAttribute('inert');
-  menuTopNav.setAttribute('inert', '');
-  menuTopNav.setAttribute('aria-hidden', 'true');
-  overlay.setAttribute('aria-hidden', 'true');
-  // Update close icon aria-hidden for accessibility (global selector)
-  const closeIcon = document.querySelector('#btnClose .fa-xmark');
-  if (closeIcon) closeIcon.setAttribute('aria-hidden', 'true');
-  bodyScrollLock.enableBodyScroll(menuTopNav);
-  window.navigationTestState.menuOpen = false;
-  window.navigationTestState.focusTrapActive = false;
-  setTimeout(() => {
-    menuTopNav.removeAttribute('style');
-    overlay.removeAttribute('style');
-  }, 500);
+    // This function is now handled by the new event listeners in initializeNavigation
 }
 
 function initializeApp() {

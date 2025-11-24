@@ -51,21 +51,6 @@
     height: f.rem(120);
   }
 
-  // Hide logo when menu is open (JS toggles .logo--hidden)
-  &__homelink.logo--hidden {
-    display: none !important;
-  }
-
-  // Show mobile menu when toggle is open
-  &__toggle[data-menu-open='true'] + .topnav__menu {
-    // .topnav__menu: <div> navigation menu container
-    @include m.breakpoint-down('699.98') {
-      display: block;
-      background: var(--primary-bg);
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
 
   &__toggle {
     // .topnav__toggle: <div> containing hamburger and close buttons
@@ -78,15 +63,12 @@
 
     // hamburger menu button
     @include m.breakpoint-down('699.98') {
-      .topnav__open[aria-expanded='false'] {
+      .topnav__open {
         display: block;
         right: f.rem(16);
-        opacity: 0;
-        transform: translateY(-5px);
+        opacity: 1;
+        transform: translateY(0);
         animation: fade-in-hamburger 400ms ease-out 150ms forwards;
-      }
-      .topnav__open[aria-expanded='true'] {
-        display: none;
       }
       .topnav__close {
         display: none;
@@ -94,16 +76,10 @@
         margin-block-end: f.rem(84);
       }
     }
-
-    // Always show close button if menu is open, regardless of screen size
-    &[data-menu-open='true'] .topnav__close {
-      display: block !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-      position: absolute;
-      top: f.rem(16);
-      right: f.rem(16);
-      z-index: 1001;
+    @include m.breakpoint('700') {
+      .topnav__open {
+        display: none;
+      }
     }
     @include m.breakpoint('700') {
       .topnav__open {
@@ -157,10 +133,9 @@
       -webkit-overflow-scrolling: touch;
       touch-action: manipulation;
 
-      @media (prefers-reduced-motion) {
+      &.menu--open {
+        display: block;
         transform: translateY(0);
-        opacity: 1;
-        transition-property: opacity;
       }
     }
   }
