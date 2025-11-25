@@ -69,15 +69,12 @@
     @include m.breakpoint-down('699.98') {
       .topnav__open {
         display: block;
-        right: f.rem(16);
         opacity: 1;
         transform: translateY(0);
         animation: fade-in-hamburger 400ms ease-out 150ms forwards;
       }
       .topnav__close {
         display: none;
-        right: f.rem(28);
-        margin-block-end: f.rem(84);
       }
     }
     @include m.breakpoint('700') {
