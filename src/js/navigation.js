@@ -12,10 +12,6 @@ export function initializeNavigation() {
   footer = document.querySelector('footer'); // Get the footer element
   if (!btnOpen || !btnClose || !menuTopNav) return false; // If any required element is missing, stop initialization
 
-  // Remove any previous event listeners for open/close (cleanup from old logic)
-  btnOpen.removeEventListener('click', openMobileMenu);
-  btnClose.removeEventListener('click', closeMobileMenu);
-
   // Get the logo element (used to hide/show logo when menu is open)
   const logo = document.querySelector('.topnav__logo');
 
