@@ -39,6 +39,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    gap: f.rem(16); // Space between logo/menu/header items
 
     @include m.breakpoint-down('699.98') {
       position: relative;
@@ -49,6 +50,7 @@
     // .topnav__logo: <img> logo inside .topnav__homelink
     width: f.rem(120);
     height: f.rem(120);
+    vertical-align: top; // Align logo top with menu top
   }
 
   // Hide logo when menu is open (JS toggles .logo--hidden)
@@ -115,7 +117,9 @@
       display: block;
       position: static;
       padding-top: 0;
-    }
+      padding-top: f.rem(16); // Top padding for desktop
+      padding-bottom: f.rem(16); // Bottom padding for desktop
+      }
 
     @include m.breakpoint-down('699.98') {
       // Mobile: Hidden by default, only shown when menu is opened
@@ -152,6 +156,7 @@
     @include m.breakpoint('700') {
       opacity: 0;
       animation: fade-in-links 400ms ease-in-out 200ms forwards;
+      margin-bottom: f.rem(16); // Only f.rem(16) below lowest header item
     }
 
     @include m.breakpoint-down('699.98') {
