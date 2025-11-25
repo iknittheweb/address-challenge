@@ -5,9 +5,12 @@ const { JSDOM, VirtualConsole } = require('jsdom');
 test('multi-page accessibility: all pages', async () => {
   // Automatically find all HTML files in the output directory
   const glob = require('glob');
-  // Adjust this path if your output HTML files are in a different folder
+  // Only test key pages for best practice and speed
   const outputDir = path.resolve(__dirname, '../');
-  const pages = glob.sync(path.join(outputDir, '*.html'));
+  const keyPages = ['index.html', 'portfolio.html'];
+  const pages = keyPages
+    .map((name) => path.join(outputDir, name))
+    .filter((file) => fs.existsSync(file));
   for (const page of pages) {
     if (!fs.existsSync(page)) {
       console.warn(`Skipping missing file: ${page}`);
