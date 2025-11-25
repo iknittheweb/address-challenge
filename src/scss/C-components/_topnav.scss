@@ -51,6 +51,10 @@
     height: f.rem(120);
   }
 
+  // Hide logo when menu is open (JS toggles .logo--hidden)
+  &__logo.logo--hidden {
+    display: none !important;
+  }
 
   &__toggle {
     // .topnav__toggle: <div> containing hamburger and close buttons
