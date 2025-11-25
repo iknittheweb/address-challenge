@@ -63,7 +63,7 @@
     top: f.rem(16);
     display: flex;
     flex-direction: column;
-    z-index: 100;
+    z-index: 1100; // Ensure toggle (and close button) is above menu
 
     // hamburger menu button
     @include m.breakpoint-down('699.98') {
@@ -107,6 +107,12 @@
       font-size: f.rem(24); // 1.5rem equivalent
       display: inline-block;
     }
+
+    // Ensure close button is above menu on mobile
+    &.topnav__close {
+      z-index: 1200;
+      position: relative;
+    }
   }
 
   &__menu {
@@ -132,7 +138,7 @@
       transform: translateY(-100%); // Slide out of view by default
       transition: transform 350ms ease-in-out;
       font-size: f.rem(16);
-      z-index: 1000;
+      z-index: 1000; // Lower than toggle/close button
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       touch-action: manipulation;
