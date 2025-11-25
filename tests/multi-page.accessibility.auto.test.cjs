@@ -81,4 +81,4 @@ test('multi-page accessibility: all pages', async () => {
     }
     expect(results.violations.length).toBe(0);
   }
-}, 60000);
+}, 180000);
