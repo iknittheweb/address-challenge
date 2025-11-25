@@ -78,13 +78,9 @@
       }
     }
     @include m.breakpoint('700') {
-      .topnav__open {
-        display: none;
-      }
-    }
-    @include m.breakpoint('700') {
-      .topnav__open {
-        display: none;
+      .topnav__open,
+      .topnav__close {
+        display: none !important;
       }
     }
   }
@@ -95,9 +91,8 @@
     // .topnav__close: <button> close menu button
     background: none;
 
-    @include m.breakpoint('700') {
-      display: none;
-    }
+    // Remove any positioning from the buttons themselves
+    position: static;
 
     // FontAwesome icon sizing for navigation buttons
     .fa-solid {
@@ -108,7 +103,6 @@
     // Ensure close button is above menu on mobile
     &.topnav__close {
       z-index: 1200;
-      position: relative;
     }
   }
 
