@@ -114,6 +114,7 @@
       // Desktop: Normal menu behavior
       display: block;
       position: static;
+      padding-top: 0;
     }
 
     @include m.breakpoint-down('699.98') {
@@ -133,6 +134,7 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       touch-action: manipulation;
+      padding-top: f.rem(84); // Space above menu for mobile only
 
       &.menu--open {
         display: block;
