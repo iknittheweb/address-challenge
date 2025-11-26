@@ -147,7 +147,6 @@
   &__links {
     // .topnav__links: <ul> navigation links list
     display: flex;
-    gap: f.rem(40);
 
     // Smooth transition for desktop appearance
     @include m.breakpoint('700') {
@@ -170,7 +169,7 @@
     // .topnav__link: <a> navigation link inside <li>
     display: block;
     padding: f.rem(8) f.rem(16);
-    font-size: f.rem(24);
+    font-size: f.rem(20);
     font-weight: 700;
     color: var(--light-text);
     cursor: pointer;
