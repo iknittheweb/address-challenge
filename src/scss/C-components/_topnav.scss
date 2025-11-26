@@ -184,6 +184,7 @@
 
     // Smooth transitions for desktop
     @include m.breakpoint('700') {
+      font-size: f.rem(16);
       opacity: 0;
       transform: translateY(-10px);
       transition:
