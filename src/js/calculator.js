@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const calculator = document.querySelector('.calculator');
   if (!calculator) return;
 
-  const screen = calculator.querySelector('.calculator__screen');
-  const buttons = calculator.querySelectorAll('.calculator__button');
+  const screen = calculator.querySelector('.CALCULATOR-_screen');
+  const buttons = calculator.querySelectorAll('.CALCULATOR-_button');
 
   let current = '0';
   let operator = null;
@@ -87,9 +87,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function handleButton(button) {
     const value = button.textContent.trim();
-    if (button.classList.contains('calculator__button--double')) {
+    if (button.classList.contains('CALCULATOR-_button--double')) {
       clear();
-    } else if (button.classList.contains('calculator__button--triple')) {
+    } else if (button.classList.contains('CALCULATOR-_button--triple')) {
       inputDigit('0');
     } else if (/^[0-9]$/.test(value)) {
       inputDigit(value);
