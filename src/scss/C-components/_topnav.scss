@@ -116,9 +116,6 @@
       // Desktop: Normal menu behavior
       display: block;
       position: static;
-      padding-top: 0;
-      padding-top: f.rem(16); // Top padding for desktop
-      padding-bottom: f.rem(16); // Bottom padding for desktop
       }
 
     @include m.breakpoint-down('699.98') {
@@ -179,8 +176,6 @@
     cursor: pointer;
 
     @include m.breakpoint-down('699.98') {
-      display: block;
-      font-size: f.rem(24);
       text-align: left;
       touch-action: manipulation;
       user-select: none;
@@ -194,7 +189,6 @@
       transition:
         opacity 300ms ease-out,
         transform 300ms ease-out;
-      font-size: f.rem(16);
       text-transform: uppercase;
       letter-spacing: 0.05em;
 
