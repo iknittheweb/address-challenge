@@ -25,20 +25,20 @@
     <!-- Preload critical stylesheets -->
     <link
       rel="preload"
-      href="{{GOOGLE_FONTS_LINK}}"
+      href="{{ADDRESS_CHALLENGE-GOOGLE_FONTS_LINK}}"
       as="style" />
     <link
       rel="preload"
       as="style"
-      href="{{BASE_URL}}{{ADDRESS-CHALLENGE_CSS_FILE}}" />
+      href="/{{ADDRESS_CHALLENGE-CSS_FILE}}" />
 
     <!-- Main font and site stylesheets -->
     <link
       rel="stylesheet"
-      href="{{GOOGLE_FONTS_LINK}}" />
+      href="{{ADDRESS_CHALLENGE-GOOGLE_FONTS_LINK}}" />
     <link
       rel="stylesheet"
-      href="{{BASE_URL}}{{ADDRESS-CHALLENGE_CSS_FILE}}" />
+      href="/{{ADDRESS_CHALLENGE-CSS_FILE}}" />
 
     <!-- FontAwesome CDN stylesheet for icons -->
     <link
@@ -55,7 +55,7 @@
         }
       </style>
       <link
-        href="{{GOOGLE_FONTS_LINK}}"
+        href="{{ADDRESS_CHALLENGE-GOOGLE_FONTS_LINK}}"
         rel="stylesheet" />
     </noscript>
 
@@ -63,25 +63,25 @@
     <link
       rel="icon"
       type="image/x-icon"
-      href="{{ASSET_URL}}/favicon_io/favicon.ico" />
+      href="/dist/img/favicon_io/favicon.ico" />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="{{ASSET_URL}}/favicon_io/apple-touch-icon.png" />
+      href="/dist/img/favicon_io/apple-touch-icon.png" />
     <link
       rel="manifest"
-      href="{{BASE_URL}}/manifest.json" />
+      href="//manifest.json" />
     <link
       rel="canonical"
-      href="{{BASE_URL}}{{ADDRESS-CHALLENGE_OG_URL}}" />
+      href="/{{ADDRESS_CHALLENGE-OG_URL}}" />
 
     <!-- SEO and social meta tags -->
     <meta
       name="description"
-      content="{{ADDRESS-CHALLENGE_DESCRIPTION}}" />
+      content="{{ADDRESS_CHALLENGE-DESCRIPTION}}" />
     <meta
       name="keywords"
-      content="{{ADDRESS-CHALLENGE_KEYWORDS}}" />
+      content="{{ADDRESS_CHALLENGE-KEYWORDS}}" />
     <meta
       name="author"
       content="I Knit the Web" />
@@ -90,16 +90,16 @@
       content="{{ROBOTS}}" />
     <meta
       property="og:title"
-      content="{{ADDRESS-CHALLENGE_OG_TITLE}}" />
+      content="{{ADDRESS_CHALLENGE-OG_TITLE}}" />
     <meta
       property="og:description"
-      content="{{ADDRESS-CHALLENGE_OG_DESCRIPTION}}" />
+      content="{{ADDRESS_CHALLENGE-OG_DESCRIPTION}}" />
     <meta
       property="og:image"
-      content="{{ASSET_URL}}/branding/logo.png" />
+      content="/dist/img/branding/logo.png" />
     <meta
       property="og:url"
-      content="{{BASE_URL}}{{ADDRESS-CHALLENGE_OG_URL}}" />
+      content="/{{ADDRESS_CHALLENGE-OG_URL}}" />
     <meta
       property="og:type"
       content="{{OG_TYPE}}" />
@@ -108,13 +108,13 @@
       content="{{TWITTER_CARD}}" />
     <meta
       name="twitter:title"
-      content="{{ADDRESS-CHALLENGE_TWITTER_TITLE}}" />
+      content="{{ADDRESS_CHALLENGE-TWITTER_TITLE}}" />
     <meta
       name="twitter:description"
-      content="{{ADDRESS-CHALLENGE_TWITTER_DESCRIPTION}}" />
+      content="{{ADDRESS_CHALLENGE-TWITTER_DESCRIPTION}}" />
     <meta
       name="twitter:image"
-      content="{{ASSET_URL}}/branding/logo.png" />
+      content="/dist/img/branding/logo.png" />
 
     <!-- Fallback styles for no-JS environments -->
     <noscript>
@@ -136,7 +136,7 @@
     </style>
 
     <!-- Critical polyfill: FOUC fix script -->
-    <script src="{{BASE_URL}}/dist/js/fouc-fix.js"></script>
+    <script src="//dist/js/fouc-fix.js"></script>
 
     <!-- Third-party monitoring/analytics: Sentry -->
     <script
@@ -145,7 +145,7 @@
 
     <!-- Structured data for SEO -->
     <script type="application/ld+json">
-      {{{ADDRESS-CHALLENGE_SCHEMA_JSON}}}
+      {{{ADDRESS_CHALLENGE-SCHEMA_JSON}}}
     </script>
 
     <!-- Third-party library: body-scroll-lock -->
@@ -154,17 +154,17 @@
     <!-- Main app/module script -->
     <script
       type="module"
-      src="{{BASE_URL}}/dist/js/script.js"></script>
+      src="//dist/js/script.js"></script>
   </head>
 
   <body>
     <div
       id="page-data"
-      data-page-title="{{ADDRESS-CHALLENGE_TITLE}}"
-      data-page-subtitle="{{ADDRESS-CHALLENGE_SUBTITLE}}"
-      data-nav-config="{{ADDRESS-CHALLENGE_NAV_CONFIG}}"
-      data-breadcrumb-category="{{ADDRESS-CHALLENGE_BREADCRUMB_CATEGORY}}"
-      data-breadcrumb-category-url="{{ADDRESS-CHALLENGE_BREADCRUMB_CATEGORY_URL}}"
+      data-page-title="{{ADDRESS_CHALLENGE-TITLE}}"
+      data-page-subtitle="{{ADDRESS_CHALLENGE-SUBTITLE}}"
+      data-nav-config="{{ADDRESS_CHALLENGE-NAV_CONFIG}}"
+      data-breadcrumb-category="{{ADDRESS_CHALLENGE-BREADCRUMB_CATEGORY}}"
+      data-breadcrumb-category-url="{{ADDRESS_CHALLENGE-BREADCRUMB_CATEGORY_URL}}"
       style="display: none"></div>
     <a
       href="#main-content"
