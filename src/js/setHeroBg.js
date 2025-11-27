@@ -13,11 +13,11 @@ export async function setHeroBg() {
 
   // Default hero background logic
   const hero = document.querySelector('.hero');
-  let heroUrl = '/dist/img/hero-bg.jpg';
+  let heroUrl = '/dist/img/open-laptops.jpg';
   if (await supportsFormat('avif')) {
-    heroUrl = '/dist/img/hero-bg.avif';
+    heroUrl = '/dist/img/open-laptops.avif';
   } else if (await supportsFormat('webp')) {
-    heroUrl = '/dist/img/hero-bg.webp';
+    heroUrl = '/dist/img/open-laptops.webp';
   }
   if (hero) hero.style.backgroundImage = `url('${heroUrl}')`;
 
