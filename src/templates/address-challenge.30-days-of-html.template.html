@@ -9,8 +9,9 @@
       content="width=device-width, initial-scale=1.0" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-eval' https://browser.sentry-cdn.com https://kit.fontawesome.com https://cdn.jsdelivr.net https://ka-p.fontawesome.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://kit.fontawesome.com https://ka-p.fontawesome.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://kit.fontawesome.com https://ka-p.fontawesome.com https://cdnjs.cloudflare.com; img-src 'self' data: https://github.com https://fonts.gstatic.com https://kit.fontawesome.com https://ka-p.fontawesome.com; connect-src 'self' https://formspree.io/f/mpwyyeaa https://formspree.io https://sentry.io https://fonts.googleapis.com https://fonts.gstatic.com https://ka-p.fontawesome.com https://kit-upload.fontawesome.com https://kit.fontawesome.com https://cdn.jsdelivr.net; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io" />
-    <title>&lt;Address&gt; Challenge | I Knit The Web</title>
+      content="{{CSP_META}}" />
+    <title>&lt;address&gt; Challenge | I Knit The Web</title>
+
     <!-- Preconnects for faster font and icon loading -->
     <link
       rel="preconnect"
@@ -25,20 +26,20 @@
     <!-- Preload critical stylesheets -->
     <link
       rel="preload"
-      href="{{ADDRESS_CHALLENGE-GOOGLE_FONTS_LINK}}"
+      href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
       as="style" />
     <link
       rel="preload"
       as="style"
-      href="/{{ADDRESS_CHALLENGE-CSS_FILE}}" />
+      href="/dist/css/address-challenge.css" />
 
     <!-- Main font and site stylesheets -->
     <link
       rel="stylesheet"
-      href="{{ADDRESS_CHALLENGE-GOOGLE_FONTS_LINK}}" />
+      href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" />
     <link
       rel="stylesheet"
-      href="/{{ADDRESS_CHALLENGE-CSS_FILE}}" />
+      href="/dist/css/address-challenge.css" />
 
     <!-- FontAwesome CDN stylesheet for icons -->
     <link
@@ -46,18 +47,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       crossorigin="anonymous"
       referrerpolicy="no-referrer" />
-
-    <!-- Fallback styles for no-JS environments -->
-    <noscript>
-      <style>
-        body {
-          visibility: visible;
-        }
-      </style>
-      <link
-        href="{{ADDRESS_CHALLENGE-GOOGLE_FONTS_LINK}}"
-        rel="stylesheet" />
-    </noscript>
 
     <!-- Favicons and manifest -->
     <link
@@ -73,45 +62,45 @@
       href="/manifest.json" />
     <link
       rel="canonical"
-      href="/{{ADDRESS_CHALLENGE-OG_URL}}" />
+      href="/" />
 
     <!-- SEO and social meta tags -->
     <meta
       name="description"
-      content="{{ADDRESS_CHALLENGE-DESCRIPTION}}" />
+      content="Explore the use of the &lt;address&gt; element in HTML for contact information and location details." />
     <meta
       name="keywords"
-      content="{{ADDRESS_CHALLENGE-KEYWORDS}}" />
+      content="html, &lt;address&gt; element, contact information, location, web development, accessibility, tutorial" />
     <meta
       name="author"
       content="I Knit the Web" />
     <meta
       name="robots"
-      content="{{ROBOTS}}" />
+      content="index,follow" />
     <meta
       property="og:title"
-      content="{{ADDRESS_CHALLENGE-OG_TITLE}}" />
+      content="&lt;address&gt; Challenge | I Knit The Web" />
     <meta
       property="og:description"
-      content="{{ADDRESS_CHALLENGE-OG_DESCRIPTION}}" />
+      content="Explore the use of the &lt;address&gt; element in HTML for contact information and location details." />
     <meta
       property="og:image"
       content="/dist/img/branding/logo.png" />
     <meta
       property="og:url"
-      content="/{{ADDRESS_CHALLENGE-OG_URL}}" />
+      content="//address-challenge.html" />
     <meta
       property="og:type"
-      content="{{OG_TYPE}}" />
+      content="website" />
     <meta
       name="twitter:card"
-      content="{{TWITTER_CARD}}" />
+      content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="{{ADDRESS_CHALLENGE-TWITTER_TITLE}}" />
+      content="&lt;address&gt; Challenge | I Knit The Web" />
     <meta
       name="twitter:description"
-      content="{{ADDRESS_CHALLENGE-TWITTER_DESCRIPTION}}" />
+      content="Explore the use of the &lt;address&gt; element in HTML for contact information and location details." />
     <meta
       name="twitter:image"
       content="/dist/img/branding/logo.png" />
@@ -145,7 +134,19 @@
 
     <!-- Structured data for SEO -->
     <script type="application/ld+json">
-      {{{ADDRESS_CHALLENGE-SCHEMA_JSON}}}
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "&lt;address&gt; Challenge | I Knit The Web",
+        "description": "Explore the use of the &lt;address&gt; element in HTML for contact information and location details.",
+        "url": "/address-challenge.html"
+        "author": {
+          "@type": "Person",
+          "name": "Marta",
+          "url": "/",
+          "sameAs": ["https://github.com/iknittheweb"]
+        }
+      }
     </script>
 
     <!-- Third-party library: body-scroll-lock -->
@@ -160,27 +161,31 @@
   <body>
     <div
       id="page-data"
-      data-page-title="{{ADDRESS_CHALLENGE-TITLE}}"
-      data-page-subtitle="{{ADDRESS_CHALLENGE-SUBTITLE}}"
-      data-nav-config="{{ADDRESS_CHALLENGE-NAV_CONFIG}}"
-      data-breadcrumb-category="{{ADDRESS_CHALLENGE-BREADCRUMB_CATEGORY}}"
-      data-breadcrumb-category-url="{{ADDRESS_CHALLENGE-BREADCRUMB_CATEGORY_URL}}"
+      data-page-title="&lt;address&gt; Challenge | I Knit The Web"
+      data-page-subtitle="Visual Guide To &lt;address&gt; Challenge | I Knit The Web"
+      data-nav-config="main,about,portfolio,contact,address-challenge"
+      data-breadcrumb-category="Reference"
+      data-breadcrumb-category-url="/reference/address-challenge"
       style="display: none"></div>
+
     <a
-      href="#main-content"
+      href="#address_main-content"
       class="skip-link"
-      >Skip to main content</a
-    >
+      aria-label="Skip to main content">
+      Skip to main content
+    </a>
+
     <header
       class="topnav"
       aria-label="Site header">
       <!-- HEADER_PLACEHOLDER -->
     </header>
+
     <main
-      id="main-content"
+      id="address_main-content"
       role="main"
       class="address-challenge">
-      <h1>&lt;Address&gt; Challenge</h1>
+      <h1>&lt;address&gt; Challenge</h1>
       <h2
         >A
         <a href="https://jen4web.gumroad.com/l/30daysofhtml">30 Days of HTML</a>
