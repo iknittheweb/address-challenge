@@ -66,6 +66,12 @@
     display: flex; // Flexbox for figure layout
     flex-direction: column; // Stack image and caption vertically
 
+    picture {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+
     img {
       width: 100%; // Image fills card width
       height: f.rem(200); // Fixed image height for uniform cards
