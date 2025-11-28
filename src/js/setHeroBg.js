@@ -12,14 +12,8 @@ export async function setHeroBg() {
   }
 
   // Default hero background logic
-  const hero = document.querySelector('.hero');
-  let heroUrl = '/dist/img/open-laptops.jpg';
-  if (await supportsFormat('avif')) {
-    heroUrl = '/dist/img/open-laptops.avif';
-  } else if (await supportsFormat('webp')) {
-    heroUrl = '/dist/img/open-laptops.webp';
-  }
-  if (hero) hero.style.backgroundImage = `url('${heroUrl}')`;
+  // Background image is now set via CSS only for .hero.
+  // Remove JS override to allow CSS to control image selection and fallback.
 
   // Alien Abduction Form page background logic
   const mainContent = document.getElementById('main-content');
