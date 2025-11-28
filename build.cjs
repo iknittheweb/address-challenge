@@ -29,7 +29,7 @@
     - npm run prod        -> Build for production (.env.production, custom domain)
 
   Typical Workflow:
-    1. Edit index.template.html (NOT index.html)
+    1. Edit src/templates/index.template.html (NOT index.html)
     2. Run npm run local after making changes for local dev
     3. Run npm run alt for alternate environments (GitHub Pages)
     4. Run npm run netlify-alt for alternate environments (Netlify)
@@ -94,13 +94,11 @@ if (!baseUrl || !assetUrl) {
 // =============================================================
 console.log('Building HTML for all template files...');
 
-// Use glob to find all .template.html files in the project root and src/templates
+// Use glob to find all .template.html files in src/templates only
 const glob = require('glob');
-const templateFiles = glob
-  .sync(path.join(__dirname, '*.template.html'))
-  .concat(
-    glob.sync(path.join(__dirname, 'src', 'templates', '*.template.html'))
-  );
+const templateFiles = glob.sync(
+  path.join(__dirname, 'src', 'templates', '*.template.html')
+);
 
 // Loop through each template file and process it
 templateFiles.forEach((templatePath) => {

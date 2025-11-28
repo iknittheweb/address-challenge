@@ -1,4 +1,6 @@
-> **Note:** If you upgrade Husky to v10 or later, update your `.husky/pre-commit` hook to the new format. The old `#!/bin/sh` and `._/husky.sh` lines will break in v10+.
+> **Note:** If you upgrade Husky to v10 or later, update your
+> `.husky/pre-commit` hook to the new format. The old `#!/bin/sh` and
+> `._/husky.sh` lines will break in v10+.
 
 ## 📦 Keeping Dependencies Up to Date
 
@@ -262,7 +264,7 @@ CSS/SCSS class names. Example:
 - The build system automatically replaces page-specific placeholders (e.g., `{{TITLE}}`, `{{DESCRIPTION}}`, `{{KEYWORDS}}`, `{{OG_IMAGE}}`, `{{PAGE_NAME}}`) with generic defaults if not set in your template.
 - A warning comment is added at the top of each generated HTML file reminding you to check and update these values before deploying.
 - Always review the top of your generated HTML files in `dist/pages/` for the warning comment and ensure all placeholders have meaningful, page-specific content.
-- To update, edit your `.template.html` file and rebuild.
+- To update, edit your `.template.html` file in `src/templates/` and rebuild.
 }
 ```
 
