@@ -11,7 +11,6 @@
 //* -----------------------------------------------------
 
 .cheat-sheet-table {
-  width: 90%;
   border-collapse: separate;
   border-spacing: 0;
   box-shadow: 0 4px 24px rgba(80, 15, 68, 0.08);
@@ -50,12 +49,12 @@
 
   &__property {
     font-family: 'Fira Mono', 'Consolas', monospace;
-    color: var(--primary-text);
+    color: var(--light-text);
     font-weight: 600;
   }
 
   &__value {
-    color: #1a3317;
+    color: var(--primary-text);
     font-family: 'Fira Mono', 'Consolas', monospace;
     padding: 0.5rem 1rem;
     font-weight: 500;
