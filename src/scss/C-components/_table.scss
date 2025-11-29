@@ -10,7 +10,7 @@
 //* Only styles specific to the table component belong in this file.
 //* -----------------------------------------------------
 
-.cheat-sheet {
+.cheat-sheet-table {
   width: 90%;
   border-collapse: separate;
   border-spacing: 0;
@@ -18,38 +18,63 @@
   box-shadow: 0 4px 24px rgba(80, 15, 68, 0.08);
   border-radius: 1rem;
   overflow: hidden;
-  font-family: "Merriweather Sans", "Segoe UI", Arial, sans-serif;
+  font-family: 'Merriweather Sans', 'Segoe UI', Arial, sans-serif;
   margin: 2rem auto;
   border: 1px solid var(--primary-border);
 
-  #cheat-sheet-caption {
+  &__caption {
     padding: 1rem;
     font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--primary-text);
+    background: var(--primary-bg-light);
   }
-  
-  th, td {
-    padding: 1rem 1.5rem;
-    text-align: left;
-    font-size: 1rem;
-    border-bottom: 2px solid var(--primary-border-mid);
-  }
-  th {
+
+  &__head {
     background: var(--primary-bg);
-    color: var(--light-text);  }
+  }
+
+  &__row {
+    th,
+    td {
+      padding: 1rem 1.5rem;
+      text-align: left;
+      font-size: 1rem;
+      border-bottom: 2px solid var(--primary-border-mid);
+    }
+    &--property {
+      background: var(--primary-bg-light);
+    }
+  }
+
+  &__header {
+    background: var(--primary-bg);
+    color: var(--light-text);
     font-weight: 700;
     letter-spacing: 0.05em;
-}
+    border-bottom: 2px solid var(--primary-border-mid);
+  }
 
-// .property-row {
-// }
+  &__property {
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    background: var(--primary-bg-light);
+    color: var(--primary-text);
+    font-weight: 600;
+  }
 
-.code-property {
-  font-family: 'Fira Mono', 'Consolas', monospace;
-}
+  &__value {
+    color: #1a3317;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    background: linear-gradient(90deg, #a8d4a5 0%, #e1dede 100%);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+  }
 
-.code-value {
-  color: #1a3317;
-  font-family: 'Fira Mono', 'Consolas', monospace;
-  background: linear-gradient(90deg, #a8d4a5 0%, #e1dede 100%);
-  padding: 0.5rem 1rem;
+  &__definition {
+    color: var(--primary-text);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
 }
