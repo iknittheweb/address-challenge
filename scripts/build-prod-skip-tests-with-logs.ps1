@@ -13,8 +13,8 @@ $logFile = "$logDir/build-prod-skip-tests-$timestamp.log"
 # Run the build:prod:skip-tests script and log output
 npm run build:prod:skip-tests *>&1 | Tee-Object -FilePath $logFile
 
-# Minify home-styles.css after build
-Write-Host "Minifying home-styles.css..."
+ # Minify styles.css after build
+Write-Host "Minifying styles.css..."
 node ./scripts/minify-home-styles.cjs
 Write-Host "Minification complete."
 
