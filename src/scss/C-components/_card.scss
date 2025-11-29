@@ -78,6 +78,7 @@
       object-fit: cover; // Crop/scale image to fit area
       display: block; // Remove inline spacing
       padding: f.rem(6); // Padding around image
+      background-color: var(--primary-bg-mid);
     }
 
     figcaption {
