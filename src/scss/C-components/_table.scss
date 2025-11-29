@@ -15,11 +15,9 @@
   border-collapse: separate;
   border-spacing: 0;
   box-shadow: 0 4px 24px rgba(80, 15, 68, 0.08);
-  border-radius: 1rem;
   overflow: hidden;
   font-family: 'Merriweather Sans', 'Segoe UI', Arial, sans-serif;
   margin: 2rem auto;
-  border: 1px solid var(--primary-border);
 
   &__caption {
     padding: 1rem;
@@ -27,12 +25,7 @@
     font-weight: 700;
     letter-spacing: 0.03em;
     color: var(--primary-text);
-    // background: var(--primary-bg-light);
   }
-
-  // &__head {
-  //   background: var(--primary-bg);
-  // }
 
   &__row {
     th,
@@ -40,24 +33,23 @@
       padding: 1rem 1.5rem;
       text-align: left;
       font-size: 1rem;
-      border-bottom: 2px solid var(--primary-border-mid);
+      border: 2px solid var(--primary-border-mid);
+      border-radius: 0.5rem;
     }
-    // &--property {
-    //   background: var(--primary-bg-light);
-    // }
+
+    th {
+      background: var(--primary-bg);
+    }
   }
 
   &__header {
-    background: var(--primary-bg);
     color: var(--light-text);
     font-weight: 700;
     letter-spacing: 0.05em;
-    border-bottom: 2px solid var(--primary-border-mid);
   }
 
   &__property {
     font-family: 'Fira Mono', 'Consolas', monospace;
-    // background: var(--primary-bg-light);
     color: var(--primary-text);
     font-weight: 600;
   }
@@ -65,9 +57,7 @@
   &__value {
     color: #1a3317;
     font-family: 'Fira Mono', 'Consolas', monospace;
-    // background: linear-gradient(90deg, #a8d4a5 0%, #e1dede 100%);
     padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
     font-weight: 500;
   }
 
