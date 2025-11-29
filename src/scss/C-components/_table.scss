@@ -11,55 +11,45 @@
 //* -----------------------------------------------------
 
 .cheat-sheet {
-  width: 100%;
+  width: 90%;
   border-collapse: separate;
   border-spacing: 0;
   background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
   box-shadow: 0 4px 24px rgba(80, 15, 68, 0.08);
   border-radius: 1rem;
   overflow: hidden;
-  font-family: 'Merriweather Sans', 'Segoe UI', Arial, sans-serif;
-  margin: 2rem 0;
+  font-family: "Merriweather Sans", "Segoe UI", Arial, sans-serif;
+  margin: 2rem auto;
+  border: 1px solid var(--primary-border);
+
+  #cheat-sheet-caption {
+    padding: 1rem;
+    font-size: 1.5rem;
+  }
+  
   th, td {
     padding: 1rem 1.5rem;
     text-align: left;
     font-size: 1rem;
+    border-bottom: 2px solid var(--primary-border-mid);
   }
   th {
-    background: #751c7d;
-    color: #fff;
+    background: var(--primary-bg);
+    color: var(--light-text);  }
     font-weight: 700;
     letter-spacing: 0.05em;
-    border-bottom: 2px solid #c642cf;
-  }
 }
 
-.property-row {
-  &:nth-child(even) {
-    background: #f3e8ff;
-  }
-  &:nth-child(odd) {
-    background: #fff;
-  }
-  transition: background 0.2s;
-  &:hover {
-    background: #c493d2;
-  }
-}
+// .property-row {
+// }
 
 .code-property {
-  color: #500f44;
-  font-weight: 600;
   font-family: 'Fira Mono', 'Consolas', monospace;
-  background: linear-gradient(90deg, #e0e7ff 0%, #c493d2 100%);
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
 }
 
 .code-value {
   color: #1a3317;
   font-family: 'Fira Mono', 'Consolas', monospace;
   background: linear-gradient(90deg, #a8d4a5 0%, #e1dede 100%);
-  border-radius: 0.5rem;
   padding: 0.5rem 1rem;
 }
