@@ -14,7 +14,6 @@
   width: 90%;
   border-collapse: separate;
   border-spacing: 0;
-  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
   box-shadow: 0 4px 24px rgba(80, 15, 68, 0.08);
   border-radius: 1rem;
   overflow: hidden;
@@ -28,12 +27,12 @@
     font-weight: 700;
     letter-spacing: 0.03em;
     color: var(--primary-text);
-    background: var(--primary-bg-light);
+    // background: var(--primary-bg-light);
   }
 
-  &__head {
-    background: var(--primary-bg);
-  }
+  // &__head {
+  //   background: var(--primary-bg);
+  // }
 
   &__row {
     th,
@@ -43,9 +42,9 @@
       font-size: 1rem;
       border-bottom: 2px solid var(--primary-border-mid);
     }
-    &--property {
-      background: var(--primary-bg-light);
-    }
+    // &--property {
+    //   background: var(--primary-bg-light);
+    // }
   }
 
   &__header {
@@ -58,7 +57,7 @@
 
   &__property {
     font-family: 'Fira Mono', 'Consolas', monospace;
-    background: var(--primary-bg-light);
+    // background: var(--primary-bg-light);
     color: var(--primary-text);
     font-weight: 600;
   }
@@ -66,7 +65,7 @@
   &__value {
     color: #1a3317;
     font-family: 'Fira Mono', 'Consolas', monospace;
-    background: linear-gradient(90deg, #a8d4a5 0%, #e1dede 100%);
+    // background: linear-gradient(90deg, #a8d4a5 0%, #e1dede 100%);
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     font-weight: 500;
