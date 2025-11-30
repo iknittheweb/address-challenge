@@ -1,0 +1,16 @@
+//* ------------------------------------------------------------
+//* BASE: INDEX PARTIAL
+//*
+//* Use this file to forward all base partials (reset, typography, utilities, etc.).
+//* Only @forward statements should be in this file.
+//* Do NOT put any CSS rules, selectors, or variable/mixin definitions here.
+//* ------------------------------------------------------------
+//& THE /BASE FOLDER
+//* The /base folder contains the foundational styles that apply globally across the project. These styles typically include resets, typography settings, and utility classes.
+
+//& Why It’s Important:
+//* The /base folder sets the stage for your entire project’s look and feel, establishing consistent design principles that apply across all pages.
+
+@forward 'reset';
+@forward 'typography';
+@forward 'utilities';

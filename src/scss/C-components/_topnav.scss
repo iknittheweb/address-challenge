@@ -1,0 +1,259 @@
+//* -----------------------------------------------------
+//* TOPNAV COMPONENT PARTIAL
+//*
+//* Place all styles for the reusable .topnav component here.
+//* Includes BEM classes like .topnav, .topnav__menu, .topnav__logo, etc.
+//* Do NOT put global resets or page-level layout styles here.
+//* Only styles specific to the topnav component belong in this file.
+//* -----------------------------------------------------
+@use '../A-abstracts/functions' as f;
+@use '../A-abstracts/mixins' as m;
+
+//* stylelint-disable no-descending-specificity */
+
+// FontAwesome icon fixes for navigation buttons
+.fa-solid,
+.fa-regular,
+.fa-light,
+.fa-thin,
+.fa-duotone,
+.fa-brands {
+  font-family:
+    'Font Awesome 6 Free', 'Font Awesome 6 Pro', 'Font Awesome 6 Brands',
+    sans-serif !important;
+  font-weight: 900;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+.topnav {
+  // .topnav: <nav> main navigation container
+  width: 100%;
+  background-color: var(--primary-bg);
+
+  // .topnav__wrapper: <div> wraps logo and navigation
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: f.rem(16); // Space between logo/menu/header items
+
+    @include m.breakpoint-down('699.98') {
+      position: relative;
+    }
+  }
+
+  &__logo {
+    // .topnav__logo: <img> logo inside .topnav__homelink
+    width: f.rem(120);
+    height: f.rem(120);
+    vertical-align: top; // Align logo top with menu top
+  }
+
+  // Hide logo when menu is open (JS toggles .logo--hidden)
+  &__logo.logo--hidden {
+    display: none !important;
+  }
+
+  &__toggle {
+    // .topnav__toggle: <div> containing hamburger and close buttons
+    position: absolute;
+    right: f.rem(16);
+    top: f.rem(16);
+    display: flex;
+    flex-direction: column;
+    z-index: 1100; // Ensure toggle (and close button) is above menu
+
+    // hamburger menu button
+    @include m.breakpoint-down('699.98') {
+      .topnav__open {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+        animation: fade-in-hamburger 400ms ease-out 150ms forwards;
+      }
+      .topnav__close {
+        display: none;
+      }
+    }
+    @include m.breakpoint('700') {
+      .topnav__open,
+      .topnav__close {
+        display: none !important;
+      }
+    }
+  }
+
+  &__open,
+  &__close {
+    // .topnav__open: <button> hamburger menu button
+    // .topnav__close: <button> close menu button
+    background: none;
+
+    // Remove any positioning from the buttons themselves
+    position: static;
+
+    // FontAwesome icon sizing for navigation buttons
+    .fa-solid {
+      font-size: f.rem(24); // 1.5rem equivalent
+      display: inline-block;
+    }
+
+    // Ensure close button is above menu on mobile
+    &.topnav__close {
+      z-index: 1200;
+    }
+  }
+
+  &__menu {
+    // .topnav__menu: <div> navigation menu container
+    background-color: var(--primary-bg);
+
+    @include m.breakpoint('700') {
+      // Desktop: Normal menu behavior
+      display: block;
+      position: static;
+      }
+
+    @include m.breakpoint-down('699.98') {
+      // Mobile: Hidden by default, only shown when menu is opened
+      display: none;
+      position: fixed; // Overlay menu for mobile
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: var(--primary-bg);
+      box-shadow: 0 2px 12px rgb(0 0 0 / 10%);
+      transform: translateY(-100%); // Slide out of view by default
+      transition: transform 350ms ease-in-out;
+      font-size: f.rem(16);
+      z-index: 1000; // Lower than toggle/close button
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      touch-action: manipulation;
+      padding-top: f.rem(84); // Space above menu for mobile only
+
+      &.menu--open {
+        display: block;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  &__links {
+    // .topnav__links: <ul> navigation links list
+    display: flex;
+
+    // Smooth transition for desktop appearance
+    @include m.breakpoint('700') {
+      opacity: 0;
+      animation: fade-in-links 400ms ease-in-out 200ms forwards;
+      margin-bottom: f.rem(16); // Only f.rem(16) below lowest header item
+    }
+
+    @include m.breakpoint-down('699.98') {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 1; // Ensure mobile links are always visible
+      position: relative;
+      gap: f.rem(4);
+    }
+  }
+
+  &__link {
+    // .topnav__link: <a> navigation link inside <li>
+    display: block;
+    padding: f.rem(8) f.rem(16);
+    font-size: f.rem(20);
+    font-weight: 700;
+    color: var(--light-text);
+    cursor: pointer;
+
+    @include m.breakpoint-down('699.98') {
+      text-align: left;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    }
+
+    // Smooth transitions for desktop
+    @include m.breakpoint('700') {
+      font-size: f.rem(16);
+      opacity: 0;
+      transform: translateY(-10px);
+      transition:
+        opacity 300ms ease-out,
+        transform 300ms ease-out;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+
+      // Staggered animation delay for each link
+      @for $i from 1 through 6 {
+        &:nth-child(#{$i}) {
+          animation: fade-in-link 400ms ease-out #{100ms * $i} forwards;
+        }
+      }
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      height: 3px;
+      margin-top: 3px;
+      background: linear-gradient(
+        to right,
+        var(--secondary-gradient-light),
+        var(--primary-gradient-light) 80%
+      );
+      opacity: 0;
+      transition: opacity 250ms ease-in-out;
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
+  }
+}
+
+// Keyframe animations for smooth desktop menu appearance
+@keyframes fade-in-links {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-link {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Keyframe animation for hamburger menu fade-in
+@keyframes fade-in-hamburger {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

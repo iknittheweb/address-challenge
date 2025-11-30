@@ -1,0 +1,336 @@
+//* ------------------------------------------------------------
+//* BASE: RESET PARTIAL
+//*
+//* Place all CSS reset or normalize styles here for cross-browser consistency.
+//* Only global reset/normalize code belongs in this file.
+//* Do NOT put component, page, or layout-specific styles here.
+//* ------------------------------------------------------------
+//* Contains CSS reset or normalize styles to ensure cross-browser consistency.
+
+/* ==========================================================================
+   CSS RESET & NORMALIZE
+   Combined reset and normalize styles for cross-browser consistency
+   Based on Eric Meyer's CSS Reset and Normalize.css
+   ========================================================================== 
+   Document Root
+   ========================================================================== */
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Universal Reset
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+/* Block Elements
+   ========================================================================== */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 Elements
+   ========================================================================== */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+main {
+  display: block;
+}
+
+/* Body
+   ========================================================================== */
+body {
+  line-height: 1;
+}
+
+/* Headings
+   ========================================================================== */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/* Lists
+   ========================================================================== */
+ol,
+ul {
+  list-style: none;
+}
+
+/* Quotes
+   ========================================================================== */
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: '';
+  content: none;
+}
+
+/* Links
+   ========================================================================== */
+a {
+  background-color: transparent;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1.7px;
+}
+
+/* Text Elements
+   ========================================================================== */
+abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+code,
+kbd,
+samp,
+pre {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+small {
+  font-size: 80%;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* Media
+   ========================================================================== */
+img {
+  border-style: none;
+}
+
+/* Horizontal Rule
+   ========================================================================== */
+hr {
+  height: 0;
+  overflow: visible;
+}
+
+/* Forms
+   ========================================================================== */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+
+button,
+input {
+  overflow: visible;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+button {
+  /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
+  /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
+  appearance: button;
+}
+
+button:-moz-focusring,
+[type='button']:-moz-focusring,
+[type='reset']:-moz-focusring,
+[type='submit']:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+legend {
+  color: inherit;
+  display: table;
+  max-width: 100%;
+  padding: 0;
+  white-space: normal;
+}
+
+progress {
+  vertical-align: baseline;
+}
+
+textarea {
+  overflow: auto;
+}
+
+[type='checkbox'],
+[type='radio'] {
+  padding: 0;
+}
+
+[type='number']::-webkit-inner-spin-button,
+[type='number']::-webkit-outer-spin-button {
+  height: auto;
+}
+
+[type='search'] {
+  appearance: textfield;
+  outline-offset: -2px;
+}
+
+[type='search']::-webkit-search-decoration {
+  appearance: none;
+}
+
+::-webkit-file-upload-button {
+  /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated */
+  appearance: button;
+  font: inherit;
+}
+
+/* Interactive Elements
+   ========================================================================== */
+details {
+  display: block;
+}
+
+summary {
+  display: list-item;
+}
+
+/* Tables
+   ========================================================================== */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Hidden Elements
+   ========================================================================== */
+template,
+[hidden] {
+  display: none;
+}

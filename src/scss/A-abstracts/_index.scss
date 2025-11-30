@@ -1,0 +1,13 @@
+//* ------------------------------------------------------------
+//* ABSTRACTS: INDEX PARTIAL
+//*
+//* Use this file to forward all abstracts (variables, mixins, functions, etc.).
+//* Only @forward statements should be in this file.
+//* Do NOT put any CSS rules, selectors, or variable/mixin definitions here.
+//* ------------------------------------------------------------
+@forward 'colors';
+@forward 'functions';
+@forward 'helpers';
+@forward 'mixins';
+@forward 'placeholders';
+@forward 'variables';

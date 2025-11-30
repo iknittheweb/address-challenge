@@ -1,0 +1,84 @@
+//* ------------------------------------------------------------
+//* PORTFOLIO COMPONENT PARTIAL FOR INDEX.HTML, NOT PORTFOLIO.HTML
+//*
+//* Place all styles for the reusable .portfolio component here.
+//* Includes BEM classes like .portfolio, .portfolio__heading, .portfolio__intro, etc.
+//* Do NOT put global resets or page-level layout styles here.
+//* Only styles specific to the portfolio component belong in this file.
+//* ------------------------------------------------------------
+
+@use '../A-abstracts/functions' as f;
+@use '../A-abstracts/mixins' as m;
+
+.portfolio {
+  -webkit-margin-after: f.rem(64);
+  margin-block-end: f.rem(64);
+  padding-block: f.rem(50);
+  padding-inline: f.rem(24);
+
+  .portfolio__heading {
+    text-align: center;
+    margin: 0 0 f.rem(20) 0;
+  }
+
+  &__intro {
+    text-align: center;
+    font-size: f.rem(18);
+    margin-bottom: f.rem(20);
+    color: var(--dark-text);
+    margin-left: auto;
+    margin-right: auto;
+    text-wrap: balance;
+  }
+
+  .portfolio__link {
+    padding: f.rem(12) f.rem(24);
+    background: var(--primary-bg);
+    color: var(--light-text);
+    display: block;
+    text-align: center;
+    margin-inline: auto;
+    width: fit-content;
+    border-radius: f.rem(8);
+  }
+
+  &__row {
+    display: grid;
+    gap: f.rem(20);
+    padding: 0 f.rem(10);
+    place-items: start center; // Prevent cards from stretching to match tallest
+
+    // Smooth auto-fit grid - automatically adjusts columns based on available space
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    max-width: f.rem(1200);
+    margin: 0 auto;
+
+    // Smooth transitions for layout changes
+    transition:
+      grid-template-columns 0.3s ease,
+      max-width 0.3s ease,
+      gap 0.3s ease;
+
+    // Container query enhancement for modern browsers
+    container-type: inline-size;
+
+    // Progressive enhancement with container queries
+    @supports (container-type: inline-size) {
+      @container (min-width: 600px) {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: f.rem(24);
+      }
+
+      @container (min-width: 900px) {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: f.rem(28);
+      }
+    }
+
+    // Fix for very small screens
+    @include m.breakpoint-down('499.98') {
+      padding: 0;
+      gap: f.rem(15);
+    }
+  }
+}

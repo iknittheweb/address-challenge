@@ -1,0 +1,68 @@
+@use '../A-abstracts/functions' as f;
+@use '../A-abstracts/mixins' as m;
+
+//* -----------------------------------------------------
+//* TABLE COMPONENT PARTIAL
+//*
+//* Place all styles for the reusable .table component here.
+//* Includes BEM classes like .table, .table__header, .table__row, etc.
+//* Do NOT put global resets or page-level layout styles here.
+//* Only styles specific to the table component belong in this file.
+//* -----------------------------------------------------
+
+.cheat-sheet-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 4px 24px rgba(80, 15, 68, 0.08);
+  overflow: hidden;
+  font-family: 'Merriweather Sans', 'Segoe UI', Arial, sans-serif;
+  margin: 2rem auto;
+
+  &__caption {
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--primary-text);
+  }
+
+  &__row {
+    th,
+    td {
+      padding: 1rem 1.5rem;
+      text-align: left;
+      font-size: 1rem;
+      border: 2px solid var(--primary-border-mid);
+      border-radius: 0.5rem;
+    }
+
+    th {
+      background: var(--primary-bg);
+    }
+  }
+
+  &__header {
+    color: var(--light-text);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  &__property {
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    color: var(--light-text);
+    font-weight: 600;
+  }
+
+  &__value {
+    color: var(--primary-text);
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+  }
+
+  &__definition {
+    color: var(--primary-text);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
