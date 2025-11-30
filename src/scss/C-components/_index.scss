@@ -1,0 +1,33 @@
+@forward 'back-to-top-link';
+//* ------------------------------------------------------------
+//* COMPONENTS: INDEX PARTIAL
+//*
+//* Use this file to forward all component partials (buttons, cards, forms, etc.).
+//* Only @forward statements should be in this file.
+//* Do NOT put any CSS rules, selectors, or variable/mixin definitions here.
+//* ------------------------------------------------------------
+//& THE /COMPONENTS FOLDER
+//* The /components folder is dedicated to reusable UI components that can be used across different parts of the website. Each component gets its own partial file.
+
+//& Why It’s Important:
+//* Organizing components separately makes it easier to manage and reuse UI elements, leading to a more modular and maintainable codebase.
+
+@forward 'about-section';
+@forward 'alien-form';
+@forward 'back-to-top-link';
+@forward 'breadcrumbs';
+@forward 'buttons';
+@forward 'calculator';
+@forward 'card';
+@forward 'code-showcase';
+@forward 'hero';
+@forward 'skills-chart'; // 🎯 SKILLS CHART COMPONENT (Easy removal: delete this line and _skills-chart.scss)
+@forward 'contact';
+@forward 'sparkle-animations';
+@forward 'dropdown';
+@forward 'footer';
+@forward 'forms';
+@forward 'navbar';
+@forward 'portfolio';
+@forward 'table';
+@forward 'topnav';

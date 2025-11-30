@@ -1,0 +1,125 @@
+{
+  "name": "iknittheweb-website",
+  "version": "1.1.1",
+  "type": "module",
+  "description": "I Knit The Web - Personal Portfolio Website",
+  "scripts": {
+    "alt": "npm run build:alt:skip-tests:log",
+    "bastl": "powershell -ExecutionPolicy Bypass -File ./scripts/build-alt-skip-tests-with-logs.ps1",
+    "bpstl": "powershell -ExecutionPolicy Bypass -File ./scripts/build-prod-skip-tests-with-logs.ps1",
+    "build": "cross-env DOTENV_CONFIG_PATH=.env.alt node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && node build.cjs alt && node component-build.cjs alt && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:clean-links && npm run postbuild:titlecase-env",
+    "build:all-css": "sass src/scss/styles.scss dist/css/styles.css --source-map && sass src/scss/E-pages/:dist/css/ --source-map && node purge-and-minify.cjs",
+    "build:alt": "cross-env DOTENV_CONFIG_PATH=.env.alt node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && node build.cjs alt && node component-build.cjs alt && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:clean-links && npm run postbuild:titlecase-env && npm run test:a11y:all && npm run lint:js && npm run lint:html && npm run test:style",
+    "build:alt:log": "powershell -ExecutionPolicy Bypass -File ./scripts/build-with-logs.ps1",
+    "build:alt:skip-tests": "cross-env DOTENV_CONFIG_PATH=.env.alt node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && node build.cjs alt && node component-build.cjs alt && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:clean-links && npm run postbuild:titlecase-env && npm run format:html",
+    "build:prod:skip-tests": "cross-env DOTENV_CONFIG_PATH=.env.production node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && node build.cjs alt && node component-build.cjs alt && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:clean-links && npm run postbuild:titlecase-env && npm run format:html",
+    "build:alt:skip-tests:no-css": "cross-env DOTENV_CONFIG_PATH=.env.alt node sync-docs.cjs && node docs/update-placeholder-guide.cjs && node build.cjs alt && node component-build.cjs alt && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:clean-links && npm run postbuild:titlecase-env",
+    "build:gh": "cross-env DOTENV_CONFIG_PATH=.env.root node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && cross-env NODE_ENV=production node build.cjs production && node component-build.cjs && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:clean-links && npm run postbuild:titlecase-env && npm run test:a11y:all && npm run lint:js && npm run lint:html && npm run test:style && node -e \"const fs=require('fs'),{execSync}=require('child_process');const cssDir='dist/css';if(fs.existsSync(cssDir)){fs.readdirSync(cssDir).filter(f=>f.endsWith('.css')).forEach(f=>{execSync('node ./scripts/minify-home-styles.cjs '+cssDir+'/'+f);});}\"",
+    "build:gh:partial": "npm run lint:html && npm run test:style && node -e \"const fs=require('fs'),{execSync}=require('child_process');const cssDir='dist/css';if(fs.existsSync(cssDir)){fs.readdirSync(cssDir).filter(f=>f.endsWith('.css')).forEach(f=>{execSync('node ./scripts/minify-home-styles.cjs '+cssDir+'/'+f);});}\"",
+    "build:local": "cross-env BUILD_MODE=local DOTENV_CONFIG_PATH=.env node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && node build.cjs && node component-build.cjs && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:clean-links && npm run postbuild:titlecase-env && npm run test:a11y:all && npm run lint:js && npm run lint:html && npm run test:style",
+    "build:log": "powershell -ExecutionPolicy Bypass -File ./scripts/build-with-logs.ps1",
+    "build:netlify-alt": "cross-env DOTENV_CONFIG_PATH=.env.netlify-alt cross-env node build.cjs alt && cross-env node component-build.cjs && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:clean-links && npm run postbuild:titlecase-env && npm run lint:js && npm run lint:html && npm run test:style",
+    "build:prod": "cross-env DOTENV_CONFIG_PATH=.env.production node sync-docs.cjs && node optimize-images.cjs && node docs/update-placeholder-guide.cjs && cross-env NODE_ENV=production node build.cjs production && node component-build.cjs && npm run build:all-css && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:clean-links && npm run postbuild:titlecase-env && npm run test:a11y:all && npm run lint:js && npm run lint:html && npm run test:style && node -e \"const fs=require('fs'),{execSync}=require('child_process');const cssDir='dist/css';if(fs.existsSync(cssDir)){fs.readdirSync(cssDir).filter(f=>f.endsWith('.css')).forEach(f=>{execSync('node ./scripts/minify-home-styles.cjs '+cssDir+'/'+f);});}\"",
+    "commit": "cz",
+    "commit:format": "prettier --write . && cz && release",
+    "css": "npm run build:all-css",
+    "format:html": "prettier --write *.html",
+    "format:json": "prettier --write **/*.json",
+    "generate-envs": "node scripts/generate-envs.js",
+    "lint:html": "htmlhint src/**/*.html",
+    "lint:js": "eslint src/**/*.js",
+    "local": "npm run build:local",
+    "netlify-alt": "npm run build:netlify-alt",
+    "postbuild:clean-links": "node remove-link-onload.cjs",
+    "postbuild:fix-html": "node scripts/remove-trailing-slashes.cjs .",
+    "postbuild:titlecase-env": "node scripts/titlecase-env.cjs",
+    "prepare": "husky install",
+    "process:html": "node build.cjs alt && node inline-critical-css.mjs && npm run postbuild:fix-html && npm run postbuild:clean-links && npm run postbuild:titlecase-env",
+    "prod": "npm run build:prod",
+    "release": "standard-version",
+    "start": "live-server --port=5500",
+    "test": "jest",
+    "test:a11y": "npm run test:a11y:all",
+    "test:a11y:all": "jest tests/multi-page.accessibility.auto.test.cjs",
+    "test:style": "stylelint src/**/*.scss"
+  },
+  "keywords": [
+    "web development",
+    "portfolio",
+    "HTML",
+    "CSS",
+    "JavaScript"
+  ],
+  "author": "I Knit The Web",
+  "license": "MIT",
+  "engines": {
+    "node": "20.x"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "testEnvironment": "jsdom",
+    "transformIgnorePatterns": [
+      "/node_modules/(?!parse5|jsdom)"
+    ],
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ]
+  },
+  "dependencies": {
+    "@sentry/browser": "^10.20.0",
+    "body-scroll-lock": "^4.0.0-beta.0",
+    "canvas": "^3.2.0",
+    "dotenv": "^17.2.3",
+    "handlebars": "^4.7.8",
+    "sass": "^1.93.2",
+    "sharp": "^0.34.4",
+    "svgo": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.4",
+    "@babel/preset-env": "^7.28.3",
+    "@lhci/cli": "^0.15.1",
+    "@percy/cli": "^1.31.4",
+    "axe-core": "^4.11.0",
+    "babel-jest": "^30.2.0",
+    "commitizen": "^4.3.1",
+    "critical": "^7.2.1",
+    "cross-env": "^10.1.0",
+    "cssnano": "^7.1.1",
+    "cz-conventional-changelog": "^3.0.1",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "htmlhint": "^1.7.1",
+    "http-server": "^14.1.1",
+    "husky": "^9.1.7",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "jsdom": "^27.0.1",
+    "lint-staged": "^16.2.3",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "postcss-prettify": "^0.3.4",
+    "prettier": "^3.6.2",
+    "purgecss": "^7.0.2",
+    "standard-version": "^9.5.0",
+    "stylelint": "^16.25.0",
+    "stylelint-config-recommended-scss": "^16.0.2",
+    "stylelint-config-standard": "^39.0.0",
+    "stylelint-scss": "^6.12.1",
+    "vite": "^7.1.11"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "lighthouse:ci": "lhci autorun",
+  "dev": "vite",
+  "build": "vite build",
+  "volta": {
+    "node": "20.19.5"
+  }
+}
