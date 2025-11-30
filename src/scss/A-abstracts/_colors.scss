@@ -6,6 +6,13 @@
 //* Do NOT put any CSS rules, selectors, or non-color variables here.
 //* ------------------------------------------------------------
 :root {
+  // Description List Challenge Page
+  --desc-list-bg: #f9f9f9;
+  --desc-list-border: #eb3b5a;
+  --desc-list-materials-bg: #fff;
+  --desc-list-materials-border: #ddd;
+  --desc-list-materials-term: #333;
+  --desc-list-materials-desc: #666;
   // Color Palette
 
   // Primary color and variations - deep purple family
@@ -24,7 +31,13 @@
   --light-bg: #e1dede; // Light neutral background
   --mid-bg: #666; // Medium gray background
   --dark-bg: #000000; // Pure black for dark mode backgrounds
-  --basic-vertical-navbar-title-bg-gradient: linear-gradient(to bottom, #fff, #eb3b5a, #eb3b5a, #eb3b5a);
+  --basic-vertical-navbar-title-bg-gradient: linear-gradient(
+    to bottom,
+    #fff,
+    #eb3b5a,
+    #eb3b5a,
+    #eb3b5a
+  );
 
   // Borders
   --primary-border: #500f44; // Deep purple border
@@ -49,7 +62,9 @@
 
   // Topnav
   --light-overlay: hsl(0deg 0% 42% / 50%); // Semi-transparent gray overlay
-  --menu-overlay: hsl(0deg 0% 0% / 70%); // Dark overlay for mobile menu (70% opacity)
+  --menu-overlay: hsl(
+    0deg 0% 0% / 70%
+  ); // Dark overlay for mobile menu (70% opacity)
   --primary-gradient-light: #c642cf; // Light purple maintaining original lightness
   --secondary-gradient-light: #42c439; // Bright green maintaining original lightness
 
@@ -87,7 +102,9 @@
   --primary-glow: #c642cf; // Light purple glow effect
 
   // Skills Chart
-  --skills-tab-inactive-bg: rgb(255 255 255 / 5%); // Subtle background for inactive tabs
+  --skills-tab-inactive-bg: rgb(
+    255 255 255 / 5%
+  ); // Subtle background for inactive tabs
   --skills-tab-inactive-text-opacity: 0.7; // Opacity for inactive tab text
   --skills-tab-hover-opacity: 0.9; // Opacity for tab hover state
 }
