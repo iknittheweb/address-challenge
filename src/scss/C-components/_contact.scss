@@ -1,0 +1,375 @@
+//* ------------------------------------------------------------
+//* CONTACT COMPONENT PARTIAL
+//*
+//* Place all styles for the reusable .contact form component here.
+//* Includes BEM classes like .contact, .contact__form, .contact__input, etc.
+//* Do NOT put global form resets or page-level layout styles here.
+//* Only styles specific to the contact form component belong in this file.
+//* ------------------------------------------------------------
+
+@use '../A-abstracts/functions' as f;
+@use '../A-abstracts/mixins' as m;
+
+//* stylelint-disable no-descending-specificity */
+
+// LIGHT MODE COLOR SCHEME
+.contact {
+  padding: f.rem(60) f.rem(20);
+  background: var(--primary-bg);
+  color: var(--light-text);
+
+  // Responsive padding for smaller screens
+  @include m.breakpoint-down('699.98') {
+    padding: f.rem(40) f.rem(16);
+  }
+
+  @include m.breakpoint-down('499.98') {
+    padding: f.rem(30) f.rem(12);
+  }
+
+  // Ensure proper centering on very small screens
+  @media (max-width: 360px) {
+    padding: f.rem(20) f.rem(8);
+  }
+
+  .contact__heading {
+    text-align: center;
+    margin-block: 0 f.rem(30);
+    background: var(--primary-bg);
+    color: var(--light-text);
+  }
+
+  &__intro {
+    text-align: center;
+    font-size: f.rem(18);
+    margin-bottom: f.rem(40);
+    background: var(--primary-bg);
+    color: var(--light-text);
+    max-width: f.rem(600);
+    width: 100%; // Ensure full width up to max-width
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+
+    // Responsive font size and spacing
+    @include m.breakpoint-down('699.98') {
+      font-size: f.rem(16);
+      margin-bottom: f.rem(30);
+    }
+
+    @include m.breakpoint-down('499.98') {
+      font-size: f.rem(15);
+      margin-bottom: f.rem(24);
+      line-height: 1.5;
+    }
+  }
+
+  &__form {
+    max-width: f.rem(500);
+    width: 100%; // Ensure form takes available width up to max-width
+    margin: 0 auto;
+    color: var(--primary-text);
+    background: var(--light-bg);
+    border: 2px solid var(--primary-bg, #1b1919);
+    outline: 4px solid var(--light-bg);
+    border-radius: f.rem(12);
+    box-shadow: 0 4px 20px rgb(68 15 72 / 10%);
+    padding: f.rem(40);
+
+    @include m.breakpoint-down('699.98') {
+      padding: f.rem(24);
+      margin: 0 auto; // Ensure centering is maintained
+    }
+
+    @include m.breakpoint-down('499.98') {
+      padding: f.rem(20);
+      border-radius: f.rem(8); // Smaller border radius on small screens
+    }
+
+    @media (max-width: 360px) {
+      padding: f.rem(16);
+      margin: 0 f.rem(4); // Small margins on very narrow screens
+    }
+  }
+
+  &__fieldset {
+    padding: 0;
+    margin: 0;
+  }
+
+  &__legend {
+    font-size: f.rem(28);
+    font-weight: 600;
+    color: var(--primary-text);
+    margin-bottom: f.rem(24);
+    text-align: center;
+    width: 100%;
+    padding: 0;
+  }
+
+  &__label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: f.rem(8);
+    color: var(--primary-text);
+    font-size: f.rem(20);
+  }
+
+  &__label--required {
+    font-size: f.rem(14);
+    color: var(--dark-error); // Mid range purple for required entry
+    margin-left: f.rem(4);
+  }
+
+  &__input {
+    width: 100%;
+    background: var(--secondary-bg);
+    color: var(--light-text);
+    border: 2px solid var(--primary-border);
+
+    &::placeholder {
+      color: var(--light-text);
+      opacity: 0.8;
+      font-style: italic;
+      transition: opacity 0.3s ease;
+    }
+
+    &:hover,
+    &:focus {
+      border-color: var(--primary-border-mid);
+      outline: 1px solid var(--primary-border);
+      box-shadow: 0 0 0 3px var(--contact-input-focus-shadow);
+      background: var(--primary-bg-mid);
+    }
+
+    &:invalid {
+      border-color: var(--primary-bright-error-border-border, #ff0a0a);
+    }
+
+    &:valid {
+      border-color: var(--success-color, #2ca530);
+    }
+  }
+
+  textarea.contact__input {
+    resize: vertical;
+    min-height: f.rem(120);
+    font-family: inherit;
+    line-height: 1.5;
+  }
+
+  &__error {
+    color: var(--primary-bright-error-border-border, #ff0a0a);
+    font-size: f.rem(14);
+    margin-top: f.rem(4);
+    min-height: f.rem(20);
+    display: block;
+  }
+
+  &__submit {
+    width: 100%;
+    padding: f.rem(16);
+    background: var(--secondary-bg, #531045);
+    color: var(--light-text);
+    border: 2px solid var(--primary-border);
+    border-radius: f.rem(8);
+    font-size: f.rem(20);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: f.rem(8);
+    font-family: inherit;
+    position: relative;
+    overflow: hidden;
+
+    // Shimmer overlay
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgb(255 255 255 / 20%), transparent);
+      transition: left 0.5s ease;
+    }
+
+    &:hover {
+      font-size: f.rem(22);
+      background: var(--primary-bg);
+      color: var(--light-text);
+      outline: 2px solid var(--primary-border);
+      border-width: 1px;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgb(68 15 72 / 30%);
+
+      &::before {
+        left: 100%;
+      }
+
+      .contact__sparkle {
+        opacity: 1;
+        animation-play-state: running;
+      }
+    }
+
+    &:focus {
+      outline: none;
+      background: var(--primary-bg, #2d0a30);
+      box-shadow: 0 0 0 3px rgb(68 15 72 / 30%);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  // Sparkle effects for submit button
+  &__sparkle {
+    position: absolute;
+    font-size: f.rem(16);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+    animation-play-state: paused;
+    animation-fill-mode: both;
+
+    // Reduced motion support
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+      opacity: 0;
+    }
+
+    // Main sparkle - always visible with float animation
+    &--main {
+      top: 50%;
+      right: f.rem(16);
+      transform: translateY(-50%);
+      opacity: 0.7;
+      font-size: f.rem(20); // Larger size for main sparkle
+      animation: sparkle-float 2s ease-in-out infinite;
+      animation-play-state: running;
+    }
+
+    // Left sparkle - positioned at far left edge
+    &--left {
+      top: 50%;
+      left: f.rem(8);
+      transform: translateY(-50%);
+      animation: sparkle-dance 2.5s ease-in-out infinite;
+      animation-delay: 0.3s;
+    }
+
+    // Top sparkle - hidden to avoid text overlap
+    &--top {
+      display: none;
+    }
+
+    // Bottom sparkle - positioned at bottom left corner
+    &--bottom {
+      bottom: f.rem(8);
+      left: f.rem(24);
+      animation: sparkle-float 2.2s ease-in-out infinite;
+      animation-delay: 0.9s;
+    }
+  }
+
+  // DARK COLOR SCHEME
+  .contact--inverse {
+    background: var(--primary-bg);
+    color: var(--light-text);
+
+    .contact__input--inverse {
+      background: var(--primary-bg);
+      color: var(--light-text);
+      border: 2px solid var(--primary-bg);
+    }
+
+    .contact__intro--inverse,
+    .contact__legend--inverse {
+      color: var(--light-text); // Fixed: use light text for contrast against dark background
+    }
+
+    .contact__label--inverse {
+      color: var(--light-text); // Fixed: use light text for contrast against dark background
+    }
+
+    .contact__form--inverse {
+      background: var(--light-bg);
+      color: var(--dark-text);
+      border: 1px solid var(--primary-bg);
+    }
+
+    .contact__button--inverse {
+      background: var(--light-text);
+      color: var(--primary-bg);
+      border: 1px solid var(--primary-bg);
+    }
+  }
+  // =========================
+  // Form Validation States
+  // =========================
+
+  &__input--error {
+    border-color: var(--dark-error) !important;
+    box-shadow: 0 0 0 2px var(--dark-error) !important;
+    background: var(--light-bg);
+  }
+
+  &__input--valid {
+    border-color: var(--secondary-bg) !important;
+    box-shadow: 0 0 0 2px var(--secondary-bg-light) !important;
+  }
+
+  &__error {
+    display: block;
+    margin-top: f.rem(4);
+    font-size: f.rem(14);
+    color: var(--dark-error);
+    font-weight: 500;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+
+    &--visible {
+      display: block;
+      opacity: 1;
+      max-height: 200px;
+      min-height: f.rem(20);
+      height: auto;
+      overflow: visible;
+      transform: translateY(0);
+    }
+  }
+
+  &__success {
+    background: var(--secondary-bg-light);
+    color: var(--dark-text);
+    padding: f.rem(24);
+    border-radius: f.rem(12);
+    margin-bottom: f.rem(24);
+    box-shadow: 0 4px 12px rgb(66 196 57 / 20%);
+    border: 2px solid var(--secondary-bg);
+
+    p {
+      margin: 0;
+
+      &:first-child {
+        margin-bottom: f.rem(8);
+      }
+
+      strong {
+        color: var(--secondary-bg);
+      }
+    }
+  }
+}

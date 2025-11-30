@@ -1,0 +1,96 @@
+//* CALCULATOR COMPONENT PARTIAL
+//*
+//* Place all styles for the reusable .calculator component here.
+//* Includes BEM classes like .calculator, .CALCULATOR-_display, .CALCULATOR-_keypad, etc.
+//* Do NOT put global resets or page-level layout styles here.
+//* Only styles specific to the calculator component belong in this file.
+//* ------------------------------------------------------------
+
+@use '../A-abstracts/functions' as f;
+@use '../A-abstracts/mixins' as m;
+
+/* =====================================
+   Calculator Display Component
+   ===================================== */
+.CALCULATOR-_display {
+  text-align: right;
+  font-family: 'Courier New', Courier, monospace;
+  padding: f.rem(20) f.rem(5);
+  font-size: f.rem(40);
+  border-radius: f.rem(4);
+
+  @include m.breakpoint-down('599.98') {
+    font-size: f.rem(24);
+    padding: f.rem(10) f.rem(2);
+  }
+}
+
+/* =====================================
+   Calculator Keypad Component
+   ===================================== */
+.CALCULATOR-_keypad-row {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  margin-bottom: 0.5%;
+}
+
+.CALCULATOR-_keypad-button {
+  background-color: var(--calc-button-bg);
+  color: var(--calc-text-dark);
+  border: none;
+  font-size: f.rem(40);
+  height: f.rem(100);
+  flex-basis: 24.5%;
+  border-radius: f.rem(4);
+  transition:
+    background 0.2s,
+    color 0.2s,
+    outline 0.2s;
+
+  @include m.breakpoint-down('599.98') {
+    font-size: f.rem(24);
+    height: f.rem(60);
+  }
+}
+
+.CALCULATOR-_keypad-button:hover,
+.CALCULATOR-_keypad-button:focus {
+  background-color: var(--calc-button-hover);
+  outline: 2px solid var(--color-gray-dark);
+  outline-offset: 2px;
+}
+
+.CALCULATOR-_keypad-button:active {
+  background-color: var(--calc-button-active);
+}
+
+.CALCULATOR-_keypad-button--double {
+  flex-basis: 49.7%;
+}
+
+.CALCULATOR-_keypad-button--triple {
+  flex-basis: 74.8%;
+}
+
+/* Operator button styling (divide, multiply, subtract, add, equals) */
+.CALCULATOR-_keypad-button--operator,
+.CALCULATOR-_keypad-button--equals {
+  background-color: var(--calc-operator-bg);
+  color: var(--calc-text-light);
+}
+
+.CALCULATOR-_keypad-button--operator:hover,
+.CALCULATOR-_keypad-button--operator:focus,
+.CALCULATOR-_keypad-button--equals:hover,
+.CALCULATOR-_keypad-button--equals:focus {
+  background-color: var(--calc-operator-hover);
+  outline: 2px solid var(--color-white);
+  outline-offset: 2px;
+  color: var(--color-gray-dark);
+}
+
+.CALCULATOR-_keypad-button--operator:active,
+.CALCULATOR-_keypad-button--equals:active {
+  background-color: var(--calc-operator-active);
+}
