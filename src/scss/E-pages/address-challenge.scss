@@ -8,7 +8,7 @@
 //* Only styles unique to the new page belong in this file.
 //* ------------------------------------------------------------
 // Add page-specific styles below. Use page-level selectors (e.g., .new-page, .new-page__section)
-
+@use '../A-abstracts/functions' as f;
 @use '../A-abstracts' as a;
 @use '../B-base' as b;
 @use '../C-components' as c;
@@ -16,4 +16,15 @@
 @use '../F-themes' as t;
 @use '../G-vendors' as v;
 
-.address-challenge__address {margin-block:1rem}
+#address_main-content {
+  width: 90%;
+  max-width: a.rem(800);
+}
+
+.address-challenge__address {
+  margin-block:1rem
+}
+
+.address__heading {
+  font-size: f.rem(32);
+}

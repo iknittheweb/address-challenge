@@ -23,3 +23,8 @@
     padding-block: 0; // Override any wrapper padding for breadcrumbs
   }
 }
+
+.page-wrapper {
+  width: 90%;
+  max-width: f.rem(900);
+}
