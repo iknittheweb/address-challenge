@@ -263,7 +263,9 @@ templateFiles.forEach((templatePath) => {
     const outputFileName = path
       .basename(templatePath)
       .replace('.template.html', '.html');
-    const outputPath = path.join(__dirname, outputFileName);
+    const distDir = path.join(__dirname, 'dist');
+    if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true });
+    const outputPath = path.join(distDir, outputFileName);
     fs.writeFileSync(outputPath, finalHtml);
     console.log(`Built ${outputPath}`);
   } catch (error) {
