@@ -168,24 +168,15 @@
       data-breadcrumb-category-url="/reference/address-challenge"
       style="display: none"></div>
 
-    <a
-      aria-label="Skip to main content"
-      class="skip-link"
-      href="#address_main-content">
-      Skip to main content
-    </a>
-
-    <header>
-      <!-- HEADER_PLACEHOLDER -->
-    </header>
+    <!-- HEADER_PLACEHOLDER -->
 
     <main
       class="address-challenge"
       id="address_main-content"
-      aria-label="Main content"
+      aria-labelledby="address-title"
       role="main"
       tabindex="-1">
-      <h1>&lt;address&gt; Challenge</h1>
+      <h1 id="address-title">&lt;address&gt; Challenge</h1>
       <h2
         >A
         <a href="https://jen4web.gumroad.com/l/30daysofhtml">30 Days of HTML</a>
@@ -206,7 +197,8 @@
           <a
             href="https://www.twitter.com/ebigalee"
             target="_blank"
-            >@ebigalee</a
+            title="Opens in a new window"
+            >@ebigalee <span class="sr-only"> (opens in a new window)</span></a
           ></address
         >
         <address
@@ -218,13 +210,12 @@
           <a
             href="https://www.twitter.com/jen4web"
             target="_blank"
-            >@jen4web</a
+            title="Opens in a new window"
+            >@jen4web <span class="sr-only"> (opens in a new window)</span></a
           >
         </address>
       </article>
     </main>
-    <footer>
-      <!-- FOOTER_PLACEHOLDER -->
-    </footer>
+    <!-- FOOTER_PLACEHOLDER -->
   </body>
 </html>
