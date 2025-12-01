@@ -54,3 +54,31 @@ textarea:focus-visible {
     outline-color 0.2s,
     box-shadow 0.2s;
 }
+
+// Windows High Contrast Mode: Ensure custom focus and border visibility
+@media (forced-colors: active) {
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+    box-shadow: none;
+    background: Window !important;
+    color: WindowText !important;
+    border-color: Highlight !important;
+  }
+
+  a,
+  button,
+  input,
+  select,
+  textarea {
+    border-width: 2px !important;
+    border-style: solid !important;
+    border-color: ButtonText !important;
+    background: Window !important;
+    color: WindowText !important;
+  }
+}
