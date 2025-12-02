@@ -10,7 +10,7 @@
     <meta
       http-equiv="Content-Security-Policy"
       content="{{CSP_META}}" />
-    <title>&lt;address&gt; Challenge | I Knit The Web</title>
+    <title>{{ADDRESS-CHALLENGE_OG_TITLE}}</title>
 
     <!-- Preconnects for faster font and icon loading -->
     <link
@@ -31,7 +31,7 @@
     <link
       rel="preload"
       as="style"
-      href="/css/address-challenge.css" />
+      href="/css/{{ADDRESS-CHALLENGE_CSS_FILE}}" />
 
     <!-- Main font and site stylesheets -->
     <link
@@ -39,7 +39,7 @@
       href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" />
     <link
       rel="stylesheet"
-      href="/css/address-challenge.css" />
+      href="/css/{{ADDRESS-CHALLENGE_CSS_FILE}}" />
 
     <!-- FontAwesome CDN stylesheet for icons -->
     <link
@@ -62,15 +62,15 @@
       href="/manifest.json" />
     <link
       rel="canonical"
-      href="/" />
+      href="{{ADDRESS-CHALLENGE_OG_URL}}" />
 
     <!-- SEO and social meta tags -->
     <meta
       name="description"
-      content="Explore the use of the &lt;address&gt; element in HTML for contact information and location details." />
+      content="{{ADDRESS-CHALLENGE_DESCRIPTION}}" />
     <meta
       name="keywords"
-      content="html, &lt;address&gt; element, contact information, location, web development, accessibility, tutorial" />
+      content="{{ADDRESS-CHALLENGE_KEYWORDS}}" />
     <meta
       name="author"
       content="I Knit the Web" />
@@ -79,16 +79,16 @@
       content="index,follow" />
     <meta
       property="og:title"
-      content="&lt;address&gt; Challenge | I Knit The Web" />
+      content="{{ADDRESS-CHALLENGE_OG_TITLE}}" />
     <meta
       property="og:description"
-      content="Explore the use of the &lt;address&gt; element in HTML for contact information and location details." />
+      content="{{ADDRESS-CHALLENGE_OG_DESCRIPTION}}" />
     <meta
       property="og:image"
-      content="/img/branding/logo.png" />
+      content="{{ADDRESS-CHALLENGE_OG_IMAGE}}" />
     <meta
       property="og:url"
-      content="/address-challenge.html" />
+      content="{{ADDRESS-CHALLENGE_OG_URL}}" />
     <meta
       property="og:type"
       content="website" />
@@ -97,13 +97,13 @@
       content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="&lt;address&gt; Challenge | I Knit The Web" />
+      content="{{ADDRESS-CHALLENGE_TWITTER_TITLE}}" />
     <meta
       name="twitter:description"
-      content="Explore the use of the &lt;address&gt; element in HTML for contact information and location details." />
+      content="{{ADDRESS-CHALLENGE_TWITTER_DESCRIPTION}}" />
     <meta
       name="twitter:image"
-      content="/img/branding/logo.png" />
+      content="{{ADDRESS-CHALLENGE_TWITTER_IMAGE}}" />
 
     <!-- Fallback styles for no-JS environments -->
     <noscript>
@@ -134,19 +134,7 @@
 
     <!-- Structured data for SEO -->
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "&lt;address&gt; Challenge | I Knit The Web",
-        "description": "Explore the use of the &lt;address&gt; element in HTML for contact information and location details.",
-        "url": "/address-challenge.html"
-        "author": {
-          "@type": "Person",
-          "name": "Marta",
-          "url": "/",
-          "sameAs": ["https://github.com/iknittheweb"]
-        }
-      }
+      {{ADDRESS-CHALLENGE_SCHEMA_JSON}}
     </script>
 
     <!-- Third-party library: body-scroll-lock -->
@@ -161,11 +149,11 @@
   <body>
     <div
       id="page-data"
-      data-page-title="&lt;address&gt; Challenge | I Knit The Web"
-      data-page-subtitle="Visual Guide To &lt;address&gt; Challenge | I Knit The Web"
-      data-nav-config="main,about,portfolio,contact,address-challenge"
-      data-breadcrumb-category="Reference"
-      data-breadcrumb-category-url="/reference/address-challenge"
+      data-page-title="{{ADDRESS-CHALLENGE_DATA_PAGE_TITLE}}"
+      data-page-subtitle="{{ADDRESS-CHALLENGE_DATA_PAGE_SUBTITLE}}"
+      data-nav-config="{{ADDRESS-CHALLENGE_NAV_CONFIG}}"
+      data-breadcrumb-category="{{ADDRESS-CHALLENGE_BREADCRUMB_CATEGORY}}"
+      data-breadcrumb-category-url="{{ADDRESS-CHALLENGE_BREADCRUMB_CATEGORY_URL}}"
       style="display: none"></div>
 
     <!-- HEADER_PLACEHOLDER -->
