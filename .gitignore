@@ -189,3 +189,5 @@ cypress/screenshots/
 
 github-pages.zip
 github-pages/
+
+.nojekyll
