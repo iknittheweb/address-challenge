@@ -250,6 +250,18 @@ templateFiles.forEach((templatePath) => {
       ''
     );
 
+    // Inject header and footer from index.html
+    const indexHtml = fs.readFileSync(
+      path.join(__dirname, 'index.html'),
+      'utf8'
+    );
+    const headerMatch = indexHtml.match(/<header[\s\S]*?<\/header>/i);
+    const footerMatch = indexHtml.match(/<footer[\s\S]*?<\/footer>/i);
+    const header = headerMatch ? headerMatch[0] : '';
+    const footer = footerMatch ? footerMatch[0] : '';
+    finalHtml = finalHtml.replace(/<!--\s*HEADER_PLACEHOLDER\s*-->/i, header);
+    finalHtml = finalHtml.replace(/<!--\s*FOOTER_PLACEHOLDER\s*-->/i, footer);
+
     // Warn if any Handlebars placeholders were not replaced
     const unreplaced = finalHtml.match(/{{[A-Z0-9_]+}}/g);
     if (unreplaced && unreplaced.length > 0) {
