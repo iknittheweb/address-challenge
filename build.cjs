@@ -287,3 +287,22 @@ jsFiles.forEach((file) => {
   fs.copyFileSync(path.join(jsSrcDir, file), path.join(jsDistDir, file));
   console.log(`Copied ${file} to dist/js/`);
 });
+// =============================================================
+// STEP 5: Recursively copy image files to the dist directory
+// =============================================================
+const imgSrcDir = path.join(__dirname, 'src', 'img');
+const imgDistDir = path.join(__dirname, 'dist', 'img');
+function copyDirRecursive(src, dest) {
+  if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+  fs.readdirSync(src).forEach((item) => {
+    const srcPath = path.join(src, item);
+    const destPath = path.join(dest, item);
+    if (fs.statSync(srcPath).isDirectory()) {
+      copyDirRecursive(srcPath, destPath);
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+      console.log(`Copied IMG: ${srcPath} to ${destPath}`);
+    }
+  });
+}
+copyDirRecursive(imgSrcDir, imgDistDir);
