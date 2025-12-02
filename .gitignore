@@ -9,10 +9,10 @@ jest-accessibility-report.json
 # node_modules — Always ignore, never track.
 # *.tgz — Ignore npm pack files.
 # build/ — Ignore build output.
-# dist — Ignore distribution output.
+dist/
 # *.css, *.min.css, *.purged.css, *.purged.min.css — Ignore compiled/minified/purged CSS.
 # *.css.map — Ignore source maps in production (optional, uncomment when ready).
-# *.html, **/*.html — Ignore generated HTML files.
+*.html, **/*.html
 # .env, .env.local, .env.development, .env.production, .env.alt — Ignore environment files.
 # .vscode/, .idea/, *.sublime-workspace, *.sublime-project — Ignore IDE/editor settings.
 # .DS_Store, Thumbs.db, desktop.ini — Ignore OS-specific files.
