@@ -13,6 +13,19 @@ dist/
 # *.css, *.min.css, *.purged.css, *.purged.min.css — Ignore compiled/minified/purged CSS.
 # *.css.map — Ignore source maps in production (optional, uncomment when ready).
 *.html, **/*.html
+RDB-Ultimate/index.html
+address-challenge.30-days-of-html.html
+alien-abduction-form.frontend-masters-bootcamp.html
+basic-vertical-navbar.15-days-of-css.html
+calculator.frontend-masters-bootcamp.html
+css-position-cheat-sheet.codecademy.html
+desc-list-challenge.30-days-of-html.html
+fonts/Roboto/demo.html
+index.html
+multi-level-navbar.15-days-of-css.html
+navbar-link-filling-li.html
+new-page.html
+portfolio.html
 # .env, .env.local, .env.development, .env.production, .env.alt — Ignore environment files.
 # .vscode/, .idea/, *.sublime-workspace, *.sublime-project — Ignore IDE/editor settings.
 # .DS_Store, Thumbs.db, desktop.ini — Ignore OS-specific files.
