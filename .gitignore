@@ -186,3 +186,6 @@ cypress/screenshots/
 
 # Optional: ignore any other build outputs you don't want in the repo
  /node_modules/
+
+github-pages.zip
+github-pages/
