@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
+# comment for debugging
 # Enable ** globbing and nullglob so non-matching globs expand to nothing
 shopt -s globstar nullglob
 
