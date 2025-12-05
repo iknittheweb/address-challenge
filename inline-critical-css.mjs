@@ -72,3 +72,5 @@ async function inlineAllCriticalCSS() {
 }
 
 inlineAllCriticalCSS();
+// Place this at the very end of the file:
+console.log('successful');

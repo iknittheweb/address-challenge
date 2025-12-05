@@ -59,19 +59,26 @@ Handlebars.registerHelper('eq', function (a, b) {
 // You can pass a mode (like 'alt' or 'prod') as a command line argument.
 // This lets you build for different environments using different .env files.
 const mode = process.argv[2] ? process.argv[2].toLowerCase() : '';
-let dotenvPath = '.env'; // Default: local development
+let dotenvPath = '.env.local'; // Default: local development
 if (process.env.DOTENV_CONFIG_PATH) {
   // If DOTENV_CONFIG_PATH is set, use that
   dotenvPath = process.env.DOTENV_CONFIG_PATH;
-} else if (mode === 'alt') {
-  dotenvPath = '.env.alt';
-} else if (mode === 'netlify-alt') {
-  dotenvPath = '.env.netlify-alt';
-} else if (mode === 'prod' || mode === 'production') {
-  dotenvPath = '.env.production';
+} else if (mode === 'domain') {
+  dotenvPath = '.env.domain';
+} else if (mode === 'netlify') {
+  dotenvPath = '.env.netlify';
+} else if (mode === 'gh') {
+  dotenvPath = '.env.gh';
 }
 // Load environment variables from the selected .env file
 require('dotenv').config({ path: dotenvPath });
+console.log('[DEBUG] BASE_URL:', process.env.BASE_URL, '| ASSET_URL:', process.env.ASSET_URL, '| dotenvPath:', dotenvPath);
+console.log('[DEBUG] typeof BASE_URL:', typeof process.env.BASE_URL, '| typeof ASSET_URL:', typeof process.env.ASSET_URL);
+console.log('[DEBUG] JSON.stringify(BASE_URL):', JSON.stringify(process.env.BASE_URL), '| JSON.stringify(ASSET_URL):', JSON.stringify(process.env.ASSET_URL));
+
+// STEP 2: Get BASE_URL and ASSET_URL from environment variables
+// =============================================================
+// ...existing code...
 
 // =============================================================
 // STEP 2: Get BASE_URL and ASSET_URL from environment variables
@@ -79,14 +86,12 @@ require('dotenv').config({ path: dotenvPath });
 let baseUrl = process.env.BASE_URL; // The main site URL (e.g., https://yoursite.com)
 const assetUrl = process.env.ASSET_URL; // The base path for static assets (images, CSS, JS)
 
-// Remove trailing slash from BASE_URL if present (for consistency)
-if (baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
+// Remove trailing slash from BASE_URL if present (for consistency), but do not strip if baseUrl is just '/'
+if (baseUrl.length > 1 && baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
 
-// Safety check: Make sure required variables are set
-if (!baseUrl || !assetUrl) {
-  console.error(
-    'BASE_URL and ASSET_URL must be set in your .env or .env.production file.'
-  );
+// Safety check: Make sure required variables are set (allow "/" and "/img")
+if (typeof baseUrl !== 'string' || baseUrl.trim() === '' || typeof assetUrl !== 'string' || assetUrl.trim() === '') {
+  console.error('BASE_URL and ASSET_URL must be set (non-empty) in your .env or .env.production file.');
   process.exit(1);
 }
 
@@ -97,12 +102,12 @@ console.log('Building HTML for all template files...');
 
 // Use glob to find all .template.html files in src/templates only
 const glob = require('glob');
-const templateFiles = glob.sync(
-  path.join(__dirname, 'src', 'templates', '*.template.html')
-);
+const allTemplates = glob.sync(path.join(__dirname, 'src', 'templates', '*.template.html'));
+const indexTemplate = allTemplates.find((f) => path.basename(f) === 'index.template.html');
+const otherTemplates = allTemplates.filter((f) => path.basename(f) !== 'index.template.html');
 
-// Loop through each template file and process it
-templateFiles.forEach((templatePath) => {
+let buildFailed = false;
+const processTemplate = (templatePath) => {
   try {
     // DEBUG: Print which template is being processed and what baseUrl is used
     console.log(`[DEBUG] Processing template: ${templatePath}`);
@@ -119,8 +124,7 @@ templateFiles.forEach((templatePath) => {
         '@context': 'https://schema.org',
         '@type': 'Person',
         name: 'Marta',
-        description:
-          'Web developer specializing in accessible, handcrafted websites.',
+        description: 'Web developer specializing in accessible, handcrafted websites.',
         url: baseUrl + '/dist/pages/about.html', // For legacy support
         url: baseUrl + '/about.html',
         image: assetUrl + 'src/img/pages/Profile.png',
@@ -132,18 +136,12 @@ templateFiles.forEach((templatePath) => {
         '@context': 'https://schema.org',
         '@type': process.env.SCHEMA_TYPE || 'WebPage',
         name: process.env.SCHEMA_NAME || 'New Page',
-        description:
-          process.env.SCHEMA_DESCRIPTION || 'Description for new page.',
+        description: process.env.SCHEMA_DESCRIPTION || 'Description for new page.',
         url: process.env.SCHEMA_URL || baseUrl + '/dist/pages/new-page.html', // For legacy support
         url: process.env.SCHEMA_URL || baseUrl + '/new-page.html',
-        image:
-          process.env.SCHEMA_IMAGE || assetUrl + 'src/img/pages/default.png',
-        sameAs: process.env.SCHEMA_SAMEAS
-          ? JSON.parse(process.env.SCHEMA_SAMEAS)
-          : [],
-        knowsAbout: process.env.SCHEMA_KNOWSABOUT
-          ? JSON.parse(process.env.SCHEMA_KNOWSABOUT)
-          : ['HTML', 'CSS', 'JavaScript'],
+        image: process.env.SCHEMA_IMAGE || assetUrl + 'src/img/pages/default.png',
+        sameAs: process.env.SCHEMA_SAMEAS ? JSON.parse(process.env.SCHEMA_SAMEAS) : [],
+        knowsAbout: process.env.SCHEMA_KNOWSABOUT ? JSON.parse(process.env.SCHEMA_KNOWSABOUT) : ['HTML', 'CSS', 'JavaScript'],
       };
     } else if (templatePath.endsWith('portfolio.template.html')) {
       schemaData = {
@@ -151,60 +149,34 @@ templateFiles.forEach((templatePath) => {
         '@type': 'Person',
         name: 'I Knit The Web',
         jobTitle: 'Web Developer',
-        description:
-          'Professional web developer specializing in handcrafted websites for small budgets and big dreams',
+        description: 'Professional web developer specializing in handcrafted websites for small budgets and big dreams',
         url: baseUrl,
         sameAs: [],
-        knowsAbout: [
-          'HTML',
-          'CSS',
-          'JavaScript',
-          'SCSS',
-          'Web Design',
-          'Responsive Design',
-        ],
+        knowsAbout: ['HTML', 'CSS', 'JavaScript', 'SCSS', 'Web Design', 'Responsive Design'],
       };
     } else if (templatePath.endsWith('multi-level-navbar.template.html')) {
       schemaData = {
         '@context': 'https://schema.org',
         '@type': 'Project',
         name: 'Multi-Level navbar',
-        description:
-          'A demonstration of a multi-level navigation bar built with HTML and CSS, featuring dropdown menus, nested navigation, and responsive design for modern web interfaces.',
+        description: 'A demonstration of a multi-level navigation bar built with HTML and CSS, featuring dropdown menus, nested navigation, and responsive design for modern web interfaces.',
         url: baseUrl + '/dist/pages/multi-level-navbar.html', // For legacy support
         url: baseUrl + '/multi-level-navbar.html',
-        image:
-          process.env.SCHEMA_IMAGE || assetUrl + 'src/img/pages/navbar.png',
-        sameAs: [
-          'https://github.com/iknittheweb',
-          'https://twitter.com/iknittheweb',
-        ],
-        knowsAbout: [
-          'HTML',
-          'CSS',
-          'Navigation',
-          'Responsive Design',
-          'Frontend Development',
-        ],
+        image: process.env.SCHEMA_IMAGE || assetUrl + 'src/img/pages/navbar.png',
+        sameAs: ['https://github.com/iknittheweb', 'https://twitter.com/iknittheweb'],
+        knowsAbout: ['HTML', 'CSS', 'Navigation', 'Responsive Design', 'Frontend Development'],
       };
     } else if (templatePath.endsWith('contact.template.html')) {
       schemaData = {
         '@context': 'https://schema.org',
         '@type': 'ContactPage',
         name: 'Contact',
-        description:
-          'Contact Marta at I Knit the Web for handcrafted, accessible websites.',
+        description: 'Contact Marta at I Knit the Web for handcrafted, accessible websites.',
         url: baseUrl + '/dist/pages/contact.html', // For legacy support
         url: baseUrl + '/contact.html',
         image: assetUrl + 'src/img/pages/heading-banner-dark.svg',
         sameAs: [],
-        knowsAbout: [
-          'Web Development',
-          'Accessibility',
-          'HTML',
-          'CSS',
-          'JavaScript',
-        ],
+        knowsAbout: ['Web Development', 'Accessibility', 'HTML', 'CSS', 'JavaScript'],
       };
     } else {
       schemaData = {};
@@ -218,6 +190,8 @@ templateFiles.forEach((templatePath) => {
       'HOME-CSS_FILE': process.env['HOME-CSS_FILE'] || '/dist/css/styles.css',
       // Add other asset/script paths here as needed
     });
+    // Debug: Log context for this template
+    console.log(`[DEBUG] Context keys for ${templatePath}:`, Object.keys(context));
 
     // Render the template with the context
     let htmlContent = template(context);
@@ -229,53 +203,42 @@ templateFiles.forEach((templatePath) => {
       const lines = htmlContent.split(/\r?\n/);
       lines.forEach((line, idx) => {
         if (line.includes('localhost') || line.includes('5500')) {
-          console.log(
-            `[DEBUG][portfolio] Rendered line ${idx + 1}:`,
-            line.trim()
-          );
+          console.log(`[DEBUG][portfolio] Rendered line ${idx + 1}:`, line.trim());
         }
       });
     }
 
     // Remove template warnings and workflow comments from the output HTML
-    let finalHtml = htmlContent.replace(
-      /<!--\s*IMPORTANT: This is a TEMPLATE file![\s\S]*?DO NOT edit index\.html directly - it gets overwritten!\s*-->/,
-      ''
-    );
-    finalHtml = finalHtml.replace(
-      /<!--\s*-{2,}\s*BEGINNER-FRIENDLY EXPLANATORY COMMENTS[\s\S]*?-{2,}\s*-->/g,
-      ''
-    );
-    finalHtml = finalHtml.replace(
-      /<!--\s*Build System Workflow \(2025\):[\s\S]*?DO NOT edit the generated \*\.html file directly[\s\S]*?-->/g,
-      ''
-    );
+    let finalHtml = htmlContent.replace(/<!--\s*IMPORTANT: This is a TEMPLATE file![\s\S]*?DO NOT edit index\.html directly - it gets overwritten!\s*-->/, '');
+    finalHtml = finalHtml.replace(/<!--\s*-{2,}\s*BEGINNER-FRIENDLY EXPLANATORY COMMENTS[\s\S]*?-{2,}\s*-->/g, '');
+    finalHtml = finalHtml.replace(/<!--\s*Build System Workflow \(2025\):[\s\S]*?DO NOT edit the generated \*\.html file directly[\s\S]*?-->/g, '');
 
-    // Inject header and footer from index.html
-    const indexHtml = fs.readFileSync(
-      path.join(__dirname, 'index.html'),
-      'utf8'
-    );
-    const headerMatch = indexHtml.match(/<header[\s\S]*?<\/header>/i);
-    const footerMatch = indexHtml.match(/<footer[\s\S]*?<\/footer>/i);
-    const header = headerMatch ? headerMatch[0] : '';
-    const footer = footerMatch ? footerMatch[0] : '';
+    // Inject header and footer from dist/index.html
+    let header = '';
+    let footer = '';
+    try {
+      const distIndexHtmlPath = path.join(__dirname, 'dist', 'index.html');
+      if (fs.existsSync(distIndexHtmlPath)) {
+        const indexHtml = fs.readFileSync(distIndexHtmlPath, 'utf8');
+        const headerMatch = indexHtml.match(/<header[\s\S]*?<\/header>/i);
+        const footerMatch = indexHtml.match(/<footer[\s\S]*?<\/footer>/i);
+        header = headerMatch ? headerMatch[0] : '';
+        footer = footerMatch ? footerMatch[0] : '';
+      }
+    } catch (err) {
+      console.warn('Could not read header/footer from dist/index.html:', err.message);
+    }
     finalHtml = finalHtml.replace(/<!--\s*HEADER_PLACEHOLDER\s*-->/i, header);
     finalHtml = finalHtml.replace(/<!--\s*FOOTER_PLACEHOLDER\s*-->/i, footer);
 
     // Warn if any Handlebars placeholders were not replaced
     const unreplaced = finalHtml.match(/{{[A-Z0-9_]+}}/g);
     if (unreplaced && unreplaced.length > 0) {
-      console.warn(
-        `\u26a0\ufe0f Unreplaced placeholders found in ${templatePath}:`,
-        unreplaced
-      );
+      console.warn(`\u26a0\ufe0f Unreplaced placeholders found in ${templatePath}:`, unreplaced);
     }
 
     // Write the final HTML to the output file (same name, .html extension)
-    const outputFileName = path
-      .basename(templatePath)
-      .replace('.template.html', '.html');
+    const outputFileName = path.basename(templatePath).replace('.template.html', '.html');
     const distDir = path.join(__dirname, 'dist');
     if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true });
     const outputPath = path.join(distDir, outputFileName);
@@ -285,7 +248,14 @@ templateFiles.forEach((templatePath) => {
     // If anything goes wrong, print an error message
     console.error(`Build failed for ${templatePath}:`, error.message);
   }
-});
+};
+
+// Build index.template.html first
+if (indexTemplate) {
+  processTemplate(indexTemplate);
+}
+// Then build all other templates
+otherTemplates.forEach(processTemplate);
 
 // =============================================================
 // STEP 4: Copy JavaScript files to the dist directory
@@ -300,22 +270,15 @@ jsFiles.forEach((file) => {
   fs.copyFileSync(path.join(jsSrcDir, file), path.join(jsDistDir, file));
   console.log(`Copied ${file} to dist/js/`);
 });
+
 // =============================================================
-// STEP 5: Recursively copy image files to the dist directory
+// STEP 5: Copy generated HTML files to the project root
 // =============================================================
-const imgSrcDir = path.join(__dirname, 'src', 'img');
-const imgDistDir = path.join(__dirname, 'dist', 'img');
-function copyDirRecursive(src, dest) {
-  if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
-  fs.readdirSync(src).forEach((item) => {
-    const srcPath = path.join(src, item);
-    const destPath = path.join(dest, item);
-    if (fs.statSync(srcPath).isDirectory()) {
-      copyDirRecursive(srcPath, destPath);
-    } else {
-      fs.copyFileSync(srcPath, destPath);
-      console.log(`Copied IMG: ${srcPath} to ${destPath}`);
-    }
-  });
-}
-copyDirRecursive(imgSrcDir, imgDistDir);
+// This copies all .html files from dist/ to the root directory for deployment (GitHub Pages, etc.)
+const distHtmlFiles = fs.readdirSync(path.join(__dirname, 'dist')).filter((f) => f.endsWith('.html'));
+distHtmlFiles.forEach((file) => {
+  const srcPath = path.join(__dirname, 'dist', file);
+  const destPath = path.join(__dirname, file);
+  fs.copyFileSync(srcPath, destPath);
+  console.log(`Copied ${file} to project root.`);
+});
