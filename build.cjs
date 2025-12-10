@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 // =====================================================================
-// BEGINNER-FRIENDLY EXPLANATORY COMMENTS
+// Project Build Script (Beginner-Friendly)
 // =====================================================================
-// This file is your project's build script. It automates tasks like:
-//   - Compiling code
-//   - Bundling files
-//   - Injecting environment variables
-//   - Preparing files for deployment
-//
-// Why use a build script?
-//   - Saves you time by automating repetitive work
-//   - Reduces manual errors
-//   - Ensures your project is always built the same way
-//
-// You can run this script with different commands to build for local development,
-// alternate environments (like GitHub Pages or Netlify), or production.
+// Purpose: Automates the process of building, preparing, and formatting your project for deployment.
+// Features:
+//   - Compiles and processes HTML templates
+//   - Injects environment variables for different deployment targets
+//   - Copies and cleans up assets and output files
+//   - Formats HTML for consistent style
+// Usage:
+//   - Run with npm scripts for local, alternate, or production builds
+// Key Concepts:
+//   - Build automation
+//   - Environment configuration
+//   - Asset management
+//   - HTML formatting
 // =====================================================================
 
 /*
@@ -39,10 +39,14 @@
   =====================================================================
 */
 
-// --- Ensure all .env* files have sections for every page template ---
+// =============================================================
+// STEP 0: Ensure all .env* files have sections for every page template
+// =============================================================
 require('./sync-env-sections.cjs');
 
-// Import required Node.js modules
+// =============================================================
+// STEP 0.5: Import required Node.js modules
+// =============================================================
 const fs = require('fs'); // For reading and writing files
 const path = require('path'); // For handling file paths
 const Handlebars = require('handlebars'); // For processing HTML templates
@@ -55,7 +59,8 @@ Handlebars.registerHelper('eq', function (a, b) {
 
 // =============================================================
 // STEP 1: Determine which environment file to use
-// =============================================================
+// -------------------------------------------------------------
+// This step selects the correct .env file based on your build mode (local, alt, prod, etc.)
 // You can pass a mode (like 'alt' or 'prod') as a command line argument.
 // This lets you build for different environments using different .env files.
 const mode = process.argv[2] ? process.argv[2].toLowerCase() : '';
@@ -76,13 +81,10 @@ console.log('[DEBUG] BASE_URL:', process.env.BASE_URL, '| ASSET_URL:', process.e
 console.log('[DEBUG] typeof BASE_URL:', typeof process.env.BASE_URL, '| typeof ASSET_URL:', typeof process.env.ASSET_URL);
 console.log('[DEBUG] JSON.stringify(BASE_URL):', JSON.stringify(process.env.BASE_URL), '| JSON.stringify(ASSET_URL):', JSON.stringify(process.env.ASSET_URL));
 
-// STEP 2: Get BASE_URL and ASSET_URL from environment variables
-// =============================================================
-// ...existing code...
-
 // =============================================================
 // STEP 2: Get BASE_URL and ASSET_URL from environment variables
-// =============================================================
+// -------------------------------------------------------------
+// This step loads the main site URL and asset path from your selected .env file.
 let baseUrl = process.env.BASE_URL; // The main site URL (e.g., https://yoursite.com)
 const assetUrl = process.env.ASSET_URL; // The base path for static assets (images, CSS, JS)
 
@@ -97,7 +99,8 @@ if (typeof baseUrl !== 'string' || baseUrl.trim() === '' || typeof assetUrl !== 
 
 // =============================================================
 // STEP 3: Find and process all HTML template files
-// =============================================================
+// -------------------------------------------------------------
+// This step finds all HTML templates, injects environment variables, and generates final HTML files.
 console.log('Building HTML for all template files...');
 
 // Use glob to find all .template.html files in src/templates only
@@ -259,8 +262,8 @@ otherTemplates.forEach(processTemplate);
 
 // =============================================================
 // STEP 4: Copy JavaScript files to the dist directory
-// =============================================================
-// This copies all .js files from src/js to dist/js so they are available in the final build
+// -------------------------------------------------------------
+// This step copies all .js files from src/js to dist/js so they are available in the final build.
 const jsSrcDir = path.join(__dirname, 'src', 'js');
 const jsDistDir = path.join(__dirname, 'dist', 'js');
 if (!fs.existsSync(jsDistDir)) fs.mkdirSync(jsDistDir, { recursive: true });
@@ -273,8 +276,8 @@ jsFiles.forEach((file) => {
 
 // =============================================================
 // STEP 5: Copy generated HTML files to the project root
-// =============================================================
-// This copies all .html files from dist/ to the root directory for deployment (GitHub Pages, etc.)
+// -------------------------------------------------------------
+// This step copies all .html files from dist/ to the root directory for deployment (GitHub Pages, etc.)
 const distHtmlFiles = fs.readdirSync(path.join(__dirname, 'dist')).filter((f) => f.endsWith('.html'));
 distHtmlFiles.forEach((file) => {
   const srcPath = path.join(__dirname, 'dist', file);
@@ -282,3 +285,50 @@ distHtmlFiles.forEach((file) => {
   fs.copyFileSync(srcPath, destPath);
   console.log(`Copied ${file} to project root.`);
 });
+
+// =============================================================
+// STEP 6: Remove <pre><code>...</code></pre> blocks from HTML files in dist/
+// -------------------------------------------------------------
+// This step removes code blocks from HTML files in dist/ to keep output clean.
+const preCodeRegex = /<pre><code[\s\S]*?<\/code><\/pre>/gi;
+distHtmlFiles.forEach((file) => {
+  const filePath = path.join(__dirname, 'dist', file);
+  let html = fs.readFileSync(filePath, 'utf8');
+  const cleaned = html.replace(preCodeRegex, '');
+  if (cleaned !== html) {
+    fs.writeFileSync(filePath, cleaned, 'utf8');
+    console.log(`Removed <pre><code> blocks from ${file}`);
+  }
+});
+
+// =============================================================
+// STEP 7: Remove trailing slashes from void elements in HTML files in the project root
+// -------------------------------------------------------------
+// This step cleans up HTML by removing trailing slashes from void elements (e.g., <br /> becomes <br>).
+const VOID_ELEMENTS = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
+const rootHtmlFiles = fs.readdirSync(__dirname).filter((f) => f.endsWith('.html'));
+rootHtmlFiles.forEach((file) => {
+  const filePath = path.join(__dirname, file);
+  let html = fs.readFileSync(filePath, 'utf8');
+  VOID_ELEMENTS.forEach((tag) => {
+    const regex = new RegExp(`<${tag}([^>]*)\s*/>`, 'gi');
+    html = html.replace(regex, `<${tag}$1>`);
+  });
+  fs.writeFileSync(filePath, html);
+  console.log(`Removed trailing slashes from void elements in ${file}`);
+});
+
+// =============================================================
+// STEP 8: Format HTML files in the project root using Prettier
+// -------------------------------------------------------------
+// This step formats all HTML files in the project root for consistent, readable markup.
+const { execSync } = require('child_process');
+try {
+  const htmlPaths = rootHtmlFiles.map((f) => f).join(' ');
+  if (htmlPaths) {
+    execSync(`npx prettier --write ${htmlPaths}`, { stdio: 'inherit' });
+    console.log('Formatted root HTML files with Prettier.');
+  }
+} catch (err) {
+  console.warn('Prettier formatting failed:', err.message);
+}
