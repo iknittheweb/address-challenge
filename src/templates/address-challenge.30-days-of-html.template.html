@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Security-Policy" content="{{CSP_META}}" />
-    <title>{{ADDRESS-CHALLENGE_OG_TITLE}}</title>
+    <title>#30DaysofHTML Day 1: &lt;address&gt; | I Knit The Web</title>
 
     <!-- Fallback styles for no-JS environments -->
     <noscript>
@@ -35,12 +35,11 @@
 
     <!-- Preload critical stylesheets -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" as="style" />
-    <link rel="preload" as="style" href="/css/{{ADDRESS-CHALLENGE_CSS_FILE}}" />
+    <link rel="preload" as="style" href="/dist/css/{{ADDRESS_CHALLENGE_CSS_FILE}}" />
 
     <!-- Main font and site stylesheets -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" />
-    <link rel="stylesheet" href="/css/{{ADDRESS-CHALLENGE_CSS_FILE}}" />
-
+    <link rel="stylesheet" href="/dist/css/{{ADDRESS_CHALLENGE_CSS_FILE}}" />
     <!-- FontAwesome CDN stylesheet for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -48,40 +47,36 @@
     <link rel="icon" type="image/x-icon" href="{{ASSET_URL}}/favicon_io/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="{{ASSET_URL}}/favicon_io/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
-    <link rel="canonical" href="{{ADDRESS-CHALLENGE_OG_URL}}" />
+    <link rel="canonical" href="{{ADDRESS_CHALLENGE_CANONICAL_URL}}" />
 
     <!-- SEO and social meta tags (grouped for clarity) -->
-    <meta name="description" content="{{ADDRESS-CHALLENGE_DESCRIPTION}}" />
-    <meta name="keywords" content="{{ADDRESS-CHALLENGE_KEYWORDS}}" />
+    <meta name="description" content="{{ADDRESS_CHALLENGE_DESCRIPTION}}" />
+    <meta name="keywords" content="{{ADDRESS_CHALLENGE_KEYWORDS}}" />
     <meta name="author" content="I Knit the Web" />
     <meta name="robots" content="index,follow" />
-    <meta property="og:title" content="{{ADDRESS-CHALLENGE_OG_TITLE}}" />
-    <meta property="og:description" content="{{ADDRESS-CHALLENGE_OG_DESCRIPTION}}" />
-    <meta property="og:image" content="{{ADDRESS-CHALLENGE_OG_IMAGE}}" />
-    <meta property="og:url" content="{{ADDRESS-CHALLENGE_OG_URL}}" />
+    <meta property="og:title" content="{{ADDRESS_CHALLENGE_OG_TITLE}}" />
+    <meta property="og:description" content="{{ADDRESS_CHALLENGE_OG_DESCRIPTION}}" />
+    <meta property="og:image" content="{{ADDRESS_CHALLENGE_OG_IMAGE}}" />
+    <meta property="og:url" content="{{ADDRESS_CHALLENGE_OG_URL}}" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="{{ADDRESS-CHALLENGE_TWITTER_TITLE}}" />
-    <meta name="twitter:description" content="{{ADDRESS-CHALLENGE_TWITTER_DESCRIPTION}}" />
-    <meta name="twitter:image" content="{{ADDRESS-CHALLENGE_TWITTER_IMAGE}}" />
+    <meta name="twitter:title" content="{{ADDRESS_CHALLENGE_TWITTER_TITLE}}" />
+    <meta name="twitter:description" content="{{ADDRESS_CHALLENGE_TWITTER_DESCRIPTION}}" />
+    <meta name="twitter:image" content="{{ADDRESS_CHALLENGE_TWITTER_IMAGE}}" />
 
     <!-- Third-party monitoring/analytics: Sentry -->
     <script src="https://browser.sentry-cdn.com/7.100.1/bundle.min.js" crossorigin="anonymous"></script>
 
     <!-- Structured data for SEO -->
-    <script type="application/ld+json">
-      {{ADDRESS-CHALLENGE_SCHEMA_JSON}}
-    </script>
-
+    <script src="src/js/schema-json.js" defer></script>
     <!-- Third-party library: body-scroll-lock -->
     <script src="https://cdn.jsdelivr.net/npm/body-scroll-lock@4.0.0-beta.0/lib/bodyScrollLock.min.js"></script>
 
     <!-- Main app/module script -->
     <script type="module" src="dist/js/script.js"></script>
   </head>
-
   <body>
-    <div id="page-data" data-page-title="{{ADDRESS-CHALLENGE_DATA_PAGE_TITLE}}" data-page-subtitle="{{ADDRESS-CHALLENGE_DATA_PAGE_SUBTITLE}}" data-nav-config="{{ADDRESS-CHALLENGE_NAV_CONFIG}}" data-breadcrumb-category="{{ADDRESS-CHALLENGE_BREADCRUMB_CATEGORY}}" data-breadcrumb-category-url="{{ADDRESS-CHALLENGE_BREADCRUMB_CATEGORY_URL}}" style="display: none"></div>
+    <div id="page-data" data-page-title="{{ADDRESS_CHALLENGE_DATA_PAGE_TITLE}}" data-nav-config="{{ADDRESS_CHALLENGE_DATA_NAV_CONFIG}}" data-breadcrumb-category="{{ADDRESS_CHALLENGE_DATA_BREADCRUMB_CATEGORY}}" data-breadcrumb-category-url="{{ADDRESS_CHALLENGE_DATA_BREADCRUMB_CATEGORY_URL}}" style="display: none"></div>
 
     <!-- HEADER_PLACEHOLDER -->
 
@@ -115,6 +110,8 @@
         </article>
       </div>
     </main>
+
     <!-- FOOTER_PLACEHOLDER -->
+
   </body>
 </html>
