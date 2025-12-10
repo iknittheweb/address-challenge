@@ -1,18 +1,34 @@
-// optimize-images.js
-// Automatically compresses and optimizes images in src/img and subfolders
-// Usage: node optimize-images.js
+// =====================================================================
+// Image Optimization Script (Beginner-Friendly)
+// =====================================================================
+// Purpose: Compress and optimize images in src/img and subfolders for web use.
+// Usage: Run with: node optimize-images.cjs
+// Key Concepts:
+//   - Image optimization for performance
+//   - Automation of JPEG/PNG/WebP/AVIF/SVG processing
+//   - Output to dist/img for deployment
+// =====================================================================
 
+// -------------------------------------------------------------
+// 1. Import required modules
+// -------------------------------------------------------------
 const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
 const { optimize: svgoOptimize } = require('svgo');
 
+// -------------------------------------------------------------
+// 2. Define constants for directories, extensions, and quality
+// -------------------------------------------------------------
 const IMG_DIR = path.join(__dirname, 'src/img');
 const SUPPORTED_EXT = ['.jpg', '.jpeg', '.png'];
 const SVG_EXT = '.svg';
 const QUALITY = 80; // Adjust as needed
 const OUTPUT_DIR = path.join(__dirname, 'dist/img');
 
+// -------------------------------------------------------------
+// 3. Recursively get all files in IMG_DIR
+// -------------------------------------------------------------
 function getAllFiles(dir) {
   let results = [];
   fs.readdirSync(dir, { withFileTypes: true }).forEach((entry) => {
@@ -26,6 +42,9 @@ function getAllFiles(dir) {
   return results;
 }
 
+// -------------------------------------------------------------
+// 4. Optimize raster images (JPEG/PNG)
+// -------------------------------------------------------------
 async function optimizeImage(file) {
   const ext = path.extname(file).toLowerCase();
   const relPath = path.relative(IMG_DIR, file);
@@ -48,6 +67,9 @@ async function optimizeImage(file) {
   }
 }
 
+// -------------------------------------------------------------
+// 5. Optimize SVG files
+// -------------------------------------------------------------
 function optimizeSvg(file, outPath) {
   try {
     const svgData = fs.readFileSync(file, 'utf8');
@@ -65,6 +87,9 @@ function optimizeSvg(file, outPath) {
   }
 }
 
+// -------------------------------------------------------------
+// 6. Main process: copy, optimize, and log each file
+// -------------------------------------------------------------
 async function main() {
   const files = getAllFiles(IMG_DIR);
   if (files.length === 0) {
@@ -90,7 +115,10 @@ async function main() {
     }
     console.log(`Copied: ${file} -> ${outPath}`);
   }
-  console.log('All files copied to dist/img/. JPEG/PNG/WebP optimized as usual.');
+  console.log('All files copied to dist/img/. JPEG/PNG/WebP/AVIF optimized as usual.');
 }
 
+// -------------------------------------------------------------
+// 7. Run the main process
+// -------------------------------------------------------------
 main();
