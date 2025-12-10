@@ -15,11 +15,7 @@
   padding: f.rem(80) 0 f.rem(48);
   // margin-bottom: f.rem(40);
   text-align: center;
-  background-image: image-set(
-    url('/dist/img/open-laptops.avif') type('image/avif'),
-    url('/dist/img/open-laptops.webp') type('image/webp'),
-    url('/dist/img/open-laptops.jpg') type('image/jpeg')
-  );
+  background-image: image-set(url('/dist/img/pages/open-laptops.avif') type('image/avif'), url('/dist/img/pages/open-laptops.webp') type('image/webp'), url('/dist/img/pages/open-laptops.jpg') type('image/jpeg'));
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -43,11 +39,7 @@
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background: repeating-linear-gradient(
-    120deg,
-    rgb(255 255 255 / 7%) 0 2px,
-    transparent 2px 24px
-  );
+  background: repeating-linear-gradient(120deg, rgb(255 255 255 / 7%) 0 2px, transparent 2px 24px);
   opacity: 0.7;
   animation: hero-sparkle 24s linear infinite;
 }

@@ -18,9 +18,7 @@
 .fa-thin,
 .fa-duotone,
 .fa-brands {
-  font-family:
-    'Font Awesome 6 Free', 'Font Awesome 6 Pro', 'Font Awesome 6 Brands',
-    sans-serif !important;
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Pro', 'Font Awesome 6 Brands', sans-serif !important;
   font-weight: 900;
   font-style: normal;
   font-variant: normal;
@@ -33,16 +31,35 @@
   // .topnav: <nav> main navigation container
   width: 100%;
   background-color: var(--primary-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
   // .topnav__wrapper: <div> wraps logo and navigation
   &__wrapper {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     align-items: flex-start;
-    gap: f.rem(16); // Space between logo/menu/header items
+    gap: f.rem(24); // space between logo and right stack
+    padding: 0 1rem !important;
 
     @include m.breakpoint-down('699.98') {
       position: relative;
+      padding-block: 0;
+    }
+  }
+  &__homelink--desktop {
+    display: block;
+    @include m.breakpoint-down('699.98') {
+      display: none;
+    }
+  }
+  &__homelink--mobile {
+    display: none;
+    @include m.breakpoint-down('699.98') {
+      display: block;
+      margin-bottom: f.rem(16);
     }
   }
 
@@ -51,11 +68,22 @@
     width: f.rem(120);
     height: f.rem(120);
     vertical-align: top; // Align logo top with menu top
+    flex-shrink: 0; // logo stays its size
   }
 
   // Hide logo when menu is open (JS toggles .logo--hidden)
   &__logo.logo--hidden {
     display: none !important;
+  }
+
+  &__menugroup {
+    width: 90vw;
+    display: flex;
+    margin-inline: auto;
+  }
+
+  &__nav {
+    margin-left: auto;
   }
 
   &__toggle {
@@ -74,9 +102,11 @@
         opacity: 1;
         transform: translateY(0);
         animation: fade-in-hamburger 400ms ease-out 150ms forwards;
+        border: 1px solid white;
       }
       .topnav__close {
         display: none;
+        border: 1px solid white;
       }
     }
     @include m.breakpoint('700') {
@@ -116,10 +146,10 @@
       // Desktop: Normal menu behavior
       display: block;
       position: static;
-      }
+    }
 
     @include m.breakpoint-down('699.98') {
-      // Mobile: Hidden by default, only shown when menu is opened
+      // Mobile: Hidden by default
       display: none;
       position: fixed; // Overlay menu for mobile
       top: 0;
@@ -137,9 +167,13 @@
       touch-action: manipulation;
       padding-top: f.rem(84); // Space above menu for mobile only
 
-      &.menu--open {
-        display: block;
+      // Show menu when data-open="true" is present
+      &[data-open='true'] {
+        display: block !important;
         transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        z-index: 1001;
       }
     }
   }
@@ -152,7 +186,6 @@
     @include m.breakpoint('700') {
       opacity: 0;
       animation: fade-in-links 400ms ease-in-out 200ms forwards;
-      margin-bottom: f.rem(16); // Only f.rem(16) below lowest header item
     }
 
     @include m.breakpoint-down('699.98') {
@@ -179,6 +212,14 @@
       touch-action: manipulation;
       user-select: none;
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--light-text);
+      &:hover,
+      &:focus {
+        text-decoration: none;
+        color: var(--dark-text-mid);
+      }
     }
 
     // Smooth transitions for desktop
@@ -203,13 +244,9 @@
     &::after {
       content: '';
       display: block;
-      height: 3px;
-      margin-top: 3px;
-      background: linear-gradient(
-        to right,
-        var(--secondary-gradient-light),
-        var(--primary-gradient-light) 80%
-      );
+      height: 5px;
+      margin-top: 5px;
+      background: linear-gradient(to right, var(--secondary-gradient-light), var(--primary-gradient-light) 80%);
       opacity: 0;
       transition: opacity 250ms ease-in-out;
     }
@@ -218,6 +255,39 @@
       opacity: 1;
     }
   }
+
+  &__title-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--light-text);
+    width: fit-content;
+    @include m.breakpoint-down('699.98') {
+      margin-top: f.rem(48);
+    }
+  }
+
+  &__subtitle {
+    color: var(--light-text);
+    font-size: clamp(2rem, 8vw, 4rem);
+    padding: f.rem(16);
+
+    &--small {
+      display: block;
+      width: 100%;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 400;
+      margin-top: 0.25em;
+    }
+  }
+}
+
+[data-open='true'] {
+  display: block;
+  transform: translateY(0);
 }
 
 // Keyframe animations for smooth desktop menu appearance

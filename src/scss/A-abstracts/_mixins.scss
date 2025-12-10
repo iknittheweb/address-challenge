@@ -59,12 +59,14 @@ $breakpoints-down: (
   '999.98': f.em(999.98) // large
 );
 
+// Mixin for given viewport size and above
 @mixin breakpoint($size) {
   @media (min-width: map.get($breakpoints-up, $size)) {
     @content;
   }
 }
 
+// Mixin for given viewport size and below
 @mixin breakpoint-down($size) {
   @media (max-width: #{map.get($breakpoints-down, $size)}) {
     @content;
