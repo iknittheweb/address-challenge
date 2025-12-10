@@ -1,23 +1,36 @@
 <#
-    log-command.ps1
-    Logs any PowerShell command and its output to a log file.
-    Usage:
-      powershell -ExecutionPolicy Bypass -File ./scripts/log-command.ps1 -Command "npm run build:gh"
-      Optional: -LogFile "my-log.txt"
+=====================================================================
+ log-command.ps1
+=====================================================================
+Logs any PowerShell command and its output to a log file.
+BEGINNER-FRIENDLY: Each section is commented for clarity.
+Usage:
+  powershell -ExecutionPolicy Bypass -File ./scripts/log-command.ps1 -Command "npm run build:gh"
+  Optional: -LogFile "my-log.txt"
 #>
 
+# =====================================================================
+# 1. PARAMETERS
+# =====================================================================
 param(
     [Parameter(Mandatory=$true)]
     [string]$Command,
     [string]$LogFile = "terminal-log.txt"
 )
 
-# Get the current timestamp for log entries
+# =====================================================================
+# 2. SETUP: Timestamp for log entries
+# =====================================================================
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 
-# Log the command being run with timestamp
+# =====================================================================
+# 3. LOG COMMAND START
+# =====================================================================
 "`n[$timestamp] Running: $Command" | Out-File -FilePath $LogFile -Append
 
+# =====================================================================
+# 4. MAIN LOGIC: Run command and log output
+# =====================================================================
 try {
   # Run the command, capturing both output and errors
   $output = Invoke-Expression $Command 2>&1
@@ -26,6 +39,9 @@ try {
   # Log successful completion
   "[$timestamp] Command completed successfully." | Out-File -FilePath $LogFile -Append
 } catch {
+  # =====================================================================
+  # 5. ERROR HANDLING
+  # =====================================================================
   # Log any errors that occur during command execution
   "[$timestamp] ERROR: $_" | Out-File -FilePath $LogFile -Append
 }

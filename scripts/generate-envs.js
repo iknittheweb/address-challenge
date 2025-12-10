@@ -1,6 +1,18 @@
+// =====================================================================
+// generate-envs.js
+// =====================================================================
+// This script generates .env files for different environments based on template placeholders.
+// BEGINNER-FRIENDLY: Each section is commented for clarity.
+
+// =====================================================================
+// 1. IMPORTS
+// =====================================================================
 import fs from 'fs';
 import path from 'path';
 
+// =====================================================================
+// 2. CONSTANTS & ENVIRONMENT CONFIG
+// =====================================================================
 const templateDir = path.join(process.cwd(), 'src', 'templates');
 const envFiles = [
   { name: '.env.example', url: '/', asset: '/src/img/', prod: false },
@@ -47,6 +59,9 @@ const header = `# Add more keys as needed for other templates/pages
 # CSS_FILE=styles.min.css
 `;
 
+// =====================================================================
+// 3. UTILITY FUNCTIONS
+// =====================================================================
 // Recursively find all .template.html files in the workspace
 function findAllTemplateFiles(dir) {
   let results = [];
@@ -63,6 +78,9 @@ function findAllTemplateFiles(dir) {
   return results;
 }
 
+// =====================================================================
+// 4. MAIN LOGIC: Find placeholders and generate env files
+// =====================================================================
 const workspaceDir = process.cwd();
 const files = findAllTemplateFiles(workspaceDir);
 const placeholderMap = {};
@@ -76,8 +94,8 @@ files.forEach((filePath) => {
   placeholderMap[relFile] = Array.from(new Set(placeholders));
 });
 
+// Helper to generate values for each placeholder
 function autoValue(key, page, env) {
-  // Helper to join URL segments safely
   function urlJoin(...parts) {
     return parts
       .map((p, i) => {
@@ -86,42 +104,17 @@ function autoValue(key, page, env) {
       })
       .join('/');
   }
-  // Convert page filename to uppercase, replace non-alphanumeric with underscore
   const baseName = path
     .basename(page)
     .replace(/\.html$/, '')
     .replace(/[^A-Za-z0-9]/g, '-')
     .toUpperCase();
-  // For keys that are page-specific, prefix with baseName
   function pageKey(k) {
-    if (
-      [
-        'TITLE',
-        'DESCRIPTION',
-        'KEYWORDS',
-        'ROBOTS',
-        'CANONICAL_URL',
-        'OG_IMAGE',
-        'OG_URL',
-        'OG_TYPE',
-        'TWITTER_CARD',
-        'TWITTER_TITLE',
-        'TWITTER_DESCRIPTION',
-        'GOOGLE_FONTS_LINK',
-        'SCHEMA_JSON',
-        'SUBTITLE',
-        'NAV_CONFIG',
-        'BREADCRUMB_CATEGORY',
-        'BREADCRUMB_CATEGORY_URL',
-        'PAGE_NAME',
-      ].includes(k)
-    ) {
+    if (['TITLE', 'DESCRIPTION', 'KEYWORDS', 'ROBOTS', 'CANONICAL_URL', 'OG_IMAGE', 'OG_URL', 'OG_TYPE', 'TWITTER_CARD', 'TWITTER_TITLE', 'TWITTER_DESCRIPTION', 'GOOGLE_FONTS_LINK', 'SCHEMA_JSON', 'SUBTITLE', 'NAV_CONFIG', 'BREADCRUMB_CATEGORY', 'BREADCRUMB_CATEGORY_URL', 'PAGE_NAME'].includes(k)) {
       return `${baseName}_${k}`;
     }
     return k;
   }
-
-  // Generate values for page-specific keys
   if (key === pageKey('NAV_CONFIG')) return 'main,about,portfolio,contact';
   if (key === pageKey('BREADCRUMB_CATEGORY')) {
     if (page.includes('about')) return 'General';
@@ -152,6 +145,9 @@ function autoValue(key, page, env) {
   return '';
 }
 
+// =====================================================================
+// 5. OUTPUT: Write env files
+// =====================================================================
 envFiles.forEach((env) => {
   const envPath = path.join(process.cwd(), env.name);
   let existing = '';
@@ -189,34 +185,12 @@ envFiles.forEach((env) => {
     keys.forEach((key) => {
       if (key === 'HEADER' || key === 'FOOTER') return;
       const pageSpecificKey = (() => {
-        // Convert page filename to uppercase, replace non-alphanumeric with underscore
         const baseName = path
           .basename(page)
           .replace(/\.html$/, '')
           .replace(/[^A-Za-z0-9]/g, '-')
           .toUpperCase();
-        if (
-          [
-            'TITLE',
-            'DESCRIPTION',
-            'KEYWORDS',
-            'ROBOTS',
-            'CANONICAL_URL',
-            'OG_IMAGE',
-            'OG_URL',
-            'OG_TYPE',
-            'TWITTER_CARD',
-            'TWITTER_TITLE',
-            'TWITTER_DESCRIPTION',
-            'GOOGLE_FONTS_LINK',
-            'SCHEMA_JSON',
-            'SUBTITLE',
-            'NAV_CONFIG',
-            'BREADCRUMB_CATEGORY',
-            'BREADCRUMB_CATEGORY_URL',
-            'PAGE_NAME',
-          ].includes(key)
-        ) {
+        if (['TITLE', 'DESCRIPTION', 'KEYWORDS', 'ROBOTS', 'CANONICAL_URL', 'OG_IMAGE', 'OG_URL', 'OG_TYPE', 'TWITTER_CARD', 'TWITTER_TITLE', 'TWITTER_DESCRIPTION', 'GOOGLE_FONTS_LINK', 'SCHEMA_JSON', 'SUBTITLE', 'NAV_CONFIG', 'BREADCRUMB_CATEGORY', 'BREADCRUMB_CATEGORY_URL', 'PAGE_NAME'].includes(key)) {
           return `${baseName}_${key}`;
         }
         return key;
