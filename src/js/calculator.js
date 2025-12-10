@@ -1,23 +1,49 @@
-// src/js/calculator.js
-// Accessible calculator logic for BEM-based calculator
+// -------------------------------------------------------------
+// Accessible Calculator Logic
+// -------------------------------------------------------------
+// Purpose: Implements a keyboard- and screen-reader-friendly calculator using BEM classes.
+// Features:
+//   - Handles button and keyboard input
+//   - Supports basic arithmetic operations
+//   - Provides ARIA roles and attributes for accessibility
+//   - Updates screen and button states for user feedback
+// -------------------------------------------------------------
+// Key Concepts:
+//   - Event listeners
+//   - State management
+//   - ARIA accessibility
+//   - BEM CSS methodology
+// -------------------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', function () {
+  // ------------------------------
+  // DOM Element References
+  // ------------------------------
   const calculator = document.querySelector('.calculator');
   if (!calculator) return;
 
   const screen = calculator.querySelector('.CALCULATOR-_screen');
   const buttons = calculator.querySelectorAll('.CALCULATOR-_button');
 
+  // ------------------------------
+  // Calculator State Variables
+  // ------------------------------
   let current = '0';
   let operator = null;
   let operand = null;
   let waitingForOperand = false;
 
+  // ------------------------------
+  // Screen Update Function
+  // ------------------------------
   function updateScreen(value) {
     screen.textContent = value;
     screen.setAttribute('aria-live', 'polite');
   }
 
+  // ------------------------------
+  // Core Calculator Functions
+  // ------------------------------
   function clear() {
     current = '0';
     operator = null;

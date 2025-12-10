@@ -1,20 +1,32 @@
-// dropdown.js
-// Handles dropdown menu logic for portfolio and other sections
-// dropdown.js (ES module)
+// -------------------------------------------------------------
+// Dropdown Menu Handler (ES module)
+// -------------------------------------------------------------
+// Purpose: Handles dropdown menu logic for portfolio and other sections.
+// Features:
+//   - Keyboard and mouse interaction for dropdown menus
+//   - ARIA accessibility roles and attributes
+//   - Focus trapping for keyboard navigation
+//   - Cypress test state exposure
+// Usage:
+//   - Used on pages with interactive dropdown menus
+// Key Concepts:
+//   - Event listeners
+//   - ARIA accessibility
+//   - Focus management
+//   - Cypress testing hooks
+// -------------------------------------------------------------
 
 function initializeDropdown() {
-  const dropdownTitleGroup = document.querySelector('.dropdown__title-group');
-  const dropdownContent = document.querySelector('.dropdown__content');
+  const dropdowns = document.querySelectorAll('.dropdown');
   if (window.dropdownInitialized) return;
   window.dropdownInitialized = true;
-  if (dropdownTitleGroup) dropdownTitleGroup.setAttribute('data-cy', 'dropdown-trigger');
-  if (dropdownContent) dropdownContent.setAttribute('data-cy', 'dropdown-content');
-  // Expose dropdown state for Cypress
-  window.dropdownTestState = {
-    isOpen: false,
-    focusTrapActive: false,
-  };
-  if (dropdownTitleGroup && dropdownContent) {
+  window.dropdownTestState = { isOpen: false, focusTrapActive: false };
+  dropdowns.forEach((dropdown) => {
+    const dropdownTitleGroup = dropdown.querySelector('.dropdown__title-group');
+    const dropdownContent = dropdown.querySelector('.dropdown__content');
+    if (!dropdownTitleGroup || !dropdownContent) return;
+    dropdownTitleGroup.setAttribute('data-cy', 'dropdown-trigger');
+    dropdownContent.setAttribute('data-cy', 'dropdown-content');
     // ARIA roles and relationships
     dropdownTitleGroup.setAttribute('role', 'button');
     dropdownTitleGroup.setAttribute('aria-controls', 'dropdown-content');
@@ -24,25 +36,18 @@ function initializeDropdown() {
     dropdownContent.setAttribute('id', 'dropdown-content');
     dropdownContent.setAttribute('aria-labelledby', 'dropdown-title-group');
     dropdownContent.setAttribute('aria-hidden', 'true');
-
+    dropdownTitleGroup.setAttribute('data-open', 'false');
+    dropdownContent.setAttribute('data-open', 'false');
     let lastTrigger = null;
 
     dropdownTitleGroup.addEventListener('click', function (e) {
       e.stopPropagation();
-      const isOpen = dropdownContent.classList.contains('show');
+      const isOpen = dropdownContent.getAttribute('data-open') === 'true';
       toggleDropdown();
-      // Diagnostic: log after toggling
-      setTimeout(() => {
-        const nowOpen = dropdownContent.classList.contains('show');
-      }, 0);
     });
-    // Outside click-to-close logic
     document.addEventListener('click', function (e) {
-      // Only act if dropdown is open
-      if (!dropdownContent.classList.contains('show')) return;
-      // If click is inside dropdown or trigger, do nothing
+      if (dropdownContent.getAttribute('data-open') !== 'true') return;
       if (dropdownContent.contains(e.target) || dropdownTitleGroup.contains(e.target)) return;
-      // Otherwise, close dropdown
       closeDropdown();
     });
     dropdownTitleGroup.addEventListener('keydown', function (e) {
@@ -53,8 +58,7 @@ function initializeDropdown() {
       if (e.key === 'Escape') {
         closeDropdown();
       }
-      // Arrow key navigation for dropdown menu
-      if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && dropdownContent.classList.contains('show')) {
+      if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && dropdownContent.getAttribute('data-open') === 'true') {
         e.preventDefault();
         const items = dropdownContent.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
         if (items.length) {
@@ -67,7 +71,7 @@ function initializeDropdown() {
       }
     });
     function toggleDropdown() {
-      const isOpen = dropdownContent.classList.contains('show');
+      const isOpen = dropdownContent.getAttribute('data-open') === 'true';
       if (isOpen) {
         closeDropdown();
       } else {
@@ -75,48 +79,38 @@ function initializeDropdown() {
       }
     }
     function openDropdown() {
-      dropdownContent.classList.add('show');
+      dropdownContent.setAttribute('data-open', 'true');
       dropdownContent.setAttribute('aria-hidden', 'false');
-      dropdownTitleGroup.classList.add('dropdown-open');
+      dropdownTitleGroup.setAttribute('data-open', 'true');
       dropdownTitleGroup.setAttribute('aria-expanded', 'true');
       lastTrigger = dropdownTitleGroup;
       trapFocus(dropdownContent, closeDropdown);
       window.dropdownTestState.isOpen = true;
       window.dropdownTestState.focusTrapActive = true;
-      // Focus first item for keyboard users
       setTimeout(() => {
         const items = dropdownContent.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
         if (items.length) {
           items[0].focus();
           items[0].setAttribute('data-cy', 'dropdown-first-item');
         }
-        // Ensure dropdown is visible for Cypress tests
         dropdownContent.style.opacity = '1';
       }, 10);
     }
     function closeDropdown() {
-      dropdownContent.classList.remove('show');
+      dropdownContent.setAttribute('data-open', 'false');
       dropdownContent.setAttribute('aria-hidden', 'true');
-      dropdownTitleGroup.classList.remove('dropdown-open');
+      dropdownTitleGroup.setAttribute('data-open', 'false');
       dropdownTitleGroup.setAttribute('aria-expanded', 'false');
-      // Reset dropdown visibility for Cypress tests
       dropdownContent.removeAttribute('style');
       window.dropdownTestState.isOpen = false;
       window.dropdownTestState.focusTrapActive = false;
       if (lastTrigger) lastTrigger.focus();
     }
-  }
+  });
 
   // Trap focus within dropdown menu
   function trapFocus(container, onClose) {
-    const focusableSelectors = [
-      'a[href]',
-      'button:not([disabled])',
-      'input:not([disabled])',
-      'select:not([disabled])',
-      'textarea:not([disabled])',
-      '[tabindex]:not([tabindex="-1"])',
-    ];
+    const focusableSelectors = ['a[href]', 'button:not([disabled])', 'input:not([disabled])', 'select:not([disabled])', 'textarea:not([disabled])', '[tabindex]:not([tabindex="-1"])'];
     const focusableEls = container.querySelectorAll(focusableSelectors.join(','));
     if (!focusableEls.length) return;
     const firstEl = focusableEls[0];

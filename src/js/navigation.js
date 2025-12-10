@@ -1,5 +1,19 @@
-// navigation.js
-// This file controls the navigation bar and mobile menu behavior.
+// -------------------------------------------------------------
+// Navigation Bar & Mobile Menu Handler (ES module)
+// -------------------------------------------------------------
+// Purpose: Controls the navigation bar and mobile menu behavior for all pages.
+// Features:
+//   - Handles menu open/close, ARIA accessibility, and focus management
+//   - Supports keyboard and mouse interaction for navigation
+//   - Exposes state for Cypress automated testing
+// Usage:
+//   - Used on all pages with a navigation bar and mobile menu
+// Key Concepts:
+//   - Event listeners
+//   - ARIA accessibility
+//   - Focus trapping
+//   - Cypress testing hooks
+// -------------------------------------------------------------
 
 // Main function to initialize navigation and menu toggle
 export function initializeNavigation() {
@@ -20,8 +34,11 @@ export function initializeNavigation() {
   btnClose.setAttribute('aria-expanded', 'true'); // Close button hidden by default
 
   // Add event listener to open button: shows menu and hides logo
+
   btnOpen.addEventListener('click', function () {
-    menuTopNav.classList.add('menu--open'); // Show the menu by adding class
+    menuTopNav.setAttribute('data-open', 'true'); // Show the menu by data attribute
+    menuTopNav.removeAttribute('inert'); // Make menu interactive
+    menuTopNav.setAttribute('aria-hidden', 'false');
     btnOpen.style.display = 'none'; // Hide the open (hamburger) button
     btnClose.style.display = 'block'; // Show the close button
     if (logo) logo.classList.add('logo--hidden'); // Hide the logo when menu is open
@@ -31,7 +48,9 @@ export function initializeNavigation() {
 
   // Add event listener to close button: hides menu and shows logo
   btnClose.addEventListener('click', function () {
-    menuTopNav.classList.remove('menu--open'); // Hide the menu by removing class
+    menuTopNav.removeAttribute('data-open'); // Hide the menu by removing data attribute
+    menuTopNav.setAttribute('inert', ''); // Make menu non-interactive
+    menuTopNav.setAttribute('aria-hidden', 'true');
     btnOpen.style.display = 'block'; // Show the open (hamburger) button
     btnClose.style.display = 'none'; // Hide the close button
     if (logo) logo.classList.remove('logo--hidden'); // Show the logo when menu is closed
@@ -40,7 +59,7 @@ export function initializeNavigation() {
   });
 
   // Set initial state: menu hidden, open button visible, close button hidden
-  menuTopNav.classList.remove('menu--open'); // Ensure menu is hidden on load
+  menuTopNav.removeAttribute('data-open'); // Ensure menu is hidden on load
   btnOpen.style.display = 'block'; // Show open button on load
   btnClose.style.display = 'none'; // Hide close button on load
 
@@ -71,12 +90,8 @@ const bodyScrollLock = window.bodyScrollLock;
 // Utility function: Waits for both the DOM and CSS to be loaded before running a callback
 function waitForCSSAndDOM(callback) {
   function checkReady() {
-    const domReady =
-      document.readyState === 'complete' ||
-      document.readyState === 'interactive';
-    const cssReady =
-      document.documentElement.classList.contains('css-loaded') ||
-      window.mainCSSLoaded;
+    const domReady = document.readyState === 'complete' || document.readyState === 'interactive';
+    const cssReady = document.documentElement.classList.contains('css-loaded') || window.mainCSSLoaded;
     if (domReady && cssReady) {
       requestAnimationFrame(() => {
         requestAnimationFrame(callback);
@@ -135,7 +150,7 @@ function setupTopNav() {
 function handleNavLinkClick() {
   // If on mobile (breakpoint matches), close menu when a nav link is clicked
   if (breakpoint.matches) {
-    menuTopNav.classList.remove('menu--open'); // Hide menu
+    menuTopNav.removeAttribute('data-open'); // Hide menu
     btnOpen.style.display = 'block'; // Show open button
     btnClose.style.display = 'none'; // Hide close button
     const logo = document.querySelector('.topnav__logo'); // Get logo
@@ -160,14 +175,7 @@ initializeApp();
 // Trap focus within a container (menu) while open (for accessibility)
 function trapFocus(container, onClose) {
   // Selectors for all focusable elements
-  const focusableSelectors = [
-    'a[href]',
-    'button:not([disabled])',
-    'input:not([disabled])',
-    'select:not([disabled])',
-    'textarea:not([disabled])',
-    '[tabindex]:not([tabindex="-1"])',
-  ];
+  const focusableSelectors = ['a[href]', 'button:not([disabled])', 'input:not([disabled])', 'select:not([disabled])', 'textarea:not([disabled])', '[tabindex]:not([tabindex="-1"])'];
   // Get all focusable elements in the container
   const focusableEls = container.querySelectorAll(focusableSelectors.join(','));
   if (!focusableEls.length) return;
@@ -192,9 +200,7 @@ function trapFocus(container, onClose) {
     }
     // Arrow keys: move focus up/down between items
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-      const items = Array.from(
-        container.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])')
-      );
+      const items = Array.from(container.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])'));
       const idx = items.indexOf(document.activeElement);
       if (items.length) {
         let nextIdx = idx;
@@ -239,7 +245,7 @@ function handleGlobalKeydown(e) {
   if (e.key === 'Escape') {
     if (btnOpen && btnOpen.style.display === 'none') {
       // If menu is open (open button hidden), close it
-      menuTopNav.classList.remove('menu--open');
+      menuTopNav.removeAttribute('data-open');
       btnOpen.style.display = 'block';
       btnClose.style.display = 'none';
       btnOpen.focus();

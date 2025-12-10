@@ -21,6 +21,22 @@ form.addEventListener('submit', function (e) {
   // Call our custom function to send the data
   sendData();
 });
+// -------------------------------------------------------------
+// Alien Abduction Form Handler
+// -------------------------------------------------------------
+// Purpose: Handles the "Alien Abduction" form submission using JavaScript.
+// Features:
+//   - Prevents default form submission (no page reload)
+//   - Collects and encodes form data
+//   - Sends data via AJAX (XMLHttpRequest)
+//   - Provides user feedback on success/error
+// -------------------------------------------------------------
+// Key Concepts:
+//   - Event listeners
+//   - Prevent default
+//   - AJAX requests
+//   - Data encoding and escaping
+// -------------------------------------------------------------
 
 // Function to collect form data and send it using AJAX
 // Utility: Escape HTML to prevent XSS
@@ -45,24 +61,15 @@ function sendData() {
   var urlEncodedDataPairs = [];
 
   // Collect each form field and encode its value
-  urlEncodedDataPairs.push(
-    encodeURIComponent('name') + '=' + encodeURIComponent(form.querySelector("[name='name']").value)
-  );
-  urlEncodedDataPairs.push(
-    encodeURIComponent('send_to') + '=' + encodeURIComponent(form.querySelector("[name='send_to']").value)
-  );
-  urlEncodedDataPairs.push(
-    encodeURIComponent('email') + '=' + encodeURIComponent(form.querySelector("[name='email']").value)
-  );
-  urlEncodedDataPairs.push(
-    encodeURIComponent('phone') + '=' + encodeURIComponent(form.querySelector("[name='phone']").value)
-  );
-  urlEncodedDataPairs.push(
-    encodeURIComponent('date') + '=' + encodeURIComponent(form.querySelector("[name='date']").value)
-  );
-  urlEncodedDataPairs.push(
-    encodeURIComponent('qty') + '=' + encodeURIComponent(form.querySelector("[name='qty']").value)
-  );
+  urlEncodedDataPairs.push(encodeURIComponent('name') + '=' + encodeURIComponent(form.querySelector("[name='name']").value));
+  urlEncodedDataPairs.push(encodeURIComponent('send_to') + '=' + encodeURIComponent(form.querySelector("[name='send_to']").value));
+  // Main Form Submission Logic
+  // ------------------------------
+  // Collects form data, encodes it, and sends via AJAX
+  urlEncodedDataPairs.push(encodeURIComponent('email') + '=' + encodeURIComponent(form.querySelector("[name='email']").value));
+  urlEncodedDataPairs.push(encodeURIComponent('phone') + '=' + encodeURIComponent(form.querySelector("[name='phone']").value));
+  urlEncodedDataPairs.push(encodeURIComponent('date') + '=' + encodeURIComponent(form.querySelector("[name='date']").value));
+  urlEncodedDataPairs.push(encodeURIComponent('qty') + '=' + encodeURIComponent(form.querySelector("[name='qty']").value));
 
   // Collect radio button value for 'ufotype'
   let radio = document.getElementsByName('ufotype');
@@ -74,15 +81,9 @@ function sendData() {
 
   // dropdown menu
   var dropdown = form.querySelector("[name='abtype']");
-  urlEncodedDataPairs.push(
-    encodeURIComponent('abtype') + '=' + encodeURIComponent(dropdown.options[dropdown.selectedIndex].text)
-  );
-  urlEncodedDataPairs.push(
-    encodeURIComponent('comments') + '=' + encodeURIComponent(form.querySelector("[name='comments']").value)
-  );
-  urlEncodedDataPairs.push(
-    encodeURIComponent('subscribe') + '=' + encodeURIComponent(form.querySelector("[name='subscribe']").checked)
-  );
+  urlEncodedDataPairs.push(encodeURIComponent('abtype') + '=' + encodeURIComponent(dropdown.options[dropdown.selectedIndex].text));
+  urlEncodedDataPairs.push(encodeURIComponent('comments') + '=' + encodeURIComponent(form.querySelector("[name='comments']").value));
+  urlEncodedDataPairs.push(encodeURIComponent('subscribe') + '=' + encodeURIComponent(form.querySelector("[name='subscribe']").checked));
 
   // Combine the pairs into a single string and replace all %-encoded spaces to
   // the '+' character; matches the behaviour of browser form submissions.

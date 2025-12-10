@@ -1,19 +1,20 @@
-// ------------------------------------------------------------
-// BEGINNER-FRIENDLY EXPLANATORY COMMENTS
-// ------------------------------------------------------------
-// COMPONENT INJECTION SYSTEM
-// This file creates reusable header and footer templates that get injected
-// into pages dynamically. This lets you maintain headers/footers in one place
-// instead of copying HTML to every page.
-//
-// Used by: calculator.html and other component-based pages
-// Not used by: index.html (uses static HTML)
-//
-// Key concepts:
-// - Component injection: Dynamically adds shared sections (header/footer) to pages.
-// - Navigation configs: Different sets of navigation links for different pages.
-// - Reusability: Change header/footer in one file and update all pages at once.
-// ------------------------------------------------------------
+// -------------------------------------------------------------
+// UI Component Injection System
+// -------------------------------------------------------------
+// Purpose: Dynamically injects reusable header and footer templates into pages.
+// Features:
+//   - Centralizes header/footer management for all component-based pages
+//   - Supports navigation configs and breadcrumbs for different page types
+//   - Enables easy updates to shared UI sections
+// Usage:
+//   - Used by: calculator.html, portfolio.html, and other component-based pages
+//   - Not used by: index.html (uses static HTML)
+// Key Concepts:
+//   - Component injection
+//   - Navigation configuration
+//   - Breadcrumb navigation
+//   - Reusability and maintainability
+// -------------------------------------------------------------
 
 // ------------------------------------------------------------
 // NAVIGATION CONFIGURATION

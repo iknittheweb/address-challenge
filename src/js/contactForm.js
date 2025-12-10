@@ -1,6 +1,19 @@
-// contactForm.js
-// Handles contact form validation and AJAX submission to Formspree
-// contactForm.js (ES module)
+// -------------------------------------------------------------
+// Contact Form Handler (ES module)
+// -------------------------------------------------------------
+// Purpose: Handles contact form validation and AJAX submission to Formspree.
+// Features:
+//   - Validates name, email, and message fields with custom error messages
+//   - Submits form data via AJAX to Formspree
+//   - Provides user feedback and accessibility for errors and success
+// Usage:
+//   - Used on contact pages to provide robust, accessible form handling
+// Key Concepts:
+//   - Field validation
+//   - Custom error messaging
+//   - AJAX form submission
+//   - Accessibility (ARIA roles, screen reader announcements)
+// -------------------------------------------------------------
 function waitForCSSAndDOM(callback) {
   function checkReady() {
     const domReady = document.readyState === 'complete' || document.readyState === 'interactive';
@@ -182,12 +195,7 @@ function showSubmissionSuccess() {
   }, 5000);
 }
 function escapeHTML(str) {
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 function showSubmissionError(message) {
   const errorMessage = document.createElement('div');

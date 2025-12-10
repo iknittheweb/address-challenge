@@ -1,6 +1,20 @@
-// skillsChart.js
-// Handles interactive skills chart functionality
-// skillsChart.js (ES module)
+// -------------------------------------------------------------
+// Skills Chart Handler (ES module)
+// -------------------------------------------------------------
+// Purpose: Handles interactive skills chart functionality for portfolio pages.
+// Features:
+//   - Tabbed navigation for skill categories
+//   - Accessible ARIA roles and keyboard navigation
+//   - Animated progress bars for skill levels
+//   - Screen reader announcements for expanded sections
+// Usage:
+//   - Used on portfolio pages with interactive skills charts
+// Key Concepts:
+//   - Tablist accessibility
+//   - ARIA roles and attributes
+//   - Keyboard navigation
+//   - Animated progress bars
+// -------------------------------------------------------------
 function announceToScreenReader(message) {
   const announcement = document.createElement('div');
   announcement.setAttribute('aria-live', 'polite');
@@ -27,13 +41,17 @@ function initializeSkillsChart() {
   skillsChart.setAttribute('role', 'tablist');
   tabs.forEach((tab, index) => {
     tab.setAttribute('role', 'tab');
-    tab.setAttribute('aria-selected', tab.classList.contains('skills-chart__tab--active') ? 'true' : 'false');
-    tab.setAttribute('tabindex', tab.classList.contains('skills-chart__tab--active') ? '0' : '-1');
+    tab.setAttribute('aria-selected', tab.getAttribute('data-active') === 'true' ? 'true' : 'false');
+    tab.setAttribute('tabindex', tab.getAttribute('data-active') === 'true' ? '0' : '-1');
     tab.setAttribute('aria-controls', `skills-category-${index}`);
     categories[index].setAttribute('role', 'tabpanel');
     categories[index].setAttribute('id', `skills-category-${index}`);
     categories[index].setAttribute('aria-labelledby', tab.id || `skills-tab-${index}`);
     if (!tab.id) tab.id = `skills-tab-${index}`;
+    // Set initial state
+    tab.setAttribute('data-active', 'false');
+    categories[index].setAttribute('data-active', 'false');
+    categories[index].setAttribute('aria-hidden', 'true');
   });
 
   // ARIA for progress bars
@@ -51,19 +69,21 @@ function initializeSkillsChart() {
   // Tab click and keyboard navigation
   tabs.forEach((tab, index) => {
     tab.addEventListener('click', () => {
-      // If this tab is already active, close all tabs (toggle off)
-      if (tab.classList.contains('skills-chart__tab--active')) {
+      // Toggle open/close for this tab, only one open at a time
+      if (tab.getAttribute('data-active') === 'true') {
         closeAllTabs();
       } else {
+        closeAllTabs();
         activateTab(index);
       }
     });
     tab.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        if (tab.classList.contains('skills-chart__tab--active')) {
+        if (tab.getAttribute('data-active') === 'true') {
           closeAllTabs();
         } else {
+          closeAllTabs();
           activateTab(index);
         }
       }
@@ -71,13 +91,11 @@ function initializeSkillsChart() {
         e.preventDefault();
         const next = (index + 1) % tabs.length;
         tabs[next].focus();
-        activateTab(next);
       }
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
         const prev = (index - 1 + tabs.length) % tabs.length;
         tabs[prev].focus();
-        activateTab(prev);
       }
     });
   });
@@ -91,11 +109,11 @@ function initializeSkillsChart() {
 
   function closeAllTabs() {
     tabs.forEach((tab, i) => {
-      tab.classList.remove('skills-chart__tab--active');
+      tab.setAttribute('data-active', 'false');
       tab.setAttribute('aria-selected', 'false');
-      tab.setAttribute('tabindex', '-1');
+      tab.setAttribute('tabindex', '0');
       tab.setAttribute('aria-expanded', 'false');
-      categories[i].classList.remove('skills-chart__category--active');
+      categories[i].setAttribute('data-active', 'false');
       categories[i].setAttribute('aria-hidden', 'true');
     });
   }
@@ -103,11 +121,10 @@ function initializeSkillsChart() {
   function activateTab(activeIndex) {
     tabs.forEach((tab, i) => {
       if (i === activeIndex) {
-        tab.classList.add('skills-chart__tab--active');
+        tab.setAttribute('data-active', 'true');
         tab.setAttribute('aria-selected', 'true');
-        tab.setAttribute('tabindex', '0');
         tab.setAttribute('aria-expanded', 'true');
-        categories[i].classList.add('skills-chart__category--active');
+        categories[i].setAttribute('data-active', 'true');
         categories[i].setAttribute('aria-hidden', 'false');
         announceToScreenReader(`${tab.querySelector('.skills-chart__tab-text').textContent} section expanded`);
         // Animate progress bars
@@ -125,11 +142,10 @@ function initializeSkillsChart() {
           });
         }, 100);
       } else {
-        tab.classList.remove('skills-chart__tab--active');
+        tab.setAttribute('data-active', 'false');
         tab.setAttribute('aria-selected', 'false');
-        tab.setAttribute('tabindex', '-1');
         tab.setAttribute('aria-expanded', 'false');
-        categories[i].classList.remove('skills-chart__category--active');
+        categories[i].setAttribute('data-active', 'false');
         categories[i].setAttribute('aria-hidden', 'true');
       }
     });
@@ -140,9 +156,7 @@ function initializeSkillsChart() {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const activeBars = entry.target.querySelectorAll(
-            '.skills-chart__category--active .skills-chart__progress-fill'
-          );
+          const activeBars = entry.target.querySelectorAll('.skills-chart__category--active .skills-chart__progress-fill');
           activeBars.forEach((bar) => {
             const level = bar.getAttribute('data-level');
             bar.style.width = level + '%';
