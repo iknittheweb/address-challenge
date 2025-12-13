@@ -89,9 +89,10 @@ files.forEach((filePath) => {
   const content = fs.readFileSync(filePath, 'utf8');
   const matches = [...content.matchAll(/{{([A-Z0-9_]+)}}/g)];
   const placeholders = matches.map((m) => m[1]);
-  // Use relative file path for output clarity
+  // Use base filename (before any dot) for section key
   const relFile = path.relative(workspaceDir, filePath);
-  placeholderMap[relFile] = Array.from(new Set(placeholders));
+  const baseSection = path.basename(relFile).split('.')[0];
+  placeholderMap[baseSection] = Array.from(new Set([...(placeholderMap[baseSection] || []), ...placeholders]));
 });
 
 // Helper to generate values for each placeholder
@@ -157,14 +158,12 @@ envFiles.forEach((env) => {
     existing = header + '\n';
   }
 
-  // Parse existing file into sections by page
-  const sectionRegex = /^#\s*(.+\.template\.html)\s*$/gm;
-  let match;
+  // Parse existing file into sections by base page name
   const sections = {};
   let lastSection = null;
   let lines = existing.split(/\r?\n/);
   lines.forEach((line) => {
-    const secMatch = line.match(/^#\s*(.+\.template\.html)\s*$/);
+    const secMatch = line.match(/^#\s*([A-Za-z0-9_-]+)\s*$/);
     if (secMatch) {
       lastSection = secMatch[1];
       if (!sections[lastSection]) sections[lastSection] = [];
@@ -175,28 +174,24 @@ envFiles.forEach((env) => {
   });
 
   // For each template, add missing keys to its section
-  Object.entries(placeholderMap).forEach(([file, keys]) => {
-    const page = file.replace('.template.html', '');
-    if (!sections[file]) {
+  Object.entries(placeholderMap).forEach(([baseSection, keys]) => {
+    const page = baseSection;
+    if (!sections[baseSection]) {
       // Section doesn't exist, create it
-      sections[file] = [`# ${file}`];
+      sections[baseSection] = [`# ${baseSection}`];
     }
-    const existingKeys = new Set(sections[file].filter((l) => l.match(/^([A-Z0-9_]+)=/)).map((l) => l.split('=')[0]));
+    const existingKeys = new Set(sections[baseSection].filter((l) => l.match(/^([A-Z0-9_]+)=/)).map((l) => l.split('=')[0]));
     keys.forEach((key) => {
       if (key === 'HEADER' || key === 'FOOTER') return;
       const pageSpecificKey = (() => {
-        const baseName = path
-          .basename(page)
-          .replace(/\.html$/, '')
-          .replace(/[^A-Za-z0-9]/g, '-')
-          .toUpperCase();
+        const baseName = page.replace(/[^A-Za-z0-9]/g, '-').toUpperCase();
         if (['TITLE', 'DESCRIPTION', 'KEYWORDS', 'ROBOTS', 'CANONICAL_URL', 'OG_IMAGE', 'OG_URL', 'OG_TYPE', 'TWITTER_CARD', 'TWITTER_TITLE', 'TWITTER_DESCRIPTION', 'GOOGLE_FONTS_LINK', 'SCHEMA_JSON', 'SUBTITLE', 'NAV_CONFIG', 'BREADCRUMB_CATEGORY', 'BREADCRUMB_CATEGORY_URL', 'PAGE_NAME'].includes(key)) {
           return `${baseName}_${key}`;
         }
         return key;
       })();
       if (!existingKeys.has(pageSpecificKey)) {
-        sections[file].push(`${pageSpecificKey}=${autoValue(pageSpecificKey, page, env)}`);
+        sections[baseSection].push(`${pageSpecificKey}=${autoValue(pageSpecificKey, page, env)}`);
       }
     });
   });

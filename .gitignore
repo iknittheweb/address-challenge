@@ -204,3 +204,5 @@ github-pages.zip
 github-pages/
 
 .nojekyll
+
+copilot-chat-log-*.md
