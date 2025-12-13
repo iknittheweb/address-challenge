@@ -28,20 +28,18 @@
   --secondary-bg-pale: #a8d4a5; // Muted pale green for better text readability
 
   // Backgrounds
+  --skills-chart-bg: rgba(255, 255, 255, 0.6);
+  --skills-chart-bg-light: rgba(255, 255, 255, 0.8);
+  --skills-chart-bg-gradient: linear-gradient(180deg, var(--primary-bg-light), var(--secondary-bg-light));
   --light-bg: #e1dede; // Light neutral background
   --mid-bg: #666; // Medium gray background
   --dark-bg: #000000; // Pure black for dark mode backgrounds
-  --basic-vertical-navbar-title-bg-gradient: linear-gradient(
-    to bottom,
-    #fff,
-    #eb3b5a,
-    #eb3b5a,
-    #eb3b5a
-  );
+  --basic-vertical-navbar-title-bg-gradient: linear-gradient(to bottom, #fff, #eb3b5a, #eb3b5a, #eb3b5a);
 
   // Borders
   --primary-border: #500f44; // Deep purple border
   --primary-border-mid: #751c7d; // Medium purple border
+  --primary-border-light: #c642cf; // Light purple for highlights
   --light-border: #e1dede; // Light neutral border
   --primary-bright-error-border: #c642cf; // Bright for error messages on dark backgrounds
   --alt-border: #eb3b5a; // Bright for error messages on dark backgrounds
@@ -62,9 +60,7 @@
 
   // Topnav
   --light-overlay: hsl(0deg 0% 42% / 50%); // Semi-transparent gray overlay
-  --menu-overlay: hsl(
-    0deg 0% 0% / 70%
-  ); // Dark overlay for mobile menu (70% opacity)
+  --menu-overlay: hsl(0deg 0% 0% / 70%); // Dark overlay for mobile menu (70% opacity)
   --primary-gradient-light: #c642cf; // Light purple maintaining original lightness
   --secondary-gradient-light: #42c439; // Bright green maintaining original lightness
 
@@ -102,9 +98,7 @@
   --primary-glow: #c642cf; // Light purple glow effect
 
   // Skills Chart
-  --skills-tab-inactive-bg: rgb(
-    255 255 255 / 5%
-  ); // Subtle background for inactive tabs
+  --skills-tab-inactive-bg: rgb(255 255 255 / 5%); // Subtle background for inactive tabs
   --skills-tab-inactive-text-opacity: 0.7; // Opacity for inactive tab text
   --skills-tab-hover-opacity: 0.9; // Opacity for tab hover state
 }

@@ -69,6 +69,13 @@
     height: f.rem(120);
     vertical-align: top; // Align logo top with menu top
     flex-shrink: 0; // logo stays its size
+
+    &--mobile {
+      @include m.breakpoint-down('699.98') {
+        width: f.rem(160);
+        height: f.rem(160);
+      }
+    }
   }
 
   // Hide logo when menu is open (JS toggles .logo--hidden)
@@ -215,6 +222,7 @@
       cursor: pointer;
       text-decoration: none;
       color: var(--light-text);
+      font-size: f.rem(32);
       &:hover,
       &:focus {
         text-decoration: none;
