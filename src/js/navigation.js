@@ -18,70 +18,98 @@
 // Main function to initialize navigation and menu toggle
 export function initializeNavigation() {
   // Get references to navigation elements
-  btnOpen = document.querySelector('#btnOpen'); // Get the hamburger (open) button by its ID
-  btnClose = document.querySelector('#btnClose'); // Get the close button by its ID
-  const toggleContainer = btnOpen?.closest('.topnav__toggle'); // Get the container that holds both toggle buttons (not used directly here)
-  menuTopNav = document.querySelector('#menuTopNav'); // Get the navigation menu container by its ID
-  main = document.querySelector('#main-content'); // Get the main content area by its ID
-  footer = document.querySelector('footer'); // Get the footer element
-  if (!btnOpen || !btnClose || !menuTopNav) return false; // If any required element is missing, stop initialization
-
-  // Get the logo element (used to hide/show logo when menu is open)
+  btnOpen = document.querySelector('#btnOpen');
+  btnClose = document.querySelector('#btnClose');
+  menuTopNav = document.querySelector('#menuTopNav');
+  main = document.querySelector('#main-content');
+  footer = document.querySelector('footer');
+  const overlay = document.getElementById('overlay');
+  if (!btnOpen || !btnClose || !menuTopNav) return false;
+  // Add all event listeners only after menuTopNav is defined
+  // Focus trap inside menu when open
+  menuTopNav.addEventListener('keydown', function (e) {
+    if (btnOpen && btnOpen.style.display === 'none') {
+      const focusable = menuTopNav.querySelectorAll('a, button, input, [tabindex]:not([tabindex="-1"])');
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.key === 'Tab') {
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+    }
+  });
   const logo = document.querySelector('.topnav__logo');
-
-  // Set initial ARIA attributes for accessibility
-  btnOpen.setAttribute('aria-expanded', 'false'); // Menu is closed by default
-  btnClose.setAttribute('aria-expanded', 'true'); // Close button hidden by default
-
-  // Add event listener to open button: shows menu and hides logo
-
+  // Set initial ARIA attributes
+  btnOpen.setAttribute('aria-expanded', 'false');
+  btnClose.setAttribute('aria-expanded', 'false');
+  menuTopNav.setAttribute('aria-hidden', 'true');
+  menuTopNav.setAttribute('inert', '');
+  if (overlay) overlay.setAttribute('aria-hidden', 'true');
+  // Open menu
   btnOpen.addEventListener('click', function () {
-    menuTopNav.setAttribute('data-open', 'true'); // Show the menu by data attribute
-    menuTopNav.removeAttribute('inert'); // Make menu interactive
+    menuTopNav.setAttribute('data-open', 'true');
+    menuTopNav.removeAttribute('inert');
     menuTopNav.setAttribute('aria-hidden', 'false');
-    btnOpen.style.display = 'none'; // Hide the open (hamburger) button
-    btnClose.style.display = 'block'; // Show the close button
-    if (logo) logo.classList.add('logo--hidden'); // Hide the logo when menu is open
-    btnOpen.setAttribute('aria-expanded', 'true'); // Update ARIA for accessibility
-    btnClose.setAttribute('aria-expanded', 'true'); // Update ARIA for accessibility
+    btnOpen.style.display = 'none';
+    btnClose.style.display = 'block';
+    if (logo) logo.classList.add('logo--hidden');
+    btnOpen.setAttribute('aria-expanded', 'true');
+    btnClose.setAttribute('aria-expanded', 'true');
+    if (overlay) overlay.setAttribute('aria-hidden', 'false');
+    if (typeof disableBodyScroll === 'function') disableBodyScroll(menuTopNav);
+    announceToScreenReader('Menu opened');
+    trapFocus(menuTopNav, closeMenu);
   });
-
-  // Add event listener to close button: hides menu and shows logo
-  btnClose.addEventListener('click', function () {
-    menuTopNav.removeAttribute('data-open'); // Hide the menu by removing data attribute
-    menuTopNav.setAttribute('inert', ''); // Make menu non-interactive
+  // Close menu
+  function closeMenu() {
+    menuTopNav.removeAttribute('data-open');
+    menuTopNav.setAttribute('inert', '');
     menuTopNav.setAttribute('aria-hidden', 'true');
-    btnOpen.style.display = 'block'; // Show the open (hamburger) button
-    btnClose.style.display = 'none'; // Hide the close button
-    if (logo) logo.classList.remove('logo--hidden'); // Show the logo when menu is closed
-    btnOpen.setAttribute('aria-expanded', 'false'); // Update ARIA for accessibility
-    btnClose.setAttribute('aria-expanded', 'false'); // Update ARIA for accessibility
-  });
-
-  // Set initial state: menu hidden, open button visible, close button hidden
-  menuTopNav.removeAttribute('data-open'); // Ensure menu is hidden on load
-  btnOpen.style.display = 'block'; // Show open button on load
-  btnClose.style.display = 'none'; // Hide close button on load
-
+    btnOpen.style.display = 'block';
+    btnClose.style.display = 'none';
+    if (logo) logo.classList.remove('logo--hidden');
+    btnOpen.setAttribute('aria-expanded', 'false');
+    btnClose.setAttribute('aria-expanded', 'false');
+    if (overlay) overlay.setAttribute('aria-hidden', 'true');
+    if (typeof enableBodyScroll === 'function') enableBodyScroll(menuTopNav);
+    btnOpen.focus();
+    announceToScreenReader('Menu closed');
+  }
+  btnClose.addEventListener('click', closeMenu);
+  if (overlay) overlay.addEventListener('click', closeMenu);
+  // Set initial state
+  menuTopNav.removeAttribute('data-open');
+  btnOpen.style.display = 'block';
+  btnClose.style.display = 'none';
+  if (overlay) overlay.setAttribute('aria-hidden', 'true');
   // Remove any previous global keydown listeners, then add new one for Escape key
-  document.removeEventListener('keydown', handleGlobalKeydown); // Cleanup
-  document.addEventListener('keydown', handleGlobalKeydown); // Add new listener
-
+  document.removeEventListener('keydown', handleGlobalKeydown);
+  document.addEventListener('keydown', function (e) {
+    if (btnOpen.style.display === 'none' && e.key === 'Escape') {
+      e.preventDefault();
+      closeMenu();
+    }
+  });
   // Add click listeners to each nav link to close menu on mobile
   menuTopNav.querySelectorAll('a').forEach((link) => {
-    link.removeEventListener('click', handleNavLinkClick); // Cleanup
-    link.addEventListener('click', handleNavLinkClick); // Add new listener
+    link.removeEventListener('click', handleNavLinkClick);
+    link.addEventListener('click', handleNavLinkClick);
   });
-
   // Set up accessibility attributes for menu (inert, aria-hidden)
   setupTopNav();
-
-  // Mark navigation as initialized for testing and state tracking
   navigationInitialized = true;
   window.navigationTestState.initialized = true;
-
-  // No header auto-hide scroll logic in minimal menu
-  return true; // Initialization successful
+  return true;
 }
 
 // Get the bodyScrollLock library from the global window object

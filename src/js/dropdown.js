@@ -8,9 +8,7 @@
 //   - Focus trapping for keyboard navigation
 //   - Cypress test state exposure
 // Usage:
-//   - Used on pages with interactive dropdown menus
-// Key Concepts:
-//   - Event listeners
+initializeDropdown();
 //   - ARIA accessibility
 //   - Focus management
 //   - Cypress testing hooks
@@ -25,63 +23,21 @@ function initializeDropdown() {
     const dropdownTitleGroup = dropdown.querySelector('.dropdown__title-group');
     const dropdownContent = dropdown.querySelector('.dropdown__content');
     if (!dropdownTitleGroup || !dropdownContent) return;
-    dropdownTitleGroup.setAttribute('data-cy', 'dropdown-trigger');
-    dropdownContent.setAttribute('data-cy', 'dropdown-content');
     // ARIA roles and relationships
     dropdownTitleGroup.setAttribute('role', 'button');
     dropdownTitleGroup.setAttribute('aria-controls', 'dropdown-content');
     dropdownTitleGroup.setAttribute('tabindex', '0');
     dropdownTitleGroup.setAttribute('id', 'dropdown-title-group');
+    dropdownTitleGroup.setAttribute('aria-expanded', 'false');
     dropdownContent.setAttribute('role', 'menu');
     dropdownContent.setAttribute('id', 'dropdown-content');
     dropdownContent.setAttribute('aria-labelledby', 'dropdown-title-group');
     dropdownContent.setAttribute('aria-hidden', 'true');
-    dropdownTitleGroup.setAttribute('data-open', 'false');
-    dropdownContent.setAttribute('data-open', 'false');
     let lastTrigger = null;
-
-    dropdownTitleGroup.addEventListener('click', function (e) {
-      e.stopPropagation();
-      const isOpen = dropdownContent.getAttribute('data-open') === 'true';
-      toggleDropdown();
-    });
-    document.addEventListener('click', function (e) {
-      if (dropdownContent.getAttribute('data-open') !== 'true') return;
-      if (dropdownContent.contains(e.target) || dropdownTitleGroup.contains(e.target)) return;
-      closeDropdown();
-    });
-    dropdownTitleGroup.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleDropdown();
-      }
-      if (e.key === 'Escape') {
-        closeDropdown();
-      }
-      if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && dropdownContent.getAttribute('data-open') === 'true') {
-        e.preventDefault();
-        const items = dropdownContent.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
-        if (items.length) {
-          if (e.key === 'ArrowDown') {
-            items[0].focus();
-          } else {
-            items[items.length - 1].focus();
-          }
-        }
-      }
-    });
-    function toggleDropdown() {
-      const isOpen = dropdownContent.getAttribute('data-open') === 'true';
-      if (isOpen) {
-        closeDropdown();
-      } else {
-        openDropdown();
-      }
-    }
     function openDropdown() {
-      dropdownContent.setAttribute('data-open', 'true');
+      dropdownContent.classList.add('show');
       dropdownContent.setAttribute('aria-hidden', 'false');
-      dropdownTitleGroup.setAttribute('data-open', 'true');
+      dropdownTitleGroup.classList.add('dropdown-open');
       dropdownTitleGroup.setAttribute('aria-expanded', 'true');
       lastTrigger = dropdownTitleGroup;
       trapFocus(dropdownContent, closeDropdown);
@@ -91,21 +47,66 @@ function initializeDropdown() {
         const items = dropdownContent.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
         if (items.length) {
           items[0].focus();
-          items[0].setAttribute('data-cy', 'dropdown-first-item');
         }
-        dropdownContent.style.opacity = '1';
       }, 10);
     }
     function closeDropdown() {
-      dropdownContent.setAttribute('data-open', 'false');
+      dropdownContent.classList.remove('show');
       dropdownContent.setAttribute('aria-hidden', 'true');
-      dropdownTitleGroup.setAttribute('data-open', 'false');
+      dropdownTitleGroup.classList.remove('dropdown-open');
       dropdownTitleGroup.setAttribute('aria-expanded', 'false');
-      dropdownContent.removeAttribute('style');
       window.dropdownTestState.isOpen = false;
       window.dropdownTestState.focusTrapActive = false;
       if (lastTrigger) lastTrigger.focus();
     }
+    function toggleDropdown(forceOpen) {
+      const isOpen = dropdownContent.classList.contains('show');
+      if (forceOpen === true || !isOpen) {
+        openDropdown();
+      } else {
+        closeDropdown();
+      }
+    }
+    dropdownTitleGroup.addEventListener('click', () => {
+      lastTrigger = document.activeElement;
+      toggleDropdown();
+    });
+    dropdownTitleGroup.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        lastTrigger = document.activeElement;
+        toggleDropdown();
+      }
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeDropdown();
+      }
+    });
+    // Trap focus inside dropdown when open
+    dropdownContent.addEventListener('keydown', (e) => {
+      if (!dropdownContent.classList.contains('show')) return;
+      if (e.key === 'Tab') {
+        const focusable = dropdownContent.querySelectorAll('a, button, input, [tabindex]:not([tabindex="-1"])');
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeDropdown();
+      }
+    });
   });
 
   // Trap focus within dropdown menu
@@ -115,8 +116,6 @@ function initializeDropdown() {
     if (!focusableEls.length) return;
     const firstEl = focusableEls[0];
     const lastEl = focusableEls[focusableEls.length - 1];
-    firstEl.setAttribute('data-cy', 'dropdown-first-item');
-    lastEl.setAttribute('data-cy', 'dropdown-last-item');
     function focusHandler(e) {
       if (e.key === 'Tab') {
         if (e.shiftKey) {
@@ -133,21 +132,6 @@ function initializeDropdown() {
       }
       if (e.key === 'Escape') {
         if (typeof onClose === 'function') onClose();
-      }
-      // Arrow key navigation inside dropdown
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        const items = Array.from(container.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])'));
-        const idx = items.indexOf(document.activeElement);
-        if (items.length) {
-          let nextIdx = idx;
-          if (e.key === 'ArrowDown') {
-            nextIdx = (idx + 1) % items.length;
-          } else if (e.key === 'ArrowUp') {
-            nextIdx = (idx - 1 + items.length) % items.length;
-          }
-          items[nextIdx].focus();
-          e.preventDefault();
-        }
       }
     }
     container.addEventListener('keydown', focusHandler);

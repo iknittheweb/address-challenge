@@ -37,21 +37,49 @@ function initializeSkillsChart() {
   const categories = skillsChart.querySelectorAll('.skills-chart__category');
   const progressBars = skillsChart.querySelectorAll('.skills-chart__progress-fill');
 
+  // Set initial state: first tab/category active, rest inactive
+  tabs.forEach((tab, i) => {
+    if (i === 0) {
+      tab.setAttribute('data-active', 'true');
+      tab.setAttribute('aria-selected', 'true');
+      tab.setAttribute('aria-expanded', 'true');
+      tab.setAttribute('tabindex', '0');
+      tab.classList.add('skills-chart__tab--active');
+      categories[i].setAttribute('data-active', 'true');
+      categories[i].setAttribute('aria-hidden', 'false');
+      categories[i].classList.add('skills-chart__category--active');
+    } else {
+      tab.setAttribute('data-active', 'false');
+      tab.setAttribute('aria-selected', 'false');
+      tab.setAttribute('aria-expanded', 'false');
+      tab.setAttribute('tabindex', '-1');
+      tab.classList.remove('skills-chart__tab--active');
+      categories[i].setAttribute('data-active', 'false');
+      categories[i].setAttribute('aria-hidden', 'true');
+      categories[i].classList.remove('skills-chart__category--active');
+    }
+  });
+  // Set ARIA for progress bars on init
+  skillsChart.querySelectorAll('.skills-chart__progress-bar').forEach((bar) => {
+    bar.setAttribute('role', 'progressbar');
+    bar.setAttribute('aria-valuemin', '0');
+    bar.setAttribute('aria-valuemax', '100');
+    const fill = bar.querySelector('.skills-chart__progress-fill');
+    if (fill) {
+      const level = fill.getAttribute('data-level');
+      bar.setAttribute('aria-valuenow', level);
+    }
+  });
+
   // ARIA roles for tablist, tab, tabpanel
   skillsChart.setAttribute('role', 'tablist');
   tabs.forEach((tab, index) => {
     tab.setAttribute('role', 'tab');
-    tab.setAttribute('aria-selected', tab.getAttribute('data-active') === 'true' ? 'true' : 'false');
-    tab.setAttribute('tabindex', tab.getAttribute('data-active') === 'true' ? '0' : '-1');
     tab.setAttribute('aria-controls', `skills-category-${index}`);
     categories[index].setAttribute('role', 'tabpanel');
     categories[index].setAttribute('id', `skills-category-${index}`);
     categories[index].setAttribute('aria-labelledby', tab.id || `skills-tab-${index}`);
     if (!tab.id) tab.id = `skills-tab-${index}`;
-    // Set initial state
-    tab.setAttribute('data-active', 'false');
-    categories[index].setAttribute('data-active', 'false');
-    categories[index].setAttribute('aria-hidden', 'true');
   });
 
   // ARIA for progress bars
@@ -69,7 +97,6 @@ function initializeSkillsChart() {
   // Tab click and keyboard navigation
   tabs.forEach((tab, index) => {
     tab.addEventListener('click', () => {
-      // Toggle open/close for this tab, only one open at a time
       if (tab.getAttribute('data-active') === 'true') {
         closeAllTabs();
       } else {
@@ -78,15 +105,6 @@ function initializeSkillsChart() {
       }
     });
     tab.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        if (tab.getAttribute('data-active') === 'true') {
-          closeAllTabs();
-        } else {
-          closeAllTabs();
-          activateTab(index);
-        }
-      }
       if (e.key === 'ArrowRight') {
         e.preventDefault();
         const next = (index + 1) % tabs.length;
@@ -96,6 +114,15 @@ function initializeSkillsChart() {
         e.preventDefault();
         const prev = (index - 1 + tabs.length) % tabs.length;
         tabs[prev].focus();
+      }
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (tab.getAttribute('data-active') === 'true') {
+          closeAllTabs();
+        } else {
+          closeAllTabs();
+          activateTab(index);
+        }
       }
     });
   });
@@ -111,8 +138,8 @@ function initializeSkillsChart() {
     tabs.forEach((tab, i) => {
       tab.setAttribute('data-active', 'false');
       tab.setAttribute('aria-selected', 'false');
-      tab.setAttribute('tabindex', '0');
       tab.setAttribute('aria-expanded', 'false');
+      tab.setAttribute('tabindex', '-1');
       categories[i].setAttribute('data-active', 'false');
       categories[i].setAttribute('aria-hidden', 'true');
     });
@@ -124,15 +151,23 @@ function initializeSkillsChart() {
         tab.setAttribute('data-active', 'true');
         tab.setAttribute('aria-selected', 'true');
         tab.setAttribute('aria-expanded', 'true');
+        tab.setAttribute('tabindex', '0');
+        tab.classList.add('skills-chart__tab--active');
         categories[i].setAttribute('data-active', 'true');
         categories[i].setAttribute('aria-hidden', 'false');
+        categories[i].classList.add('skills-chart__category--active');
         announceToScreenReader(`${tab.querySelector('.skills-chart__tab-text').textContent} section expanded`);
-        // Animate progress bars
-        const progressBars = categories[i].querySelectorAll('.skills-chart__progress-bar[role="progressbar"]');
+        // Animate progress bars and set ARIA
+        const progressBars = categories[i].querySelectorAll('.skills-chart__progress-bar');
         progressBars.forEach((bar) => {
+          bar.setAttribute('role', 'progressbar');
+          bar.setAttribute('aria-valuemin', '0');
+          bar.setAttribute('aria-valuemax', '100');
           const fill = bar.querySelector('.skills-chart__progress-fill');
-          const level = fill.getAttribute('data-level');
-          bar.setAttribute('aria-valuenow', level);
+          if (fill) {
+            const level = fill.getAttribute('data-level');
+            bar.setAttribute('aria-valuenow', level);
+          }
         });
         const activeBars = categories[i].querySelectorAll('.skills-chart__progress-fill');
         setTimeout(() => {
@@ -145,8 +180,11 @@ function initializeSkillsChart() {
         tab.setAttribute('data-active', 'false');
         tab.setAttribute('aria-selected', 'false');
         tab.setAttribute('aria-expanded', 'false');
+        tab.setAttribute('tabindex', '-1');
+        tab.classList.remove('skills-chart__tab--active');
         categories[i].setAttribute('data-active', 'false');
         categories[i].setAttribute('aria-hidden', 'true');
+        categories[i].classList.remove('skills-chart__category--active');
       }
     });
   }
