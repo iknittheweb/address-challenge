@@ -108,11 +108,15 @@ function initializeSkillsChart() {
       if (e.key === 'ArrowRight') {
         e.preventDefault();
         const next = (index + 1) % tabs.length;
+        closeAllTabs();
+        activateTab(next);
         tabs[next].focus();
       }
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
         const prev = (index - 1 + tabs.length) % tabs.length;
+        closeAllTabs();
+        activateTab(prev);
         tabs[prev].focus();
       }
       if (e.key === 'Enter' || e.key === ' ') {
@@ -140,8 +144,18 @@ function initializeSkillsChart() {
       tab.setAttribute('aria-selected', 'false');
       tab.setAttribute('aria-expanded', 'false');
       tab.setAttribute('tabindex', '-1');
+      tab.classList.remove('skills-chart__tab--active');
       categories[i].setAttribute('data-active', 'false');
       categories[i].setAttribute('aria-hidden', 'true');
+      categories[i].classList.remove('skills-chart__category--active');
+      // Remove progressbar ARIA attributes from all bars in this category
+      const bars = categories[i].querySelectorAll('.skills-chart__progress-bar');
+      bars.forEach((bar) => {
+        bar.removeAttribute('role');
+        bar.removeAttribute('aria-valuemin');
+        bar.removeAttribute('aria-valuemax');
+        bar.removeAttribute('aria-valuenow');
+      });
     });
   }
 
@@ -185,6 +199,14 @@ function initializeSkillsChart() {
         categories[i].setAttribute('data-active', 'false');
         categories[i].setAttribute('aria-hidden', 'true');
         categories[i].classList.remove('skills-chart__category--active');
+        // Remove progressbar ARIA attributes from all bars in this category
+        const bars = categories[i].querySelectorAll('.skills-chart__progress-bar');
+        bars.forEach((bar) => {
+          bar.removeAttribute('role');
+          bar.removeAttribute('aria-valuemin');
+          bar.removeAttribute('aria-valuemax');
+          bar.removeAttribute('aria-valuenow');
+        });
       }
     });
   }

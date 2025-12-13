@@ -19,19 +19,21 @@ function initializeDropdown() {
   if (window.dropdownInitialized) return;
   window.dropdownInitialized = true;
   window.dropdownTestState = { isOpen: false, focusTrapActive: false };
-  dropdowns.forEach((dropdown) => {
+  dropdowns.forEach((dropdown, idx) => {
     const dropdownTitleGroup = dropdown.querySelector('.dropdown__title-group');
     const dropdownContent = dropdown.querySelector('.dropdown__content');
     if (!dropdownTitleGroup || !dropdownContent) return;
-    // ARIA roles and relationships
+    // ARIA roles and relationships (unique IDs for test-friendliness)
+    const titleId = dropdownTitleGroup.id || `dropdown-title-group-${idx}`;
+    const contentId = dropdownContent.id || `dropdown-content-${idx}`;
     dropdownTitleGroup.setAttribute('role', 'button');
-    dropdownTitleGroup.setAttribute('aria-controls', 'dropdown-content');
+    dropdownTitleGroup.setAttribute('aria-controls', contentId);
     dropdownTitleGroup.setAttribute('tabindex', '0');
-    dropdownTitleGroup.setAttribute('id', 'dropdown-title-group');
+    dropdownTitleGroup.setAttribute('id', titleId);
     dropdownTitleGroup.setAttribute('aria-expanded', 'false');
     dropdownContent.setAttribute('role', 'menu');
-    dropdownContent.setAttribute('id', 'dropdown-content');
-    dropdownContent.setAttribute('aria-labelledby', 'dropdown-title-group');
+    dropdownContent.setAttribute('id', contentId);
+    dropdownContent.setAttribute('aria-labelledby', titleId);
     dropdownContent.setAttribute('aria-hidden', 'true');
     let lastTrigger = null;
     function openDropdown() {
@@ -43,12 +45,11 @@ function initializeDropdown() {
       trapFocus(dropdownContent, closeDropdown);
       window.dropdownTestState.isOpen = true;
       window.dropdownTestState.focusTrapActive = true;
-      setTimeout(() => {
-        const items = dropdownContent.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
-        if (items.length) {
-          items[0].focus();
-        }
-      }, 10);
+      // Focus first item synchronously for test-friendliness
+      const items = dropdownContent.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
+      if (items.length) {
+        items[0].focus();
+      }
     }
     function closeDropdown() {
       dropdownContent.classList.remove('show');
