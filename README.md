@@ -1,11 +1,8 @@
-> **Note:** If you upgrade Husky to v10 or later, update your
-> `.husky/pre-commit` hook to the new format. The old `#!/bin/sh` and
-> `._/husky.sh` lines will break in v10+.
+> **Note:** If you upgrade Husky to v10 or later, update your `.husky/pre-commit` hook to the new format. The old `#!/bin/sh` and `._/husky.sh` lines will break in v10+.
 
 ## 📦 Keeping Dependencies Up to Date
 
-To keep your project secure and running smoothly, periodically check for
-outdated dependencies and vulnerabilities:
+To keep your project secure and running smoothly, periodically check for outdated dependencies and vulnerabilities:
 
 1. **Check for outdated packages:**
 
@@ -30,8 +27,7 @@ npm audit
 npm audit fix
 ```
 
-Use `npm audit fix --force` for major/breaking changes (review changelogs
-first).
+Use `npm audit fix --force` for major/breaking changes (review changelogs first).
 
 4. **After updating:**
 
@@ -42,9 +38,7 @@ first).
 
 # I Knit The Web - Portfolio Website
 
-Welcome to the codebase for my personal portfolio site! This project is a static
-site built with custom HTML, SCSS, and JavaScript, featuring a flexible build
-system for easy environment management and modular page/component generation.
+Welcome to the codebase for my personal portfolio site! This project is a static site built with custom HTML, SCSS, and JavaScript, featuring a flexible build system for easy environment management and modular page/component generation.
 
 ---
 
@@ -89,8 +83,7 @@ system for easy environment management and modular page/component generation.
 npm run local
 ```
 
-This generates `dist/index.html` and other pages using development URLs from
-`.env`.
+This generates `dist/index.html` and other pages using development URLs from `.env`.
 
 ### 3. Build for Production
 
@@ -109,18 +102,18 @@ This generates files using production URLs from `.env.production`.
 Variables used:
 
 ```
-BASE_URL=...      # The base URL for your site
-ASSET_URL=...     # The base path or URL for static assets
+base_url=...      # The base URL for your site
+asset_url=...     # The base path or URL for static assets
 ```
 
 ## 🔄 NPM Scripts & Commands
 
 ```
-BASE_URL=...         # The base URL for your site
-ASSET_URL=...        # The base path or URL for static assets
-CSS_FILE=...         # CSS file name (expanded or minified)
-ROBOTS=...           # SEO robots meta value
-CANONICAL_URL=...    # Canonical URL for SEO
+base_url=...         # The base URL for your site
+asset_url=...        # The base path or URL for static assets
+css_file=...         # CSS file name (expanded or minified)
+robots=...           # SEO robots meta value
+page_url=...    # Canonical URL for SEO
 ```
 
 Alternate environments supported:
@@ -156,8 +149,7 @@ Use `npm run alt` to build with alternate environment files.
 
 ### 1. JavaScript Unit Tests (Jest)
 
-- All unit tests are in the `tests/` directory (e.g.,
-  `tests/example.unit.test.js`).
+- All unit tests are in the `tests/` directory (e.g., `tests/example.unit.test.js`).
 - Run with `npm test`.
 
 ### 2. End-to-End (E2E) Tests (Cypress)
@@ -172,8 +164,7 @@ Use `npm run alt` to build with alternate environment files.
 
 ### 4. Accessibility Testing (axe-core)
 
-- Example accessibility tests are in `tests/` (e.g.,
-  `tests/example.accessibility.js`).
+- Example accessibility tests are in `tests/` (e.g., `tests/example.accessibility.js`).
 - Run with `npm run test:a11y`.
 
 ---
@@ -184,9 +175,7 @@ Use `npm run alt` to build with alternate environment files.
 
 ### Conventional Commits & Commitizen
 
-- This project uses the
-  [Conventional Commits](https://www.conventionalcommits.org/) standard for
-  clear, consistent commit messages.
+- This project uses the [Conventional Commits](https://www.conventionalcommits.org/) standard for clear, consistent commit messages.
 - Use Commitizen to be guided through writing commit messages:
 
   ```bash
@@ -195,14 +184,12 @@ Use `npm run alt` to build with alternate environment files.
   npx commitizen
   ```
 
-- Answer the prompts to generate a well-structured commit message (e.g.,
-  `feat: add new hero section`).
+- Answer the prompts to generate a well-structured commit message (e.g., `feat: add new hero section`).
 
 ### Pre-commit Hooks
 
 - Pre-commit hooks are set up with Husky and lint-staged.
-- On every commit, staged JS, CSS, SCSS, and HTML files are automatically linted
-  and formatted.
+- On every commit, staged JS, CSS, SCSS, and HTML files are automatically linted and formatted.
 - If issues are found, the commit is blocked until they are fixed.
 
 ---
@@ -211,13 +198,9 @@ Use `npm run alt` to build with alternate environment files.
 
 ## 🧩 How the Build System Works
 
-- **build.js**: Processes `index.template.html` and outputs `dist/index.html`,
-  replacing placeholders with environment-specific values.
-- **component-build.cjs**: Generates all pages from templates, injecting shared
-  components and environment variables.
-- **Environment variables** are loaded using
-  [dotenv](https://www.npmjs.com/package/dotenv) and must be set in
-  `.env`/`.env.production`.
+- **build.js**: Processes `index.template.html` and outputs `dist/index.html`, replacing placeholders with environment-specific values.
+- **component-build.cjs**: Generates all pages from templates, injecting shared components and environment variables.
+- **Environment variables** are loaded using [dotenv](https://www.npmjs.com/package/dotenv) and must be set in `.env`/`.env.production`.
 - **SCSS** is modular and compiled to `dist/styles.css`.
 - **Legacy CSS** in `src/css/` is being migrated to SCSS (one page at a time).
 
@@ -243,17 +226,13 @@ Use `npm run alt` to build with alternate environment files.
 
 ## 💡 About This Project
 
-This site is a showcase of my web development work, built with a focus on
-maintainability, modularity, and best practices. The build system is custom, but
-inspired by modern static site generators. If you have questions or want to
-contribute, see the docs or contact me.
+This site is a showcase of my web development work, built with a focus on maintainability, modularity, and best practices. The build system is custom, but inspired by modern static site generators. If you have questions or want to contribute, see the docs or contact me.
 
 ---
 
 ## ✨ CSS Naming Convention: BEM
 
-This project uses the BEM (Block\_\_Element--Modifier) naming convention for all
-CSS/SCSS class names. Example:
+This project uses the BEM (Block\_\_Element--Modifier) naming convention for all CSS/SCSS class names. Example:
 
 ```scss
 .block {
@@ -272,12 +251,10 @@ CSS/SCSS class names. Example:
 - **Element:** A part of the block, separated by `__` (e.g., `.header__logo`)
 - **Modifier:** A variation, separated by `--` (e.g., `.button--primary`)
 
-Stylelint is configured to enforce BEM patterns. Please use this convention for
-all new styles.
+Stylelint is configured to enforce BEM patterns. Please use this convention for all new styles.
 
 ---
 
 ## 📜 Changelog
 
-See [CHANGELOG.md](./CHANGELOG.md) for a detailed history of code reviews,
-compliance sweeps, and major updates.
+See [CHANGELOG.md](./CHANGELOG.md) for a detailed history of code reviews, compliance sweeps, and major updates.
