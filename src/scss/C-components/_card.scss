@@ -38,8 +38,8 @@
     h3 {
       color: var(--light-text); // Header text color
       margin: 0; // Removes default margin
-      font-size: f.rem(18); // Sets font size
-      line-height: 1.5; // Sets line height
+      // font-size: f.rem(18); // Sets font size
+      // line-height: 1.5; // Sets line height
       height: f.rem(80); // Fixed height for header
       padding: f.rem(16) f.rem(20) f.rem(20); // Padding around header text
       width: 100%; // Header takes full width

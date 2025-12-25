@@ -17,7 +17,6 @@
   background: rgb(var(--alien-secondary-bg), 0.1);
   border: 2px solid var(--alien-border-color);
   border-radius: f.rem(12);
-  // ...existing code...
 }
 
 .alien-form__legend {
@@ -388,7 +387,7 @@
         position: relative;
         width: 100%;
         box-sizing: border-box;
-        // ...existing code...
+
         &:focus {
           outline: none;
           border-color: var(--alien-accent);
@@ -398,12 +397,12 @@
           background: rgb(0 0 0 / 90%);
           transform: scale(1.01);
         }
-        // ...existing code...
+
         &:valid:not(:placeholder-shown) {
           border-color: var(--alien-accent);
           background: rgb(0 255 65 / 5%);
         }
-        // ...existing code...
+
         &--active {
           background: var(--alien-accent);
           box-shadow: 0 0 8px var(--alien-glow-color);
