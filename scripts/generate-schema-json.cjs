@@ -1,7 +1,7 @@
 // =====================================================================
 // generate-schema-json.cjs
 // =====================================================================
-// This script reads SCHEMA_JSON from .env.local and writes src/js/schema-json.js for runtime injection.
+// This script reads schema_json from .env.local and writes src/js/schema-json.js for runtime injection.
 // BEGINNER-FRIENDLY: Each section is commented for clarity.
 
 // =====================================================================
@@ -14,7 +14,7 @@ require('dotenv').config({ path: path.join(process.cwd(), '.env.local') });
 // =====================================================================
 // 2. CONSTANTS
 // =====================================================================
-const schemaJson = process.env.SCHEMA_JSON || '';
+const schemaJson = process.env.schema_json || '';
 const outputPath = path.join(process.cwd(), 'src/js/schema-json.js');
 
 // =====================================================================
@@ -26,4 +26,4 @@ const jsContent = `// src/js/schema-json.js\n// This file is generated at build 
 // 4. OUTPUT: Write file and log
 // =====================================================================
 fs.writeFileSync(outputPath, jsContent);
-console.log('Generated src/js/schema-json.js from .env.local SCHEMA_JSON');
+console.log('Generated src/js/schema-json.js from .env.local schema_json');

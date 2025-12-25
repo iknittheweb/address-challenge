@@ -39,24 +39,24 @@ const header = `# Add more keys as needed for other templates/pages
 # These variables are loaded automatically by the build scripts.
 
 # Development environment:
-# BASE_URL=/
-# ASSET_URL=/
-# CSS_FILE=styles.css
+# base_url=/
+# asset_url=/
+# css_file=styles.css
 
 # Alternate environment:
-# BASE_URL=https://iknittheweb.github.io
-# ASSET_URL=
-# CSS_FILE=styles.min.css
+# base_url=https://iknittheweb.github.io
+# asset_url=
+# css_file=styles.min.css
 
 # Netlify environment:
-# BASE_URL=https://iknittheweb.netlify.app
-# ASSET_URL=https://iknittheweb.netlify.app/src/img
-# CSS_FILE=styles.min.css
+# base_url=https://iknittheweb.netlify.app
+# asset_url=https://iknittheweb.netlify.app/src/img
+# css_file=styles.min.css
 
 # For production, create .env.production:
-# BASE_URL=https://iknittheweb.com
-# ASSET_URL=https://iknittheweb.com/src/img
-# CSS_FILE=styles.min.css
+# base_url=https://iknittheweb.com
+# asset_url=https://iknittheweb.com/src/img
+# css_file=styles.min.css
 `;
 
 // =====================================================================
@@ -111,12 +111,12 @@ function autoValue(key, page, env) {
     .replace(/[^A-Za-z0-9]/g, '-')
     .toUpperCase();
   function pageKey(k) {
-    if (['TITLE', 'DESCRIPTION', 'KEYWORDS', 'ROBOTS', 'CANONICAL_URL', 'OG_IMAGE', 'OG_URL', 'OG_TYPE', 'TWITTER_CARD', 'TWITTER_TITLE', 'TWITTER_DESCRIPTION', 'GOOGLE_FONTS_LINK', 'SCHEMA_JSON', 'SUBTITLE', 'NAV_CONFIG', 'BREADCRUMB_CATEGORY', 'BREADCRUMB_CATEGORY_URL', 'PAGE_NAME'].includes(k)) {
+    if (['TITLE', 'DESCRIPTION', 'KEYWORDS', 'robots', 'page_url', 'OG_IMAGE', 'page_url', 'OG_TYPE', 'TWITTER_CARD', 'title', 'TWITTER_description', 'GOOGLE_FONTS_LINK', 'schema_json', 'SUBTITLE', 'data_nav_config', 'BREADCRUMB_CATEGORY', 'BREADCRUMB_CATEGORY_URL', 'PAGE_NAME'].includes(k)) {
       return `${baseName}_${k}`;
     }
     return k;
   }
-  if (key === pageKey('NAV_CONFIG')) return 'main,about,portfolio,contact';
+  if (key === pageKey('data_nav_config')) return 'main,about,portfolio,contact';
   if (key === pageKey('BREADCRUMB_CATEGORY')) {
     if (page.includes('about')) return 'General';
     if (page.includes('portfolio')) return 'Portfolio';
@@ -134,14 +134,14 @@ function autoValue(key, page, env) {
   if (key === pageKey('DESCRIPTION')) return `${page} page description for ${env.prod ? 'production' : 'development'}`;
   if (key === pageKey('TITLE')) return `${page} | I Knit the Web`;
   if (key === pageKey('KEYWORDS')) return `web, development, ${page}`;
-  if (key === pageKey('ROBOTS')) return 'index,follow';
-  if (key === pageKey('CANONICAL_URL')) return urlJoin(env.url, `${page}.html`);
+  if (key === pageKey('robots')) return 'index,follow';
+  if (key === pageKey('page_url')) return urlJoin(env.url, `${page}.html`);
   if (key === pageKey('OG_IMAGE') || key === pageKey('TWITTER_IMAGE')) return urlJoin(env.asset, 'branding/logo.png');
-  if (key === pageKey('OG_URL')) return urlJoin(env.url, `${page}.html`);
+  if (key === pageKey('page_url')) return urlJoin(env.url, `${page}.html`);
   if (key === pageKey('OG_TYPE')) return 'website';
   if (key === pageKey('TWITTER_CARD')) return 'summary_large_image';
-  if (key === pageKey('ASSET_URL')) return env.asset.replace(/\/+$/, '/');
-  if (key === pageKey('BASE_URL')) return env.url.replace(/\/+$/, '/');
+  if (key === pageKey('asset_url')) return env.asset.replace(/\/+$/, '/');
+  if (key === pageKey('base_url')) return env.url.replace(/\/+$/, '/');
   if (key === pageKey('PAGE_NAME')) return baseName.toLowerCase();
   return '';
 }
@@ -185,7 +185,7 @@ envFiles.forEach((env) => {
       if (key === 'HEADER' || key === 'FOOTER') return;
       const pageSpecificKey = (() => {
         const baseName = page.replace(/[^A-Za-z0-9]/g, '-').toUpperCase();
-        if (['TITLE', 'DESCRIPTION', 'KEYWORDS', 'ROBOTS', 'CANONICAL_URL', 'OG_IMAGE', 'OG_URL', 'OG_TYPE', 'TWITTER_CARD', 'TWITTER_TITLE', 'TWITTER_DESCRIPTION', 'GOOGLE_FONTS_LINK', 'SCHEMA_JSON', 'SUBTITLE', 'NAV_CONFIG', 'BREADCRUMB_CATEGORY', 'BREADCRUMB_CATEGORY_URL', 'PAGE_NAME'].includes(key)) {
+        if (['TITLE', 'DESCRIPTION', 'KEYWORDS', 'robots', 'page_url', 'OG_IMAGE', 'page_url', 'OG_TYPE', 'TWITTER_CARD', 'title', 'TWITTER_description', 'GOOGLE_FONTS_LINK', 'schema_json', 'SUBTITLE', 'data_nav_config', 'BREADCRUMB_CATEGORY', 'BREADCRUMB_CATEGORY_URL', 'PAGE_NAME'].includes(key)) {
           return `${baseName}_${key}`;
         }
         return key;
