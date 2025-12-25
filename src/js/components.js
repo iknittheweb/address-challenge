@@ -21,11 +21,11 @@
 // ------------------------------------------------------------
 
 /**
- * NAV_CONFIGS defines different navigation setups for different types of pages.
+ * data_nav_configS defines different navigation setups for different types of pages.
  * Each config lists the links that should appear in the navigation bar and where they go.
  * You can add, remove, or change links for each page type here.
  */
-const NAV_CONFIGS = {
+const data_nav_configS = {
   // HOME PAGE: Links to internal sections and full portfolio
   home: {
     links: [
@@ -135,7 +135,7 @@ function createHeader(
   breadcrumbData = null // No breadcrumbs by default
 ) {
   // Get the navigation links for this page type
-  const navLinks = NAV_CONFIGS[config];
+  const navLinks = data_nav_configS[config];
 
   // Safety check: make sure the config exists
   if (!navLinks) {
