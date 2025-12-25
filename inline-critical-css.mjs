@@ -75,12 +75,14 @@ async function inlineAllCriticalCSS() {
           console.error('Build stopped due to invalid critical CSS.');
           process.exit(1);
         }
+        // Remove @charset from minified critical CSS (not allowed in <style> tags)
+        let safeCriticalCss = minified.css.replace(/@charset\s+"[^"]*";?/gi, '');
         // Inject minified critical CSS into HTML <head>
         let htmlContent = fs.readFileSync(htmlPath, 'utf8');
         // Remove any previous critical CSS blocks (optional, for idempotency)
         htmlContent = htmlContent.replace(/<style[^>]*data-critical[^>]*>[\s\S]*?<\/style>/gi, '');
         // Insert minified critical CSS before closing </head>
-        htmlContent = htmlContent.replace(/<\/head>/i, `<style data-critical>${minified.css}</style>\n</head>`);
+        htmlContent = htmlContent.replace(/<\/head>/i, `<style data-critical>${safeCriticalCss}</style>\n</head>`);
         fs.writeFileSync(htmlPath, htmlContent, 'utf8');
         console.log(`Critical CSS inlining succeeded for ${htmlFile} (mobile)`);
       } catch (err) {

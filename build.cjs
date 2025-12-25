@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env node // Use Node.js to run this script
 // =====================================================================
 // Project Build Script (Beginner-Friendly)
 // =====================================================================
@@ -42,19 +42,19 @@
 // =============================================================
 // STEP 0: Ensure all .env* files have sections for every page template
 // =============================================================
-require('./sync-env-sections.cjs');
 
 // =============================================================
 // STEP 0.5: Import required Node.js modules
 // =============================================================
-const fs = require('fs'); // For reading and writing files
-const path = require('path'); // For handling file paths
-const Handlebars = require('handlebars'); // For processing HTML templates
+const fs = require('fs'); // Node.js file system module for reading/writing files
+const path = require('path'); // Node.js path module for handling file and directory paths
+const Handlebars = require('handlebars'); // Handlebars templating engine for processing HTML templates
 
 // Register a custom Handlebars helper for template logic
 // Usage: {{#if (eq a b)}} ... {{/if}}
 Handlebars.registerHelper('eq', function (a, b) {
-  return a === b;
+  // Register a custom Handlebars helper 'eq' for equality checks
+  return a === b; // Returns true if a equals b
 });
 
 // =============================================================
@@ -63,38 +63,37 @@ Handlebars.registerHelper('eq', function (a, b) {
 // This step selects the correct .env file based on your build mode (local, alt, prod, etc.)
 // You can pass a mode (like 'alt' or 'prod') as a command line argument.
 // This lets you build for different environments using different .env files.
-const mode = process.argv[2] ? process.argv[2].toLowerCase() : '';
-let dotenvPath = '.env.local'; // Default: local development
+
+const mode = process.argv[2] ? process.argv[2].toLowerCase() : ''; // Get build mode from command line argument (e.g., 'alt', 'prod')
+let dotenvPath = '.env.local'; // Default to local development .env file
 if (process.env.DOTENV_CONFIG_PATH) {
-  // If DOTENV_CONFIG_PATH is set, use that
+  // If DOTENV_CONFIG_PATH env var is set, use that file
   dotenvPath = process.env.DOTENV_CONFIG_PATH;
 } else if (mode === 'domain') {
+  // Use .env.domain for custom domain builds
   dotenvPath = '.env.domain';
-} else if (mode === 'netlify') {
-  dotenvPath = '.env.netlify';
 } else if (mode === 'gh') {
+  // Use .env.gh for GitHub Pages builds
   dotenvPath = '.env.gh';
 }
-// Load environment variables from the selected .env file
-require('dotenv').config({ path: dotenvPath });
-console.log('[DEBUG] BASE_URL:', process.env.BASE_URL, '| ASSET_URL:', process.env.ASSET_URL, '| dotenvPath:', dotenvPath);
-console.log('[DEBUG] typeof BASE_URL:', typeof process.env.BASE_URL, '| typeof ASSET_URL:', typeof process.env.ASSET_URL);
-console.log('[DEBUG] JSON.stringify(BASE_URL):', JSON.stringify(process.env.BASE_URL), '| JSON.stringify(ASSET_URL):', JSON.stringify(process.env.ASSET_URL));
+require('dotenv').config({ path: dotenvPath }); // Load environment variables from the selected .env file
+console.log('[DEBUG] base_url:', process.env.base_url, '| asset_url:', process.env.asset_url, '| dotenvPath:', dotenvPath); // Debug: print loaded URLs and .env file
+console.log('[DEBUG] typeof base_url:', typeof process.env.base_url, '| typeof asset_url:', typeof process.env.asset_url); // Debug: print types
+console.log('[DEBUG] JSON.stringify(base_url):', JSON.stringify(process.env.base_url), '| JSON.stringify(asset_url):', JSON.stringify(process.env.asset_url)); // Debug: print stringified values
 
 // =============================================================
-// STEP 2: Get BASE_URL and ASSET_URL from environment variables
+// STEP 2: Get base_url and asset_url from environment variables
 // -------------------------------------------------------------
 // This step loads the main site URL and asset path from your selected .env file.
-let baseUrl = process.env.BASE_URL; // The main site URL (e.g., https://yoursite.com)
-const assetUrl = process.env.ASSET_URL; // The base path for static assets (images, CSS, JS)
 
-// Remove trailing slash from BASE_URL if present (for consistency), but do not strip if baseUrl is just '/'
-if (baseUrl.length > 1 && baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
-
+let baseUrl = process.env.base_url; // The main site URL (e.g., https://yoursite.com)
+const assetUrl = process.env.asset_url; // The base path for static assets (images, CSS, JS)
+// Remove trailing slash from base_url if present (for consistency), but do not strip if baseUrl is just '/'
+if (baseUrl.length > 1 && baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1); // Remove trailing slash if needed
 // Safety check: Make sure required variables are set (allow "/" and "/img")
 if (typeof baseUrl !== 'string' || baseUrl.trim() === '' || typeof assetUrl !== 'string' || assetUrl.trim() === '') {
-  console.error('BASE_URL and ASSET_URL must be set (non-empty) in your .env or .env.production file.');
-  process.exit(1);
+  console.error('base_url and asset_url must be set (non-empty) in your .env or .env.production file.'); // Print error if missing
+  process.exit(1); // Exit script if required variables are missing
 }
 
 // =============================================================
@@ -104,21 +103,21 @@ if (typeof baseUrl !== 'string' || baseUrl.trim() === '' || typeof assetUrl !== 
 console.log('Building HTML for all template files...');
 
 // Use glob to find all .template.html files in src/templates only
-const glob = require('glob');
-const allTemplates = glob.sync(path.join(__dirname, 'src', 'templates', '*.template.html'));
-const indexTemplate = allTemplates.find((f) => path.basename(f) === 'index.template.html');
-const otherTemplates = allTemplates.filter((f) => path.basename(f) !== 'index.template.html');
+const glob = require('glob'); // Import glob for file pattern matching
+const allTemplates = glob.sync(path.join(__dirname, 'src', 'templates', '*.template.html')); // Find all .template.html files in src/templates
+const indexTemplate = allTemplates.find((f) => path.basename(f) === 'index.template.html'); // Find the main index template
+const otherTemplates = allTemplates.filter((f) => path.basename(f) !== 'index.template.html'); // All other templates
 
-let buildFailed = false;
+let buildFailed = false; // Track if any build step fails
 const processTemplate = (templatePath) => {
+  // Function to process a single template file
   try {
     // DEBUG: Print which template is being processed and what baseUrl is used
     console.log(`[DEBUG] Processing template: ${templatePath}`);
-    console.log(`[DEBUG] Using BASE_URL: ${baseUrl}`);
+    console.log(`[DEBUG] Using base_url: ${baseUrl}`);
     // Read the template file as a string
-    const templateSrc = fs.readFileSync(templatePath, 'utf8');
-    // Compile the template using Handlebars
-    const template = Handlebars.compile(templateSrc);
+    const templateSrc = fs.readFileSync(templatePath, 'utf8'); // Read the template file as a string
+    const template = Handlebars.compile(templateSrc); // Compile the template using Handlebars
 
     // Prepare schema.org JSON-LD data for SEO and rich results
     let schemaData;
@@ -139,7 +138,7 @@ const processTemplate = (templatePath) => {
         '@context': 'https://schema.org',
         '@type': process.env.SCHEMA_TYPE || 'WebPage',
         name: process.env.SCHEMA_NAME || 'New Page',
-        description: process.env.SCHEMA_DESCRIPTION || 'Description for new page.',
+        description: process.env.SCHEMA_description || 'Description for new page.',
         url: process.env.SCHEMA_URL || baseUrl + '/dist/pages/new-page.html', // For legacy support
         url: process.env.SCHEMA_URL || baseUrl + '/new-page.html',
         image: process.env.SCHEMA_IMAGE || assetUrl + 'src/img/pages/default.png',
@@ -187,22 +186,27 @@ const processTemplate = (templatePath) => {
 
     // Create the context object for the template
     // This includes all environment variables and custom values
+    // Build context for Handlebars template
     let context = Object.assign({}, process.env, {
-      SCHEMA_JSON: JSON.stringify(schemaData, null, 2), // For ld+json blocks
+      schema_json: JSON.stringify(schemaData, null, 2), // For ld+json blocks
       'HOME-JS_FILE': '/dist/js/script.js', // Main JS file path
-      'HOME-CSS_FILE': process.env['HOME-CSS_FILE'] || '/dist/css/styles.css',
+      'HOME-css_file': process.env['HOME-css_file'] || '/dist/css/styles.css', // Main CSS file path
       // Add other asset/script paths here as needed
     });
+    // For index.template.html, ensure index_css_file is set from env
+    if (path.basename(templatePath) === 'index.template.html') {
+      context.index_css_file = process.env.index_css_file || 'styles.css';
+    }
     // Debug: Log context for this template
     console.log(`[DEBUG] Context keys for ${templatePath}:`, Object.keys(context));
 
     // Render the template with the context
-    let htmlContent = template(context);
+    let htmlContent = template(context); // Render the template with the context
 
     // Extra debug for portfolio.template.html (must be after context is created)
     if (templatePath.endsWith('portfolio.template.html')) {
-      console.log('[DEBUG][portfolio] context.BASE_URL:', context.BASE_URL);
-      console.log('[DEBUG][portfolio] context.ASSET_URL:', context.ASSET_URL);
+      console.log('[DEBUG][portfolio] context.base_url:', context.base_url);
+      console.log('[DEBUG][portfolio] context.asset_url:', context.asset_url);
       const lines = htmlContent.split(/\r?\n/);
       lines.forEach((line, idx) => {
         if (line.includes('localhost') || line.includes('5500')) {
@@ -211,42 +215,52 @@ const processTemplate = (templatePath) => {
       });
     }
 
+    // =========================
+    // CACHE BUSTING: Add a version query string to CSS and JS references
+    // =========================
+    // Use a timestamp for versioning (can be replaced with a hash if desired)
+    const cacheBust = Date.now();
+    // Add ?v=timestamp to all .css and .js file references in the HTML
+    htmlContent = htmlContent.replace(/(href="[^"]+\.css)(")/g, `$1?v=${cacheBust}$2`);
+    htmlContent = htmlContent.replace(/(src="[^"]+\.js)(")/g, `$1?v=${cacheBust}$2`);
+
     // Remove template warnings and workflow comments from the output HTML
-    let finalHtml = htmlContent.replace(/<!--\s*IMPORTANT: This is a TEMPLATE file![\s\S]*?DO NOT edit index\.html directly - it gets overwritten!\s*-->/, '');
-    finalHtml = finalHtml.replace(/<!--\s*-{2,}\s*BEGINNER-FRIENDLY EXPLANATORY COMMENTS[\s\S]*?-{2,}\s*-->/g, '');
-    finalHtml = finalHtml.replace(/<!--\s*Build System Workflow \(2025\):[\s\S]*?DO NOT edit the generated \*\.html file directly[\s\S]*?-->/g, '');
+    let finalHtml = htmlContent.replace(/<!--\s*IMPORTANT: This is a TEMPLATE file![\s\S]*?DO NOT edit index\.html directly - it gets overwritten!\s*-->/, ''); // Remove template warning comments
+    finalHtml = finalHtml.replace(/<!--\s*-{2,}\s*BEGINNER-FRIENDLY EXPLANATORY COMMENTS[\s\S]*?-{2,}\s*-->/g, ''); // Remove beginner-friendly comments
+    finalHtml = finalHtml.replace(/<!--\s*Build System Workflow \(2025\):[\s\S]*?DO NOT edit the generated \*\.html file directly[\s\S]*?-->/g, ''); // Remove workflow comments
 
     // Inject header and footer from dist/index.html
-    let header = '';
-    let footer = '';
+    let header = ''; // Placeholder for header HTML
+    let footer = ''; // Placeholder for footer HTML
     try {
-      const distIndexHtmlPath = path.join(__dirname, 'dist', 'index.html');
+      const distIndexHtmlPath = path.join(__dirname, 'dist', 'index.html'); // Path to built index.html
       if (fs.existsSync(distIndexHtmlPath)) {
-        const indexHtml = fs.readFileSync(distIndexHtmlPath, 'utf8');
-        const headerMatch = indexHtml.match(/<header[\s\S]*?<\/header>/i);
-        const footerMatch = indexHtml.match(/<footer[\s\S]*?<\/footer>/i);
-        header = headerMatch ? headerMatch[0] : '';
-        footer = footerMatch ? footerMatch[0] : '';
+        // If index.html exists
+        const indexHtml = fs.readFileSync(distIndexHtmlPath, 'utf8'); // Read index.html
+        const headerMatch = indexHtml.match(/<header[\s\S]*?<\/header>/i); // Extract <header>...</header>
+        const footerMatch = indexHtml.match(/<footer[\s\S]*?<\/footer>/i); // Extract <footer>...</footer>
+        header = headerMatch ? headerMatch[0] : ''; // Use found header or empty string
+        footer = footerMatch ? footerMatch[0] : ''; // Use found footer or empty string
       }
     } catch (err) {
-      console.warn('Could not read header/footer from dist/index.html:', err.message);
+      console.warn('Could not read header/footer from dist/index.html:', err.message); // Warn if header/footer can't be read
     }
-    finalHtml = finalHtml.replace(/<!--\s*HEADER_PLACEHOLDER\s*-->/i, header);
-    finalHtml = finalHtml.replace(/<!--\s*FOOTER_PLACEHOLDER\s*-->/i, footer);
+    finalHtml = finalHtml.replace(/<!--\s*HEADER_PLACEHOLDER\s*-->/i, header); // Replace header placeholder
+    finalHtml = finalHtml.replace(/<!--\s*FOOTER_PLACEHOLDER\s*-->/i, footer); // Replace footer placeholder
 
     // Warn if any Handlebars placeholders were not replaced
-    const unreplaced = finalHtml.match(/{{[A-Z0-9_]+}}/g);
+    const unreplaced = finalHtml.match(/{{[A-Z0-9_]+}}/g); // Find any unreplaced Handlebars placeholders
     if (unreplaced && unreplaced.length > 0) {
-      console.warn(`\u26a0\ufe0f Unreplaced placeholders found in ${templatePath}:`, unreplaced);
+      console.warn(`\u26a0\ufe0f Unreplaced placeholders found in ${templatePath}:`, unreplaced); // Warn if any are found
     }
 
     // Write the final HTML to the output file (same name, .html extension)
-    const outputFileName = path.basename(templatePath).replace('.template.html', '.html');
-    const distDir = path.join(__dirname, 'dist');
-    if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true });
-    const outputPath = path.join(distDir, outputFileName);
-    fs.writeFileSync(outputPath, finalHtml);
-    console.log(`Built ${outputPath}`);
+    const outputFileName = path.basename(templatePath).replace('.template.html', '.html'); // Output file name
+    const distDir = path.join(__dirname, 'dist'); // Output directory
+    if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true }); // Create dist/ if it doesn't exist
+    const outputPath = path.join(distDir, outputFileName); // Full output path
+    fs.writeFileSync(outputPath, finalHtml); // Write the final HTML file
+    console.log(`Built ${outputPath}`); // Log success
   } catch (error) {
     // If anything goes wrong, print an error message
     console.error(`Build failed for ${templatePath}:`, error.message);
@@ -255,49 +269,48 @@ const processTemplate = (templatePath) => {
 
 // Build index.template.html first
 if (indexTemplate) {
-  processTemplate(indexTemplate);
+  processTemplate(indexTemplate); // Build index.template.html first
 }
-// Then build all other templates
-otherTemplates.forEach(processTemplate);
+otherTemplates.forEach(processTemplate); // Then build all other templates
 
 // =============================================================
 // STEP 4: Copy JavaScript files to the dist directory
 // -------------------------------------------------------------
 // This step copies all .js files from src/js to dist/js so they are available in the final build.
-const jsSrcDir = path.join(__dirname, 'src', 'js');
-const jsDistDir = path.join(__dirname, 'dist', 'js');
-if (!fs.existsSync(jsDistDir)) fs.mkdirSync(jsDistDir, { recursive: true });
+const jsSrcDir = path.join(__dirname, 'src', 'js'); // Source JS directory
+const jsDistDir = path.join(__dirname, 'dist', 'js'); // Destination JS directory
+if (!fs.existsSync(jsDistDir)) fs.mkdirSync(jsDistDir, { recursive: true }); // Create dist/js if needed
 
-const jsFiles = fs.readdirSync(jsSrcDir).filter((f) => f.endsWith('.js'));
+const jsFiles = fs.readdirSync(jsSrcDir).filter((f) => f.endsWith('.js')); // List all .js files in src/js
 jsFiles.forEach((file) => {
-  fs.copyFileSync(path.join(jsSrcDir, file), path.join(jsDistDir, file));
-  console.log(`Copied ${file} to dist/js/`);
+  fs.copyFileSync(path.join(jsSrcDir, file), path.join(jsDistDir, file)); // Copy each JS file to dist/js
+  console.log(`Copied ${file} to dist/js/`); // Log copy
 });
 
 // =============================================================
 // STEP 5: Copy generated HTML files to the project root
 // -------------------------------------------------------------
 // This step copies all .html files from dist/ to the root directory for deployment (GitHub Pages, etc.)
-const distHtmlFiles = fs.readdirSync(path.join(__dirname, 'dist')).filter((f) => f.endsWith('.html'));
+const distHtmlFiles = fs.readdirSync(path.join(__dirname, 'dist')).filter((f) => f.endsWith('.html')); // List all .html files in dist/
 distHtmlFiles.forEach((file) => {
-  const srcPath = path.join(__dirname, 'dist', file);
-  const destPath = path.join(__dirname, file);
-  fs.copyFileSync(srcPath, destPath);
-  console.log(`Copied ${file} to project root.`);
+  const srcPath = path.join(__dirname, 'dist', file); // Source path
+  const destPath = path.join(__dirname, file); // Destination path (project root)
+  fs.copyFileSync(srcPath, destPath); // Copy file to root
+  console.log(`Copied ${file} to project root.`); // Log copy
 });
 
 // =============================================================
 // STEP 6: Remove <pre><code>...</code></pre> blocks from HTML files in dist/
 // -------------------------------------------------------------
 // This step removes code blocks from HTML files in dist/ to keep output clean.
-const preCodeRegex = /<pre><code[\s\S]*?<\/code><\/pre>/gi;
+const preCodeRegex = /<pre><code[\s\S]*?<\/code><\/pre>/gi; // Regex to match <pre><code> blocks
 distHtmlFiles.forEach((file) => {
-  const filePath = path.join(__dirname, 'dist', file);
-  let html = fs.readFileSync(filePath, 'utf8');
-  const cleaned = html.replace(preCodeRegex, '');
+  const filePath = path.join(__dirname, 'dist', file); // Path to HTML file
+  let html = fs.readFileSync(filePath, 'utf8'); // Read file
+  const cleaned = html.replace(preCodeRegex, ''); // Remove code blocks
   if (cleaned !== html) {
-    fs.writeFileSync(filePath, cleaned, 'utf8');
-    console.log(`Removed <pre><code> blocks from ${file}`);
+    fs.writeFileSync(filePath, cleaned, 'utf8'); // Write cleaned HTML
+    console.log(`Removed <pre><code> blocks from ${file}`); // Log removal
   }
 });
 
@@ -305,30 +318,30 @@ distHtmlFiles.forEach((file) => {
 // STEP 7: Remove trailing slashes from void elements in HTML files in the project root
 // -------------------------------------------------------------
 // This step cleans up HTML by removing trailing slashes from void elements (e.g., <br /> becomes <br>).
-const VOID_ELEMENTS = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
-const rootHtmlFiles = fs.readdirSync(__dirname).filter((f) => f.endsWith('.html'));
+const VOID_ELEMENTS = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr']; // List of HTML void elements
+const rootHtmlFiles = fs.readdirSync(__dirname).filter((f) => f.endsWith('.html')); // List all .html files in project root
 rootHtmlFiles.forEach((file) => {
-  const filePath = path.join(__dirname, file);
-  let html = fs.readFileSync(filePath, 'utf8');
+  const filePath = path.join(__dirname, file); // Path to HTML file
+  let html = fs.readFileSync(filePath, 'utf8'); // Read file
   VOID_ELEMENTS.forEach((tag) => {
-    const regex = new RegExp(`<${tag}([^>]*)\s*/>`, 'gi');
-    html = html.replace(regex, `<${tag}$1>`);
+    const regex = new RegExp(`<${tag}([^>]*)\s*/>`, 'gi'); // Regex to match <tag />
+    html = html.replace(regex, `<${tag}$1>`); // Replace with <tag>
   });
-  fs.writeFileSync(filePath, html);
-  console.log(`Removed trailing slashes from void elements in ${file}`);
+  fs.writeFileSync(filePath, html); // Write cleaned HTML
+  console.log(`Removed trailing slashes from void elements in ${file}`); // Log cleanup
 });
 
 // =============================================================
 // STEP 8: Format HTML files in the project root using Prettier
 // -------------------------------------------------------------
 // This step formats all HTML files in the project root for consistent, readable markup.
-const { execSync } = require('child_process');
+const { execSync } = require('child_process'); // Import execSync to run shell commands
 try {
-  const htmlPaths = rootHtmlFiles.map((f) => f).join(' ');
+  const htmlPaths = rootHtmlFiles.map((f) => f).join(' '); // Join all HTML file names
   if (htmlPaths) {
-    execSync(`npx prettier --write ${htmlPaths}`, { stdio: 'inherit' });
-    console.log('Formatted root HTML files with Prettier.');
+    execSync(`npx prettier --write ${htmlPaths}`, { stdio: 'inherit' }); // Format HTML files with Prettier
+    console.log('Formatted root HTML files with Prettier.'); // Log formatting
   }
 } catch (err) {
-  console.warn('Prettier formatting failed:', err.message);
+  console.warn('Prettier formatting failed:', err.message); // Warn if Prettier fails
 }
