@@ -12,6 +12,11 @@ node_modules/
 *.tgz
 
 # =========================
+# FRONTEND MENTOR FILES
+# =========================
+QR-code-component/README.md
+
+# =========================
 # BUILD OUTPUT & GENERATED ARTIFACTS
 # =========================
 build/
