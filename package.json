@@ -60,7 +60,7 @@
     },
     "testEnvironment": "jsdom",
     "transformIgnorePatterns": [
-      "/node_modules/(?!parse5|jsdom)"
+      "/node_modules/(?!parse5|jsdom|@exodus/bytes)"
     ],
     "setupFiles": [
       "<rootDir>/jest.setup.js"
