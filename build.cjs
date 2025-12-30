@@ -318,6 +318,17 @@ jsFiles.forEach((file) => {
 const distHtmlFiles = fs.readdirSync(path.join(__dirname, 'dist')).filter((f) => f.endsWith('.html'));
 
 // =============================================================
+// STEP 5: Copy HTML files from dist/ to the project root for GitHub Pages
+// -------------------------------------------------------------
+// This step copies all HTML files from dist/ to the project root so GitHub Pages can serve from root.
+distHtmlFiles.forEach((file) => {
+  const srcPath = path.join(__dirname, 'dist', file);
+  const destPath = path.join(__dirname, file);
+  fs.copyFileSync(srcPath, destPath);
+  console.log(`Copied ${file} from dist/ to root for GitHub Pages.`);
+});
+
+// =============================================================
 // STEP 6: Remove <pre><code>...</code></pre> blocks from HTML files in dist/
 // -------------------------------------------------------------
 // This step removes code blocks from HTML files in dist/ to keep output clean.
