@@ -14,7 +14,22 @@ const path = require('path');
 // =====================================================================
 // 2. CONSTANTS: Void elements and directory
 // =====================================================================
-const VOID_ELEMENTS = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
+const VOID_ELEMENTS = [
+  'area',
+  'base',
+  'br',
+  'col',
+  'embed',
+  'hr',
+  'img',
+  'input',
+  'link',
+  'meta',
+  'param',
+  'source',
+  'track',
+  'wbr',
+];
 // Default to project root (where script is located) if no directory is provided
 const htmlDir = process.argv[2] || path.resolve(__dirname, '..');
 

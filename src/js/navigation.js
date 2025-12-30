@@ -203,7 +203,14 @@ initializeApp();
 // Trap focus within a container (menu) while open (for accessibility)
 function trapFocus(container, onClose) {
   // Selectors for all focusable elements
-  const focusableSelectors = ['a[href]', 'button:not([disabled])', 'input:not([disabled])', 'select:not([disabled])', 'textarea:not([disabled])', '[tabindex]:not([tabindex="-1"])'];
+  const focusableSelectors = [
+    'a[href]',
+    'button:not([disabled])',
+    'input:not([disabled])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])',
+  ];
   // Get all focusable elements in the container
   const focusableEls = container.querySelectorAll(focusableSelectors.join(','));
   if (!focusableEls.length) return;

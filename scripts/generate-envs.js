@@ -111,7 +111,28 @@ function autoValue(key, page, env) {
     .replace(/[^A-Za-z0-9]/g, '-')
     .toUpperCase();
   function pageKey(k) {
-    if (['TITLE', 'DESCRIPTION', 'KEYWORDS', 'robots', 'page_url', 'OG_IMAGE', 'page_url', 'OG_TYPE', 'TWITTER_CARD', 'title', 'TWITTER_description', 'GOOGLE_FONTS_LINK', 'schema_json', 'SUBTITLE', 'data_nav_config', 'BREADCRUMB_CATEGORY', 'BREADCRUMB_CATEGORY_URL', 'PAGE_NAME'].includes(k)) {
+    if (
+      [
+        'TITLE',
+        'DESCRIPTION',
+        'KEYWORDS',
+        'robots',
+        'page_url',
+        'OG_IMAGE',
+        'page_url',
+        'OG_TYPE',
+        'TWITTER_CARD',
+        'title',
+        'TWITTER_description',
+        'GOOGLE_FONTS_LINK',
+        'schema_json',
+        'SUBTITLE',
+        'data_nav_config',
+        'BREADCRUMB_CATEGORY',
+        'BREADCRUMB_CATEGORY_URL',
+        'PAGE_NAME',
+      ].includes(k)
+    ) {
       return `${baseName}_${k}`;
     }
     return k;
@@ -180,12 +201,35 @@ envFiles.forEach((env) => {
       // Section doesn't exist, create it
       sections[baseSection] = [`# ${baseSection}`];
     }
-    const existingKeys = new Set(sections[baseSection].filter((l) => l.match(/^([A-Z0-9_]+)=/)).map((l) => l.split('=')[0]));
+    const existingKeys = new Set(
+      sections[baseSection].filter((l) => l.match(/^([A-Z0-9_]+)=/)).map((l) => l.split('=')[0])
+    );
     keys.forEach((key) => {
       if (key === 'HEADER' || key === 'FOOTER') return;
       const pageSpecificKey = (() => {
         const baseName = page.replace(/[^A-Za-z0-9]/g, '-').toUpperCase();
-        if (['TITLE', 'DESCRIPTION', 'KEYWORDS', 'robots', 'page_url', 'OG_IMAGE', 'page_url', 'OG_TYPE', 'TWITTER_CARD', 'title', 'TWITTER_description', 'GOOGLE_FONTS_LINK', 'schema_json', 'SUBTITLE', 'data_nav_config', 'BREADCRUMB_CATEGORY', 'BREADCRUMB_CATEGORY_URL', 'PAGE_NAME'].includes(key)) {
+        if (
+          [
+            'TITLE',
+            'DESCRIPTION',
+            'KEYWORDS',
+            'robots',
+            'page_url',
+            'OG_IMAGE',
+            'page_url',
+            'OG_TYPE',
+            'TWITTER_CARD',
+            'title',
+            'TWITTER_description',
+            'GOOGLE_FONTS_LINK',
+            'schema_json',
+            'SUBTITLE',
+            'data_nav_config',
+            'BREADCRUMB_CATEGORY',
+            'BREADCRUMB_CATEGORY_URL',
+            'PAGE_NAME',
+          ].includes(key)
+        ) {
           return `${baseName}_${key}`;
         }
         return key;

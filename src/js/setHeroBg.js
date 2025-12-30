@@ -18,7 +18,10 @@ export async function setHeroBg() {
   function supportsFormat(format) {
     return new Promise((resolve) => {
       const img = new Image();
-      img.src = format === 'avif' ? 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAG1pZjFhdmlmAAACAGF2aWZtaWYx' : 'data:image/webp;base64,UklGRiIAAABXRUJQVlA4TAYAAAAvAAAAAAfQ//73v/+BiOh/AAA=';
+      img.src =
+        format === 'avif'
+          ? 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAG1pZjFhdmlmAAACAGF2aWZtaWYx'
+          : 'data:image/webp;base64,UklGRiIAAABXRUJQVlA4TAYAAAAvAAAAAAfQ//73v/+BiOh/AAA=';
       img.onload = () => resolve(img.width > 0 && img.height > 0);
       img.onerror = () => resolve(false);
     });

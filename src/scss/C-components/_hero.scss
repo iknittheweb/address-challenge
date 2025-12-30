@@ -15,7 +15,11 @@
   padding: f.rem(80) 0 f.rem(48);
   // margin-bottom: f.rem(40);
   text-align: center;
-  background-image: image-set(url('/dist/img/pages/open-laptops.avif') type('image/avif'), url('/dist/img/pages/open-laptops.webp') type('image/webp'), url('/dist/img/pages/open-laptops.jpg') type('image/jpeg'));
+  background-image: image-set(
+    url('/dist/img/pages/open-laptops.avif') type('image/avif'),
+    url('/dist/img/pages/open-laptops.webp') type('image/webp'),
+    url('/dist/img/pages/open-laptops.jpg') type('image/jpeg')
+  );
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

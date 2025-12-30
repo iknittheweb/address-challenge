@@ -77,9 +77,26 @@ if (process.env.DOTENV_CONFIG_PATH) {
   dotenvPath = '.env.gh';
 }
 require('dotenv').config({ path: dotenvPath }); // Load environment variables from the selected .env file
-console.log('[DEBUG] base_url:', process.env.base_url, '| asset_url:', process.env.asset_url, '| dotenvPath:', dotenvPath); // Debug: print loaded URLs and .env file
-console.log('[DEBUG] typeof base_url:', typeof process.env.base_url, '| typeof asset_url:', typeof process.env.asset_url); // Debug: print types
-console.log('[DEBUG] JSON.stringify(base_url):', JSON.stringify(process.env.base_url), '| JSON.stringify(asset_url):', JSON.stringify(process.env.asset_url)); // Debug: print stringified values
+console.log(
+  '[DEBUG] base_url:',
+  process.env.base_url,
+  '| asset_url:',
+  process.env.asset_url,
+  '| dotenvPath:',
+  dotenvPath
+); // Debug: print loaded URLs and .env file
+console.log(
+  '[DEBUG] typeof base_url:',
+  typeof process.env.base_url,
+  '| typeof asset_url:',
+  typeof process.env.asset_url
+); // Debug: print types
+console.log(
+  '[DEBUG] JSON.stringify(base_url):',
+  JSON.stringify(process.env.base_url),
+  '| JSON.stringify(asset_url):',
+  JSON.stringify(process.env.asset_url)
+); // Debug: print stringified values
 
 // =============================================================
 // STEP 2: Get base_url and asset_url from environment variables
@@ -143,7 +160,9 @@ const processTemplate = (templatePath) => {
         url: process.env.SCHEMA_URL || baseUrl + '/new-page.html',
         image: process.env.SCHEMA_IMAGE || assetUrl + 'src/img/pages/default.png',
         sameAs: process.env.SCHEMA_SAMEAS ? JSON.parse(process.env.SCHEMA_SAMEAS) : [],
-        knowsAbout: process.env.SCHEMA_KNOWSABOUT ? JSON.parse(process.env.SCHEMA_KNOWSABOUT) : ['HTML', 'CSS', 'JavaScript'],
+        knowsAbout: process.env.SCHEMA_KNOWSABOUT
+          ? JSON.parse(process.env.SCHEMA_KNOWSABOUT)
+          : ['HTML', 'CSS', 'JavaScript'],
       };
     } else if (templatePath.endsWith('portfolio.template.html')) {
       schemaData = {
@@ -161,7 +180,8 @@ const processTemplate = (templatePath) => {
         '@context': 'https://schema.org',
         '@type': 'Project',
         name: 'Multi-Level navbar',
-        description: 'A demonstration of a multi-level navigation bar built with HTML and CSS, featuring dropdown menus, nested navigation, and responsive design for modern web interfaces.',
+        description:
+          'A demonstration of a multi-level navigation bar built with HTML and CSS, featuring dropdown menus, nested navigation, and responsive design for modern web interfaces.',
         url: baseUrl + '/dist/pages/multi-level-navbar.html', // For legacy support
         url: baseUrl + '/multi-level-navbar.html',
         image: process.env.SCHEMA_IMAGE || assetUrl + 'src/img/pages/navbar.png',
@@ -225,9 +245,15 @@ const processTemplate = (templatePath) => {
     htmlContent = htmlContent.replace(/(src="[^"]+\.js)(")/g, `$1?v=${cacheBust}$2`);
 
     // Remove template warnings and workflow comments from the output HTML
-    let finalHtml = htmlContent.replace(/<!--\s*IMPORTANT: This is a TEMPLATE file![\s\S]*?DO NOT edit index\.html directly - it gets overwritten!\s*-->/, ''); // Remove template warning comments
+    let finalHtml = htmlContent.replace(
+      /<!--\s*IMPORTANT: This is a TEMPLATE file![\s\S]*?DO NOT edit index\.html directly - it gets overwritten!\s*-->/,
+      ''
+    ); // Remove template warning comments
     finalHtml = finalHtml.replace(/<!--\s*-{2,}\s*BEGINNER-FRIENDLY EXPLANATORY COMMENTS[\s\S]*?-{2,}\s*-->/g, ''); // Remove beginner-friendly comments
-    finalHtml = finalHtml.replace(/<!--\s*Build System Workflow \(2025\):[\s\S]*?DO NOT edit the generated \*\.html file directly[\s\S]*?-->/g, ''); // Remove workflow comments
+    finalHtml = finalHtml.replace(
+      /<!--\s*Build System Workflow \(2025\):[\s\S]*?DO NOT edit the generated \*\.html file directly[\s\S]*?-->/g,
+      ''
+    ); // Remove workflow comments
 
     // Inject header and footer from dist/index.html
     let header = ''; // Placeholder for header HTML
@@ -288,16 +314,8 @@ jsFiles.forEach((file) => {
 });
 
 // =============================================================
-// STEP 5: Copy generated HTML files to the project root
-// -------------------------------------------------------------
-// This step copies all .html files from dist/ to the root directory for deployment (GitHub Pages, etc.)
-const distHtmlFiles = fs.readdirSync(path.join(__dirname, 'dist')).filter((f) => f.endsWith('.html')); // List all .html files in dist/
-distHtmlFiles.forEach((file) => {
-  const srcPath = path.join(__dirname, 'dist', file); // Source path
-  const destPath = path.join(__dirname, file); // Destination path (project root)
-  fs.copyFileSync(srcPath, destPath); // Copy file to root
-  console.log(`Copied ${file} to project root.`); // Log copy
-});
+// STEP 5: (REMOVED) Do not copy HTML files to the project root. All HTML stays in dist/.
+const distHtmlFiles = fs.readdirSync(path.join(__dirname, 'dist')).filter((f) => f.endsWith('.html'));
 
 // =============================================================
 // STEP 6: Remove <pre><code>...</code></pre> blocks from HTML files in dist/
@@ -310,37 +328,51 @@ distHtmlFiles.forEach((file) => {
   const cleaned = html.replace(preCodeRegex, ''); // Remove code blocks
   if (cleaned !== html) {
     fs.writeFileSync(filePath, cleaned, 'utf8'); // Write cleaned HTML
-    console.log(`Removed <pre><code> blocks from ${file}`); // Log removal
+    console.log(`Removed <pre><code> blocks from dist/${file}`); // Log removal
   }
 });
 
 // =============================================================
-// STEP 7: Remove trailing slashes from void elements in HTML files in the project root
+// STEP 7: Remove trailing slashes from void elements in HTML files in dist/
 // -------------------------------------------------------------
 // This step cleans up HTML by removing trailing slashes from void elements (e.g., <br /> becomes <br>).
-const VOID_ELEMENTS = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr']; // List of HTML void elements
-const rootHtmlFiles = fs.readdirSync(__dirname).filter((f) => f.endsWith('.html')); // List all .html files in project root
-rootHtmlFiles.forEach((file) => {
-  const filePath = path.join(__dirname, file); // Path to HTML file
+const VOID_ELEMENTS = [
+  'area',
+  'base',
+  'br',
+  'col',
+  'embed',
+  'hr',
+  'img',
+  'input',
+  'link',
+  'meta',
+  'param',
+  'source',
+  'track',
+  'wbr',
+]; // List of HTML void elements
+distHtmlFiles.forEach((file) => {
+  const filePath = path.join(__dirname, 'dist', file); // Path to HTML file
   let html = fs.readFileSync(filePath, 'utf8'); // Read file
   VOID_ELEMENTS.forEach((tag) => {
     const regex = new RegExp(`<${tag}([^>]*)\s*/>`, 'gi'); // Regex to match <tag />
     html = html.replace(regex, `<${tag}$1>`); // Replace with <tag>
   });
   fs.writeFileSync(filePath, html); // Write cleaned HTML
-  console.log(`Removed trailing slashes from void elements in ${file}`); // Log cleanup
+  console.log(`Removed trailing slashes from void elements in dist/${file}`); // Log cleanup
 });
 
 // =============================================================
-// STEP 8: Format HTML files in the project root using Prettier
+// STEP 8: Format HTML files in dist/ using Prettier
 // -------------------------------------------------------------
-// This step formats all HTML files in the project root for consistent, readable markup.
+// This step formats all HTML files in dist/ for consistent, readable markup.
 const { execSync } = require('child_process'); // Import execSync to run shell commands
 try {
-  const htmlPaths = rootHtmlFiles.map((f) => f).join(' '); // Join all HTML file names
+  const htmlPaths = distHtmlFiles.map((f) => path.join('dist', f)).join(' '); // Join all HTML file names in dist/
   if (htmlPaths) {
     execSync(`npx prettier --write ${htmlPaths}`, { stdio: 'inherit' }); // Format HTML files with Prettier
-    console.log('Formatted root HTML files with Prettier.'); // Log formatting
+    console.log('Formatted dist HTML files with Prettier.'); // Log formatting
   }
 } catch (err) {
   console.warn('Prettier formatting failed:', err.message); // Warn if Prettier fails

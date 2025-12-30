@@ -195,7 +195,12 @@ function showSubmissionSuccess() {
   }, 5000);
 }
 function escapeHTML(str) {
-  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 function showSubmissionError(message) {
   const errorMessage = document.createElement('div');

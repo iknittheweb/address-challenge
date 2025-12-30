@@ -65,7 +65,9 @@ function toEnvKey(placeholder) {
 // For example, it will generate a title like 'Address Challenge' for address_challenge_title.
 function bestPracticeValue(key) {
   // Use a regular expression to split the key into the pageKey and the actual key name
-  const m = key.match(/^([a-z0-9_]+)_(asset_url|base_url|csp_meta|robots|css_file|data_breadcrumb_category|data_breadcrumb_category_url|data_nav_config|description|keywords|page_url|schema_json|title)$/);
+  const m = key.match(
+    /^([a-z0-9_]+)_(asset_url|base_url|csp_meta|robots|css_file|data_breadcrumb_category|data_breadcrumb_category_url|data_nav_config|description|keywords|page_url|schema_json|title)$/
+  );
   if (!m) return '';
   const pageKey = m[1]; // e.g., 'address_challenge'
   const k = m[2]; // e.g., 'title'
@@ -141,7 +143,21 @@ function getPageKeyFromFilename(filename) {
 // It uses the pageKey (like 'address_challenge') as a prefix for each required key.
 function getFixedKeysForPage(pageKey) {
   // This function returns all required keys for a page section, prefixed with the pageKey
-  const requiredKeys = ['asset_url', 'base_url', 'csp_meta', 'robots', 'css_file', 'data_breadcrumb_category', 'data_breadcrumb_category_url', 'data_nav_config', 'description', 'keywords', 'page_url', 'schema_json', 'title'];
+  const requiredKeys = [
+    'asset_url',
+    'base_url',
+    'csp_meta',
+    'robots',
+    'css_file',
+    'data_breadcrumb_category',
+    'data_breadcrumb_category_url',
+    'data_nav_config',
+    'description',
+    'keywords',
+    'page_url',
+    'schema_json',
+    'title',
+  ];
   // Prefix each key with the pageKey (e.g., address_challenge_title)
   return requiredKeys.map((k) => `${pageKey}_${k}`);
 }

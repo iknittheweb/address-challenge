@@ -36,7 +36,10 @@ function cleanLinkTags(filePath) {
   html = html.replace(/\s*>/g, '>');
 
   // Add external load-css.js after last <link rel="stylesheet"> in <head>
-  html = html.replace(/(<link[^>]*rel=["']stylesheet["'][^>]*>)(?![\s\S]*<link[^>]*rel=["']stylesheet["'][^>]*>)/i, '$1\n    <script src="src/js/load-css.js" defer></script>');
+  html = html.replace(
+    /(<link[^>]*rel=["']stylesheet["'][^>]*>)(?![\s\S]*<link[^>]*rel=["']stylesheet["'][^>]*>)/i,
+    '$1\n    <script src="src/js/load-css.js" defer></script>'
+  );
 
   fs.writeFileSync(filePath, html);
   console.log(`Cleaned and updated: ${filePath}`);

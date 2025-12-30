@@ -27,7 +27,9 @@ const cssDir = path.join(process.cwd(), 'dist', 'css');
 // -------------------------------------------------------------
 async function inlineAllCriticalCSS() {
   // STEP 1: Find all HTML files in the project root (excluding node_modules, dist, etc.)
-  const htmlFiles = fs.readdirSync(htmlDir).filter((file) => file.endsWith('.html') && file !== 'node_modules' && !file.startsWith('dist/'));
+  const htmlFiles = fs
+    .readdirSync(htmlDir)
+    .filter((file) => file.endsWith('.html') && file !== 'node_modules' && !file.startsWith('dist/'));
 
   // STEP 2: Only use mobile viewport for critical CSS (best practice)
   const mobileViewport = { width: 375, height: 667, label: 'mobile' };

@@ -27,7 +27,7 @@ Usage:
 # =====================================================================
 
 $timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
-$logDir = Join-Path $PSScriptRoot "..\copilot-chat-logs"
+$logDir = Join-Path $PSScriptRoot "..\_copilot-chat-logs"
 if (!(Test-Path $logDir)) {
   New-Item -ItemType Directory -Path $logDir | Out-Null
 }

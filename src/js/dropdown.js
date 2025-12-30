@@ -127,7 +127,14 @@ function initializeDropdown() {
       dropdownTitleGroup.setAttribute('data-open', 'true'); // Mark as open
       if (window.jest || window.Cypress) {
         // Log state for tests
-        console.log('[dropdown.js] .show added:', dropdownContent.classList.contains('show'), 'aria-hidden:', dropdownContent.getAttribute('aria-hidden'), 'aria-expanded:', dropdownTitleGroup.getAttribute('aria-expanded'));
+        console.log(
+          '[dropdown.js] .show added:',
+          dropdownContent.classList.contains('show'),
+          'aria-hidden:',
+          dropdownContent.getAttribute('aria-hidden'),
+          'aria-expanded:',
+          dropdownTitleGroup.getAttribute('aria-expanded')
+        );
       }
       lastTrigger = dropdownTitleGroup; // Remember what opened it
       window.dropdownTestState.isOpen = true;
@@ -158,7 +165,14 @@ function initializeDropdown() {
       dropdownTitleGroup.setAttribute('data-open', 'false'); // Not open
       if (window.jest || window.Cypress) {
         // Log state for tests
-        console.log('[dropdown.js] .show removed:', dropdownContent.classList.contains('show'), 'aria-hidden:', dropdownContent.getAttribute('aria-hidden'), 'aria-expanded:', dropdownTitleGroup.getAttribute('aria-expanded'));
+        console.log(
+          '[dropdown.js] .show removed:',
+          dropdownContent.classList.contains('show'),
+          'aria-hidden:',
+          dropdownContent.getAttribute('aria-hidden'),
+          'aria-expanded:',
+          dropdownTitleGroup.getAttribute('aria-expanded')
+        );
       }
       window.dropdownTestState.isOpen = false;
       window.dropdownTestState.focusTrapActive = false;
@@ -237,7 +251,14 @@ function initializeDropdown() {
   // Helper: Trap focus within a container (dropdown menu)
   function trapFocus(container, onClose) {
     // List of selectors for focusable elements
-    const focusableSelectors = ['a[href]', 'button:not([disabled])', 'input:not([disabled])', 'select:not([disabled])', 'textarea:not([disabled])', '[tabindex]:not([tabindex="-1"])'];
+    const focusableSelectors = [
+      'a[href]',
+      'button:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      'textarea:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])',
+    ];
     // Find all focusable elements inside the container
     const focusableEls = container.querySelectorAll(focusableSelectors.join(','));
     if (!focusableEls.length) return;

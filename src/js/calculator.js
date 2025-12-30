@@ -136,13 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (/^[0-9]$/.test(e.key)) {
       inputDigit(e.key);
     } else if (['+', '-', '*', 'x', 'X'].includes(e.key)) {
-      inputOperator(
-        '+*-xX'.includes(e.key)
-          ? e.key === '*' || e.key.toLowerCase() === 'x'
-            ? '×'
-            : e.key
-          : e.key
-      );
+      inputOperator('+*-xX'.includes(e.key) ? (e.key === '*' || e.key.toLowerCase() === 'x' ? '×' : e.key) : e.key);
     } else if (e.key === '/' || e.key === '÷') {
       inputOperator('÷');
     } else if (e.key === 'Enter' || e.key === '=') {
