@@ -1,0 +1,14 @@
+//* ------------------------------------------------------------
+//& MAIN STYLES ENTRY POINT
+//*
+//* This is the root SCSS file for your project. It imports all partials from the subfolders (abstracts, base, components, layout, pages, themes, vendors).
+//* Only this file should be compiled directly to CSS.
+//* Do NOT put actual CSS rules here—only @use statements to import other partials.
+//* ------------------------------------------------------------
+
+// This is the root SCSS file for your project. It imports all partials from the subfolders (abstracts, base, components, layout, pages, themes, vendors).
+@use './A-abstracts' as a;
+@use './B-base';
+@use './C-components';
+@use './D-layout';
+@use './E-pages';
