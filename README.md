@@ -2,69 +2,43 @@
 
 ## 📦 Keeping Dependencies Up to Date
 
-To keep your project secure and running smoothly, periodically check for outdated dependencies and vulnerabilities:
+├── scripts/build.js # Main build script (uses .env for config) ├── scripts/component-build.cjs # Component/page build system (uses .env for config)
 
 1. **Check for outdated packages:**
 
-```bash
+````bash
 npm outdated
-```
-
-Review which packages have newer versions available.
 
 2. **Update packages:**
 
 ```bash
-npm update
-```
+`node scripts/component-build.cjs` Build all pages/components
+````
 
 This updates to the latest compatible versions.
 
-3. **Check for vulnerabilities:**
+3. **Check for vulnerabilities:** npm audit npm audit fix
 
-```bash
-npm audit
-npm audit fix
 ```
 
 Use `npm audit fix --force` for major/breaking changes (review changelogs first).
 
 4. **After updating:**
-
 - Test your site and build process to ensure everything works as expected.
 - Review release notes for breaking changes if you update major versions.
 
-**Best practice:** Do this every few weeks, or before/after major work.
 
-# I Knit The Web - Portfolio Website
-
-Welcome to the codebase for my personal portfolio site! This project is a static site built with custom HTML, SCSS, and JavaScript, featuring a flexible build system for easy environment management and modular page/component generation.
 
 ---
 
-## 📁 Folder Structure Overview
-
-```
-├── build.js                # Main build script (uses .env for config)
-├── component-build.cjs     # Component/page build system (uses .env for config)
 ├── .env                    # Development environment variables (not committed)
-├── .env.production         # Production environment variables (not committed)
 ├── .env.example            # Example env file (copy to .env/.env.production)
 ├── index.template.html     # Main HTML template (edit this, not index.html)
 ├── dist/index.html         # Generated output (do not edit directly)
-├── dist/                   # Compiled CSS output
-├── src/
-│   ├── css/                # Legacy CSS files (to be migrated to SCSS)
-│   ├── img/                # All image assets, organized by type
-│   ├── js/                 # JavaScript files (components, scripts)
-│   ├── pages/              # All HTML pages and subfolders
 │   ├── scss/               # SCSS source (modular, by type/page)
-│   └── templates/          # HTML templates for page generation
 ├── certificates/           # Personal certificates (not used on site)
 ├── docs/                   # Project documentation and guides
 ├── notes/                  # Planning, to-do, and brainstorming files
-├── package.json            # NPM scripts and dependencies
-└── README.md               # This file
 ```
 
 ---
@@ -85,10 +59,6 @@ npm run local
 
 This generates `dist/index.html` and other pages using development URLs from `.env`.
 
-### 3. Build for Production
-
-```bash
-npm run prod
 ```
 
 This generates files using production URLs from `.env.production`.
@@ -102,19 +72,18 @@ This generates files using production URLs from `.env.production`.
 Variables used:
 
 ```
-base_url=...      # The base URL for your site
-asset_url=...     # The base path or URL for static assets
+
+base_url=... # The base URL for your site asset_url=... # The base path or URL for static assets
+
 ```
 
 ## 🔄 NPM Scripts & Commands
 
 ```
-base_url=...         # The base URL for your site
-asset_url=...        # The base path or URL for static assets
-css_file=...         # CSS file name (expanded or minified)
-robots=...           # SEO robots meta value
-page_url=...    # Canonical URL for SEO
-```
+
+base_url=... # The base URL for your site asset_url=... # The base path or URL for static assets css_file=... # CSS file name (expanded or minified) robots=... # SEO robots meta value page_url=... # Canonical URL for SEO
+
+````
 
 Alternate environments supported:
 
@@ -182,7 +151,7 @@ Use `npm run alt` to build with alternate environment files.
   npx cz
   # or
   npx commitizen
-  ```
+````
 
 - Answer the prompts to generate a well-structured commit message (e.g., `feat: add new hero section`).
 
