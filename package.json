@@ -4,23 +4,11 @@
   "type": "module",
   "description": "I Knit The Web - Personal Portfolio Website",
   "scripts": {
-    "build:domain": "rimraf dist && node scripts/generate-schema-json.cjs && node sync-docs.cjs && node docs/update-placeholder-guide.cjs && node optimize-images.cjs && node build.cjs domain && npm run build:all-css && node scripts/autoprefix-css.cjs && node inline-critical-css.mjs && npm run minify && node remove-link-onload.cjs && npm run lint:js && npm run lint:html && npm run test:style && npm run nojekyll",
+    "build:domain": "rimraf dist && node sync-docs.cjs && node optimize-images.cjs && node build.cjs domain && npm run build:all-css && node scripts/autoprefix-css.cjs && node inline-critical-css.mjs && npm run minify && node remove-link-onload.cjs && npm run lint:js && npm run lint:html && npm run test:style && npm run nojekyll",
     "bd": "powershell -ExecutionPolicy Bypass -File ./scripts/build-domain-with-logs.ps1",
-    "build:domain:skip-tests": "rimraf dist && node sync-docs.cjs && node docs/update-placeholder-guide.cjs && node optimize-images.cjs && node build.cjs domain && node remove-link-onload.cjs && npm run build:all-css && node inline-critical-css.mjs && npm run minify && npm run lint:js && npm run lint:html",
-    "bdst": "powershell -ExecutionPolicy Bypass -File ./scripts/build-domain-skip-tests-with-logs.ps1",
-    "build:gh": "rimraf dist && node scripts/generate-schema-json.cjs && node sync-docs.cjs && node optimize-images.cjs && node build.cjs gh && npm run build:all-css && node scripts/autoprefix-css.cjs && node inline-critical-css.mjs && npm run minify && node remove-link-onload.cjs && npm run lint:js && npm run lint:html && npm run test:style && npm run nojekyll",
+    "build:gh": "rimraf dist && node sync-docs.cjs && node optimize-images.cjs && node build.cjs gh && npm run build:all-css && node scripts/autoprefix-css.cjs && node inline-critical-css.mjs && npm run minify && node remove-link-onload.cjs && npm run lint:js && npm run lint:html && npm run test:style && npm run nojekyll",
     "bg": "powershell -ExecutionPolicy Bypass -File ./scripts/build-gh-with-logs.ps1",
-    "bg-partial": "npm run test:style && npm run nojekyll",
-    "build:gh:skip-tests": "rimraf dist && node sync-docs.cjs && node docs/update-placeholder-guide.cjs && node optimize-images.cjs && node build.cjs gh && node remove-link-onload.cjs && npm run build:all-css && node inline-critical-css.mjs && npm run minify && npm run lint:js && npm run lint:html && npm run nojekyll",
-    "bgst": "powershell -ExecutionPolicy Bypass -File ./scripts/build-gh-skip-tests-with-logs.ps1",
-    "build:local": "rimraf dist && node scripts/generate-schema-json.cjs && node sync-docs.cjs && node docs/update-placeholder-guide.cjs && node optimize-images.cjs && node build.cjs local && npm run build:all-css && node scripts/autoprefix-css.cjs && node inline-critical-css.mjs && npm run minify && node remove-link-onload.cjs && npm run lint:js && npm run lint:html && npm run test:style",
-    "build:lp": "node build.cjs local && node remove-link-onload.cjs",
-    "blni": "npm run build:localNoInline",
-    "bl": "powershell -ExecutionPolicy Bypass -File ./scripts/build-local-with-logs.ps1",
-    "build:local:skip-tests": "rimraf dist && node sync-docs.cjs && node docs/update-placeholder-guide.cjs && node optimize-images.cjs && node build.cjs local && node remove-link-onload.cjs && npm run build:all-css && node inline-critical-css.mjs && npm run minify && npm run lint:js && npm run lint:html && npm run nojekyll",
-    "blst": "powershell -ExecutionPolicy Bypass -File ./scripts/build-local-skip-tests-with-logs.ps1",
-    "build:all-css": 
-    "sass src/scss/styles.scss dist/css/styles.css --source-map && powershell -ExecutionPolicy Bypass -File ./scripts/purge-and-minify.ps1",
+    "build:all-css": "sass src/scss/styles.scss dist/css/styles.css --source-map && powershell -ExecutionPolicy Bypass -File ./scripts/purge-and-minify.ps1",
     "bac": "npm run build:all-css",
     "commit": "cz",
     "commit:format": "prettier --write . && cz && release",
@@ -102,9 +90,9 @@
     "stylelint-scss": "^6.12.1",
     "vite": "^7.1.11"
   },
-    "config": {
-      "commitizen": {
-        "path": "cz-conventional-changelog"
-      }
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
     }
   }
+}

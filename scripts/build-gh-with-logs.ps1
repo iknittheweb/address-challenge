@@ -25,6 +25,7 @@ $logFile = "$logDir/build-gh-$timestamp.log"
 # =====================================================================
 # Runs the build:gh npm script and logs all output to the file
 npm run build:gh *>&1 | Tee-Object -FilePath $logFile
+# Add other direct node/sass/etc. commands as needed
 
 # =====================================================================
 # 4. CLEANUP: Keep Only 10 Most Recent Logs
