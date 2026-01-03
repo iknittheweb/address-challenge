@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="{{csp_meta}}" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-eval' https://browser.sentry-cdn.com https://kit.fontawesome.com https://cdn.jsdelivr.net https://ka-p.fontawesome.com 'unsafe-hashes'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://kit.fontawesome.com https://ka-p.fontawesome.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com https://kit.fontawesome.com https://ka-p.fontawesome.com; img-src 'self' data: https://github.com https://fonts.gstatic.com https://kit.fontawesome.com https://ka-p.fontawesome.com https://images.unsplash.com; connect-src 'self' https://sentry.io https://fonts.googleapis.com https://fonts.gstatic.com https://ka-p.fontawesome.com https://kit-upload.fontawesome.com https://kit.fontawesome.com https://cdn.jsdelivr.net; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;"
+    />
     <title>Using &lt;address&gt; | 30 Days of HTML Challenge</title>
 
     <!-- Fallback styles for no-JS environments -->
@@ -39,14 +42,14 @@
       href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
       as="style"
     />
-    <link rel="preload" as="style" href="{{base_url}}dist/css/{{address_challenge_css_file}}" />
+    <link rel="preload" as="style" href="{{base_url}}dist/css/styles.css" />
 
     <!-- Main font and site stylesheets -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
     />
-    <link rel="stylesheet" href="{{base_url}}dist/css/{{address_challenge_css_file}}" />
+    <link rel="stylesheet" href="{{base_url}}dist/css/styles.css" />
 
     <!-- FontAwesome CDN stylesheet for icons -->
     <link
@@ -57,41 +60,64 @@
     />
 
     <!-- Favicons and manifest -->
-    <link rel="icon" type="image/x-icon" href="{{base_url}}{{asset_url}}favicon_io/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="{{base_url}}{{asset_url}}favicon_io/apple-touch-icon.png" />
-    <link rel="shortcut icon" href="{{base_url}}{{asset_url}}favicon_io/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{base_url}}/dist/img/favicon_io/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{base_url}}/dist/img/favicon_io/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="{{base_url}}/dist/img/favicon_io/favicon.ico" />
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#500f44" />
-    <link rel="canonical" href="{{base_url}}{{address_challenge_page_url}}" />
+    <link rel="canonical" href="{{base_url}}" />
 
     <!-- Preload critical logo images for fast LCP -->
-    <link rel="preload" as="image" href="{{base_url}}{{asset_url}}branding/logo.png" type="image/png" />
-    <link rel="preload" as="image" href="{{base_url}}{{asset_url}}branding/logo.webp" type="image/webp" />
-    <link rel="preload" as="image" href="{{base_url}}{{asset_url}}branding/logo.avif" type="image/avif" />
+    <link rel="preload" as="image" href="{{base_url}}/dist/img/branding/logo.png" type="image/png" />
+    <link rel="preload" as="image" href="{{base_url}}/dist/img/branding/logo.webp" type="image/webp" />
+    <link rel="preload" as="image" href="{{base_url}}/dist/img/branding/logo.avif" type="image/avif" />
 
     <!-- SEO and social meta tags (grouped for clarity) -->
-    <meta name="description" content="{{address_challenge_description}}" />
-    <meta name="keywords" content="{{address_challenge_keywords}}" />
+    <meta
+      name="description"
+      content="Learn how to use the HTML address element for contact and location details, with accessibility best practices."
+    />
+    <meta name="keywords" content="address, contact, location, accessibility, html, web development, tutorial" />
     <meta name="author" content="I Knit the Web" />
-    <meta name="robots" content="{{robots}}" />
-    <meta name="googlebot" content="{{robots}}" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
     <link rel="preload" as="image" href="/img/branding/logo.png" type="image/png" />
     <link rel="preload" as="image" href="/img/branding/logo.webp" type="image/webp" />
     <link rel="preload" as="image" href="/img/branding/logo.avif" type="image/avif" />
-    <meta property="og:title" content="{{address_challenge_title}}" />
-    <meta property="og:description" content="{{address_challenge_description}}" />
+    <meta property="og:title" content="Address Challenge | 30 Days of HTML Challenge" />
+    <meta
+      property="og:description"
+      content="Tutorial on the HTML address element for contact information and location, focusing on accessibility."
+    />
     <meta property="og:image" content="/img/branding/logo.png" />
-    <meta property="og:url" content="{{address_challenge_page_url}}" />
+    <meta property="og:url" content="https://iknittheweb.github.io/address-challenge/" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_us" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="{{address_challenge_title}}" />
-    <meta name="twitter:description" content="{{address_challenge_description}}" />
+    <meta name="twitter:title" content="Address Challenge | 30 Days of HTML Challenge" />
+    <meta
+      name="twitter:description"
+      content="Explore the HTML address element for contact and location details, with accessibility tips."
+    />
     <meta name="twitter:image" content="/img/branding/logo.png" />
 
     <!-- Structured data for SEO -->
     <script type="application/ld+json">
-      {{address_challenge_schema_json}}
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Address Challenge | I Knit The Web",
+        "description": "Explore the use of the <address> element in HTML for contact information and location details. Includes accessibility best practices.",
+        "url": "/address-challenge.html",
+        "author": {
+          "@type": "Person",
+          "name": "Marta",
+          "url": "https://iknittheweb.github.io/",
+          "sameAs": ["https://github.com/iknittheweb"]
+        },
+        "image": "/img/branding/logo.png",
+        "inLanguage": "en"
+      }
     </script>
 
     <!-- Third-party monitoring/analytics: Sentry -->
@@ -107,20 +133,18 @@
   <body>
     <div
       id="page-data"
-      data-page-title="{{address_challenge_title}}"
-      data-description="{{address_challenge_description}}"
-      data-keywords="{{address_challenge_keywords}}"
-      data-page-url="{{address_challenge_page_url}}"
-      data-schema-json="{{address_challenge_schema_json}}"
-      data-og-title="{{address_challenge_title}}"
-      data-nav-config="{{address_challenge_data_nav_config}}"
-      data-breadcrumb-category="{{address_challenge_data_breadcrumb_category}}"
-      data-breadcrumb-category-url="{{address_challenge_data_breadcrumb_category_url}}"
-      data-css-file="{{address_challenge_css_file}}"
+      data-page-title="Address Challenge | 30 Days of HTML Challenge"
+      data-description="Learn how to use the HTML address element for contact and location details, with accessibility best practices."
+      data-keywords="address, contact, location, accessibility, html, web development, tutorial"
+      data-page-url="https://iknittheweb.github.io/address-challenge/"
+      data-schema-json='{"@context":"https://schema.org","@type":"WebPage","name":"Address Challenge | I Knit The Web","description":"Explore the use of the &lt;address&gt; element in HTML for contact information and location details. Includes accessibility best practices.","url":"/address-challenge.html","author":{"@type":"Person","name":"Marta","url":"https://iknittheweb.github.io/","sameAs":["https://github.com/iknittheweb"]},"image":"/img/branding/logo.png","inLanguage":"en"}'
+      data-og-title="Address Challenge | 30 Days of HTML Challenge"
+      data-nav-config="address-challenge"
+      data-breadcrumb-category="Reference"
+      data-breadcrumb-category-url="/address-challenge.html"
+      data-css-file="dist/css/styles.css"
       style="display: none"
     ></div>
-
-    <!-- HEADER_PLACEHOLDER -->
 
     <main class="address-challenge" id="address_main-content" aria-labelledby="address-title" role="main" tabindex="-1">
       <div class="page-wrapper">
@@ -170,6 +194,58 @@
       </div>
     </main>
 
-    <!-- FOOTER_PLACEHOLDER -->
+    <footer aria-label="Site footer" class="footer">
+      <div class="footer__content wrapper">
+        <div class="footer__sections">
+          <!-- About Section -->
+          <div class="footer__section footer__about">
+            <h2 class="footer__heading">I Knit The Web</h2>
+            <p class="footer__description">
+              Crafting handmade websites with care, creativity, and code. Bringing your digital dreams to life, one
+              thread at a time.
+            </p>
+          </div>
+          <!-- Quick Links Section -->
+          <div class="footer__section footer__links">
+            <h3 class="footer__heading">Quick Links</h3>
+            <nav class="footer__nav">
+              <ul class="footer__nav-list">
+                <li>
+                  <a href="#main-content" class="footer__nav-link">Home</a>
+                </li>
+                <li>
+                  <a href="#about" class="footer__nav-link">About</a>
+                </li>
+                <li>
+                  <a href="#portfolio" class="footer__nav-link">Portfolio</a>
+                </li>
+                <li>
+                  <a href="#contact" class="footer__nav-link">Contact</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <!-- Contact Section -->
+          <div class="footer__section footer__contact">
+            <h3 class="footer__heading">Let's Connect</h3>
+            <p class="footer__contact-text">
+              Ready to start your project? I'd love to hear about your ideas and help bring them to life.
+            </p>
+            <a href="#contact" class="footer__cta-link">Get In Touch</a>
+          </div>
+        </div>
+        <!-- Bottom Bar -->
+        <div class="footer__bottom">
+          <div class="footer__bottom-content">
+            <p class="footer__copyright">&copy; 2025 I Knit The Web. All rights reserved.</p>
+            <p class="footer__tagline">Handcrafted with 💜 and lots of ☕</p>
+          </div>
+        </div>
+        <a href="#topNav" class="back-to-top-link" aria-label="Back to top">
+          <span class="fa-solid fa-arrow-up" aria-hidden="true"></span>
+          <span class="visually-hidden">Back to top</span>
+        </a>
+      </div>
+    </footer>
   </body>
 </html>
