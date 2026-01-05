@@ -39,7 +39,7 @@
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
     white-space: nowrap;
     border: 0;
   }
@@ -52,7 +52,7 @@
     text-decoration: none;
   }
 
-  @media (width <= 700px) {
+  @media (width <=700px) {
     margin-top: 1rem;
     width: 2.25rem;
     height: 2.25rem;
