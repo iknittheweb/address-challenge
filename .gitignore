@@ -92,7 +92,6 @@ generate-envs_explanation.txt
 # IMAGES & ASSETS
 # =========================
 fonts/
-img/
 src/img/certificates/
 src/img/pages/open-laptops.jpg
 archive/
