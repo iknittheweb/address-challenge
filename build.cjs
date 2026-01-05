@@ -24,18 +24,14 @@
   This script updates URLs and injects environment variables for different environments.
 
   USAGE:
-    - npm run local       -> Build for local development (.env, live server)
-    - npm run alt         -> Build for alternate environment (.env.alt, GitHub Pages)
-    - npm run netlify-alt -> Build for alternate environment (.env.netlify-alt, Netlify)
-    - npm run prod        -> Build for production (.env.production, custom domain)
+    - npm run gh         -> Build for GitHub Pages
+    - npm run domain     -> Build for custom domain
 
   Typical Workflow:
-    1. Edit src/templates/index.template.html (NOT index.html)
-    2. Run npm run local after making changes for local dev
-    3. Run npm run alt for alternate environments (GitHub Pages)
-    4. Run npm run netlify-alt for alternate environments (Netlify)
-    5. Run npm run prod before pushing to production
-    6. Update .env, .env.alt, .env.netlify-alt, and .env.production as needed for your URLs and settings
+    1. Edit src/templates/*.template.html (NOT index.html)
+    2. Run npm run gh after making changes for GitHub Pages
+    3. Run npm run domain after making changes for custom domain
+    4. Update .env.gh and .env.domain as needed for your URLs and settings
   =====================================================================
 */
 
@@ -82,7 +78,7 @@ if (typeof baseUrl !== 'string' || baseUrl.trim() === '' || typeof assetUrl !== 
 const templatePath = path.join(__dirname, 'src', 'templates', 'address-challenge.30-days-of-html.template.html');
 console.log(`[DEBUG] Processing template: ${templatePath}`);
 const templateSrc = fs.readFileSync(templatePath, 'utf8');
-const template = Handlebars.compile(templateSrc);
+const template = Handlebars.compile(templateSrc, { noEscape: true });
 const context = Object.assign({}, process.env, {
   base_url: baseUrl,
   asset_url: assetUrl,
@@ -107,5 +103,3 @@ console.log(`Built ${outputPath}`);
 const rootOutputPath = path.join(__dirname, 'index.html');
 fs.copyFileSync(outputPath, rootOutputPath);
 console.log('Copied index.html to project root.');
-
-// (Optional) Copy JS files to dist/js if needed in the future
