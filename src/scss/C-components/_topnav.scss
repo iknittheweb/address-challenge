@@ -49,14 +49,18 @@
       padding-block: 0;
     }
   }
+
   &__homelink--desktop {
     display: block;
+
     @include m.breakpoint-down('699.98') {
       display: none;
     }
   }
+
   &__homelink--mobile {
     display: none;
+
     @include m.breakpoint-down('699.98') {
       display: block;
       margin-bottom: f.rem(16);
@@ -111,11 +115,13 @@
         animation: fade-in-hamburger 400ms ease-out 150ms forwards;
         border: 1px solid white;
       }
+
       .topnav__close {
         display: none;
         border: 1px solid white;
       }
     }
+
     @include m.breakpoint('700') {
       .topnav__open,
       .topnav__close {
@@ -218,11 +224,12 @@
       text-align: left;
       touch-action: manipulation;
       user-select: none;
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+      -webkit-tap-highlight-color: rgb(0 0 0 / 10%);
       cursor: pointer;
       text-decoration: none;
       color: var(--light-text);
       font-size: f.rem(32);
+
       &:hover,
       &:focus {
         text-decoration: none;
@@ -273,6 +280,7 @@
     margin-right: auto;
     color: var(--light-text);
     width: fit-content;
+
     @include m.breakpoint-down('699.98') {
       margin-top: f.rem(48);
     }
