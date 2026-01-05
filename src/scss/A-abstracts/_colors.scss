@@ -37,9 +37,9 @@
   --secondary-bg-pale: #a8d4a5; // Muted pale green for better text readability
   --light-bg: #e1dede; // Light neutral background
   --mid-bg: #666; // Medium gray background
-  --dark-bg: #000000; // Pure black for dark mode backgrounds
-  --reduced-opacity-bg: rgba(255, 255, 255, 0.6);
-  --reduced-opacity-bg-light: rgba(255, 255, 255, 0.8);
+  --dark-bg: #000; // Pure black for dark mode backgrounds
+  --reduced-opacity-bg: rgb(255 255 255 / 60%);
+  --reduced-opacity-bg-light: rgb(255 255 255 / 80%);
   --reduced-opacity-bg-gradient: linear-gradient(180deg, #c642cf, #42c439);
   --basic-vertical-navbar-title-bg-gradient: linear-gradient(to bottom, #fff, #eb3b5a, #eb3b5a, #eb3b5a);
 
@@ -72,50 +72,50 @@
   --primary-gradient-light: #c642cf; // Light purple maintaining original lightness
   --secondary-gradient-light: #42c439; // Bright green maintaining original lightness
 
-  // About
-  --primary-underline-light: #c642cf; // Light purple underline maintaining original lightness
-  --secondary-underline-light: #42c439; // Bright green underline maintaining original lightness
+  // // About
+  // --primary-underline-light: #c642cf; // Light purple underline maintaining original lightness
+  // --secondary-underline-light: #42c439; // Bright green underline maintaining original lightness
 
-  // Contact
-  --primary-shadow: #500f441a; // Purple shadow with transparency
-  --dark-error: #751c7d; // mid purple for error messages on light backgrounds
+  // // Contact
+  // --primary-shadow: #500f441a; // Purple shadow with transparency
+  // --dark-error: #751c7d; // mid purple for error messages on light backgrounds
 
-  // Calculator Page
-  --calc-display-bg: #e1dede; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  // // Calculator Page
+  // --calc-display-bg: #e1dede; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
 
-  // ---------------------------------
-  // ---------------------------------
-  // Alien Page Form Colors
-  // ---------------------------------
-  // Backgrounds
-  --alien-primary-bg: #000; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
-  --alien-secondary-bg: #000; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  // // ---------------------------------
+  // // ---------------------------------
+  // // Alien Page Form Colors
+  // // ---------------------------------
+  // // Backgrounds
+  // --alien-primary-bg: #000; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  // --alien-secondary-bg: #000; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
 
-  // Borders
-  --alien-border-color: #000; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
-  --alien-accent-border-color: #000; //! (for border/text/bg) NEED TO UPDATE THIS BASED ON ORIGINAL CSS
-  --alien-accent-secondary-border-color: #000; //! (for border/bg) NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  // // Borders
+  // --alien-border-color: #000; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  // --alien-accent-border-color: #000; //! (for border/text/bg) NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  // --alien-accent-secondary-border-color: #000; //! (for border/bg) NEED TO UPDATE THIS BASED ON ORIGINAL CSS
 
-  // Text
-  --alien-text-light: #d04949; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
-  --alien-text-dim: #d04949; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
-  --alien-accent: #000; //! (for text) NEED TO UPDATE THIS BASED ON ORIGINAL CSS
-  // ---------------------------------
-  // ---------------------------------
+  // // Text
+  // --alien-text-light: #d04949; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  // --alien-text-dim: #d04949; //! NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  // --alien-accent: #000; //! (for text) NEED TO UPDATE THIS BASED ON ORIGINAL CSS
+  // // ---------------------------------
+  // // ---------------------------------
 
-  // Effects
-  --primary-glow: #c642cf; // Light purple glow effect
+  // // Effects
+  // --primary-glow: #c642cf; // Light purple glow effect
 
-  // Description List Challenge Page
-  --desc-list-bg: #f9f9f9;
-  --desc-list-border: #eb3b5a;
-  --desc-list-materials-bg: #fff;
-  --desc-list-materials-border: #ddd;
-  --desc-list-materials-term: #333;
-  --desc-list-materials-desc: #666;
+  // // Description List Challenge Page
+  // --desc-list-bg: #f9f9f9;
+  // --desc-list-border: #eb3b5a;
+  // --desc-list-materials-bg: #fff;
+  // --desc-list-materials-border: #ddd;
+  // --desc-list-materials-term: #333;
+  // --desc-list-materials-desc: #666;
 
-  // Skills Chart Component
-  // --skills-tab-inactive-bg: rgb(255 255 255 / 5%); // Subtle background for inactive tabs
-  // --skills-tab-inactive-text-opacity: 0.7; // Opacity for inactive tab text
-  // --skills-tab-hover-opacity: 0.9; // Opacity for tab hover state
+  // // Skills Chart Component
+  // // --skills-tab-inactive-bg: rgb(255 255 255 / 5%); // Subtle background for inactive tabs
+  // // --skills-tab-inactive-text-opacity: 0.7; // Opacity for inactive tab text
+  // // --skills-tab-hover-opacity: 0.9; // Opacity for tab hover state
 }
