@@ -10,9 +10,9 @@
   --secondary-bg-pale: #a8d4a5;
   --light-bg: #e1dede;
   --mid-bg: #666;
-  --dark-bg: #000000;
-  --reduced-opacity-bg: rgba(255, 255, 255, 0.6);
-  --reduced-opacity-bg-light: rgba(255, 255, 255, 0.8);
+  --dark-bg: #000;
+  --reduced-opacity-bg: rgb(255 255 255 / 60%);
+  --reduced-opacity-bg-light: rgb(255 255 255 / 80%);
   --reduced-opacity-bg-gradient: linear-gradient(180deg, #c642cf, #42c439);
   --basic-vertical-navbar-title-bg-gradient: linear-gradient(to bottom, #fff, #eb3b5a, #eb3b5a, #eb3b5a);
   --primary-border: #500f44;
@@ -36,26 +36,6 @@
   --menu-overlay: hsl(0deg 0% 0% / 70%);
   --primary-gradient-light: #c642cf;
   --secondary-gradient-light: #42c439;
-  --primary-underline-light: #c642cf;
-  --secondary-underline-light: #42c439;
-  --primary-shadow: #500f441a;
-  --dark-error: #751c7d;
-  --calc-display-bg: #e1dede;
-  --alien-primary-bg: #000;
-  --alien-secondary-bg: #000;
-  --alien-border-color: #000;
-  --alien-accent-border-color: #000;
-  --alien-accent-secondary-border-color: #000;
-  --alien-text-light: #d04949;
-  --alien-text-dim: #d04949;
-  --alien-accent: #000;
-  --primary-glow: #c642cf;
-  --desc-list-bg: #f9f9f9;
-  --desc-list-border: #eb3b5a;
-  --desc-list-materials-bg: #fff;
-  --desc-list-materials-border: #ddd;
-  --desc-list-materials-term: #333;
-  --desc-list-materials-desc: #666;
 }
 
 /* =========================
@@ -112,6 +92,8 @@
 html {
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
+     -moz-text-size-adjust: 100%;
+          text-size-adjust: 100%;
 }
 
 /* Universal Reset
@@ -257,8 +239,6 @@ a:active {
 :root {
   --font-1: 'Merriweather', 'Georgia', serif;
   --font-2: 'Merriweather Sans', 'Segoe UI', sans-serif;
-  --alien-font-family: 'Orbitron', roboto, monospace;
-  --vertical-navbar-font: 'Roboto Slab', sans-serif;
 }
 
 h1,
@@ -336,7 +316,7 @@ a:focus-visible {
     outline-offset: 2px;
     box-shadow: none;
     background: Window !important;
-    color: WindowText !important;
+    color: CanvasText !important;
     border-color: Highlight !important;
   }
   a {
@@ -344,7 +324,7 @@ a:focus-visible {
     border-style: solid !important;
     border-color: ButtonText !important;
     background: Window !important;
-    color: WindowText !important;
+    color: CanvasText !important;
   }
 }
 .back-to-top-link {
@@ -393,7 +373,7 @@ a:focus-visible {
   box-shadow: 0 4px 16px rgba(80, 15, 68, 0.16);
   text-decoration: none;
 }
-@media (max-width: 700px) {
+@media (width <= 700px) {
   .back-to-top-link {
     margin-top: 1rem;
     width: 2.25rem;
@@ -401,77 +381,6 @@ a:focus-visible {
     font-size: 1rem;
   }
 }
-
-.about {
-  background-color: var(--primary-bg);
-  color: var(--light-text);
-  padding-block: 3.75rem;
-  padding-inline: 1.5rem;
-}
-@supports (container-type: inline-size) {
-}
-
-/* =====================================
-   Alien Form Component
-   ===================================== */
-
-/* =====================================
-   Form Sections
-   ===================================== */
-/* =====================================
-   Calculator Display Component
-   ===================================== */
-
-/* =====================================
-   Calculator Keypad Component
-   ===================================== */
-
-/* Operator button styling (divide, multiply, subtract, add, equals) */
-
-.card {
-  background-color: var(--light-bg);
-  border: 2px solid var(--primary-border);
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 25rem;
-  width: 100%;
-  margin: 0 auto;
-  overflow: hidden;
-  min-height: 32rem;
-  display: flex;
-  flex-direction: column;
-}
-
-@keyframes hero-sparkle {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 120px 60px;
-  }
-}
-
-.contact {
-  padding: 3.75rem 1.25rem;
-  background: var(--primary-bg);
-  color: var(--light-text);
-}
-@media (max-width: 43.74875em) {
-  .contact {
-    padding: 2.5rem 1rem;
-  }
-}
-@media (max-width: 31.24875em) {
-  .contact {
-    padding: 1.875rem 0.75rem;
-  }
-}
-@media (max-width: 360px) {
-  .contact {
-    padding: 1.25rem 0.5rem;
-  }
-}
-
 @keyframes sparkle-float {
   0%, 100% {
     transform: translateY(-50%) translateX(0) rotate(0deg);
@@ -530,7 +439,6 @@ a:focus-visible {
     left: -100%;
   }
 }
-
 .footer {
   background: var(--primary-bg);
   color: var(--light-text);
@@ -680,14 +588,6 @@ a.footer__nav-link:hover::after, a.footer__nav-link:focus::after {
   width: 100%;
 }
 
-.portfolio {
-  margin-block-end: 4rem;
-  padding-block: 3.125rem;
-  padding-inline: 1.5rem;
-}
-@supports (container-type: inline-size) {
-}
-
 .fa-solid {
   font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro", "Font Awesome 6 Brands", sans-serif !important;
   font-weight: 900;
@@ -745,7 +645,7 @@ a.footer__nav-link:hover::after, a.footer__nav-link:focus::after {
   max-width: 56.25rem;
 }
 
-#address_main-content {
+#address-main-content {
   width: 90%;
   max-width: 50rem;
 }
