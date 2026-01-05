@@ -7,7 +7,7 @@
     "build:domain": "rimraf dist && node sync-docs.cjs && node optimize-images.cjs && npm run copy:js && node build.cjs domain && npm run build:all-css && node scripts/autoprefix-css.cjs && node inline-critical-css.mjs && npm run minify && node remove-link-onload.cjs && npm run lint:js && npm run lint:html && npm run test:style && npm run nojekyll",
     "bd": "powershell -ExecutionPolicy Bypass -File ./scripts/build-domain-with-logs.ps1",
     "build:gh-hold": "rimraf dist && node sync-docs.cjs && node optimize-images.cjs && npm run copy:js && node build.cjs gh && npm run build:all-css && node scripts/autoprefix-css.cjs && node inline-critical-css.mjs && npm run minify && node remove-link-onload.cjs && npm run lint:js && npm run lint:html && npm run test:style && npm run nojekyll",
-    "build:gh": "npm run lint:html && npm run test:style && npm run nojekyll",
+    "build:gh": "rimraf dist && node sync-docs.cjs && node optimize-images.cjs && npm run copy:js && node build.cjs gh && npm run build:all-css && node scripts/autoprefix-css.cjs && node inline-critical-css.mjs && npm run minify && node remove-link-onload.cjs && npm run lint:js && npm run lint:html && npm run test:style && npm run nojekyll",
     "bg": "powershell -ExecutionPolicy Bypass -File ./scripts/build-gh-with-logs.ps1",
     "build:all-css": "sass src/scss/styles.scss dist/css/styles.css --source-map && powershell -ExecutionPolicy Bypass -File ./scripts/purge-and-minify.ps1",
     "bac": "npm run build:all-css",
