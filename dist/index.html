@@ -170,6 +170,82 @@
       style="display: none"
     ></div>
 
+    <header id="topNav" class="topnav" aria-label="Site header">
+      <div class="topnav__toprow">
+        <a href="#main-content" class="skip-link" aria-label="Skip to main content">Skip to main content</a>
+        <!-- Global ARIA live region for notifications/status -->
+        <div id="global-status" aria-live="polite" class="sr-only" tabindex="-1"></div>
+        <div class="wrapper topnav__wrapper">
+          <div class="topnav__menugroup">
+            <nav class="topnav__nav" aria-label="Main navigation" data-cy="main-nav" aria-hidden="false">
+              <span id="nav-label" hidden>Navigation</span>
+              <div class="topnav__toggle">
+                <button id="btnOpen" class="topnav__open" aria-controls="menuTopNav" aria-expanded="false">
+                  <span class="fa-solid fa-bars"></span>
+                </button>
+                <button id="btnClose" class="topnav__close" aria-controls="menuTopNav" aria-expanded="true">
+                  <span class="fa-solid fa-xmark"></span>
+                </button>
+              </div>
+              <div id="menuTopNav" class="topnav__menu" inert="">
+                <ul class="topnav__links">
+                  <li class="topnav__item topnav__homelink--mobile">
+                    <a href="/" class="topnav__homelink hover-fade">
+                      <picture>
+                        <source srcset="https://iknittheweb.github.io/address-challenge/img/branding/logo.avif" type="image/avif" />
+                        <source srcset="https://iknittheweb.github.io/address-challenge/img/branding/logo.webp" type="image/webp" />
+                        <img
+                          src="https://iknittheweb.github.io/address-challenge/img/branding/logo.png"
+                          alt="I Knit The Web Homepage"
+                          class="topnav__logo--mobile"
+                          width="250"
+                          height="250"
+                        />
+                      </picture>
+                    </a>
+                  </li>
+                  <li class="topnav__item">
+                    <a class="topnav__link" href="#about">About</a>
+                  </li>
+                  <li class="topnav__item">
+                    <a class="topnav__link" href="#portfolio" data-cy="nav-">Portfolio</a>
+                  </li>
+                  <li class="topnav__item">
+                    <a class="topnav__link" href="#contact">Contact</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="topnav__header">
+        <a href="/" class="topnav__homelink topnav__homelink--desktop hover-fade">
+          <!-- JS toggles .logo--hidden on this element to hide logo when menu is open -->
+          <h1 class="topnav__logo-heading">
+            <picture>
+              <source srcset="https://iknittheweb.github.io/address-challenge/img/branding/logo.avif" type="image/avif" />
+              <source srcset="https://iknittheweb.github.io/address-challenge/img/branding/logo.webp" type="image/webp" />
+              <img
+                src="https://iknittheweb.github.io/address-challenge/img/branding/logo.png"
+                alt="I Knit The Web"
+                class="topnav__logo"
+                width="250"
+                height="250"
+                style="width: 12rem; height: 12rem"
+              />
+            </picture>
+            <span class="visually-hidden">I Knit the Web</span>
+          </h1>
+        </a>
+        <h2 class="topnav__subtitle">
+          Handcrafted Websites
+          <br />
+          <span class="topnav__subtitle--small">for Small Budgets and Big Dreams</span>
+        </h2>
+      </div>
+    </header>
+
     <main class="address-challenge" id="address-main-content" aria-labelledby="address-title" role="main" tabindex="-1">
       <div class="page-wrapper">
         <h1 class="page-heading" id="address-title">&lt;address&gt; Tag Challenge</h1>
