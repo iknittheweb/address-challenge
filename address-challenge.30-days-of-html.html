@@ -1,4 +1,433 @@
 <!doctype html>
-<html lang="en" class="no-js"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <meta http-equiv="Content-Security-Policy" content="" /> <title>Using &lt;address&gt; | 30 Days of HTML Challenge</title> <!-- Fallback styles for no-JS environments --> <noscript> <style> body { visibility: visible; } </style> </noscript> <!-- Inline critical CSS for FOUC prevention --> <style> .no-js body { visibility: hidden; } .css-loaded body { visibility: visible; } </style> <!-- Critical polyfill: FOUC fix script --> <script src="dist/js/fouc-fix.js?v=1767445711159"></script> <!-- Preconnects for faster font and icon loading --> <link rel="preconnect" href="https://fonts.googleapis.com" /> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> <link rel="preconnect" href="https://ka-p.fontawesome.com" /> <!-- Preload critical stylesheets --> <link rel="preload" href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" as="style" /> <link rel="preload" as="style" href="dist/css/" /> <!-- Main font and site stylesheets --> <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" /> <link rel="stylesheet" href="dist/css/" /> <!-- FontAwesome CDN stylesheet for icons --> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css?v=1767445711159" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <script src="src/js/load-css.js" defer></script> <!-- Favicons and manifest --> <link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico" /> <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png" /> <link rel="shortcut icon" href="favicon_io/favicon.ico" /> <link rel="manifest" href="/manifest.json" /> <meta name="theme-color" content="#500f44" /> <link rel="canonical" href="" /> <!-- Preload critical logo images for fast LCP --> <link rel="preload" as="image" href="branding/logo.png" type="image/png" /> <link rel="preload" as="image" href="branding/logo.webp" type="image/webp" /> <link rel="preload" as="image" href="branding/logo.avif" type="image/avif" /> <!-- SEO and social meta tags (grouped for clarity) --> <meta name="description" content="" /> <meta name="keywords" content="" /> <meta name="author" content="I Knit the Web" /> <meta name="robots" content="" /> <meta name="googlebot" content="" /> <link rel="preload" as="image" href="/img/branding/logo.png" type="image/png" /> <link rel="preload" as="image" href="/img/branding/logo.webp" type="image/webp" /> <link rel="preload" as="image" href="/img/branding/logo.avif" type="image/avif" /> <meta property="og:title" content="" /> <meta property="og:description" content="" /> <meta property="og:image" content="/img/branding/logo.png" /> <meta property="og:url" content="" /> <meta property="og:type" content="website" /> <meta property="og:locale" content="en_us" /> <meta name="twitter:card" content="summary_large_image" /> <meta name="twitter:title" content="" /> <meta name="twitter:description" content="" /> <meta name="twitter:image" content="/img/branding/logo.png" /> <!-- Structured data for SEO --> <script type="application/ld+json"></script> <!-- Third-party monitoring/analytics: Sentry --> <script src="https://browser.sentry-cdn.com/7.100.1/bundle.min.js?v=1767445711159" crossorigin="anonymous" defer></script> <!-- Third-party library: body-scroll-lock --> <script src="https://cdn.jsdelivr.net/npm/body-scroll-lock@4.0.0-beta.0/lib/bodyScrollLock.min.js?v=1767445711159" defer></script> <!-- Main app/module script --> <script type="module" src="dist/js/script.js?v=1767445711159"></script> <style data-critical> :root { --primary-bg: #500f44; --primary-bg-mid: #751c7d; --primary-bg-light: #c642cf; --primary-bg-pale: #c493d2; --secondary-bg: #0a2d08; --secondary-bg-mid: #1a3317; --secondary-bg-light: #42c439; --secondary-bg-pale: #a8d4a5; --light-bg: #e1dede; --mid-bg: #666; --dark-bg: #000; --reduced-opacity-bg: hsla(0, 0%, 100%, 0.6); --reduced-opacity-bg-light: hsla(0, 0%, 100%, 0.8); --reduced-opacity-bg-gradient: linear-gradient(180deg, #c642cf, #42c439); --basic-vertical-navbar-title-bg-gradient: linear-gradient(180deg, #fff, #eb3b5a, #eb3b5a, #eb3b5a); --primary-border: #500f44; --primary-border-mid: #751c7d; --primary-border-light: #c642cf; --light-border: #e1dede; --primary-bright-error-border: #c642cf; --alt-border: #eb3b5a; --dark-text: #1a1a1a; --light-text: #e1dede; --primary-text: #500f44; --primary-text-mid: #751c7d; --primary-text-bright: #c642cf; --secondary-text: #0a2d08; --secondary-text-mid: #1a3317; --dark-text-mid: silver; --dark-text-link: #1a1a1a; --fa-primary-color: #500f44; --fa-secondary-color: #b89cbf; --light-overlay: hsla(0, 0%, 42%, 0.5); --menu-overlay: rgba(0, 0, 0, 0.7); --primary-gradient-light: #c642cf; --secondary-gradient-light: #42c439; } html { line-height: 1.15; -webkit-text-size-adjust: 100%; } *, :after, :before { border: 0; box-sizing: border-box; margin: 0; padding: 0; } a, address, article, body, div, footer, h1, h2, html, p, span { font: inherit; vertical-align: baseline; } article, footer, main { display: block; } body { line-height: 1; } h1 { font-size: 2em; margin: 0.67em 0; } a { background-color: transparent; text-decoration-thickness: 1.7px; text-underline-offset: 6px; } ::-webkit-file-upload-button { -webkit-appearance: button; appearance: button; font: inherit; } a, a:visited { font-family: inherit; text-decoration: none; } :root { --font-1: 'Merriweather', 'Georgia', serif; --font-2: 'Merriweather Sans', 'Segoe UI', sans-serif; } h1, h2 { font-family: var(--font-1); font-weight: 700; margin-top: 0; } h1 { font-size: 2.25rem; font-size: clamp(2.25rem, 1.77rem + 3.64vw, 3rem); line-height: 1.15; } h1, h2 { margin-block-end: 1.25rem; } h2 { font-size: 1.5rem; font-size: clamp(1.5rem, 1.91rem + 1.45vw, 2rem); line-height: 1.2; } p { font-family: var(--font-2); font-size: 1.125rem; font-size: clamp(1rem, 1.06rem + 0.32vw, 1.125rem); line-height: 1.5; margin-top: 0; } .page-heading { font-size: 2.625rem; } .page-subheading { font-size: 2.25rem; } .page-heading, .page-subheading { text-align: center; } .sr-only { border: 0; clip-path: inset(0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; white-space: nowrap; width: 1px; } @media (forced-colors: active) { a { background: Window !important; border: 2px solid ButtonText !important; color: WindowText !important; } } .footer { background: var(--primary-bg); color: var(--light-text); margin-top: 3.75rem; } .footer__content { padding: 3.75rem 1.25rem 1.25rem; } @media (max-width: 43.74875em) { .footer__content { padding: 2.5rem 1rem 1rem; } } .footer__sections { display: grid; gap: 2.5rem; grid-template-columns: 1fr; margin-bottom: 2.5rem; } .footer__section { texft-align: center; } .footer__heading { color: var(--light-text); font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; } .footer__description { font-size: 1rem; line-height: 1.6; margin-bottom: 1rem; opacity: 0.9; } .wrapper { margin-inline: auto; padding: 1rem; width: 100%; } @media (max-width: 31.24875em) { .wrapper { padding-inline: 0.5rem; } } .page-wrapper { max-width: 56.25rem; width: 90%; } #address-main-content { max-width: 50rem; width: 90%; } .address-challenge__address { margin-block: 1rem; } .address__heading { font-size: 2rem; } </style> </head> <body> <div id="page-data" data-page-title="" data-description="" data-keywords="" data-page-url="" data-schema-json="" data-og-title="" data-nav-config="" data-breadcrumb-category="" data-breadcrumb-category-url="" data-css-file="" style="display: none"></div> <main class="address-challenge" id="address-main-content" aria-labelledby="address-title" role="main" tabindex="-1"> <div class="page-wrapper"> <h1 class="page-heading" id="address-title">&lt;address&gt; Tag Challenge</h1> <h2 class="page-subheading"> A <a href="https://jen4web.gumroad.com/l/30daysofhtml">30 Days of HTML</a> Project </h2> <article> <h1 class="address__heading">Contact Our Team</h1> <p> Imagine that this is our super fine contact page listing all of our employees. This is the preamble at the top that no one ever reads. </p> <address class="address-challenge__address"> Erika Lee <br /> Indiana University <br /> 107 S. Indiana Avenue <br /> Bloomington, IN <br /> Twitter: <a href="https://www.twitter.com/ebigalee" target="_blank" title="Opens in a new window"> @ebigalee <span class="sr-only">(opens in a new window)</span> </a> </address> <address> Jen Kramer <br /> Harvard University Extension School <br /> 51 Brattle Street <br /> Cambridge, MA 02138 <br /> Twitter: <a href="https://www.twitter.com/jen4web" target="_blank" title="Opens in a new window"> @jen4web <span class="sr-only">(opens in a new window)</span> </a> </address> </article> </div> </main> <footer aria-label="Site footer" class="footer"> <div class="footer__content wrapper"> <div class="footer__sections"> <!-- About Section --> <div class="footer__section footer__about"> <h2 class="footer__heading">I Knit The Web</h2> <p class="footer__description"> Crafting handmade websites with care, creativity, and code. Bringing your digital dreams to life, one thread at a time. </p> </div> <!-- Quick Links Section --> <div class="footer__section footer__links"> <h3 class="footer__heading">Quick Links</h3> <nav class="footer__nav"> <ul class="footer__nav-list"> <li><a href="#main-content" class="footer__nav-link">Home</a></li> <li><a href="#about" class="footer__nav-link">About</a></li> <li><a href="#portfolio" class="footer__nav-link">Portfolio</a></li> <li><a href="#contact" class="footer__nav-link">Contact</a></li> </ul> </nav> </div> <!-- Contact Section --> <div class="footer__section footer__contact"> <h3 class="footer__heading">Let's Connect</h3> <p class="footer__contact-text"> Ready to start your project? I'd love to hear about your ideas and help bring them to life. </p> <a href="#contact" class="footer__cta-link">Get In Touch</a> </div> </div> <!-- Bottom Bar --> <div class="footer__bottom"> <div class="footer__bottom-content"> <p class="footer__copyright">&copy; 2025 I Knit The Web. All rights reserved.</p> <p class="footer__tagline">Handcrafted with 💜 and lots of ☕</p> </div> </div> <a href="#topNav" class="back-to-top-link" aria-label="Back to top"> <span class="fa-solid fa-arrow-up" aria-hidden="true"></span> <span class="visually-hidden">Back to top</span> </a> </div> </footer> </body>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="" />
+    <title>Using &lt;address&gt; | 30 Days of HTML Challenge</title>
+    <!-- Fallback styles for no-JS environments -->
+    <noscript>
+      <style>
+        body {
+          visibility: visible;
+        }
+      </style>
+    </noscript>
+    <!-- Inline critical CSS for FOUC prevention -->
+    <style>
+      .no-js body {
+        visibility: hidden;
+      }
+      .css-loaded body {
+        visibility: visible;
+      }
+    </style>
+    <!-- Critical polyfill: FOUC fix script -->
+    <script src="dist/js/fouc-fix.js?v=1767445711159"></script>
+    <!-- Preconnects for faster font and icon loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://ka-p.fontawesome.com" />
+    <!-- Preload critical stylesheets -->
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
+      as="style"
+    />
+    <link rel="preload" as="style" href="dist/css/" />
+    <!-- Main font and site stylesheets -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
+    />
+    <link rel="stylesheet" href="dist/css/" />
+    <!-- FontAwesome CDN stylesheet for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css?v=1767445711159"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <script src="src/js/load-css.js" defer></script>
+    <!-- Favicons and manifest -->
+    <link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="favicon_io/favicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#500f44" />
+    <link rel="canonical" href="" />
+    <!-- Preload critical logo images for fast LCP -->
+    <link rel="preload" as="image" href="branding/logo.png" type="image/png" />
+    <link rel="preload" as="image" href="branding/logo.webp" type="image/webp" />
+    <link rel="preload" as="image" href="branding/logo.avif" type="image/avif" />
+    <!-- SEO and social meta tags (grouped for clarity) -->
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="I Knit the Web" />
+    <meta name="robots" content="" />
+    <meta name="googlebot" content="" />
+    <link rel="preload" as="image" href="/img/branding/logo.png" type="image/png" />
+    <link rel="preload" as="image" href="/img/branding/logo.webp" type="image/webp" />
+    <link rel="preload" as="image" href="/img/branding/logo.avif" type="image/avif" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="/img/branding/logo.png" />
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_us" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:image" content="/img/branding/logo.png" />
+    <!-- Structured data for SEO -->
+    <script type="application/ld+json"></script>
+    <!-- Third-party monitoring/analytics: Sentry -->
+    <script
+      src="https://browser.sentry-cdn.com/7.100.1/bundle.min.js?v=1767445711159"
+      crossorigin="anonymous"
+      defer
+    ></script>
+    <!-- Third-party library: body-scroll-lock -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/body-scroll-lock@4.0.0-beta.0/lib/bodyScrollLock.min.js?v=1767445711159"
+      defer
+    ></script>
+    <!-- Main app/module script -->
+    <script type="module" src="dist/js/script.js?v=1767445711159"></script>
+    <style data-critical>
+      :root {
+        --primary-bg: #500f44;
+        --primary-bg-mid: #751c7d;
+        --primary-bg-light: #c642cf;
+        --primary-bg-pale: #c493d2;
+        --secondary-bg: #0a2d08;
+        --secondary-bg-mid: #1a3317;
+        --secondary-bg-light: #42c439;
+        --secondary-bg-pale: #a8d4a5;
+        --light-bg: #e1dede;
+        --mid-bg: #666;
+        --dark-bg: #000;
+        --reduced-opacity-bg: hsla(0, 0%, 100%, 0.6);
+        --reduced-opacity-bg-light: hsla(0, 0%, 100%, 0.8);
+        --reduced-opacity-bg-gradient: linear-gradient(180deg, #c642cf, #42c439);
+        --basic-vertical-navbar-title-bg-gradient: linear-gradient(180deg, #fff, #eb3b5a, #eb3b5a, #eb3b5a);
+        --primary-border: #500f44;
+        --primary-border-mid: #751c7d;
+        --primary-border-light: #c642cf;
+        --light-border: #e1dede;
+        --primary-bright-error-border: #c642cf;
+        --alt-border: #eb3b5a;
+        --dark-text: #1a1a1a;
+        --light-text: #e1dede;
+        --primary-text: #500f44;
+        --primary-text-mid: #751c7d;
+        --primary-text-bright: #c642cf;
+        --secondary-text: #0a2d08;
+        --secondary-text-mid: #1a3317;
+        --dark-text-mid: silver;
+        --dark-text-link: #1a1a1a;
+        --fa-primary-color: #500f44;
+        --fa-secondary-color: #b89cbf;
+        --light-overlay: hsla(0, 0%, 42%, 0.5);
+        --menu-overlay: rgba(0, 0, 0, 0.7);
+        --primary-gradient-light: #c642cf;
+        --secondary-gradient-light: #42c439;
+      }
+      html {
+        line-height: 1.15;
+        -webkit-text-size-adjust: 100%;
+      }
+      *,
+      :after,
+      :before {
+        border: 0;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      a,
+      address,
+      article,
+      body,
+      div,
+      footer,
+      h1,
+      h2,
+      html,
+      p,
+      span {
+        font: inherit;
+        vertical-align: baseline;
+      }
+      article,
+      footer,
+      main {
+        display: block;
+      }
+      body {
+        line-height: 1;
+      }
+      h1 {
+        font-size: 2em;
+        margin: 0.67em 0;
+      }
+      a {
+        background-color: transparent;
+        text-decoration-thickness: 1.7px;
+        text-underline-offset: 6px;
+      }
+      ::-webkit-file-upload-button {
+        -webkit-appearance: button;
+        appearance: button;
+        font: inherit;
+      }
+      a,
+      a:visited {
+        font-family: inherit;
+        text-decoration: none;
+      }
+      :root {
+        --font-1: 'Merriweather', 'Georgia', serif;
+        --font-2: 'Merriweather Sans', 'Segoe UI', sans-serif;
+      }
+      h1,
+      h2 {
+        font-family: var(--font-1);
+        font-weight: 700;
+        margin-top: 0;
+      }
+      h1 {
+        font-size: 2.25rem;
+        font-size: clamp(2.25rem, 1.77rem + 3.64vw, 3rem);
+        line-height: 1.15;
+      }
+      h1,
+      h2 {
+        margin-block-end: 1.25rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+        font-size: clamp(1.5rem, 1.91rem + 1.45vw, 2rem);
+        line-height: 1.2;
+      }
+      p {
+        font-family: var(--font-2);
+        font-size: 1.125rem;
+        font-size: clamp(1rem, 1.06rem + 0.32vw, 1.125rem);
+        line-height: 1.5;
+        margin-top: 0;
+      }
+      .page-heading {
+        font-size: 2.625rem;
+      }
+      .page-subheading {
+        font-size: 2.25rem;
+      }
+      .page-heading,
+      .page-subheading {
+        text-align: center;
+      }
+      .sr-only {
+        border: 0;
+        clip-path: inset(0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+      @media (forced-colors: active) {
+        a {
+          background: Window !important;
+          border: 2px solid ButtonText !important;
+          color: WindowText !important;
+        }
+      }
+      .footer {
+        background: var(--primary-bg);
+        color: var(--light-text);
+        margin-top: 3.75rem;
+      }
+      .footer__content {
+        padding: 3.75rem 1.25rem 1.25rem;
+      }
+      @media (max-width: 43.74875em) {
+        .footer__content {
+          padding: 2.5rem 1rem 1rem;
+        }
+      }
+      .footer__sections {
+        display: grid;
+        gap: 2.5rem;
+        grid-template-columns: 1fr;
+        margin-bottom: 2.5rem;
+      }
+      .footer__section {
+        text-align: center;
+      }
+      .footer__heading {
+        color: var(--light-text);
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+      .footer__description {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        opacity: 0.9;
+      }
+      .wrapper {
+        margin-inline: auto;
+        padding: 1rem;
+        width: 100%;
+      }
+      @media (max-width: 31.24875em) {
+        .wrapper {
+          padding-inline: 0.5rem;
+        }
+      }
+      .page-wrapper {
+        max-width: 56.25rem;
+        width: 90%;
+      }
+      #address-main-content {
+        max-width: 50rem;
+        width: 90%;
+      }
+      .address-challenge__address {
+        margin-block: 1rem;
+      }
+      .address__heading {
+        font-size: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="page-data"
+      data-page-title=""
+      data-description=""
+      data-keywords=""
+      data-page-url=""
+      data-schema-json=""
+      data-og-title=""
+      data-nav-config=""
+      data-breadcrumb-category=""
+      data-breadcrumb-category-url=""
+      data-css-file=""
+      style="display: none"
+    ></div>
+    <main class="address-challenge" id="address-main-content" aria-labelledby="address-title" role="main" tabindex="-1">
+      <div class="page-wrapper">
+        <h1 class="page-heading" id="address-title">&lt;address&gt; Tag Challenge</h1>
+        <h2 class="page-subheading">
+          A
+          <a href="https://jen4web.gumroad.com/l/30daysofhtml">30 Days of HTML</a>
+          Project
+        </h2>
+        <article>
+          <h1 class="address__heading">Contact Our Team</h1>
+          <p>
+            Imagine that this is our super fine contact page listing all of our employees. This is the preamble at the
+            top that no one ever reads.
+          </p>
+          <address class="address-challenge__address">
+            Erika Lee
+            <br />
+            Indiana University
+            <br />
+            107 S. Indiana Avenue
+            <br />
+            Bloomington, IN
+            <br />
+            Twitter:
+            <a href="https://www.twitter.com/ebigalee" target="_blank" title="Opens in a new window">
+              @ebigalee
+              <span class="sr-only">(opens in a new window)</span>
+            </a>
+          </address>
+          <address>
+            Jen Kramer
+            <br />
+            Harvard University Extension School
+            <br />
+            51 Brattle Street
+            <br />
+            Cambridge, MA 02138
+            <br />
+            Twitter:
+            <a href="https://www.twitter.com/jen4web" target="_blank" title="Opens in a new window">
+              @jen4web
+              <span class="sr-only">(opens in a new window)</span>
+            </a>
+          </address>
+        </article>
+      </div>
+    </main>
+    <footer aria-label="Site footer" class="footer">
+      <div class="footer__content wrapper">
+        <div class="footer__sections">
+          <!-- About Section -->
+          <div class="footer__section footer__about">
+            <h2 class="footer__heading">I Knit The Web</h2>
+            <p class="footer__description">
+              Crafting handmade websites with care, creativity, and code. Bringing your digital dreams to life, one
+              thread at a time.
+            </p>
+          </div>
+          <!-- Quick Links Section -->
+          <div class="footer__section footer__links">
+            <h3 class="footer__heading">Quick Links</h3>
+            <nav class="footer__nav">
+              <ul class="footer__nav-list">
+                <li><a href="#main-content" class="footer__nav-link">Home</a></li>
+                <li><a href="#about" class="footer__nav-link">About</a></li>
+                <li><a href="#portfolio" class="footer__nav-link">Portfolio</a></li>
+                <li><a href="#contact" class="footer__nav-link">Contact</a></li>
+              </ul>
+            </nav>
+          </div>
+          <!-- Contact Section -->
+          <div class="footer__section footer__contact">
+            <h3 class="footer__heading">Let's Connect</h3>
+            <p class="footer__contact-text">
+              Ready to start your project? I'd love to hear about your ideas and help bring them to life.
+            </p>
+            <a href="#contact" class="footer__cta-link">Get In Touch</a>
+          </div>
+        </div>
+        <!-- Bottom Bar -->
+        <div class="footer__bottom">
+          <div class="footer__bottom-content">
+            <p class="footer__copyright">&copy; 2025 I Knit The Web. All rights reserved.</p>
+            <p class="footer__tagline">Handcrafted with 💜 and lots of ☕</p>
+          </div>
+        </div>
+        <a href="#topNav" class="back-to-top-link" aria-label="Back to top">
+          <span class="fa-solid fa-arrow-up" aria-hidden="true"></span>
+          <span class="visually-hidden">Back to top</span>
+        </a>
+      </div>
+    </footer>
+  </body>
 </html>
